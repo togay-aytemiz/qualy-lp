@@ -11,18 +11,65 @@ import Footer from './components/Footer';
 import Loader from './components/Loader';
 import { LanguageProvider } from './LanguageContext';
 import { AnimatePresence, motion } from 'framer-motion';
+import LegalPage from './pages/LegalPage';
+import LegalIndexPage from './pages/LegalIndexPage';
+import { legalDocSlugs } from './lib/legal';
+
+const getNormalizedPath = () => {
+  if (typeof window === 'undefined') return '/';
+  const cleanedPath = window.location.pathname.replace(/\/+$/, '');
+  return cleanedPath === '' ? '/' : cleanedPath;
+};
 
 const App: React.FC = () => {
-  const [loading, setLoading] = useState(true);
+  const [path, setPath] = useState(getNormalizedPath);
+  const [loading, setLoading] = useState(path === '/');
+
+  const isHomeRoute = path === '/';
+  const legalSlug = path.startsWith('/') ? path.slice(1) : path;
+  const isLegalIndexRoute = path === '/legal';
+  const isLegalRoute = legalDocSlugs.has(legalSlug);
 
   useEffect(() => {
+    const handleRouteChange = () => setPath(getNormalizedPath());
+    window.addEventListener('popstate', handleRouteChange);
+    return () => window.removeEventListener('popstate', handleRouteChange);
+  }, []);
+
+  useEffect(() => {
+    if (!isHomeRoute) {
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
     // Wait for 2.5 seconds to simulate loading and ensure CSS is ready
     const timer = setTimeout(() => {
       setLoading(false);
     }, 2500);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [isHomeRoute]);
+
+  if (isLegalIndexRoute) {
+    return (
+      <LanguageProvider>
+        <div className="min-h-screen bg-white selection:bg-black selection:text-white">
+          <LegalIndexPage />
+        </div>
+      </LanguageProvider>
+    );
+  }
+
+  if (isLegalRoute) {
+    return (
+      <LanguageProvider>
+        <div className="min-h-screen bg-white selection:bg-black selection:text-white">
+          <LegalPage slug={legalSlug} />
+        </div>
+      </LanguageProvider>
+    );
+  }
 
   return (
     <LanguageProvider>

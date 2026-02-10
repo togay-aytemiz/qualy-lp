@@ -2,6 +2,7 @@ import React from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion } from 'framer-motion';
 import { Shield, Sparkles, FileText, Lock, Mic, Send, Mail, ArrowRight, Zap } from 'lucide-react';
+import { AUTH_URLS } from '../lib/auth-links';
 
 const CTA: React.FC = () => {
   const { t } = useLanguage();
@@ -90,10 +91,10 @@ const CTA: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6"
         >
-          <button className="bg-slate-900 hover:bg-black text-white text-lg md:text-xl font-medium transition-all duration-300 rounded-full px-10 py-5 shadow-2xl shadow-slate-900/20 hover:shadow-slate-900/40 hover:-translate-y-1 flex items-center gap-3 group">
+          <a href={AUTH_URLS.register} className="bg-slate-900 hover:bg-black text-white text-lg md:text-xl font-medium transition-all duration-300 rounded-full px-10 py-5 shadow-2xl shadow-slate-900/20 hover:shadow-slate-900/40 hover:-translate-y-1 flex items-center gap-3 group">
             {t.cta.primary}
             <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-          </button>
+          </a>
         </motion.div>
 
         <motion.p 

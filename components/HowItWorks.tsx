@@ -1,8 +1,8 @@
 import React from 'react';
 import { Smartphone, Upload, Trophy } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
-import SectionHeader from './SectionHeader';
 import { motion } from 'framer-motion';
+import SectionWithHeader from './SectionWithHeader';
 
 const HowItWorks: React.FC = () => {
   const { t } = useLanguage();
@@ -44,12 +44,13 @@ const HowItWorks: React.FC = () => {
   };
 
   return (
-    <section id="how-it-works" className="py-24 bg-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        <SectionHeader 
-          title={t.howItWorks.title}
-          subtitle={t.howItWorks.subtitle}
-        />
+    <SectionWithHeader
+      id="how-it-works"
+      className="relative overflow-hidden"
+      containerClassName="relative z-10"
+      title={t.howItWorks.title}
+      subtitle={t.howItWorks.subtitle}
+    >
 
         <motion.div 
           variants={container}
@@ -85,8 +86,7 @@ const HowItWorks: React.FC = () => {
              </motion.div>
            ))}
         </motion.div>
-      </div>
-    </section>
+    </SectionWithHeader>
   );
 };
 

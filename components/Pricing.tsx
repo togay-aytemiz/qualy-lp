@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { Check } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
-import SectionHeader from './SectionHeader';
 import { motion } from 'framer-motion';
+import { AUTH_URLS } from '../lib/auth-links';
+import SectionWithHeader from './SectionWithHeader';
 
 const Pricing: React.FC = () => {
   const { t } = useLanguage();
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
 
   return (
-    <section id="pricing" className="py-24 bg-white relative">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <SectionHeader 
-          title={t.pricing.title}
-          subtitle={t.pricing.subtitle}
-        />
+    <SectionWithHeader
+      id="pricing"
+      className="relative"
+      title={t.pricing.title}
+      subtitle={t.pricing.subtitle}
+    >
 
         <div className="flex flex-col items-center">
           {/* Custom Toggle from Reference */}
@@ -80,17 +81,16 @@ const Pricing: React.FC = () => {
                 ))}
               </ul>
 
-              <button className="bg-white text-black hover:bg-slate-100 transition-colors duration-200 w-full rounded-full py-3 px-4 text-center text-sm font-bold shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+              <a href={AUTH_URLS.register} className="bg-white text-black hover:bg-slate-100 transition-colors duration-200 w-full rounded-full py-3 px-4 text-center text-sm font-bold shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white block">
                 {t.pricing.professional.cta}
-              </button>
+              </a>
             </div>
             
             {/* Decoration behind card */}
             <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-[2rem] blur-2xl opacity-20 -z-10"></div>
           </motion.div>
         </div>
-      </div>
-    </section>
+    </SectionWithHeader>
   );
 };
 

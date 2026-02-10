@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../LanguageContext';
-import SectionHeader from './SectionHeader';
 import { motion } from 'framer-motion';
+import SectionWithHeader from './SectionWithHeader';
 
 const Challenges: React.FC = () => {
   const { t } = useLanguage();
@@ -39,16 +39,15 @@ const Challenges: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-white border-b border-slate-100">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <SectionHeader 
-          title={
-            <>
-              {t.challenges.title_part1} <span className="text-purple-600">{t.challenges.title_part2}</span>
-            </>
-          }
-          subtitle={t.challenges.subtitle}
-        />
+    <SectionWithHeader
+      className="border-b border-slate-100"
+      title={
+        <>
+          {t.challenges.title_part1} <span className="text-purple-600">{t.challenges.title_part2}</span>
+        </>
+      }
+      subtitle={t.challenges.subtitle}
+    >
 
         {/* Tab Buttons (syncs with cards) */}
         <motion.div 
@@ -120,8 +119,7 @@ const Challenges: React.FC = () => {
           ))}
         </motion.div>
 
-      </div>
-    </section>
+    </SectionWithHeader>
   );
 };
 

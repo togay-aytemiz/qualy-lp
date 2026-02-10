@@ -10,7 +10,7 @@ const Loader: React.FC = () => {
       exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white"
     >
-      <div className="relative flex flex-col items-center gap-6">
+      <div className="relative flex flex-col items-center gap-3">
         {/* Logo Icon */}
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
@@ -18,18 +18,20 @@ const Loader: React.FC = () => {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="w-24 h-24 flex items-center justify-center"
         >
-          <Logo className="w-full h-full" />
+          <Logo variant="icon" className="w-full h-full" />
         </motion.div>
 
-        {/* Brand Name */}
-        <motion.h1
+        {/* Brand Text Logo */}
+        <motion.img
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className="text-2xl font-bold tracking-tight text-slate-900"
-        >
-          Qualy
-        </motion.h1>
+          src="/text-black.svg"
+          alt="Qualy text logo"
+          className="h-6 w-auto sm:h-7"
+          loading="eager"
+          decoding="async"
+        />
 
         {/* Loading Bar */}
         <div className="w-48 h-1 bg-slate-100 rounded-full overflow-hidden mt-2">

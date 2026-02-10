@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
+import { resolveLanguageByRegion } from './lib/region-language';
 
 type Language = 'en' | 'tr';
 
@@ -39,21 +40,11 @@ interface Translations {
     pill: string;
     title: string;
     subtitle: string;
-    story1: {
+    stories: Array<{
       text: string;
       author: string;
       role: string;
-    };
-    story2: {
-      text: string;
-      author: string;
-      role: string;
-    };
-    story3: {
-      text: string;
-      author: string;
-      role: string;
-    };
+    }>;
   };
   challenges: {
     title_part1: string;
@@ -170,9 +161,20 @@ interface Translations {
     blog: string;
     careers: string;
     legal: string;
+    legalCenter: string;
     privacy: string;
     terms: string;
     rights: string;
+  };
+  legal: {
+    center: string;
+    centerTitle: string;
+    centerDescription: string;
+    backToHome: string;
+    lastUpdated: string;
+    version: string;
+    notFoundTitle: string;
+    notFoundDescription: string;
   };
 }
 
@@ -186,7 +188,7 @@ const translations: Record<Language, Translations> = {
       getStarted: "Get Started"
     },
     hero: {
-      status: "Accepting new accounts",
+      status: "Your 24/7 AI assistant",
       headline: "Stop wasting time on <br /> unqualified leads.",
       subheadline: "The AI-first inbox for WhatsApp and Telegram. Qualy learns your business, qualifies your leads, and scores them 1-10—all before you even pick up your phone.",
       ctaPrimary: "Get Started",
@@ -214,21 +216,83 @@ const translations: Record<Language, Translations> = {
       pill: "Success Stories",
       title: "Scaling businesses are <br/> already succeeding with Qualy",
       subtitle: "Join hundreds of fast-growing service professionals using Qualy to automate their lead qualification and support.",
-      story1: {
-        text: "Qualy has been essential to our growth. It manages hundreds of initial inquiries every month, qualifying leads and scheduling appointments without us lifting a finger.",
-        author: "Jacob Banks",
-        role: "CEO & Co-Founder at Sophiiie AI"
-      },
-      story2: {
-        text: "Qualy helped us move our client intake from manual to AI-led. Customers get instant answers about our packages, freeing our team to focus on high-value strategy.",
-        author: "Mark Deacon",
-        role: "Chief Commercial Officer at Canibuild"
-      },
-      story3: {
-        text: "Our consulting services are complex, but Qualy explains them perfectly. It makes our expertise accessible 24/7, and for the first time, we're closing deals while we sleep.",
-        author: "Jonny Mousdell",
-        role: "Co-Founder at H2X"
-      }
+      stories: [
+        {
+          text: "Before Qualy, I was replying to the same booking questions all day. Now it handles first replies and I only step in for serious clients.",
+          author: "Emma Collins",
+          role: "Owner, Northside Skin Studio"
+        },
+        {
+          text: "Most chats used to be price shoppers. With scoring, I can instantly see who needs emergency HVAC work and call them first.",
+          author: "Liam Carter",
+          role: "HVAC Technician, Carter Home Services"
+        },
+        {
+          text: "Patients ask about pricing, insurance, and appointment slots at all hours. Qualy answers accurately and our front desk is no longer overloaded.",
+          author: "Olivia Reed",
+          role: "Clinic Coordinator, Maple Dental Care"
+        },
+        {
+          text: "I get dozens of WhatsApp messages after every listing post. Qualy filters intent so I spend my time on buyers who are ready to visit this week.",
+          author: "Noah Bennett",
+          role: "Real Estate Agent, Harbor Homes"
+        },
+        {
+          text: "Trial class requests used to get buried when I was coaching back-to-back sessions. Now leads are sorted and follow-ups are on time.",
+          author: "Sophia Turner",
+          role: "Personal Trainer, LiftLab Studio"
+        },
+        {
+          text: "For plumbing calls, speed matters. Qualy handles intake in seconds and pushes urgent jobs to the top, which directly increased booked jobs.",
+          author: "Mason Brooks",
+          role: "Plumbing Contractor, Brooks Plumbing Co."
+        },
+        {
+          text: "Couples message late at night with the same package questions. Qualy gives clear answers and collects event details before I wake up.",
+          author: "Ava Mitchell",
+          role: "Wedding Photographer, Ava Mitchell Photo"
+        },
+        {
+          text: "Parents ask for schedules, levels, and pricing every evening. Qualy now handles those routine questions and I focus on actual student planning.",
+          author: "Ethan Price",
+          role: "Tutor, BrightPath Math"
+        },
+        {
+          text: "Our salon gets flooded with 'Do you have a slot today?' messages. Qualy checks availability and confirms service details without confusion.",
+          author: "Chloe Foster",
+          role: "Salon Manager, Bloom Hair Room"
+        },
+        {
+          text: "We answer repair estimates on both Telegram and WhatsApp. Qualy keeps replies consistent and flags customers who are ready to approve service.",
+          author: "Lucas Hayes",
+          role: "Auto Repair Owner, Hayes Garage"
+        },
+        {
+          text: "Pet owners send urgent questions at random hours. Qualy gives safe first guidance and helps us prioritize cases before opening time.",
+          author: "Mia Griffin",
+          role: "Vet Assistant, Greenfield Vet"
+        },
+        {
+          text: "As a solo IT consultant, I could not keep up with repetitive onboarding questions. Qualy now handles that layer and I stay focused on delivery.",
+          author: "Jack Palmer",
+          role: "IT Consultant, Palmer Tech Support"
+        },
+        {
+          text: "Prospective students ask the same level-test and fee questions daily. Qualy answers instantly and our no-show rate dropped after faster responses.",
+          author: "Lily Ward",
+          role: "Coordinator, Westbridge English"
+        },
+        {
+          text: "In pool service, seasonal demand spikes hard. Qualy keeps up with quote requests and sends me only the leads that match our service radius.",
+          author: "Henry Shaw",
+          role: "Operator, ClearBlue Pools"
+        },
+        {
+          text: "Move-day requests are chaotic and time-sensitive. Qualy collects volume, location, and date details upfront so dispatching is much faster.",
+          author: "Grace Murphy",
+          role: "Dispatcher, SwiftMove Local"
+        }
+      ]
     },
     challenges: {
       title_part1: "Creating challenges",
@@ -336,7 +400,7 @@ const translations: Record<Language, Translations> = {
     },
     cta: {
       title: "Ready to automate the boring stuff?",
-      desc: "Join 500+ companies using Relay to qualify leads and resolve support tickets faster than ever.",
+      desc: "Join 500+ companies using Qualy to qualify leads and resolve support tickets faster than ever.",
       primary: "Get Started for Free",
       secondary: "Talk to Sales",
       note: "14-day free trial • No credit card required"
@@ -357,9 +421,20 @@ const translations: Record<Language, Translations> = {
       blog: "Blog",
       careers: "Careers",
       legal: "Legal",
+      legalCenter: "Legal Center",
       privacy: "Privacy Policy",
       terms: "Terms of Service",
       rights: "All rights reserved."
+    },
+    legal: {
+      center: "Legal",
+      centerTitle: "Privacy & Terms Center",
+      centerDescription: "Access all legal documents, including Privacy Policy and Terms of Service, from one page.",
+      backToHome: "Back to Home",
+      lastUpdated: "Last updated",
+      version: "Version",
+      notFoundTitle: "Document not found",
+      notFoundDescription: "The legal document you requested is currently unavailable."
     }
   },
   tr: {
@@ -371,7 +446,7 @@ const translations: Record<Language, Translations> = {
       getStarted: "Hemen Başla"
     },
     hero: {
-      status: "Yeni hesap alımı açık",
+      status: "7/24 çalışan AI asistanınız",
       headline: "Niteliksiz müşteri adaylarıyla <br /> zaman kaybetmeyin.",
       subheadline: "WhatsApp ve Telegram için yapay zeka öncelikli gelen kutusu. Qualy işinizi öğrenir, müşterileri eler ve 1-10 arası puanlar; siz telefonu elinize almadan önce.",
       ctaPrimary: "Hemen Başla",
@@ -399,21 +474,83 @@ const translations: Record<Language, Translations> = {
       pill: "Başarı Hikayeleri",
       title: "Büyüyen işletmeler <br/> Qualy ile kazanıyor",
       subtitle: "Qualy kullanarak müşteri elemeyi ve desteği otomatize eden yüzlerce hızlı büyüyen profesyonele katılın.",
-      story1: {
-        text: "Qualy büyümemiz için vazgeçilmez oldu. Her ay yüzlerce ilk görüşmeyi yönetiyor, müşteri adaylarını eliyor ve biz parmağımızı bile kıpırdatmadan randevuları ayarlıyor.",
-        author: "Jacob Banks",
-        role: "CEO & Kurucu Ortak, Sophiiie AI"
-      },
-      story2: {
-        text: "Qualy, müşteri kabul sürecimizi manuelden yapay zekaya taşımamıza yardımcı oldu. Müşterilerimiz paketlerimiz hakkında anında yanıt alıyor, ekibimiz ise stratejiye odaklanıyor.",
-        author: "Mark Deacon",
-        role: "Ticari Direktör, Canibuild"
-      },
-      story3: {
-        text: "Danışmanlık hizmetlerimiz karmaşık, ama Qualy bunları mükemmel bir şekilde açıklıyor. Uzmanlığımızı 7/24 erişilebilir kılıyor ve ilk kez uyurken bile satış kapatıyoruz.",
-        author: "Jonny Mousdell",
-        role: "Kurucu Ortak, H2X"
-      }
+      stories: [
+        {
+          text: "Eskiden gün boyu aynı fiyat ve randevu sorularına dönüyordum. Qualy ilk konuşmayı toparlıyor, ben sadece gerçekten dönüşecek müşterilere odaklanıyorum.",
+          author: "Ahmet Yılmaz",
+          role: "Kombi Servis Ustası, Ankara"
+        },
+        {
+          text: "Instagram kampanyasından sonra WhatsApp patlıyordu. Qualy gelen talepleri niyete göre ayırınca boş mesajlarla uğraşmayı bıraktık.",
+          author: "Zeynep Kara",
+          role: "Güzellik Salonu Sahibi, İzmir"
+        },
+        {
+          text: "Hastalar gece saatlerinde fiyat ve uygunluk soruyor. Qualy standart soruları doğru yanıtlıyor, ekibimiz sabah sadece kritik talepleri görüyor.",
+          author: "Emre Demir",
+          role: "Diş Kliniği Koordinatörü, Bursa"
+        },
+        {
+          text: "Ders aralarında telefona bakamadığım için deneme dersi taleplerini kaçırıyordum. Şimdi Qualy soruları cevaplıyor, ben hazır adaylarla görüşüyorum.",
+          author: "Merve Aydın",
+          role: "Pilates Stüdyo İşletmecisi, İstanbul"
+        },
+        {
+          text: "İlan sonrası yüzlerce mesaj geliyor ama hepsi alıcı değil. Qualy ciddi alıcıyı öne çıkarıyor, günüm çok daha verimli geçiyor.",
+          author: "Burak Çetin",
+          role: "Emlak Danışmanı, Antalya"
+        },
+        {
+          text: "Yeni danışanlar terapi süreci ve ücret konusunda benzer sorular soruyor. Qualy bu kısmı sakin ve net şekilde yönetiyor.",
+          author: "Elif Şahin",
+          role: "Psikolog, Kadıköy"
+        },
+        {
+          text: "Veliler akşam saatlerinde sürekli seviye, program ve ücret soruyor. Qualy ön görüşmeyi tamamlıyor, biz eğitim planına odaklanıyoruz.",
+          author: "Okan Arslan",
+          role: "Özel Ders Merkezi Sahibi, Eskişehir"
+        },
+        {
+          text: "Ekspertiz öncesi araç bilgisi toplamak zaman alıyordu. Qualy marka, model ve randevu bilgisini baştan aldığı için süreç hızlandı.",
+          author: "Seda Koç",
+          role: "Oto Ekspertiz İşletmecisi, Konya"
+        },
+        {
+          text: "Yaz aylarında klima talepleri bir anda artıyor. Qualy acil işleri öne alıyor, ekibimiz gün içinde daha fazla işi tamamlıyor.",
+          author: "Halil Tunç",
+          role: "Klima Servis Ekibi Lideri, Adana"
+        },
+        {
+          text: "Çiftler gece geç saatlerde paket ve teslim tarihi soruyor. Qualy detayları topluyor, sabah net taleplerle güne başlıyorum.",
+          author: "Nazlı Güneş",
+          role: "Düğün Fotoğrafçısı, Muğla"
+        },
+        {
+          text: "Tek başıma danışmanlık verdiğim için ilk mesajları kaçırıyordum. Qualy ön eleme yapınca satış görüşmelerine daha hazırlıklı giriyorum.",
+          author: "Kaan Yıldız",
+          role: "Yazılım Danışmanı, İzmit"
+        },
+        {
+          text: "Hayvan sahiplerinden gün içinde çok farklı konularda mesaj geliyor. Qualy temel soruları karşıladığı için acil vakalara daha hızlı dönüyoruz.",
+          author: "Derya Aksoy",
+          role: "Veteriner Kliniği Sorumlusu, Denizli"
+        },
+        {
+          text: "Tesisat işinde hız her şey. Qualy adres, arıza tipi ve uygun saat bilgisini topluyor; biz de doğrudan işe çıkıyoruz.",
+          author: "Sinan Eren",
+          role: "Su Tesisatı Ustası, Mersin"
+        },
+        {
+          text: "Kurs kayıt döneminde mesaj trafiği iki katına çıkıyor. Qualy seviye tespiti ve ücret sorularını yanıtlayınca kayıt ekibi rahatladı.",
+          author: "İrem Özcan",
+          role: "Dil Kursu Müdürü, Gaziantep"
+        },
+        {
+          text: "Taşınma taleplerinde tarih ve eşya detayını eksik almak bizi yavaşlatıyordu. Qualy tüm bilgiyi başta topladığı için planlama çok daha temiz ilerliyor.",
+          author: "Tolga Ünver",
+          role: "Taşımacılık Operasyon Sorumlusu, İstanbul"
+        }
+      ]
     },
     challenges: {
       title_part1: "Organizasyon genelinde",
@@ -542,9 +679,20 @@ const translations: Record<Language, Translations> = {
       blog: "Blog",
       careers: "Kariyer",
       legal: "Yasal",
+      legalCenter: "Yasal Merkez",
       privacy: "Gizlilik Politikası",
       terms: "Hizmet Şartları",
       rights: "Tüm hakları saklıdır."
+    },
+    legal: {
+      center: "Yasal",
+      centerTitle: "Gizlilik ve Şartlar Merkezi",
+      centerDescription: "Gizlilik Politikası ve Hizmet Şartları dahil tüm yasal dokümanlara tek sayfadan erişebilirsiniz.",
+      backToHome: "Ana Sayfaya Dön",
+      lastUpdated: "Son güncelleme",
+      version: "Versiyon",
+      notFoundTitle: "Doküman bulunamadı",
+      notFoundDescription: "Talep ettiğiniz yasal doküman şu anda mevcut değil."
     }
   }
 };
@@ -557,8 +705,22 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+const getInitialLanguage = (): Language => {
+  if (typeof window === 'undefined') {
+    return 'en';
+  }
+
+  const locales =
+    navigator.languages && navigator.languages.length > 0
+      ? navigator.languages
+      : [navigator.language];
+
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  return resolveLanguageByRegion(locales, timeZone);
+};
+
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('en');
+  const [language, setLanguage] = useState<Language>(() => getInitialLanguage());
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t: translations[language] }}>

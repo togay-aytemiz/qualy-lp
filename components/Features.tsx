@@ -1,8 +1,32 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
 import { FileText, CheckCircle2, Share2, Shield } from 'lucide-react';
-import SectionHeader from './SectionHeader';
 import { motion } from 'framer-motion';
+import SectionWithHeader from './SectionWithHeader';
+
+interface FeatureBlockHeaderProps {
+  title: string;
+  description: string;
+  html?: boolean;
+}
+
+const FeatureBlockHeader: React.FC<FeatureBlockHeaderProps> = ({
+  title,
+  description,
+  html = false,
+}) => (
+  <div className="relative z-10 mb-8">
+    <h3 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight">{title}</h3>
+    {html ? (
+      <p
+        className="text-slate-600 leading-relaxed max-w-lg text-sm"
+        dangerouslySetInnerHTML={{ __html: description }}
+      />
+    ) : (
+      <p className="text-slate-600 text-sm leading-relaxed">{description}</p>
+    )}
+  </div>
+);
 
 const Features: React.FC = () => {
   const { t } = useLanguage();
@@ -23,12 +47,13 @@ const Features: React.FC = () => {
   };
 
   return (
-    <section id="features" className="relative py-24 bg-white overflow-hidden">
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
-        <SectionHeader 
-          title={t.features.heading}
-          subtitle={t.features.subheading}
-        />
+    <SectionWithHeader
+      id="features"
+      className="relative overflow-hidden"
+      containerClassName="relative z-10 px-4 md:px-8"
+      title={t.features.heading}
+      subtitle={t.features.subheading}
+    >
 
         {/* Dashed Border Bento Grid */}
         <motion.div 
@@ -41,10 +66,11 @@ const Features: React.FC = () => {
             
             {/* Feature 1: Lead Scoring (Large, 4 cols) */}
             <motion.div variants={item} className="col-span-1 lg:col-span-4 p-8 border-b border-r border-slate-200 border-dashed bg-white relative group transition-colors hover:bg-slate-50/50">
-              <div className="relative z-10 mb-8">
-                <h3 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight">{t.features.feat2_title}</h3>
-                <p className="text-slate-600 leading-relaxed max-w-lg text-sm" dangerouslySetInnerHTML={{__html: t.features.feat2_desc}}></p>
-              </div>
+              <FeatureBlockHeader
+                title={t.features.feat2_title}
+                description={t.features.feat2_desc}
+                html
+              />
 
               {/* Visual: Chat Interface + Lead Score Card */}
               <div className="relative h-[300px] md:h-[350px] w-full bg-white border border-slate-200 rounded-[24px] overflow-hidden flex shadow-sm group-hover:shadow-md transition-all">
@@ -91,10 +117,10 @@ const Features: React.FC = () => {
 
             {/* Feature 2: Knowledge Base (2 cols) */}
             <motion.div variants={item} className="col-span-1 lg:col-span-2 p-8 border-b border-r border-slate-200 border-dashed bg-white relative group transition-colors hover:bg-slate-50/50">
-               <div className="relative z-10 mb-8">
-                 <h3 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight">{t.features.feat1_title}</h3>
-                 <p className="text-slate-600 text-sm leading-relaxed">{t.features.feat1_desc1}</p>
-               </div>
+               <FeatureBlockHeader
+                 title={t.features.feat1_title}
+                 description={t.features.feat1_desc1}
+               />
                
                {/* Visual: Mobile Chat */}
                <div className="relative w-full h-[350px] bg-white rounded-[24px] border border-slate-200 shadow-sm overflow-hidden p-2 group-hover:shadow-md transition-all">
@@ -118,10 +144,10 @@ const Features: React.FC = () => {
 
             {/* Feature 3: Integrations (3 cols) */}
             <motion.div variants={item} className="col-span-1 lg:col-span-3 p-8 border-b border-r border-slate-200 border-dashed bg-white relative group transition-colors hover:bg-slate-50/50">
-               <div className="relative z-10 mb-8">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight">{t.features.feat3_title}</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">{t.features.feat3_desc1}</p>
-               </div>
+               <FeatureBlockHeader
+                  title={t.features.feat3_title}
+                  description={t.features.feat3_desc1}
+               />
 
                {/* Visual: Toggle List */}
                <div className="relative w-full bg-white rounded-[24px] border border-slate-200 shadow-sm p-4 overflow-hidden group-hover:shadow-md transition-all">
@@ -140,7 +166,7 @@ const Features: React.FC = () => {
                               <span className="text-xs font-bold text-slate-900">{item.name}</span>
                            </div>
                            <div className={`w-8 h-4 rounded-full relative ${item.status ? 'bg-slate-900' : 'bg-slate-200'}`}>
-                              <div className={`absolute top-0.5 w-3 h-3 rounded-full bg-white transition-all ${item.status ? 'left-4.5' : 'left-0.5'}`}></div>
+                              <div className={`absolute top-0.5 w-3 h-3 rounded-full bg-white transition-all ${item.status ? 'left-[18px]' : 'left-0.5'}`}></div>
                            </div>
                         </div>
                      ))}
@@ -150,12 +176,10 @@ const Features: React.FC = () => {
 
             {/* Feature 4: Focus / Security (3 cols) */}
             <motion.div variants={item} className="col-span-1 lg:col-span-3 p-8 border-b border-r border-slate-200 border-dashed bg-white relative overflow-hidden flex flex-col group transition-colors hover:bg-slate-50/50">
-               <div className="relative z-10 mb-8">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight">Enterprise-grade Security</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
-                     End-to-end encryption. No training on your data. SOC2 compliant infrastructure.
-                  </p>
-               </div>
+               <FeatureBlockHeader
+                  title="Enterprise-grade Security"
+                  description="End-to-end encryption. No training on your data. SOC2 compliant infrastructure."
+               />
 
                {/* Visual: Infinite Scroll */}
                <div className="mt-auto relative w-full bg-white rounded-[24px] border border-slate-200 shadow-sm h-24 overflow-hidden flex items-center group-hover:shadow-md transition-all">
@@ -173,8 +197,7 @@ const Features: React.FC = () => {
             </motion.div>
 
         </motion.div>
-      </div>
-    </section>
+    </SectionWithHeader>
   );
 };
 

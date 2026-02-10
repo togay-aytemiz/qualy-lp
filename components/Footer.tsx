@@ -14,8 +14,7 @@ const Footer: React.FC = () => {
         <div>
           <div className="mr-0 mb-4 md:mr-4 md:flex">
             <a className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black" href="/">
-              <Logo className="w-10 h-10" />
-              <span className="font-bold text-lg text-slate-900">Qualy</span>
+              <Logo className="h-7 w-auto" />
             </a>
           </div>
           <div className="mt-2 ml-2">
@@ -82,8 +81,9 @@ const Footer: React.FC = () => {
           <div className="flex flex-col justify-center space-y-4">
             <p className="font-bold text-slate-900 transition-colors">{t.footer.legal}</p>
             <ul className="list-none space-y-4 text-slate-600 transition-colors">
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="#">{t.footer.privacy}</a></li>
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="#">{t.footer.terms}</a></li>
+               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="/legal">{t.footer.legalCenter}</a></li>
+               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="/privacy">{t.footer.privacy}</a></li>
+               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="/terms">{t.footer.terms}</a></li>
             </ul>
           </div>
 
@@ -91,9 +91,19 @@ const Footer: React.FC = () => {
       </div>
       
       {/* Big Text Background */}
-      <p className="inset-x-0 mt-20 bg-gradient-to-b from-slate-50 to-slate-200 bg-clip-text text-center text-5xl font-bold text-transparent md:text-9xl lg:text-[12rem] xl:text-[13rem] select-none pointer-events-none pb-4 lg:pb-12">
-        Qualy
-      </p>
+      <div className="pointer-events-none mt-20 flex select-none justify-center pb-4 lg:pb-12">
+        <img
+          src="/text-black.svg"
+          alt="Qualy text logo background"
+          className="h-auto w-[96vw] opacity-[0.2] sm:w-[90vw] md:w-[72vw] lg:w-[62vw] xl:w-[56vw] 2xl:w-[52vw]"
+          style={{
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 34%, black 100%)',
+            maskImage: 'linear-gradient(to bottom, transparent 0%, black 34%, black 100%)',
+          }}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion } from 'framer-motion';
+import Section from './Section';
 
 const Integrations: React.FC = () => {
   const { t } = useLanguage();
@@ -9,8 +10,7 @@ const Integrations: React.FC = () => {
   ];
 
   return (
-    <section id="customers" className="py-10 border-y border-slate-100 bg-slate-50/50">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
+    <Section id="customers" className="py-10 border-y border-slate-100 bg-slate-50/50" containerClassName="text-center">
         <motion.p 
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -36,8 +36,7 @@ const Integrations: React.FC = () => {
              </motion.div>
            ))}
         </div>
-      </div>
-    </section>
+    </Section>
   );
 };
 

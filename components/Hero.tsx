@@ -1,7 +1,8 @@
 import React from 'react';
-import { ArrowRight, Bot, Zap, CheckCircle2, ChevronRight } from 'lucide-react';
+import { ArrowRight, Bot, Zap } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 import { motion } from 'framer-motion';
+import { AUTH_URLS } from '../lib/auth-links';
 
 const Hero: React.FC = () => {
   const { t } = useLanguage();
@@ -16,26 +17,18 @@ const Hero: React.FC = () => {
         transition={{ duration: 1.5 }}
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-indigo-50/50 rounded-[100%] blur-3xl -z-10 pointer-events-none"
       ></motion.div>
-      
-      {/* Top Badge */}
-      <div className="flex justify-center">
-        <motion.button 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="bg-slate-50 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-900 rounded-full p-px text-[10px] sm:text-xs font-semibold leading-6 text-slate-700 inline-block w-fit mx-auto"
-        >
-          <span className="absolute inset-0 overflow-hidden rounded-full">
-            <span className="absolute inset-0 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-slate-100"></span>
-          </span>
-          <div className="relative flex space-x-2 items-center z-10 rounded-full bg-slate-50 py-1.5 px-4 ring-1 ring-slate-200">
-            <span>{t.hero.status}</span>
-            <ChevronRight className="w-3 h-3 text-slate-400" />
-          </div>
-          <span className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-slate-400/0 via-slate-400/90 to-slate-400/0 transition-opacity duration-500 group-hover:opacity-40"></span>
-        </motion.button>
-      </div>
 
+      {/* Top Badge */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="mx-auto inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-1.5 text-xs font-semibold text-slate-700 backdrop-blur sm:text-sm"
+      >
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+        <span>{t.hero.status}</span>
+      </motion.div>
+      
       {/* Headline */}
       <motion.h1 
         initial={{ opacity: 0, y: 30 }}
@@ -62,10 +55,10 @@ const Hero: React.FC = () => {
         transition={{ duration: 0.5, delay: 0.4 }}
         className="flex flex-col sm:flex-row items-center gap-4 justify-center mt-10 relative z-10 px-6"
       >
-        <button className="w-full sm:w-auto bg-slate-900 relative z-10 hover:bg-slate-800 border border-transparent text-white text-sm md:text-base transition font-medium duration-200 rounded-full px-8 py-3 flex items-center justify-center shadow-[0px_-1px_0px_0px_#FFFFFF40_inset,_0px_1px_0px_0px_#FFFFFF40_inset]">
+        <a href={AUTH_URLS.register} className="w-full sm:w-auto bg-slate-900 relative z-10 hover:bg-slate-800 border border-transparent text-white text-sm md:text-base transition font-medium duration-200 rounded-full px-8 py-3 flex items-center justify-center shadow-[0px_-1px_0px_0px_#FFFFFF40_inset,_0px_1px_0px_0px_#FFFFFF40_inset]">
           {t.hero.ctaPrimary}
-        </button>
-        <a className="w-full sm:w-auto relative z-10 bg-transparent hover:bg-slate-100 border border-transparent text-slate-900 text-sm md:text-base transition font-medium duration-200 rounded-full px-8 py-3 justify-center flex space-x-2 items-center group cursor-pointer" href="#">
+        </a>
+        <a className="w-full sm:w-auto relative z-10 bg-transparent hover:bg-slate-100 border border-transparent text-slate-900 text-sm md:text-base transition font-medium duration-200 rounded-full px-8 py-3 justify-center flex space-x-2 items-center group cursor-pointer" href={AUTH_URLS.login}>
           <span>{t.hero.ctaSecondary}</span>
           <ArrowRight className="text-slate-400 group-hover:translate-x-1 stroke-[2px] h-4 w-4 transition-transform duration-200" />
         </a>

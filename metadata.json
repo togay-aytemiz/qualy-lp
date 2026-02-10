@@ -1,5 +1,15 @@
 {
   "name": "Qualy",
   "description": "The AI-first inbox for WhatsApp and Telegram. Qualy learns your business, qualifies your leads, and scores them 1-10—all before you even pick up your phone.",
+  "keywords": [
+    "Qualy",
+    "AI inbox",
+    "WhatsApp automation",
+    "Telegram automation",
+    "Lead qualification",
+    "Lead scoring",
+    "Conversational intelligence"
+  ],
+  "ogImage": "/logo-black.svg",
   "requestFramePermissions": []
 }
