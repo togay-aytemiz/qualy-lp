@@ -2,9 +2,37 @@ import React from 'react';
 import { useLanguage } from '../LanguageContext';
 import { Globe } from 'lucide-react';
 import { Logo } from './Logo';
+import {
+  buildHomeSectionHref,
+  getProductFooterSectionId,
+  isHomePath,
+  type ProductFooterLinkKey,
+} from '../lib/footer-links';
 
 const Footer: React.FC = () => {
   const { t, language, setLanguage } = useLanguage();
+
+  const scrollToHomeSection = (e: React.MouseEvent<HTMLAnchorElement>, key: ProductFooterLinkKey) => {
+    if (typeof window === 'undefined') return;
+
+    const sectionId = getProductFooterSectionId(key);
+    const targetHref = buildHomeSectionHref(sectionId);
+
+    e.preventDefault();
+
+    if (!isHomePath(window.location.pathname)) {
+      window.location.href = targetHref;
+      return;
+    }
+
+    const targetElement = document.getElementById(sectionId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    window.location.hash = sectionId;
+  };
 
   return (
     <div className="relative w-full overflow-hidden bg-white px-8 py-20">
@@ -43,41 +71,36 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Right Side: Grid of Links */}
-        <div className="mt-10 grid grid-cols-2 items-start gap-10 sm:mt-0 md:mt-0 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-2 items-start gap-10 sm:mt-0 md:mt-0 lg:grid-cols-2">
           
           {/* Column 1: Product */}
           <div className="flex w-full flex-col justify-center space-y-4">
             <p className="font-bold text-slate-900 transition-colors">{t.footer.product}</p>
             <ul className="list-none space-y-4 text-slate-600 transition-colors">
-              <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="#features">{t.footer.features}</a></li>
-              <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="#pricing">{t.navbar.pricing}</a></li>
-              <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="#">{t.footer.leadScoring}</a></li>
-              <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="#">{t.footer.updates}</a></li>
+              <li className="list-none">
+                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('features')} onClick={(e) => scrollToHomeSection(e, 'features')}>
+                  {t.footer.features}
+                </a>
+              </li>
+              <li className="list-none">
+                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('pricing')} onClick={(e) => scrollToHomeSection(e, 'pricing')}>
+                  {t.navbar.pricing}
+                </a>
+              </li>
+              <li className="list-none">
+                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('testimonials')} onClick={(e) => scrollToHomeSection(e, 'leadScoring')}>
+                  {t.footer.leadScoring}
+                </a>
+              </li>
+              <li className="list-none">
+                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('how-it-works')} onClick={(e) => scrollToHomeSection(e, 'updates')}>
+                  {t.footer.updates}
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Column 2: Resources */}
-          <div className="flex flex-col justify-center space-y-4">
-            <p className="font-bold text-slate-900 transition-colors">{t.footer.resources}</p>
-            <ul className="list-none space-y-4 text-slate-600 transition-colors">
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="#">{t.footer.docs}</a></li>
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="#">{t.footer.api}</a></li>
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="#">{t.footer.community}</a></li>
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="#">{t.footer.help}</a></li>
-            </ul>
-          </div>
-
-          {/* Column 3: Company */}
-          <div className="flex flex-col justify-center space-y-4">
-            <p className="font-bold text-slate-900 transition-colors">{t.footer.company}</p>
-            <ul className="list-none space-y-4 text-slate-600 transition-colors">
-              <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="#">{t.footer.about}</a></li>
-              <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="#">{t.footer.blog}</a></li>
-              <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="#">{t.footer.careers}</a></li>
-            </ul>
-          </div>
-
-          {/* Column 4: Legal */}
+          {/* Column 2: Legal */}
           <div className="flex flex-col justify-center space-y-4">
             <p className="font-bold text-slate-900 transition-colors">{t.footer.legal}</p>
             <ul className="list-none space-y-4 text-slate-600 transition-colors">

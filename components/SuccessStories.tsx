@@ -35,6 +35,7 @@ const SuccessStories: React.FC = () => {
 
   return (
     <SectionWithHeader
+      id="testimonials"
       className="py-20 border-b border-slate-100 overflow-hidden"
       containerClassName="max-w-none px-0 md:px-0"
       title={t.successStories.title}
