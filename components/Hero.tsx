@@ -493,6 +493,21 @@ const Hero: React.FC = () => {
                       </div>
                     </div>
 
+                    {!prefersReducedMotion && !hasNextMessage && (
+                      <div className="flex items-center justify-center py-2.5">
+                        <div className="h-1.5 w-24 overflow-hidden rounded-full bg-slate-200">
+                          <motion.div
+                            key={`scenario-switch-${activeScenarioIndex}`}
+                            initial={{ width: '0%' }}
+                            animate={{ width: '100%' }}
+                            transition={{ duration: 4, ease: 'linear' }}
+                            className="h-full rounded-full bg-slate-500"
+                          />
+                        </div>
+                        <span className="sr-only">Preparing next conversation</span>
+                      </div>
+                    )}
+
                     <div className="border-t border-gray-200 bg-white px-4 py-3 sm:px-5 md:px-6">
                       <motion.button
                         type="button"

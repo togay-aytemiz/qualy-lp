@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../LanguageContext';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import SectionWithHeader from './SectionWithHeader';
+import { AUTH_URLS } from '../lib/auth-links';
+
+const AUTO_ROTATE_INTERVAL_MS = 8000;
 
 const Challenges: React.FC = () => {
   const { t } = useLanguage();
+  const prefersReducedMotion = useReducedMotion();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [progressKey, setProgressKey] = useState(0);
 
   const challenges = [
     {
@@ -42,6 +47,22 @@ const Challenges: React.FC = () => {
     }
   ];
 
+  const handleRoleSelect = (index: number) => {
+    setActiveIndex(index);
+    setProgressKey((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    if (prefersReducedMotion || challenges.length <= 1) return;
+
+    const timer = window.setTimeout(() => {
+      setActiveIndex((current) => (current + 1) % challenges.length);
+      setProgressKey((prev) => prev + 1);
+    }, AUTO_ROTATE_INTERVAL_MS);
+
+    return () => window.clearTimeout(timer);
+  }, [activeIndex, challenges.length, prefersReducedMotion]);
+
   return (
     <SectionWithHeader
       id="challenges"
@@ -65,7 +86,7 @@ const Challenges: React.FC = () => {
           {challenges.map((challenge, index) => (
             <button
               key={challenge.id}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => handleRoleSelect(index)}
               className={`w-full px-4 py-3 rounded-xl text-sm font-semibold text-center whitespace-normal leading-tight md:w-auto md:px-8 md:py-4 md:whitespace-nowrap border transition-all duration-300 ${
                 activeIndex === index
                   ? 'bg-slate-900 text-white border-slate-900 shadow-lg shadow-slate-300/40'
@@ -76,6 +97,22 @@ const Challenges: React.FC = () => {
             </button>
           ))}
         </motion.div>
+
+        <div className="mb-8 flex justify-center">
+          <div className="h-1.5 w-full max-w-xl overflow-hidden rounded-full bg-slate-900/12">
+            {!prefersReducedMotion ? (
+              <motion.div
+                key={`challenge-progress-${activeIndex}-${progressKey}`}
+                initial={{ width: '0%' }}
+                animate={{ width: '100%' }}
+                transition={{ duration: AUTO_ROTATE_INTERVAL_MS / 1000, ease: 'linear' }}
+                className="h-full rounded-full bg-slate-900/75"
+              />
+            ) : (
+              <div className="h-full w-full rounded-full bg-slate-900/75" />
+            )}
+          </div>
+        </div>
 
         {/* Expanding Cards Container */}
         <motion.div 
@@ -88,7 +125,7 @@ const Challenges: React.FC = () => {
           {challenges.map((challenge, index) => (
             <div
               key={challenge.id}
-              onClick={() => setActiveIndex(index)}
+              onClick={() => handleRoleSelect(index)}
               className={`
                 relative rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 ease-in-out group
                 ${activeIndex === index ? 'h-[500px] shadow-2xl scale-[1.01] md:h-auto md:flex-[3]' : 'hidden md:block md:flex-[1] md:grayscale md:hover:grayscale-0 md:opacity-70 md:hover:opacity-100'}
@@ -124,6 +161,21 @@ const Challenges: React.FC = () => {
               </div>
             </div>
           ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.35, delay: 0.2 }}
+          className="mt-10 md:mt-12 flex flex-col items-center"
+        >
+          <a
+            href={AUTH_URLS.register}
+            className="inline-flex items-center justify-center rounded-full bg-slate-900 px-7 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,23,42,0.18)] transition-colors hover:bg-slate-800"
+          >
+            {t.challenges.ctaPrimary}
+          </a>
         </motion.div>
 
     </SectionWithHeader>

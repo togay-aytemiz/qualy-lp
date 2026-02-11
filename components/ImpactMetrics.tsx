@@ -2,6 +2,7 @@ import React from 'react';
 import { animate, motion, useInView, useReducedMotion } from 'framer-motion';
 import { FaCalendarCheck, FaMessage, FaRankingStar, FaStopwatch } from 'react-icons/fa6';
 import { useLanguage } from '../LanguageContext';
+import { AUTH_URLS } from '../lib/auth-links';
 import { formatMetricValue, getMetricSuffix, getMetricTargetValue } from '../lib/impact-metrics';
 import Section from './Section';
 
@@ -164,6 +165,24 @@ const ImpactMetrics: React.FC = () => {
               );
             })}
           </div>
+
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.4, delay: prefersReducedMotion ? 0 : 0.12 }}
+            className="mt-10 flex flex-col items-center text-center lg:mt-14"
+          >
+            <p className="max-w-2xl text-2xl font-semibold tracking-tight text-slate-900 md:text-4xl">
+              {t.impactMetrics.ctaText}
+            </p>
+            <a
+              href={AUTH_URLS.register}
+              className="mt-6 inline-flex items-center justify-center rounded-full bg-slate-900 px-8 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,23,42,0.18)] transition-colors hover:bg-slate-800"
+            >
+              {t.impactMetrics.ctaPrimary}
+            </a>
+          </motion.div>
         </div>
       </div>
     </Section>

@@ -70,6 +70,10 @@ describe('hero simulation layout', () => {
     expect(hero).toContain('text-sm font-semibold text-slate-700 sm:hidden');
     expect(hero).toContain('type="text"');
     expect(hero).toContain('h-10 shrink-0 rounded-lg bg-gray-900');
+    expect(hero).toContain('!prefersReducedMotion && !hasNextMessage && (');
+    expect(hero).toContain('className="flex items-center justify-center py-2.5"');
+    expect(hero).toContain('key={`scenario-switch-${activeScenarioIndex}`}');
+    expect(hero).toContain("transition={{ duration: 4, ease: 'linear' }}");
     expect((hero.match(/t\.hero\.mockup\.takeOver/g) ?? []).length).toBe(1);
     expect(hero).toContain('getLeadToneLabel(score)');
     expect(hero).toContain('bg-red-50 text-red-700');

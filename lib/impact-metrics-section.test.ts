@@ -22,4 +22,18 @@ describe('impact metrics section', () => {
     expect(challengesIndex).toBeLessThan(impactMetricsIndex);
     expect(impactMetricsIndex).toBeLessThan(featuresIndex);
   });
+
+  it('renders in-wrapper conversion cta with only a primary button', () => {
+    const impactMetricsSource = readFileSync(path.join(process.cwd(), 'components', 'ImpactMetrics.tsx'), 'utf8');
+    const languageContextSource = readFileSync(path.join(process.cwd(), 'LanguageContext.tsx'), 'utf8');
+
+    expect(impactMetricsSource).toContain('{t.impactMetrics.ctaText}');
+    expect(impactMetricsSource).toContain('{t.impactMetrics.ctaPrimary}');
+    expect(impactMetricsSource).toContain('href={AUTH_URLS.register}');
+    expect(impactMetricsSource).not.toContain('t.impactMetrics.ctaSecondary');
+    expect(languageContextSource).toContain('ctaText: "Ready to grow your results with Qualy?"');
+    expect(languageContextSource).toContain('ctaText: "Qualy ile sonuçlarını büyütmeye hazır mısın?"');
+    expect(languageContextSource).toContain('ctaPrimary: "Start Free Trial"');
+    expect(languageContextSource).toContain('ctaPrimary: "Ücretsiz denemeni başlat"');
+  });
 });

@@ -74,6 +74,8 @@ interface Translations {
   impactMetrics: {
     title: string;
     subtitle: string;
+    ctaText: string;
+    ctaPrimary: string;
     items: Array<{
       value: string;
       label: string;
@@ -84,6 +86,8 @@ interface Translations {
     title_part1: string;
     title_part2: string;
     subtitle: string;
+    ctaHint: string;
+    ctaPrimary: string;
     roles: {
       founders: string;
       customerSuccess: string;
@@ -437,6 +441,8 @@ const translations: Record<Language, Translations> = {
     impactMetrics: {
       title: "Metrics teams improve with Qualy",
       subtitle: "From first-response speed to lead quality, Qualy moves the numbers that directly affect revenue and workload.",
+      ctaText: "Ready to grow your results with Qualy?",
+      ctaPrimary: "Start Free Trial",
       items: [
         {
           value: "-78%",
@@ -461,35 +467,37 @@ const translations: Record<Language, Translations> = {
       ]
     },
     challenges: {
-      title_part1: "Role-based",
-      title_part2: "Qualy usage playbook",
-      subtitle: "The same product helps each team differently. Pick your role to see where Qualy saves the most time.",
+      title_part1: "Choose your role,",
+      title_part2: "see Qualy in action",
+      subtitle: "Open the flow closest to your daily work and see how Qualy turns message load into booked outcomes. If it fits, start free in minutes.",
+      ctaHint: "Pick a role, preview the flow, then start free.",
+      ctaPrimary: "Try for free",
       roles: {
         founders: "Owner / Founder",
-        customerSuccess: "Front Desk / Support",
+        customerSuccess: "Support",
         sales: "Sales / Booking",
-        marketing: "Growth / Ads"
+        marketing: "Marketing"
       },
       cards: {
         founders: {
-          headline: "If you are the owner: automate first contact and protect your day.",
-          compact: "Let Qualy handle first contact.",
-          desc: "Qualy handles repetitive first questions and leaves decision-stage conversations to you. You stay focused on operations, hiring, and growth."
+          headline: "See how owners cut inbox noise and focus on customers ready to buy.",
+          compact: "Less noise, more decisions.",
+          desc: "Qualy handles first replies, scores intent, and surfaces decision-ready conversations first. You get time back and more booked outcomes from the same inbox."
         },
         customerSuccess: {
-          headline: "For front desk teams: clear repetitive questions without queue overload.",
-          compact: "Automate routine desk questions.",
-          desc: "Qualy instantly answers pricing, availability, policy, and cancellation topics. Your team steps in only for exceptions and sensitive cases."
+          headline: "Watch support queues shrink while warm conversations keep moving.",
+          compact: "Shorter queues, faster replies.",
+          desc: "Qualy resolves routine pricing, availability, and policy questions instantly. Your team jumps in only when needed, so high-value conversations do not stall."
         },
         sales: {
-          headline: "For sales teams: prioritize high-intent conversations first.",
-          compact: "Put high-intent leads first.",
-          desc: "Qualy highlights urgency and service fit from each chat. Your team follows up in the right order and fills the calendar with stronger opportunities."
+          headline: "Prioritize hot conversations first and fill your calendar faster.",
+          compact: "Hot conversations first.",
+          desc: "Qualy extracts urgency and buying signals from every chat, so reps contact the right person at the right moment and close more bookings."
         },
         marketing: {
-          headline: "For growth teams: capture campaign traffic without delay.",
-          compact: "Keep campaign leads warm.",
-          desc: "When ad traffic spikes, Qualy sends first replies immediately and collects key details. Budget turns into qualified conversations instead of cold drop-offs."
+          headline: "Turn campaign clicks into qualified conversations before intent cools.",
+          compact: "Clicks into qualified chats.",
+          desc: "Qualy replies in seconds after ad clicks and collects key qualification details automatically, so more of your budget turns into sales-ready pipeline."
         }
       }
     },
@@ -843,6 +851,8 @@ const translations: Record<Language, Translations> = {
     impactMetrics: {
       title: "Qualy ile iyileşen metrikler",
       subtitle: "İlk yanıt hızından lead kalitesine kadar, dönüşümü ve ekip verimini etkileyen rakamları birlikte yukarı taşırız.",
+      ctaText: "Qualy ile sonuçlarını büyütmeye hazır mısın?",
+      ctaPrimary: "Ücretsiz denemeni başlat",
       items: [
         {
           value: "-78%",
@@ -867,35 +877,37 @@ const translations: Record<Language, Translations> = {
       ]
     },
     challenges: {
-      title_part1: "Rolüne göre",
-      title_part2: "Qualy kullanım ipuçları",
-      subtitle: "Aynı ürün, farklı ekiplerde farklı işleri hızlandırır. Rolünü seç ve Qualy'nin nerede zaman kazandırdığını gör.",
+      title_part1: "Rolünü seç,",
+      title_part2: "Qualy farkını canlı gör",
+      subtitle: "Kendi iş akışına en yakın rolü aç ve Qualy'nin mesaj yükünü nasıl azaltıp daha çok sonuç ürettiğini gör.",
+      ctaHint: "Rolünü seç, Qualy'nin daha çok randevu getiren akışını gör ve ücretsiz denemeyi başlat.",
+      ctaPrimary: "Ücretsiz dene",
       roles: {
         founders: "İşletme Sahibi",
-        customerSuccess: "Ön Büro / Destek",
+        customerSuccess: "Destek",
         sales: "Satış / Randevu",
-        marketing: "Pazarlama / Büyüme"
+        marketing: "Pazarlama"
       },
       cards: {
         founders: {
-          headline: "İşletme sahibiysen: ilk teması otomatikleştir, gününü geri kazan.",
-          compact: "İlk teması Qualy yönetsin.",
-          desc: "Qualy tekrarlayan ilk soruları yanıtlar, karar aşamasındaki adayları sana bırakır. Sen de operasyon, ekip ve büyüme işlerine odaklanırsın."
+          headline: "İşletme sahibiysen, ilk haftada mesaj yükünün nasıl azaldığını gör.",
+          compact: "Daha az mesaj, daha net fırsat.",
+          desc: "Qualy ilk mesajları otomatik yönetir, yüksek niyetli konuşmaları öne çıkarır. Sen sadece karar aşamasındaki müşterilere odaklanır, daha hızlı sonuç alırsın."
         },
         customerSuccess: {
-          headline: "Ön büro/destek için: tekrarlayan soruları kuyruk yaratmadan yönet.",
-          compact: "Rutin sorular otomatik karşılansın.",
-          desc: "Fiyat, müsaitlik, politika ve iptal gibi konulara Qualy anında yanıt verir. Ekip sadece istisna ve hassas durumlarda devreye girer."
+          headline: "Destek tarafında bekleyen mesajları azalt, sıcak konuşmaları kaçırma.",
+          compact: "Kuyruk kısalsın, hız artsın.",
+          desc: "Qualy fiyat, müsaitlik ve politika sorularını anında yanıtlar. Ekip yalnızca kritik konuşmaları devralır; satışa yakın müşteriler beklemeden ilerler."
         },
         sales: {
-          headline: "Satış/randevu için: yüksek niyetli adayları önce sırala.",
-          compact: "Sıcak adaylar öne çıksın.",
-          desc: "Qualy her konuşmadan niyet ve aciliyet sinyallerini çıkarır. Ekip doğru kişiyi doğru anda arar, takvim daha verimli dolur."
+          headline: "Sıcak konuşmaları ilk sıraya al, takvimini daha hızlı doldur.",
+          compact: "Sıcak konuşmaları öncele.",
+          desc: "Qualy her konuşmadan niyet ve aciliyet sinyallerini otomatik skorlar. Ekip doğru kişiye doğru anda döner; takip hızı ve randevu oranı yükselir."
         },
         marketing: {
-          headline: "Pazarlama için: kampanya trafiğini bekletmeden karşıla.",
-          compact: "Kampanya lead'leri sıcak kalsın.",
-          desc: "Reklamdan gelen ilk mesajlara Qualy gecikmeden yanıt verir ve temel bilgileri toplar. Böylece bütçe boşa akmaz, sıcak lead'ler hızlı devralınır."
+          headline: "Pazarlama trafiğini boşa harcama, tıklamayı fırsata çevir.",
+          compact: "Tıklamayı fırsata çevir.",
+          desc: "Qualy kampanyadan gelen mesajlara saniyeler içinde yanıt verir, kritik bilgileri toplar. Trafik soğumadan nitelikli konuşmalar satışa akar."
         }
       }
     },
