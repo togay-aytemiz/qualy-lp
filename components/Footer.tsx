@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
-import { Globe } from 'lucide-react';
+import { Globe, Mail, Phone } from 'lucide-react';
 import { Logo } from './Logo';
 import {
   buildHomeSectionHref,
@@ -47,6 +47,25 @@ const Footer: React.FC = () => {
           </div>
           <div className="mt-2 ml-2">
             © {new Date().getFullYear()} Qualy Inc. {t.footer.rights}
+          </div>
+
+          <div className="mt-4 ml-2 flex flex-col gap-2">
+            <a
+              href="mailto:askqualy@gmail.com"
+              className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 transition-colors hover:border-slate-300 hover:text-slate-900"
+              aria-label="Email Qualy"
+            >
+              <Mail className="h-3.5 w-3.5 text-slate-500" />
+              <span>askqualy@gmail.com</span>
+            </a>
+            <a
+              href="tel:+905074699692"
+              className="inline-flex w-fit items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 transition-colors hover:border-slate-300 hover:text-slate-900"
+              aria-label="Call Qualy"
+            >
+              <Phone className="h-3.5 w-3.5 text-slate-500" />
+              <span>+90 507 469 9692</span>
+            </a>
           </div>
           
           {/* Language Switcher */}

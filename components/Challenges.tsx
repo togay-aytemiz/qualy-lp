@@ -60,13 +60,13 @@ const Challenges: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex justify-start md:justify-center overflow-x-auto gap-4 mb-8 pb-4 md:pb-0 scrollbar-hide"
+          className="grid grid-cols-2 gap-3 mb-8 md:flex md:justify-center md:gap-4 md:pb-0"
         >
           {challenges.map((challenge, index) => (
             <button
               key={challenge.id}
               onClick={() => setActiveIndex(index)}
-              className={`px-8 py-4 rounded-xl text-sm font-semibold whitespace-nowrap border transition-all duration-300 ${
+              className={`w-full px-4 py-3 rounded-xl text-sm font-semibold text-center whitespace-normal leading-tight md:w-auto md:px-8 md:py-4 md:whitespace-nowrap border transition-all duration-300 ${
                 activeIndex === index
                   ? 'bg-slate-900 text-white border-slate-900 shadow-lg shadow-slate-300/40'
                   : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300 hover:text-slate-900'

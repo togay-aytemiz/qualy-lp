@@ -228,10 +228,10 @@ const Features: React.FC = () => {
   const handoverOwnerLabel = language === 'tr' ? 'Sahip' : 'Owner';
   const handoverHistoryNote = t.features.feat4_badges[3] ?? (language === 'tr' ? 'Konuşma geçmişi korunur' : 'Conversation history stays intact');
   const omnichannelChannels = [
-    { name: 'WhatsApp', status: true, iconClass: 'bg-[#25D366]', icon: RiWhatsappFill },
-    { name: 'Instagram', status: true, iconClass: 'bg-[#E1306C]', icon: RiInstagramFill },
-    { name: 'Telegram', status: true, iconClass: 'bg-[#229ED9]', icon: RiTelegramFill },
-    { name: 'Messenger', status: true, iconClass: 'bg-[#6B7280]', icon: RiMessengerFill },
+    { name: 'WhatsApp', status: true, logo: '/whatsapp.svg' },
+    { name: 'Instagram', status: false, logo: '/instagram.svg' },
+    { name: 'Telegram', status: true, logo: '/Telegram.svg' },
+    { name: 'Messenger', status: false, logo: '/messenger.svg' },
   ] as const;
 
   const container = {
@@ -337,7 +337,7 @@ const Features: React.FC = () => {
                               className={`max-h-[54px] overflow-hidden max-w-[90%] rounded-2xl px-3 py-2 text-[11px] leading-relaxed shadow-sm ${
                                 message.role === 'assistant'
                                   ? 'rounded-br-none bg-blue-600 text-white'
-                                  : 'rounded-bl-none border border-slate-200 bg-white text-slate-700'
+                                  : 'rounded-bl-none border border-slate-300 bg-slate-100 text-slate-700'
                               }`}
                             >
                               {message.text}
@@ -399,7 +399,7 @@ const Features: React.FC = () => {
                                 className={`max-h-[56px] overflow-hidden max-w-[88%] rounded-2xl px-3 py-2 text-[11px] leading-relaxed shadow-sm ${
                                   message.role === 'assistant'
                                     ? 'rounded-br-none bg-blue-600 text-white'
-                                    : 'rounded-bl-none border border-slate-200 bg-white text-slate-700'
+                                    : 'rounded-bl-none border border-slate-300 bg-slate-100 text-slate-700'
                                 }`}
                               >
                                 {message.text}
@@ -575,9 +575,12 @@ const Features: React.FC = () => {
                   {omnichannelChannels.map((channel) => (
                      <div key={channel.name} className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
                         <div className="flex items-center gap-2">
-                           <div className={`h-6 w-6 rounded-md ${channel.iconClass} flex items-center justify-center text-white`}>
-                              <channel.icon className="h-3.5 w-3.5" />
-                           </div>
+                           <img
+                             src={channel.logo}
+                             alt={`${channel.name} logo`}
+                             className="h-6 w-6 rounded-md object-cover"
+                             loading="lazy"
+                           />
                            <span className="text-xs font-semibold text-slate-900">{channel.name}</span>
                         </div>
                         <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${channel.status ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-600'}`}>
@@ -642,14 +645,27 @@ const Features: React.FC = () => {
                   <FeatureBlockHeader
                     title={t.features.feat5_title}
                     description={t.features.feat5_desc}
+                    titleHighlight={t.features.feat5_title_highlight}
+                    titleHighlightClassName="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500"
                   />
 
                   <div className="relative w-full rounded-[24px] border border-slate-200 bg-white p-5 shadow-sm transition-all group-hover:shadow-md">
-                    <div className="flex items-center justify-between gap-3">
-                      <p className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500">
-                        {t.features.feat5_mockup_title}
-                      </p>
-                      <span className="rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-semibold text-emerald-700">
+                    <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between md:gap-3">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <p className="text-sm md:text-xs font-bold normal-case md:uppercase tracking-[0.03em] md:tracking-[0.14em] text-slate-500 leading-tight">
+                          {t.features.feat5_mockup_title}
+                        </p>
+                        <span className="normal-case tracking-normal rounded-full border border-cyan-200 bg-cyan-50 px-2 py-0.5 text-[10px] font-semibold text-cyan-700">
+                          {t.features.feat5_mockup_title_tag}
+                        </span>
+                      </div>
+                      <span className="inline-flex w-fit items-center gap-2 rounded-full bg-emerald-50 px-2.5 md:px-3 py-1 text-[10px] md:text-[11px] font-semibold text-emerald-700">
+                        <motion.span
+                          aria-hidden
+                          className="h-2 w-2 rounded-full bg-emerald-500"
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1.4, ease: 'linear', repeat: Infinity }}
+                        />
                         {t.features.feat5_mockup_badge}
                       </span>
                     </div>

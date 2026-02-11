@@ -170,8 +170,10 @@ interface Translations {
     feat4_desc: string;
     feat4_badges: string[];
     feat5_title: string;
+    feat5_title_highlight: string;
     feat5_desc: string;
     feat5_mockup_title: string;
+    feat5_mockup_title_tag: string;
     feat5_mockup_badge: string;
     feat5_mockup_service_label: string;
     feat5_mockup_service_value: string;
@@ -498,8 +500,8 @@ const translations: Record<Language, Translations> = {
       heading: "Turn heavy message traffic into an organized customer flow.",
       heading_mobile: "Turn heavy message traffic into an organized flow.",
       subheading: "Qualy brings all your conversations into one place; replies with AI, scores intent, and helps you focus only on the right conversations.",
-      feat1_title: "Teach Qualy your business without touching code. Ready in 5 min.",
-      feat1_title_highlight: "Ready in 5 min.",
+      feat1_title: "Teach Qualy your business without touching code. Ready in 5 min",
+      feat1_title_highlight: "Ready in 5 min",
       feat1_desc1: "Add your business documents and ready responses. Qualy uses them as references for consistent replies.",
       feat1_desc2: "No technical setup required.",
       feat1_mockup_source: "Setup flow",
@@ -528,8 +530,8 @@ const translations: Record<Language, Translations> = {
       feat1_mockup_preview_label: "Live preview",
       feat1_mockup_preview_question: "Do you have availability tomorrow and what are the prices?",
       feat1_mockup_preview_answer: "I can share availability and pricing in this flow. If you want, I can list the available slots now.",
-      feat2_title: "Score intent before you step in. AI-powered.",
-      feat2_title_highlight: "AI-powered.",
+      feat2_title: "Qualy replies to messages with AI and generates scores automatically",
+      feat2_title_highlight: "with AI",
       feat2_desc: "Every new customer message triggers profile extraction and 0-10 intent scoring. See urgency, service fit, and follow-up priority at a glance.",
       feat2_li1: "<span><strong class=\"text-slate-900\">Low intent:</strong> Early research or vague requests stay in AI flow.</span>",
       feat2_li2: "<span><strong class=\"text-slate-900\">High intent:</strong> Clear service + timeline signals are escalated for immediate follow-up.</span>",
@@ -548,7 +550,7 @@ const translations: Record<Language, Translations> = {
       feat3_mockup_focus: "Unified inbox",
       feat3_mockup_easy: "Connect in minutes",
       feat3_mockup_connected: "Connected",
-      feat3_mockup_connect: "One-click connect",
+      feat3_mockup_connect: "Connect",
       feat3_mockup_voice: "Voice message received (outside auto-reply flow)",
       feat3_mockup_image: "Image received (outside auto-reply flow)",
       feat3_mockup_hidden: "All messages are collected in one inbox.",
@@ -563,10 +565,12 @@ const translations: Record<Language, Translations> = {
         "High-intent alerts",
         "TR/EN localized replies"
       ],
-      feat5_title: "Extract service profile and key details from the conversation",
-      feat5_desc: "Qualy captures service type, date, budget, and location signals during chat. Missing details are collected naturally so your team can focus on the right conversations.",
-      feat5_mockup_title: "Customer Profile Snapshot",
-      feat5_mockup_badge: "Auto-updated",
+      feat5_title: "Qualy extracts the service profile and automatically clarifies missing details with customers",
+      feat5_title_highlight: "automatically clarifies missing details",
+      feat5_desc: "Qualy scans your uploaded Knowledge Base documents to build your business and service profile, then identifies critical fields to collect. During the conversation, AI asks natural follow-up questions to complete missing details.",
+      feat5_mockup_title: "Profile Snapshot",
+      feat5_mockup_title_tag: "(AI extraction)",
+      feat5_mockup_badge: "Updating automatically",
       feat5_mockup_service_label: "Service",
       feat5_mockup_service_value: "Newborn photoshoot",
       feat5_mockup_date_label: "Date",
@@ -575,8 +579,8 @@ const translations: Record<Language, Translations> = {
       feat5_mockup_budget_value: "Budget-sensitive",
       feat5_mockup_location_label: "Location",
       feat5_mockup_location_value: "Kadikoy, Istanbul",
-      feat5_mockup_missing_label: "Missing detail",
-      feat5_mockup_missing_value: "Preferred day is being collected"
+      feat5_mockup_missing_label: "AI follow-up",
+      feat5_mockup_missing_value: "Asking for preferred day"
     },
     howItWorks: {
       title: "How Qualy runs your inbox",
@@ -671,8 +675,8 @@ const translations: Record<Language, Translations> = {
     },
     hero: {
       status: "Servis ekipleri için WhatsApp odaklı AI gelen kutusu",
-      headline: "Her mesaja değil, doğru müşteriye odaklanın.",
-      subheadline: "Qualy, mesajları otomatik yanıtlar; hizmet profili çıkarır, gerekli alanları toplar, eksik bilgiyi doğru sorularla tamamlar ve konuşmaları 1-10 niyet skoruna göre önceliklendirir.",
+      headline: "Herkese değil, doğru müşteriye odaklanın.",
+      subheadline: "Qualy, <span class=\"font-semibold text-slate-700 underline decoration-slate-400/80 underline-offset-4\">mesajları otomatik yanıtlar</span>; hizmet profili çıkarır, gerekli alanları toplar, eksik bilgiyi doğru sorularla tamamlar ve konuşmaları 1-10 niyet skoruna göre <span class=\"font-semibold text-slate-700 underline decoration-slate-400/80 underline-offset-4\">önceliklendirir</span>.",
       ctaPrimary: "Ücretsiz Denemeyi Başlat",
       ctaSecondary: "Panele Git",
       connects: "Dakikalar içinde bağlanır",
@@ -902,8 +906,8 @@ const translations: Record<Language, Translations> = {
       heading: "Yoğun mesaj trafiğini düzenli bir müşteri akışına çevirin.",
       heading_mobile: "Yoğun mesaj trafiğini düzenli akışa çevirin.",
       subheading: "Qualy, tüm konuşmalarınızı tek yerde toplar; yapay zeka ile yanıt verir, niyeti puanlar ve yalnızca doğru konuşmalara odaklanmanızı sağlar.",
-      feat1_title: "Koda dokunmadan işletmeni Qualy'ye öğret. 5 dk'da hazır.",
-      feat1_title_highlight: "5 dk'da hazır.",
+      feat1_title: "Koda dokunmadan işletmeni Qualy'ye öğret. 5 dk'da hazır",
+      feat1_title_highlight: "5 dk'da hazır",
       feat1_desc1: "İşletmenle ilgili dokümanlarını ve hazır yanıtlarını ekle. Qualy bunları referans alarak tutarlı yanıt verir.",
       feat1_desc2: "Teknik kurulum gerekmez.",
       feat1_mockup_source: "Kurulum akışı",
@@ -932,8 +936,8 @@ const translations: Record<Language, Translations> = {
       feat1_mockup_preview_label: "Canlı önizleme",
       feat1_mockup_preview_question: "Yarın için randevu var mı ve fiyatlar nasıl?",
       feat1_mockup_preview_answer: "Müsaitlik ve fiyatı bu akışta paylaşabilirim. İsterseniz uygun saatleri hemen listeleyeyim.",
-      feat2_title: "Müdahale etmeden önce niyeti puanlayın. Yapay zeka destekli.",
-      feat2_title_highlight: "Yapay zeka destekli.",
+      feat2_title: "Qualy yapay zeka ile mesajları cevaplar ve otomatik skor üretir",
+      feat2_title_highlight: "yapay zeka ile",
       feat2_desc: "Her yeni müşteri mesajı kişi çıkarımı ve 0-10 niyet skoru üretir. Aciliyeti, hizmet uyumunu ve takip önceliğini tek bakışta görün.",
       feat2_li1: "<span><strong class=\"text-slate-900\">Düşük niyet:</strong> Erken araştırma veya belirsiz talepler AI akışında kalır.</span>",
       feat2_li2: "<span><strong class=\"text-slate-900\">Yüksek niyet:</strong> Net hizmet + zaman sinyalleri anında insan takibine çıkar.</span>",
@@ -952,7 +956,7 @@ const translations: Record<Language, Translations> = {
       feat3_mockup_focus: "Birleşik gelen kutusu",
       feat3_mockup_easy: "Dakikalar içinde bağlantı",
       feat3_mockup_connected: "Bağlı",
-      feat3_mockup_connect: "Tek tıkla bağla",
+      feat3_mockup_connect: "Bağla",
       feat3_mockup_voice: "Ses mesajı alındı (oto-yanıt akışı dışında)",
       feat3_mockup_image: "Görsel alındı (oto-yanıt akışı dışında)",
       feat3_mockup_hidden: "Tüm mesajlar tek gelen kutusunda toplanır.",
@@ -967,9 +971,11 @@ const translations: Record<Language, Translations> = {
         "Yüksek niyet uyarıları",
         "TR/EN yerelleştirme"
       ],
-      feat5_title: "Konuşmadan hizmet profilini ve önemli bilgileri çıkarın",
-      feat5_desc: "Qualy konuşma sırasında hizmet tipi, tarih, bütçe ve konum sinyallerini çıkarır. Eksik kalan kritik bilgileri doğal sorularla tamamlayarak doğru konuşmaları öne alır.",
+      feat5_title: "Qualy hizmet profilini çıkarır ve eksik bilgileri müşteriyle otomatik netleştirir",
+      feat5_title_highlight: "otomatik netleştirir",
+      feat5_desc: "Qualy, yüklediğiniz Bilgi Bankası dokümanlarını tarayarak işletme ve hizmet profilini oluşturur, toplanması gereken kritik bilgileri belirler. Ardından konuşma içinde yapay zeka doğal takip soruları sorarak eksik bilgileri tamamlar.",
       feat5_mockup_title: "Kişi Profili Özeti",
+      feat5_mockup_title_tag: "(AI çıkarımı)",
       feat5_mockup_badge: "Otomatik güncelleniyor",
       feat5_mockup_service_label: "Hizmet",
       feat5_mockup_service_value: "Yenidoğan çekimi",
@@ -979,8 +985,8 @@ const translations: Record<Language, Translations> = {
       feat5_mockup_budget_value: "Bütçe hassas",
       feat5_mockup_location_label: "Konum",
       feat5_mockup_location_value: "Kadıköy, İstanbul",
-      feat5_mockup_missing_label: "Eksik bilgi",
-      feat5_mockup_missing_value: "Tercih edilen gün soruluyor"
+      feat5_mockup_missing_label: "AI takip sorusu",
+      feat5_mockup_missing_value: "Tercih edilen günü netleştiriyor"
     },
     howItWorks: {
       title: "Qualy gelen kutunuzu nasıl yönetir",

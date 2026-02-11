@@ -37,11 +37,10 @@ describe('hero simulation layout', () => {
   it('uses leadqualifier-style platform icons and avoids unknown placeholder naming in sidebar', () => {
     const hero = readFileSync(path.join(process.cwd(), 'components', 'Hero.tsx'), 'utf8');
 
-    expect(hero).toContain("from 'react-icons/ri'");
-    expect(hero).toContain('RiWhatsappFill');
-    expect(hero).toContain('RiInstagramFill');
-    expect(hero).toContain('RiTelegramFill');
-    expect(hero).toContain('size={size}');
+    expect(hero).toContain("whatsapp: '/whatsapp.svg'");
+    expect(hero).toContain("instagram: '/instagram.svg'");
+    expect(hero).toContain("telegram: '/Telegram.svg'");
+    expect(hero).toContain('style={{ width: size, height: size }}');
     expect(hero).toContain('absolute -bottom-4');
     expect(hero).toContain('border-[0.15px] border-white/20');
     expect(hero).toContain('t.hero.mockup.animatedScenarios');

@@ -3,7 +3,6 @@ import { ArrowDownRight, ArrowUpRight, ChevronDown, Zap } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { HiMiniSparkles } from 'react-icons/hi2';
-import { RiInstagramFill, RiTelegramFill, RiWhatsappFill } from 'react-icons/ri';
 import { AUTH_URLS } from '../lib/auth-links';
 
 type Platform = 'whatsapp' | 'instagram' | 'telegram';
@@ -169,12 +168,28 @@ const Hero: React.FC = () => {
     return 'border-slate-200 bg-slate-100 text-slate-600';
   };
 
-  const renderPlatformIcon = (platform: Platform, size = 20) => {
-    if (platform === 'telegram') return <RiTelegramFill className="text-[#229ED9]" size={size} />;
-    if (platform === 'whatsapp') return <RiWhatsappFill className="text-[#25D366]" size={size} />;
-    return <RiInstagramFill className="text-[#E1306C]" size={size} />;
+  const platformLogoMap: Record<Platform, string> = {
+    whatsapp: '/whatsapp.svg',
+    instagram: '/instagram.svg',
+    telegram: '/Telegram.svg',
   };
+
+  const renderPlatformIcon = (platform: Platform, size = 20) => (
+    <img
+      src={platformLogoMap[platform]}
+      alt={`${platform} logo`}
+      loading="lazy"
+      className="object-contain"
+      style={{ width: size, height: size }}
+    />
+  );
   const scoreTone = getHeaderScoreTone(selectedLeadScore);
+  const heroChannelLogos = [
+    { name: 'WhatsApp', logo: '/whatsapp.svg' },
+    { name: 'Instagram', logo: '/instagram.svg' },
+    { name: 'Telegram', logo: '/Telegram.svg' },
+    { name: 'Messenger', logo: '/messenger.svg' },
+  ] as const;
 
   return (
     <section className="relative flex flex-col overflow-hidden bg-white pb-12 pt-24 md:min-h-screen md:pb-0 md:pt-48">
@@ -198,9 +213,8 @@ const Hero: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: prefersReducedMotion ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
         className="text-center mt-8 text-base md:text-xl text-slate-500 max-w-3xl mx-auto relative z-10 leading-relaxed px-6"
-      >
-        {t.hero.subheadline}
-      </motion.p>
+        dangerouslySetInnerHTML={{ __html: t.hero.subheadline }}
+      />
 
       <motion.div
         initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
@@ -214,6 +228,31 @@ const Hero: React.FC = () => {
         >
           {t.hero.ctaPrimary}
         </a>
+      </motion.div>
+
+      <motion.div
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.25, delay: prefersReducedMotion ? 0 : 0.04 }}
+        className="relative z-10 mt-4 flex flex-col items-center gap-3 px-6"
+      >
+        <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-3 py-1 text-[11px] font-medium text-slate-600">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+          <span>{t.hero.connects}</span>
+          <span className="text-slate-300">•</span>
+          <span>{t.hero.noCard}</span>
+        </div>
+
+        <div className="flex items-center justify-center gap-2.5">
+          {heroChannelLogos.map((channel) => (
+            <div
+              key={channel.name}
+              className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-[0_6px_16px_rgba(15,23,42,0.06)] transition-transform duration-200 hover:-translate-y-0.5"
+            >
+              <img src={channel.logo} alt={channel.name} className="h-7 w-7 object-contain" loading="lazy" />
+            </div>
+          ))}
+        </div>
       </motion.div>
 
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8">

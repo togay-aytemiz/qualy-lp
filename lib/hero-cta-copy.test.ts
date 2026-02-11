@@ -10,6 +10,13 @@ describe('hero cta and turkish copy', () => {
     expect(hero).not.toContain('t.hero.ctaSecondary');
     expect(hero).not.toContain('t.hero.status');
     expect(hero).not.toContain('AUTH_URLS.login');
+    expect(hero).toContain("const heroChannelLogos = [");
+    expect(hero).toContain("logo: '/whatsapp.svg'");
+    expect(hero).toContain("logo: '/instagram.svg'");
+    expect(hero).toContain("logo: '/Telegram.svg'");
+    expect(hero).toContain("logo: '/messenger.svg'");
+    expect(hero).toContain('{t.hero.connects}');
+    expect(hero).toContain('dangerouslySetInnerHTML={{ __html: t.hero.subheadline }}');
   });
 
   it('uses "Yetenekler" wording in Turkish hero copy', () => {
@@ -17,5 +24,8 @@ describe('hero cta and turkish copy', () => {
 
     expect(languageContext).toContain('Yetenekler + Bilgi Bankası');
     expect(languageContext).not.toContain('Skills + Bilgi Bankası');
+    expect(languageContext).toContain('headline: "Herkese değil, doğru müşteriye odaklanın."');
+    expect(languageContext).toContain('mesajları otomatik yanıtlar</span>');
+    expect(languageContext).toContain('>önceliklendirir</span>');
   });
 });

@@ -10,7 +10,7 @@ describe('features section content and layout', () => {
     expect(featuresSource).toContain('hidden md:inline');
     expect(featuresSource).toContain('t.features.feat1_mockup_kb_items.map');
     expect(featuresSource).toContain('t.features.feat1_mockup_skill_items.map');
-    expect(featuresSource).toContain("{ name: 'Messenger', status: true");
+    expect(featuresSource).toContain("{ name: 'Messenger', status: false");
     expect(featuresSource).not.toContain('bg-slate-950');
     expect(featuresSource).not.toContain('t.features.feat1_mockup_step1');
     expect(featuresSource).not.toContain('t.features.feat1_mockup_preview_label');
@@ -31,14 +31,14 @@ describe('features section content and layout', () => {
 
     expect(languageContext).toContain('heading_mobile: "Yoğun mesaj trafiğini düzenli akışa çevirin."');
     expect(languageContext).toContain('heading_mobile: "Turn heavy message traffic into an organized flow."');
-    expect(languageContext).toContain('feat1_title: "Koda dokunmadan işletmeni Qualy\'ye öğret. 5 dk\'da hazır."');
-    expect(languageContext).toContain('feat1_title: "Teach Qualy your business without touching code. Ready in 5 min."');
-    expect(languageContext).toContain('feat1_title_highlight: "5 dk\'da hazır."');
-    expect(languageContext).toContain('feat1_title_highlight: "Ready in 5 min."');
-    expect(languageContext).toContain('feat2_title: "Müdahale etmeden önce niyeti puanlayın. Yapay zeka destekli."');
-    expect(languageContext).toContain('feat2_title: "Score intent before you step in. AI-powered."');
-    expect(languageContext).toContain('feat2_title_highlight: "Yapay zeka destekli."');
-    expect(languageContext).toContain('feat2_title_highlight: "AI-powered."');
+    expect(languageContext).toContain('feat1_title: "Koda dokunmadan işletmeni Qualy\'ye öğret. 5 dk\'da hazır"');
+    expect(languageContext).toContain('feat1_title: "Teach Qualy your business without touching code. Ready in 5 min"');
+    expect(languageContext).toContain('feat1_title_highlight: "5 dk\'da hazır"');
+    expect(languageContext).toContain('feat1_title_highlight: "Ready in 5 min"');
+    expect(languageContext).toContain('feat2_title: "Qualy yapay zeka ile mesajları cevaplar ve otomatik skor üretir"');
+    expect(languageContext).toContain('feat2_title: "Qualy replies to messages with AI and generates scores automatically"');
+    expect(languageContext).toContain('feat2_title_highlight: "yapay zeka ile"');
+    expect(languageContext).toContain('feat2_title_highlight: "with AI"');
     expect(languageContext).toContain('feat3_title: "Tüm konuşmalar tek ekranda"');
     expect(languageContext).toContain('feat3_title: "All conversations on one screen"');
     expect(languageContext).toContain('feat3_mockup_easy: "Dakikalar içinde bağlantı"');
@@ -47,6 +47,8 @@ describe('features section content and layout', () => {
     expect(languageContext).toContain('feat4_title: "Human handover when needed"');
     expect(languageContext).toContain('feat4_title_highlight: "insan devri"');
     expect(languageContext).toContain('feat4_title_highlight: "Human handover"');
+    expect(languageContext).toContain('feat5_title_highlight: "otomatik netleştirir"');
+    expect(languageContext).toContain('feat5_title_highlight: "automatically clarifies missing details"');
     expect(languageContext).toContain('"Tek tıkla devral"');
     expect(languageContext).toContain('"One-click take over"');
     expect(languageContext).toContain('feat1_desc1: "İşletmenle ilgili dokümanlarını ve hazır yanıtlarını ekle. Qualy bunları referans alarak tutarlı yanıt verir."');
