@@ -13,6 +13,7 @@ import { getSeoByRoute, getSeoRouteKeyByPath } from './lib/seo';
 
 const SuccessStories = lazy(() => import('./components/SuccessStories'));
 const Challenges = lazy(() => import('./components/Challenges'));
+const ImpactMetrics = lazy(() => import('./components/ImpactMetrics'));
 const Features = lazy(() => import('./components/Features'));
 const HowItWorks = lazy(() => import('./components/HowItWorks'));
 const Pricing = lazy(() => import('./components/Pricing'));
@@ -76,6 +77,9 @@ const AppContent: React.FC = () => {
           </Suspense>
           <Suspense fallback={<SectionSkeleton className="border-b border-slate-100" />}>
             <Challenges />
+          </Suspense>
+          <Suspense fallback={<SectionSkeleton className="border-b border-slate-100" />}>
+            <ImpactMetrics />
           </Suspense>
           <Suspense fallback={<SectionSkeleton />}>
             <Features />

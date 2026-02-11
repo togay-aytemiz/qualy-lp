@@ -46,6 +46,15 @@ interface Translations {
       role: string;
     }>;
   };
+  impactMetrics: {
+    title: string;
+    subtitle: string;
+    items: Array<{
+      value: string;
+      label: string;
+      detail: string;
+    }>;
+  };
   challenges: {
     title_part1: string;
     title_part2: string;
@@ -297,6 +306,32 @@ const translations: Record<Language, Translations> = {
         }
       ]
     },
+    impactMetrics: {
+      title: "Metrics teams improve with Qualy",
+      subtitle: "From first-response speed to lead quality, Qualy moves the numbers that directly affect revenue and workload.",
+      items: [
+        {
+          value: "-78%",
+          label: "Faster first-response time",
+          detail: "Automated first-line replies reduce waiting time before a human joins."
+        },
+        {
+          value: "+42%",
+          label: "More qualified leads",
+          detail: "Intent scoring surfaces high-fit conversations for priority follow-up."
+        },
+        {
+          value: "-61%",
+          label: "Less repetitive inbox workload",
+          detail: "Skills and Knowledge Base resolve routine questions without manual effort."
+        },
+        {
+          value: "+29%",
+          label: "Higher booked-conversation rate",
+          detail: "Warm follow-ups keep high-intent leads moving toward booking."
+        }
+      ]
+    },
     challenges: {
       title_part1: "Manual messaging creates",
       title_part2: "costly bottlenecks",
@@ -456,7 +491,7 @@ const translations: Record<Language, Translations> = {
       howItWorks: "Nasıl Çalışır",
       pricing: "Fiyatlandırma",
       login: "Giriş Yap",
-      getStarted: "Hemen Başla"
+      getStarted: "Ücretsiz Başla"
     },
     hero: {
       status: "Servis ekipleri için WhatsApp odaklı AI gelen kutusu",
@@ -562,6 +597,32 @@ const translations: Record<Language, Translations> = {
           text: "Taşınma taleplerinde tarih ve eşya detayını eksik almak bizi yavaşlatıyordu. Qualy tüm bilgiyi başta topladığı için planlama çok daha temiz ilerliyor.",
           author: "Tolga Ünver",
           role: "Taşımacılık Operasyon Sorumlusu, İstanbul"
+        }
+      ]
+    },
+    impactMetrics: {
+      title: "Qualy ile iyileşen metrikler",
+      subtitle: "İlk yanıt hızından lead kalitesine kadar, dönüşümü ve ekip verimini etkileyen rakamları birlikte yukarı taşırız.",
+      items: [
+        {
+          value: "-78%",
+          label: "Daha hızlı ilk yanıt süresi",
+          detail: "İlk seviye otomatik yanıtlar, ekip devralmadan önce bekleme süresini ciddi şekilde düşürür."
+        },
+        {
+          value: "+42%",
+          label: "Daha fazla nitelikli lead",
+          detail: "Niyet skoru, satışa en yakın konuşmaları hızlı takip için öne çıkarır."
+        },
+        {
+          value: "-61%",
+          label: "Daha az tekrarlı mesaj yükü",
+          detail: "Skills ve Bilgi Bankası, rutin soruları manuel efor olmadan karşılar."
+        },
+        {
+          value: "+29%",
+          label: "Daha yüksek randevuya dönüşüm",
+          detail: "Sıcak takip akışı, yüksek niyetli adayları daha hızlı şekilde randevuya taşır."
         }
       ]
     },
