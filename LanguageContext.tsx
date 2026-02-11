@@ -142,6 +142,7 @@ interface Translations {
     feat1_mockup_preview_question: string;
     feat1_mockup_preview_answer: string;
     feat2_title: string;
+    feat2_title_highlight: string;
     feat2_desc: string;
     feat2_li1: string;
     feat2_li2: string;
@@ -154,13 +155,18 @@ interface Translations {
     feat2_mockup_check3: string;
     feat2_mockup_btn: string;
     feat3_title: string;
+    feat3_title_highlight: string;
     feat3_desc1: string;
     feat3_desc2: string;
     feat3_mockup_focus: string;
+    feat3_mockup_easy: string;
+    feat3_mockup_connected: string;
+    feat3_mockup_connect: string;
     feat3_mockup_voice: string;
     feat3_mockup_image: string;
     feat3_mockup_hidden: string;
     feat4_title: string;
+    feat4_title_highlight: string;
     feat4_desc: string;
     feat4_badges: string[];
     feat5_title: string;
@@ -522,7 +528,8 @@ const translations: Record<Language, Translations> = {
       feat1_mockup_preview_label: "Live preview",
       feat1_mockup_preview_question: "Do you have availability tomorrow and what are the prices?",
       feat1_mockup_preview_answer: "I can share availability and pricing in this flow. If you want, I can list the available slots now.",
-      feat2_title: "Score intent before you step in",
+      feat2_title: "Score intent before you step in. AI-powered.",
+      feat2_title_highlight: "AI-powered.",
       feat2_desc: "Every new customer message triggers profile extraction and 0-10 intent scoring. See urgency, service fit, and follow-up priority at a glance.",
       feat2_li1: "<span><strong class=\"text-slate-900\">Low intent:</strong> Early research or vague requests stay in AI flow.</span>",
       feat2_li2: "<span><strong class=\"text-slate-900\">High intent:</strong> Clear service + timeline signals are escalated for immediate follow-up.</span>",
@@ -534,22 +541,27 @@ const translations: Record<Language, Translations> = {
       feat2_mockup_check2: "Timeline or urgency detected",
       feat2_mockup_check3: "Decision readiness signaled",
       feat2_mockup_btn: "Open thread",
-      feat3_title: "Text-first inbox across channels",
-      feat3_desc1: "WhatsApp, Instagram, and Telegram run as independent text-first channels with reactive replies.",
-      feat3_desc2: "Your team can pause AI with Human Takeover, keep visibility in one inbox, and resume automation when ready.",
-      feat3_mockup_focus: "Focus Mode",
+      feat3_title: "All conversations on one screen",
+      feat3_title_highlight: "one screen",
+      feat3_desc1: "Manage WhatsApp, Instagram, Telegram, and Messenger messages from one screen. Connect channels in minutes and reply without switching apps.",
+      feat3_desc2: "Connection is simple, inbox stays unified.",
+      feat3_mockup_focus: "Unified inbox",
+      feat3_mockup_easy: "Connect in minutes",
+      feat3_mockup_connected: "Connected",
+      feat3_mockup_connect: "One-click connect",
       feat3_mockup_voice: "Voice message received (outside auto-reply flow)",
       feat3_mockup_image: "Image received (outside auto-reply flow)",
-      feat3_mockup_hidden: "Text-first routing keeps replies predictable.",
-      feat4_title: "Built-in control layer",
-      feat4_desc: "Use Active/Shadow/Off modes, skill-triggered handover, and high-intent thresholds to control when AI replies and when humans step in.",
+      feat3_mockup_hidden: "All messages are collected in one inbox.",
+      feat4_title: "Human handover when needed",
+      feat4_title_highlight: "Human handover",
+      feat4_desc: "Qualy handles routine replies; when needed, the conversation is handed to a human. Take over instantly, then return to AI when ready.",
       feat4_badges: [
-        "Human Takeover",
-        "Active / Shadow / Off",
-        "Skill-based handover",
+        "Human handover triggers",
+        "One-click take over",
+        "Return to AI flow",
+        "Conversation history stays intact",
         "High-intent alerts",
-        "TR/EN localized replies",
-        "Versioned legal center"
+        "TR/EN localized replies"
       ],
       feat5_title: "Extract service profile and key details from the conversation",
       feat5_desc: "Qualy captures service type, date, budget, and location signals during chat. Missing details are collected naturally so your team can focus on the right conversations.",
@@ -920,7 +932,8 @@ const translations: Record<Language, Translations> = {
       feat1_mockup_preview_label: "Canlı önizleme",
       feat1_mockup_preview_question: "Yarın için randevu var mı ve fiyatlar nasıl?",
       feat1_mockup_preview_answer: "Müsaitlik ve fiyatı bu akışta paylaşabilirim. İsterseniz uygun saatleri hemen listeleyeyim.",
-      feat2_title: "Müdahale etmeden önce niyeti puanlayın",
+      feat2_title: "Müdahale etmeden önce niyeti puanlayın. Yapay zeka destekli.",
+      feat2_title_highlight: "Yapay zeka destekli.",
       feat2_desc: "Her yeni müşteri mesajı kişi çıkarımı ve 0-10 niyet skoru üretir. Aciliyeti, hizmet uyumunu ve takip önceliğini tek bakışta görün.",
       feat2_li1: "<span><strong class=\"text-slate-900\">Düşük niyet:</strong> Erken araştırma veya belirsiz talepler AI akışında kalır.</span>",
       feat2_li2: "<span><strong class=\"text-slate-900\">Yüksek niyet:</strong> Net hizmet + zaman sinyalleri anında insan takibine çıkar.</span>",
@@ -932,22 +945,27 @@ const translations: Record<Language, Translations> = {
       feat2_mockup_check2: "Aciliyet algılandı",
       feat2_mockup_check3: "Karar sinyali tespit edildi",
       feat2_mockup_btn: "Konuşmayı aç",
-      feat3_title: "Kanallar arası metin odaklı gelen kutusu",
-      feat3_desc1: "WhatsApp, Instagram ve Telegram bağımsız kanallar olarak metin odaklı reactive yanıtlarla çalışır.",
-      feat3_desc2: "Ekibiniz Human Takeover ile AI'yi durdurabilir, tek gelen kutusunda görünürlüğü korur ve hazır olduğunda otomasyona geri döner.",
-      feat3_mockup_focus: "Odak Modu",
+      feat3_title: "Tüm konuşmalar tek ekranda",
+      feat3_title_highlight: "tek ekranda",
+      feat3_desc1: "WhatsApp, Instagram, Telegram ve Messenger mesajlarını tek ekrandan yönetin. Kanalları dakikalar içinde bağlayın, uygulama değiştirmeden yanıtlayın.",
+      feat3_desc2: "Bağlantı çok kolay, gelen kutusu tek merkezde kalır.",
+      feat3_mockup_focus: "Birleşik gelen kutusu",
+      feat3_mockup_easy: "Dakikalar içinde bağlantı",
+      feat3_mockup_connected: "Bağlı",
+      feat3_mockup_connect: "Tek tıkla bağla",
       feat3_mockup_voice: "Ses mesajı alındı (oto-yanıt akışı dışında)",
       feat3_mockup_image: "Görsel alındı (oto-yanıt akışı dışında)",
-      feat3_mockup_hidden: "Metin odaklı akış yanıt kalitesini öngörülebilir tutar.",
-      feat4_title: "Yerleşik kontrol katmanı",
-      feat4_desc: "Active/Shadow/Off modları, yetenek tetikli devir ve yüksek niyet eşiği ile AI'nin ne zaman konuşacağını siz belirlersiniz.",
+      feat3_mockup_hidden: "Tüm mesajlar tek gelen kutusunda toplanır.",
+      feat4_title: "Gerekli durumlarda insan devri",
+      feat4_title_highlight: "insan devri",
+      feat4_desc: "Qualy rutin mesajları yönetir; gerektiğinde konuşma insana devredilir. Tek tıkla devralın, uygun olduğunda AI akışına geri verin.",
       feat4_badges: [
-        "Human Takeover",
-        "Active / Shadow / Off",
-        "Yetenek tetikli devir",
+        "İnsan devri tetikleyicileri",
+        "Tek tıkla devral",
+        "AI akışına geri ver",
+        "Konuşma geçmişi korunur",
         "Yüksek niyet uyarıları",
-        "TR/EN yerelleştirme",
-        "Versiyonlu yasal merkez"
+        "TR/EN yerelleştirme"
       ],
       feat5_title: "Konuşmadan hizmet profilini ve önemli bilgileri çıkarın",
       feat5_desc: "Qualy konuşma sırasında hizmet tipi, tarih, bütçe ve konum sinyallerini çıkarır. Eksik kalan kritik bilgileri doğal sorularla tamamlayarak doğru konuşmaları öne alır.",

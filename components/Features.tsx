@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useLanguage } from '../LanguageContext';
-import { FileText, CheckCircle2, Shield } from 'lucide-react';
+import { FileText, CheckCircle2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { HiOutlineArrowUturnLeft, HiOutlineBellAlert, HiOutlineHandRaised } from 'react-icons/hi2';
 import { RiInstagramFill, RiMessengerFill, RiTelegramFill, RiWhatsappFill } from 'react-icons/ri';
 import SectionWithHeader from './SectionWithHeader';
 
@@ -10,6 +11,7 @@ interface FeatureBlockHeaderProps {
   description: string;
   html?: boolean;
   titleHighlight?: string;
+  titleHighlightClassName?: string;
 }
 
 const FeatureBlockHeader: React.FC<FeatureBlockHeaderProps> = ({
@@ -17,6 +19,7 @@ const FeatureBlockHeader: React.FC<FeatureBlockHeaderProps> = ({
   description,
   html = false,
   titleHighlight,
+  titleHighlightClassName,
 }) => (
   <div className="relative z-10 mb-8">
     <h3 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight">
@@ -31,7 +34,7 @@ const FeatureBlockHeader: React.FC<FeatureBlockHeaderProps> = ({
         return (
           <>
             {before}
-            <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-orange-500 bg-clip-text text-transparent">
+            <span className={`${titleHighlightClassName ?? 'bg-gradient-to-r from-violet-600 via-fuchsia-500 to-orange-500'} bg-clip-text text-transparent`}>
               {titleHighlight}
             </span>
             {after}
@@ -64,7 +67,7 @@ const toInitials = (name: string) =>
     .toUpperCase();
 
 const Features: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const baseScenarios = t.hero.mockup.animatedScenarios;
 
   const extraScenarios = useMemo(() => {
@@ -113,6 +116,7 @@ const Features: React.FC = () => {
 
   const [activeScenarioIndex, setActiveScenarioIndex] = useState(0);
   const [activeMessageIndex, setActiveMessageIndex] = useState(0);
+  const [handoverStep, setHandoverStep] = useState(0);
 
   useEffect(() => {
     if (!intentScenarios.length) return;
@@ -132,6 +136,23 @@ const Features: React.FC = () => {
 
     return () => window.clearTimeout(timer);
   }, [activeMessageIndex, activeScenarioIndex, intentScenarios]);
+
+  const handoverStages = useMemo(
+    () => [
+      { label: t.features.feat4_badges[4], icon: HiOutlineBellAlert },
+      { label: t.features.feat4_badges[1], icon: HiOutlineHandRaised },
+      { label: t.features.feat4_badges[2], icon: HiOutlineArrowUturnLeft },
+    ],
+    [t.features.feat4_badges]
+  );
+
+  useEffect(() => {
+    if (!handoverStages.length) return;
+    const timer = window.setTimeout(() => {
+      setHandoverStep((prev) => (prev + 1) % handoverStages.length);
+    }, 1800);
+    return () => window.clearTimeout(timer);
+  }, [handoverStep, handoverStages.length]);
 
   const activeScenario = intentScenarios[activeScenarioIndex % Math.max(intentScenarios.length, 1)];
   const visibleMessages = (activeScenario?.messages ?? [])
@@ -203,6 +224,15 @@ const Features: React.FC = () => {
 
   const activeScenarioPlatform = platformMetaMap[activeScenario?.platform ?? 'whatsapp'];
   const ActiveScenarioPlatformIcon = activeScenarioPlatform.icon;
+  const handoverOwner = handoverStep === 1 ? (language === 'tr' ? 'İnsan' : 'Human') : 'AI';
+  const handoverOwnerLabel = language === 'tr' ? 'Sahip' : 'Owner';
+  const handoverHistoryNote = t.features.feat4_badges[3] ?? (language === 'tr' ? 'Konuşma geçmişi korunur' : 'Conversation history stays intact');
+  const omnichannelChannels = [
+    { name: 'WhatsApp', status: true, iconClass: 'bg-[#25D366]', icon: RiWhatsappFill },
+    { name: 'Instagram', status: true, iconClass: 'bg-[#E1306C]', icon: RiInstagramFill },
+    { name: 'Telegram', status: true, iconClass: 'bg-[#229ED9]', icon: RiTelegramFill },
+    { name: 'Messenger', status: true, iconClass: 'bg-[#6B7280]', icon: RiMessengerFill },
+  ] as const;
 
   const container = {
     hidden: { opacity: 0 },
@@ -247,6 +277,8 @@ const Features: React.FC = () => {
               <FeatureBlockHeader
                 title={t.features.feat2_title}
                 description={t.features.feat2_desc}
+                titleHighlight={t.features.feat2_title_highlight}
+                titleHighlightClassName="bg-gradient-to-r from-blue-600 via-indigo-500 to-violet-500"
                 html
               />
 
@@ -534,30 +566,25 @@ const Features: React.FC = () => {
                <FeatureBlockHeader
                   title={t.features.feat3_title}
                   description={t.features.feat3_desc1}
+                  titleHighlight={t.features.feat3_title_highlight}
+                  titleHighlightClassName="bg-gradient-to-r from-emerald-500 via-green-500 to-lime-500"
                />
 
-               {/* Visual: Toggle List */}
-               <div className="relative w-full bg-white rounded-[24px] border border-slate-200 shadow-sm p-4 overflow-hidden group-hover:shadow-md transition-all">
-                  <div className="grid grid-cols-2 gap-3">
-                     {[
-                        { name: 'WhatsApp', status: true, iconClass: 'bg-[#25D366]', icon: RiWhatsappFill },
-                        { name: 'Instagram', status: true, iconClass: 'bg-[#E1306C]', icon: RiInstagramFill },
-                        { name: 'Telegram', status: true, iconClass: 'bg-[#229ED9]', icon: RiTelegramFill },
-                        { name: 'Messenger', status: false, iconClass: 'bg-[#6B7280]', icon: RiMessengerFill },
-                     ].map((item, i) => (
-                        <div key={i} className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
-                           <div className="flex items-center gap-2">
-                              <div className={`w-6 h-6 rounded-md ${item.iconClass} flex items-center justify-center text-white`}>
-                                 <item.icon className="w-3.5 h-3.5" />
-                              </div>
-                              <span className="text-xs font-bold text-slate-900">{item.name}</span>
+               {/* Visual: Channel list + connection statuses */}
+               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {omnichannelChannels.map((channel) => (
+                     <div key={channel.name} className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-3 py-2">
+                        <div className="flex items-center gap-2">
+                           <div className={`h-6 w-6 rounded-md ${channel.iconClass} flex items-center justify-center text-white`}>
+                              <channel.icon className="h-3.5 w-3.5" />
                            </div>
-                           <div className={`w-8 h-4 rounded-full relative ${item.status ? 'bg-slate-900' : 'bg-slate-200'}`}>
-                              <div className={`absolute top-0.5 w-3 h-3 rounded-full bg-white transition-all ${item.status ? 'left-[18px]' : 'left-0.5'}`}></div>
-                           </div>
+                           <span className="text-xs font-semibold text-slate-900">{channel.name}</span>
                         </div>
-                     ))}
-                  </div>
+                        <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${channel.status ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-200 text-slate-600'}`}>
+                           {channel.status ? t.features.feat3_mockup_connected : t.features.feat3_mockup_connect}
+                        </span>
+                     </div>
+                  ))}
                </div>
             </motion.div>
 
@@ -566,19 +593,45 @@ const Features: React.FC = () => {
                <FeatureBlockHeader
                   title={t.features.feat4_title}
                   description={t.features.feat4_desc}
+                  titleHighlight={t.features.feat4_title_highlight}
+                  titleHighlightClassName="bg-gradient-to-r from-rose-500 via-orange-500 to-amber-500"
                />
 
-               {/* Visual: Guardrail badges */}
-               <div className="mt-auto relative w-full bg-white rounded-[24px] border border-slate-200 shadow-sm h-24 overflow-hidden flex items-center group-hover:shadow-md transition-all">
-                  <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-white to-transparent z-10"></div>
-                  <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-white to-transparent z-10"></div>
-                  
-                  <div className="flex gap-4 animate-scroll w-max px-4">
-                     {t.features.feat4_badges.map((badge) => (
-                        <div key={badge} className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-lg border border-slate-100 shadow-sm text-xs font-bold text-slate-600 whitespace-nowrap">
-                           <Shield className="w-3 h-3 text-emerald-500" /> {badge}
-                        </div>
-                     ))}
+               {/* Visual: Human handover flow loop */}
+               <div className="mt-auto">
+                  <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
+                     {handoverStages.map((stage, index) => {
+                       const isActive = handoverStep === index;
+                       const StageIcon = stage.icon;
+                       return (
+                         <motion.div
+                           key={stage.label}
+                           initial={false}
+                           animate={{
+                             borderColor: isActive ? '#86efac' : '#e2e8f0',
+                             backgroundColor: isActive ? '#f0fdf4' : '#f8fafc',
+                           }}
+                           transition={{ duration: 0.22 }}
+                           className="flex items-center gap-2 rounded-xl border px-3 py-2"
+                         >
+                           <StageIcon className={`h-4 w-4 ${isActive ? 'text-emerald-600' : 'text-slate-400'}`} />
+                           <span className={`text-xs font-semibold ${isActive ? 'text-emerald-800' : 'text-slate-600'}`}>{stage.label}</span>
+                         </motion.div>
+                       );
+                     })}
+                  </div>
+
+                  <div className="mt-3 flex items-center justify-between gap-3">
+                     <p className="text-xs italic text-slate-500">{handoverHistoryNote}</p>
+                     <motion.span
+                       key={`owner-${handoverStep}`}
+                       initial={{ opacity: 0.45, y: -3 }}
+                       animate={{ opacity: 1, y: 0 }}
+                       transition={{ duration: 0.2 }}
+                       className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-semibold text-slate-700"
+                     >
+                       {handoverOwnerLabel}: {handoverOwner}
+                     </motion.span>
                   </div>
                </div>
             </motion.div>
