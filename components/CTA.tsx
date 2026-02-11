@@ -1,11 +1,12 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Shield, Sparkles, FileText, Lock, Mic, Send, Mail, ArrowRight, Zap } from 'lucide-react';
 import { AUTH_URLS } from '../lib/auth-links';
 
 const CTA: React.FC = () => {
   const { t } = useLanguage();
+  const prefersReducedMotion = useReducedMotion();
 
   // Configuration for the floating icons matching the reference image layout
   // Using larger sizing and solid colors (monochrome)
@@ -40,13 +41,11 @@ const CTA: React.FC = () => {
           <motion.div
             key={index}
             className={`absolute ${item.position} hidden md:flex items-center justify-center`}
-            initial={{ y: 0 }}
-            animate={{ 
-              y: [0, -20, 0],
-            }}
+            initial={prefersReducedMotion ? false : { y: 0 }}
+            animate={prefersReducedMotion ? { y: 0 } : { y: [0, -20, 0] }}
             transition={{ 
               duration: 4 + index * 0.5, 
-              repeat: Infinity, 
+              repeat: prefersReducedMotion ? 0 : Infinity, 
               ease: "easeInOut",
               delay: item.delay 
             }}
@@ -65,30 +64,30 @@ const CTA: React.FC = () => {
       {/* Central Content */}
       <div className="relative z-30 px-6 max-w-4xl mx-auto text-center">
         <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
           className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 leading-tight md:leading-[1.1]"
         >
           {t.cta.title}
         </motion.h2>
 
         <motion.p 
-          initial={{ opacity: 0, y: 20 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.3, delay: prefersReducedMotion ? 0 : 0.05 }}
           className="mt-8 text-xl md:text-2xl text-slate-500 max-w-2xl mx-auto leading-relaxed"
         >
           {t.cta.desc}
         </motion.p>
 
         <motion.div 
-          initial={{ opacity: 0, y: 20 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.3, delay: prefersReducedMotion ? 0 : 0.1 }}
           className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6"
         >
           <a href={AUTH_URLS.register} className="bg-slate-900 hover:bg-black text-white text-lg md:text-xl font-medium transition-all duration-300 rounded-full px-10 py-5 shadow-2xl shadow-slate-900/20 hover:shadow-slate-900/40 hover:-translate-y-1 flex items-center gap-3 group">
@@ -98,10 +97,10 @@ const CTA: React.FC = () => {
         </motion.div>
 
         <motion.p 
-          initial={{ opacity: 0 }}
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.3, delay: prefersReducedMotion ? 0 : 0.15 }}
           className="mt-8 text-sm text-slate-400 font-medium"
         >
           {t.cta.note}

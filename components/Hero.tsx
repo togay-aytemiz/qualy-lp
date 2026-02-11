@@ -1,28 +1,29 @@
 import React from 'react';
 import { ArrowRight, Bot, Zap } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { AUTH_URLS } from '../lib/auth-links';
 
 const Hero: React.FC = () => {
   const { t } = useLanguage();
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <section className="flex flex-col min-h-screen pt-32 md:pt-48 relative overflow-hidden bg-white">
       
       {/* Ambient Background Glow (Subtler) */}
       <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.4 }}
-        transition={{ duration: 1.5 }}
+        initial={prefersReducedMotion ? false : { opacity: 0 }}
+        animate={prefersReducedMotion ? { opacity: 0.25 } : { opacity: 0.4 }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.5 }}
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-indigo-50/50 rounded-[100%] blur-3xl -z-10 pointer-events-none"
       ></motion.div>
 
       {/* Top Badge */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.25 }}
         className="mx-auto inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-1.5 text-xs font-semibold text-slate-700 backdrop-blur sm:text-sm"
       >
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -31,18 +32,18 @@ const Hero: React.FC = () => {
       
       {/* Headline */}
       <motion.h1 
-        initial={{ opacity: 0, y: 30 }}
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
         className="text-4xl md:text-6xl lg:text-8xl font-semibold max-w-6xl mx-auto text-center mt-6 relative z-10 tracking-tight text-slate-900 leading-tight md:leading-tight lg:leading-[1.1]" 
         dangerouslySetInnerHTML={{ __html: t.hero.headline }} 
       />
 
       {/* Subheadline */}
       <motion.p 
-        initial={{ opacity: 0, y: 30 }}
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
         className="text-center mt-8 text-base md:text-xl text-slate-500 max-w-3xl mx-auto relative z-10 leading-relaxed px-6"
       >
         {t.hero.subheadline}
@@ -50,9 +51,9 @@ const Hero: React.FC = () => {
 
       {/* Buttons */}
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.25 }}
         className="flex flex-col sm:flex-row items-center gap-4 justify-center mt-10 relative z-10 px-6"
       >
         <a href={AUTH_URLS.register} className="w-full sm:w-auto bg-slate-900 relative z-10 hover:bg-slate-800 border border-transparent text-white text-sm md:text-base transition font-medium duration-200 rounded-full px-8 py-3 flex items-center justify-center shadow-[0px_-1px_0px_0px_#FFFFFF40_inset,_0px_1px_0px_0px_#FFFFFF40_inset]">
@@ -67,9 +68,9 @@ const Hero: React.FC = () => {
       {/* Dashboard Visual */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 w-full">
         <motion.div 
-          initial={{ opacity: 0, y: 100, scale: 0.95 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 24, scale: 0.985 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.45, ease: [0.22, 1, 0.36, 1] }}
           className="p-4 border border-slate-200 bg-slate-100 rounded-[32px] mt-20 relative"
         >
           

@@ -1,7 +1,7 @@
 {
   "name": "Qualy",
   "short_name": "Qualy",
-  "description": "AI-first inbox for WhatsApp and Telegram.",
+  "description": "AI-first inbox for WhatsApp, Instagram, and Telegram.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

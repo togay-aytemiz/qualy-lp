@@ -3,122 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Qualy | AI-First Conversational Intelligence</title>
-    <meta name="description" content="Qualy is the AI-first inbox for WhatsApp and Telegram. Qualify leads, automate replies, and close deals faster." />
-    <meta name="keywords" content="Qualy, AI inbox, WhatsApp automation, Telegram automation, lead qualification, conversational intelligence, lead scoring" />
+    <title>Qualy | AI-First Inbox for WhatsApp, Instagram, and Telegram</title>
+    <meta name="description" content="Automate repetitive chats, qualify leads with AI scoring, and hand over high-intent conversations at the right moment." />
     <meta name="author" content="Qualy" />
     <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
     <meta name="theme-color" content="#0f172a" />
-    <link rel="canonical" href="/" />
+    <link rel="canonical" href="https://askqualy.com/" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Qualy" />
-    <meta property="og:title" content="Qualy | AI-First Conversational Intelligence" />
-    <meta property="og:description" content="The AI-first inbox for WhatsApp and Telegram. Qualify leads, automate replies, and focus on high-intent conversations." />
-    <meta property="og:image" content="/logo-black.svg" />
-    <meta property="og:url" content="/" />
+    <meta property="og:title" content="Qualy | AI-First Inbox for WhatsApp, Instagram, and Telegram" />
+    <meta property="og:description" content="Automate repetitive chats, qualify leads with AI scoring, and hand over high-intent conversations at the right moment." />
+    <meta property="og:image" content="https://askqualy.com/og/qualy-default.png" />
+    <meta property="og:url" content="https://askqualy.com/" />
+    <meta property="og:locale" content="en_US" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Qualy | AI-First Conversational Intelligence" />
-    <meta name="twitter:description" content="Qualy learns your business, qualifies your leads, and scores them before you pick up your phone." />
-    <meta name="twitter:image" content="/logo-black.svg" />
+    <meta name="twitter:title" content="Qualy | AI-First Inbox for WhatsApp, Instagram, and Telegram" />
+    <meta name="twitter:description" content="Automate repetitive chats, qualify leads with AI scoring, and hand over high-intent conversations at the right moment." />
+    <meta name="twitter:image" content="https://askqualy.com/og/qualy-default.png" />
 
     <link rel="icon" href="/icon-black.svg" sizes="any" type="image/svg+xml" />
     <link rel="shortcut icon" href="/icon-black.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/icon-black.svg" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
+        "@type": "WebSite",
         "name": "Qualy",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": "Web",
-        "description": "The AI-first inbox for WhatsApp and Telegram. Qualify leads and automate support conversations.",
-        "offers": {
-          "@type": "Offer",
-          "price": "79",
-          "priceCurrency": "USD"
-        }
+        "url": "https://askqualy.com",
+        "description": "AI-first inbox for WhatsApp, Instagram, and Telegram."
       }
     </script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-              plusJakarta: ['"Plus Jakarta Sans"', 'sans-serif'],
-            },
-            colors: {
-              slate: {
-                850: '#1e293b',
-                950: '#020617',
-              }
-            },
-            animation: {
-              'scroll': 'scroll 60s linear infinite',
-              'marquee': 'marquee var(--marquee-duration) linear infinite',
-              'fade-in': 'fade-in 0.5s ease-out forwards',
-            },
-            keyframes: {
-              scroll: {
-                '0%': { transform: 'translateX(0)' },
-                '100%': { transform: 'translateX(-50%)' },
-              },
-              marquee: {
-                '0%': { transform: 'translateY(0%)' },
-                '100%': { transform: 'translateY(-50%)' },
-              },
-              'fade-in': {
-                '0%': { opacity: '0', transform: 'translateY(10px)' },
-                '100%': { opacity: '1', transform: 'translateY(0)' },
-              }
-            }
-          },
-        },
-      }
-    </script>
-    <style>
-      body {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-      /* Custom scrollbar for a cleaner look */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #f1f5f9;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@18.3.1/",
-    "react": "https://esm.sh/react@18.3.1",
-    "react-dom/": "https://esm.sh/react-dom@18.3.1/",
-    "react-dom": "https://esm.sh/react-dom@18.3.1",
-    "lucide-react": "https://esm.sh/lucide-react@0.344.0",
-    "clsx": "https://esm.sh/clsx@2.1.1",
-    "tailwind-merge": "https://esm.sh/tailwind-merge@2.3.0",
-    "framer-motion": "https://esm.sh/framer-motion@11.0.8?deps=react@18.3.1,react-dom@18.3.1"
-  }
-}
-</script>
 <link rel="stylesheet" href="/index.css">
 </head>
   <body class="bg-white text-slate-900">

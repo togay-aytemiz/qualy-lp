@@ -1,6 +1,9 @@
+export type LegalLocale = 'en' | 'tr';
+
 export type ParsedLegalDoc = {
   id: string;
   slug: string;
+  locale: LegalLocale;
   title: string;
   version: string;
   lastUpdated: string;
@@ -34,6 +37,8 @@ export const parseLegalFrontmatter = (raw: string, sourcePath = 'unknown.md'): P
   const version = (data.version ?? '').trim();
   const lastUpdated = (data.last_updated ?? '').trim();
   const title = (data.document_title ?? id).trim();
+  const localeRaw = (data.locale ?? 'en').trim().toLowerCase();
+  const locale = localeRaw as LegalLocale;
 
   if (!id) {
     throw new Error(`Missing "id" in frontmatter for ${sourcePath}.`);
@@ -44,6 +49,9 @@ export const parseLegalFrontmatter = (raw: string, sourcePath = 'unknown.md'): P
   if (!lastUpdated) {
     throw new Error(`Missing "last_updated" in frontmatter for ${sourcePath}.`);
   }
+  if (locale !== 'en' && locale !== 'tr') {
+    throw new Error(`Invalid "locale" in frontmatter for ${sourcePath}. Expected "en" or "tr".`);
+  }
 
   let body = raw.slice(match[0].length).trimStart();
   body = body.replace(/^\s*# [^\n]+\s*\n+/, '').trimStart();
@@ -51,6 +59,7 @@ export const parseLegalFrontmatter = (raw: string, sourcePath = 'unknown.md'): P
   return {
     id,
     slug: id,
+    locale,
     title,
     version,
     lastUpdated,

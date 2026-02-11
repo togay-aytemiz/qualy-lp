@@ -154,9 +154,9 @@ const Features: React.FC = () => {
                   <div className="grid grid-cols-2 gap-3">
                      {[
                         { name: 'WhatsApp', icon: 'bg-green-500', status: true },
-                        { name: 'Telegram', icon: 'bg-blue-400', status: true },
-                        { name: 'HubSpot', icon: 'bg-orange-500', status: true },
-                        { name: 'Salesforce', icon: 'bg-blue-600', status: false },
+                        { name: 'Instagram', icon: 'bg-pink-500', status: true },
+                        { name: 'Telegram', icon: 'bg-sky-500', status: true },
+                        { name: 'Messenger', icon: 'bg-slate-400', status: false },
                      ].map((item, i) => (
                         <div key={i} className="flex items-center justify-between p-3 bg-slate-50 rounded-xl border border-slate-100">
                            <div className="flex items-center gap-2">
@@ -177,19 +177,19 @@ const Features: React.FC = () => {
             {/* Feature 4: Focus / Security (3 cols) */}
             <motion.div variants={item} className="col-span-1 lg:col-span-3 p-8 border-b border-r border-slate-200 border-dashed bg-white relative overflow-hidden flex flex-col group transition-colors hover:bg-slate-50/50">
                <FeatureBlockHeader
-                  title="Enterprise-grade Security"
-                  description="End-to-end encryption. No training on your data. SOC2 compliant infrastructure."
+                  title={t.features.feat4_title}
+                  description={t.features.feat4_desc}
                />
 
-               {/* Visual: Infinite Scroll */}
+               {/* Visual: Guardrail badges */}
                <div className="mt-auto relative w-full bg-white rounded-[24px] border border-slate-200 shadow-sm h-24 overflow-hidden flex items-center group-hover:shadow-md transition-all">
                   <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-white to-transparent z-10"></div>
                   <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-white to-transparent z-10"></div>
                   
                   <div className="flex gap-4 animate-scroll w-max px-4">
-                     {[1, 2, 3, 4, 5, 6].map(i => (
-                        <div key={`badge-${i}`} className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-lg border border-slate-100 shadow-sm text-xs font-bold text-slate-600 whitespace-nowrap">
-                           <Shield className="w-3 h-3 text-emerald-500" /> Security Badge {i}
+                     {t.features.feat4_badges.map((badge) => (
+                        <div key={badge} className="flex items-center gap-2 px-4 py-2 bg-slate-50 rounded-lg border border-slate-100 shadow-sm text-xs font-bold text-slate-600 whitespace-nowrap">
+                           <Shield className="w-3 h-3 text-emerald-500" /> {badge}
                         </div>
                      ))}
                   </div>

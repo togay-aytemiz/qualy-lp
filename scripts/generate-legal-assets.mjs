@@ -29,12 +29,16 @@ const parseFrontmatter = (raw, file) => {
   const id = (data.id ?? '').trim();
   const version = (data.version ?? '').trim();
   const lastUpdated = (data.last_updated ?? '').trim();
+  const locale = (data.locale ?? 'en').trim().toLowerCase();
 
   if (!id || !version || !lastUpdated) {
     throw new Error(`Missing required frontmatter fields in ${file}. Needed: id, version, last_updated.`);
   }
+  if (locale !== 'en' && locale !== 'tr') {
+    throw new Error(`Invalid locale in ${file}. Expected "en" or "tr".`);
+  }
 
-  return { id, version, last_updated: lastUpdated };
+  return { id, locale, version, last_updated: lastUpdated };
 };
 
 const sortDocs = (docs) => {
@@ -64,7 +68,10 @@ const main = async () => {
 
   for (const file of markdownFiles) {
     const raw = await fs.readFile(path.join(LEGAL_DIR, file), 'utf8');
-    docs.push(parseFrontmatter(raw, file));
+    const parsed = parseFrontmatter(raw, file);
+    if (parsed.locale === 'en') {
+      docs.push(parsed);
+    }
   }
 
   const manifest = buildManifest(sortDocs(docs));

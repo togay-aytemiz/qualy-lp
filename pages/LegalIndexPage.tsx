@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import LegalShell from '../components/LegalShell';
-import { legalDocs } from '../lib/legal';
+import { getLegalDocs } from '../lib/legal';
 import { useLanguage } from '../LanguageContext';
 
 const LegalIndexPage: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const legalDocs = getLegalDocs(language);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

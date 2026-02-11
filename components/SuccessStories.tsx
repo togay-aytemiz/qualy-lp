@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
+import { useReducedMotion } from 'framer-motion';
 import SectionWithHeader from './SectionWithHeader';
 
 type Story = {
@@ -24,6 +25,7 @@ const ReviewCard: React.FC<{ story: Story }> = ({ story }) => (
 
 const SuccessStories: React.FC = () => {
   const { t } = useLanguage();
+  const prefersReducedMotion = useReducedMotion();
 
   const stories = t.successStories.stories;
   const columns: Story[][] = [[], [], []];
@@ -45,21 +47,30 @@ const SuccessStories: React.FC = () => {
         <div className="relative -mx-4 mt-10 grid h-[32rem] max-h-[120vh] grid-cols-1 items-start gap-4 overflow-hidden px-4 md:grid-cols-2 lg:grid-cols-3 max-w-6xl lg:mx-auto">
             
             {/* Column 1 */}
-            <div className="animate-marquee space-y-6 py-4" style={{ "--marquee-duration": "40s" } as React.CSSProperties}>
+            <div
+              className={`${prefersReducedMotion ? '' : 'animate-marquee'} space-y-6 py-4`}
+              style={{ "--marquee-duration": "40s" } as React.CSSProperties}
+            >
                 {[...column1, ...column1].map((story, i) => (
                     <ReviewCard key={`col1-${i}`} story={story} />
                 ))}
             </div>
 
             {/* Column 2 - Hidden on mobile */}
-            <div className="animate-marquee space-y-6 py-4 hidden md:block" style={{ "--marquee-duration": "50s" } as React.CSSProperties}>
+            <div
+              className={`${prefersReducedMotion ? '' : 'animate-marquee'} space-y-6 py-4 hidden md:block`}
+              style={{ "--marquee-duration": "50s" } as React.CSSProperties}
+            >
                 {[...column2, ...column2].map((story, i) => (
                     <ReviewCard key={`col2-${i}`} story={story} />
                 ))}
             </div>
 
             {/* Column 3 - Hidden on tablet/mobile */}
-            <div className="animate-marquee space-y-6 py-4 hidden lg:block" style={{ "--marquee-duration": "45s" } as React.CSSProperties}>
+            <div
+              className={`${prefersReducedMotion ? '' : 'animate-marquee'} space-y-6 py-4 hidden lg:block`}
+              style={{ "--marquee-duration": "45s" } as React.CSSProperties}
+            >
                 {[...column3, ...column3].map((story, i) => (
                     <ReviewCard key={`col3-${i}`} story={story} />
                 ))}

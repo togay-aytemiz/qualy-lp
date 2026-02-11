@@ -9,10 +9,20 @@ describe('parseLegalFrontmatter', () => {
 
     expect(doc.id).toBe('terms');
     expect(doc.slug).toBe('terms');
+    expect(doc.locale).toBe('en');
     expect(doc.version).toBe('v1.2');
     expect(doc.lastUpdated).toBe('2026-02-10');
     expect(doc.title).toBe('Terms of Service');
     expect(doc.body.startsWith('Line one.')).toBe(true);
+  });
+
+  it('parses explicit locale value', () => {
+    const raw = `---\nid: "privacy"\nlocale: "tr"\nversion: "v1.0"\nlast_updated: "2026-02-10"\ndocument_title: "Gizlilik Politikasi"\n---\nIcerik`;
+
+    const doc = parseLegalFrontmatter(raw, 'privacy.tr.md');
+
+    expect(doc.locale).toBe('tr');
+    expect(doc.slug).toBe('privacy');
   });
 
   it('throws when id is missing', () => {
@@ -20,14 +30,20 @@ describe('parseLegalFrontmatter', () => {
 
     expect(() => parseLegalFrontmatter(raw, 'privacy.md')).toThrow(/Missing "id"/);
   });
+
+  it('throws when locale is invalid', () => {
+    const raw = `---\nid: "terms"\nlocale: "de"\nversion: "v1.0"\nlast_updated: "2026-02-10"\n---\nBody`;
+
+    expect(() => parseLegalFrontmatter(raw, 'terms.de.md')).toThrow(/Invalid "locale"/);
+  });
 });
 
 describe('sortLegalDocs', () => {
   it('puts preferred legal docs first', () => {
     const sorted = sortLegalDocs([
-      { id: 'z-custom', slug: 'z-custom', title: 'Z Custom', version: 'v1.0', lastUpdated: '2026-02-10', body: 'a' },
-      { id: 'privacy', slug: 'privacy', title: 'Privacy Policy', version: 'v1.0', lastUpdated: '2026-02-10', body: 'a' },
-      { id: 'terms', slug: 'terms', title: 'Terms of Service', version: 'v1.0', lastUpdated: '2026-02-10', body: 'a' },
+      { id: 'z-custom', slug: 'z-custom', locale: 'en', title: 'Z Custom', version: 'v1.0', lastUpdated: '2026-02-10', body: 'a' },
+      { id: 'privacy', slug: 'privacy', locale: 'en', title: 'Privacy Policy', version: 'v1.0', lastUpdated: '2026-02-10', body: 'a' },
+      { id: 'terms', slug: 'terms', locale: 'en', title: 'Terms of Service', version: 'v1.0', lastUpdated: '2026-02-10', body: 'a' },
     ]);
 
     expect(sorted.map((doc) => doc.slug)).toEqual(['terms', 'privacy', 'z-custom']);
@@ -37,8 +53,8 @@ describe('sortLegalDocs', () => {
 describe('buildLegalVersionManifest', () => {
   it('creates public manifest keyed by slug', () => {
     const manifest = buildLegalVersionManifest([
-      { id: 'terms', slug: 'terms', title: 'Terms', version: 'v1.0', lastUpdated: '2026-02-10', body: '' },
-      { id: 'privacy', slug: 'privacy', title: 'Privacy', version: 'v1.1', lastUpdated: '2026-02-11', body: '' },
+      { id: 'terms', slug: 'terms', locale: 'en', title: 'Terms', version: 'v1.0', lastUpdated: '2026-02-10', body: '' },
+      { id: 'privacy', slug: 'privacy', locale: 'en', title: 'Privacy', version: 'v1.1', lastUpdated: '2026-02-11', body: '' },
     ]);
 
     expect(manifest).toEqual({

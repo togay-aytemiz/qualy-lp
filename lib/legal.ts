@@ -3,6 +3,7 @@ import {
   buildLegalVersionManifest,
   parseLegalFrontmatter,
   sortLegalDocs,
+  type LegalLocale,
   type ParsedLegalDoc,
 } from './legal-utils';
 
@@ -21,20 +22,40 @@ const rawDocs = import.meta.glob('../legal/*.md', {
   eager: true,
 });
 
-const parsedDocs: LegalDoc[] = sortLegalDocs(
-  Object.entries(rawDocs)
-    .filter(([path]) => !path.endsWith('README.md'))
-    .map(([path, raw]) => {
-      const doc = parseLegalFrontmatter(raw as string, path);
-      return {
-        ...doc,
-        html: marked.parse(doc.body) as string,
-      };
-    })
-);
+const allDocs: LegalDoc[] = Object.entries(rawDocs)
+  .filter(([path]) => !path.endsWith('README.md'))
+  .map(([path, raw]) => {
+    const doc = parseLegalFrontmatter(raw as string, path);
+    return {
+      ...doc,
+      html: marked.parse(doc.body) as string,
+    };
+  });
 
-export const legalDocs = parsedDocs;
-export const legalDocSlugs = new Set(parsedDocs.map((doc) => doc.slug));
-export const legalManifest = buildLegalVersionManifest(parsedDocs);
+const docsBySlug = allDocs.reduce<Map<string, Partial<Record<LegalLocale, LegalDoc>>>>((acc, doc) => {
+  const current = acc.get(doc.slug) ?? {};
+  current[doc.locale] = doc;
+  acc.set(doc.slug, current);
+  return acc;
+}, new Map());
 
-export const getLegalDoc = (slug: string) => parsedDocs.find((doc) => doc.slug === slug);
+const isDefined = <T>(value: T | undefined): value is T => value !== undefined;
+
+const pickLocalizedDoc = (slug: string, locale: LegalLocale) => {
+  const docSet = docsBySlug.get(slug);
+  if (!docSet) return undefined;
+  return docSet[locale] ?? docSet.en ?? docSet.tr;
+};
+
+export const legalDocSlugs = new Set(docsBySlug.keys());
+
+export const getLegalDoc = (slug: string, locale: LegalLocale = 'en') => pickLocalizedDoc(slug, locale);
+
+export const getLegalDocs = (locale: LegalLocale = 'en') =>
+  sortLegalDocs(Array.from(docsBySlug.keys()).map((slug) => pickLocalizedDoc(slug, locale)).filter(isDefined));
+
+// Backward-compatible default export used by list views that do not pass locale.
+export const legalDocs = getLegalDocs('en');
+
+const manifestDocs = getLegalDocs('en');
+export const legalManifest = buildLegalVersionManifest(manifestDocs);

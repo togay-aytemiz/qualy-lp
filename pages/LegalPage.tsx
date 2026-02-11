@@ -8,8 +8,8 @@ type Props = {
 };
 
 const LegalPage: React.FC<Props> = ({ slug }) => {
-  const { t } = useLanguage();
-  const doc = getLegalDoc(slug);
+  const { t, language } = useLanguage();
+  const doc = getLegalDoc(slug, language);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

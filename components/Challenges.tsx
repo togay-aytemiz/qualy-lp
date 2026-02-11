@@ -95,6 +95,9 @@ const Challenges: React.FC = () => {
                 <img 
                   src={challenge.image} 
                   alt={challenge.title} 
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className={`absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent transition-opacity duration-500 ${activeIndex === index ? 'opacity-90' : 'opacity-60'}`}></div>
