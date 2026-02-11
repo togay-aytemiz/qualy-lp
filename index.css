@@ -26,6 +26,17 @@ body {
   background: #94a3b8;
 }
 
+@media (max-width: 767px) {
+  .mobile-scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .mobile-scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .legal-content {
   color: #334155;
   line-height: 1.8;

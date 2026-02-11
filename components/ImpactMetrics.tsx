@@ -1,11 +1,62 @@
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { animate, motion, useInView, useReducedMotion } from 'framer-motion';
+import { FaCalendarCheck, FaMessage, FaRankingStar, FaStopwatch } from 'react-icons/fa6';
 import { useLanguage } from '../LanguageContext';
+import { formatMetricValue, getMetricSuffix, getMetricTargetValue } from '../lib/impact-metrics';
 import Section from './Section';
+
+interface MetricValueProps {
+  value: string;
+  prefersReducedMotion: boolean;
+}
+
+const MetricValue: React.FC<MetricValueProps> = ({ value, prefersReducedMotion }) => {
+  const valueRef = React.useRef<HTMLParagraphElement | null>(null);
+  const isInView = useInView(valueRef, { once: true, margin: '-20%' });
+  const numericTarget = React.useMemo(() => getMetricTargetValue(value), [value]);
+  const suffix = React.useMemo(() => getMetricSuffix(value), [value]);
+  const [displayValue, setDisplayValue] = React.useState(prefersReducedMotion ? numericTarget : 0);
+
+  React.useEffect(() => {
+    if (prefersReducedMotion) {
+      setDisplayValue(numericTarget);
+      return;
+    }
+
+    if (!isInView) {
+      return;
+    }
+
+    const controls = animate(0, numericTarget, {
+      duration: 1.15,
+      ease: [0.2, 0.95, 0.25, 1],
+      onUpdate: (latest) => {
+        setDisplayValue(Math.round(latest));
+      },
+    });
+
+    return () => {
+      controls.stop();
+    };
+  }, [isInView, numericTarget, prefersReducedMotion]);
+
+  return (
+    <motion.p
+      ref={valueRef}
+      initial={prefersReducedMotion ? false : { opacity: 0, rotateX: 72, y: 8 }}
+      animate={prefersReducedMotion ? { opacity: 1 } : isInView ? { opacity: 1, rotateX: 0, y: 0 } : {}}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+      className="text-4xl font-semibold tracking-tight text-slate-900 tabular-nums md:text-5xl"
+    >
+      {`${displayValue}${suffix}`}
+    </motion.p>
+  );
+};
 
 const ImpactMetrics: React.FC = () => {
   const { t } = useLanguage();
   const prefersReducedMotion = useReducedMotion();
+  const metricIcons = [FaStopwatch, FaRankingStar, FaMessage, FaCalendarCheck] as const;
 
   return (
     <Section
@@ -75,29 +126,43 @@ const ImpactMetrics: React.FC = () => {
           </motion.div>
 
           <div className="relative mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-14 lg:gap-6">
-            {t.impactMetrics.items.map((metric, index) => (
-              <motion.article
-                key={metric.label}
-                initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{
-                  duration: prefersReducedMotion ? 0 : 0.35,
-                  delay: prefersReducedMotion ? 0 : index * 0.08,
-                }}
-                className="rounded-2xl border border-slate-200/80 bg-white/90 p-5 backdrop-blur-sm md:p-6"
-              >
-                <div className="border-l border-slate-900 pl-4">
-                  <p className="text-4xl font-semibold tracking-tight text-slate-900 tabular-nums md:text-5xl">
-                    {metric.value}
-                  </p>
-                  <p className="mt-2 text-sm font-semibold text-slate-900 md:text-base">
-                    {metric.label}
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{metric.detail}</p>
-                </div>
-              </motion.article>
-            ))}
+            {t.impactMetrics.items.map((metric, index) => {
+              const MetricIcon = metricIcons[index] ?? FaRankingStar;
+
+              return (
+                <motion.article
+                  key={metric.label}
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: 16, rotate: -1.2 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{
+                    duration: prefersReducedMotion ? 0 : 0.45,
+                    delay: prefersReducedMotion ? 0 : index * 0.1,
+                  }}
+                  className="relative rounded-2xl border border-slate-200/80 bg-white/90 p-5 backdrop-blur-sm md:p-6"
+                >
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute right-5 top-5 text-black"
+                  >
+                    <MetricIcon className="h-5 w-5 md:h-6 md:w-6" />
+                  </div>
+
+                  <div className="border-l border-slate-900 pl-4">
+                    <MetricValue
+                      value={formatMetricValue(metric.value)}
+                      prefersReducedMotion={prefersReducedMotion}
+                    />
+                    <p className="mt-2 text-sm font-semibold text-slate-900 md:text-base">
+                      {metric.label}
+                    </p>
+                    <p className="mt-2 max-w-[38ch] text-sm leading-relaxed text-slate-600">
+                      {metric.detail}
+                    </p>
+                  </div>
+                </motion.article>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -22,14 +22,39 @@ interface Translations {
     mockup: {
       dashboard: string;
       online: string;
+      onlineShort: string;
       priorityInbox: string;
       readyToSign: string;
       hours: string;
       unknown: string;
+      newLead: string;
+      thirdLeadName: string;
+      thirdLeadPreview: string;
+      intentHot: string;
+      intentWarm: string;
+      intentCold: string;
+      toneHot: string;
+      toneWarm: string;
+      toneCold: string;
+      summaryTitle: string;
+      summaryPlaceholder: string;
+      animatedScenarios: Array<{
+        initials: string;
+        name: string;
+        platform: 'whatsapp' | 'instagram' | 'telegram';
+        preview: string;
+        lastMessageAt: string;
+        messages: string[];
+        scores: number[];
+      }>;
       activeNow: string;
       leadScore: string;
+      leadScoreShort: string;
       takeOver: string;
       today: string;
+      typing: string;
+      thinking: string;
+      composerPlaceholder: string;
       customerMsg: string;
       aiDetected: string;
       intent: string;
@@ -68,18 +93,22 @@ interface Translations {
     cards: {
       founders: {
         headline: string;
+        compact: string;
         desc: string;
       };
       customerSuccess: {
         headline: string;
+        compact: string;
         desc: string;
       };
       sales: {
         headline: string;
+        compact: string;
         desc: string;
       };
       marketing: {
         headline: string;
+        compact: string;
         desc: string;
       };
     };
@@ -117,6 +146,20 @@ interface Translations {
     feat4_title: string;
     feat4_desc: string;
     feat4_badges: string[];
+    feat5_title: string;
+    feat5_desc: string;
+    feat5_mockup_title: string;
+    feat5_mockup_badge: string;
+    feat5_mockup_service_label: string;
+    feat5_mockup_service_value: string;
+    feat5_mockup_date_label: string;
+    feat5_mockup_date_value: string;
+    feat5_mockup_budget_label: string;
+    feat5_mockup_budget_value: string;
+    feat5_mockup_location_label: string;
+    feat5_mockup_location_value: string;
+    feat5_mockup_missing_label: string;
+    feat5_mockup_missing_value: string;
   };
   howItWorks: {
     title: string;
@@ -210,14 +253,74 @@ const translations: Record<Language, Translations> = {
       mockup: {
         dashboard: "Qualy Dashboard",
         online: "Status: Online",
+        onlineShort: "Online",
         priorityInbox: "Priority Inbox",
         readyToSign: "Ready to book, needs invoice details",
         hours: "Do you have availability this week?",
         unknown: "Unknown",
+        newLead: "New lead",
+        thirdLeadName: "Berk O.",
+        thirdLeadPreview: "Could you share package details for a Saturday session?",
+        intentHot: "High intent (booking)",
+        intentWarm: "Qualified interest (follow-up)",
+        intentCold: "Support-only conversation",
+        toneHot: "Hot",
+        toneWarm: "Warm",
+        toneCold: "Cold",
+        summaryTitle: "Conversation Summary",
+        summaryPlaceholder: "View",
+        animatedScenarios: [
+          {
+            initials: "EM",
+            name: "Emma C.",
+            platform: "whatsapp",
+            preview: "Can I book a skincare appointment this week?",
+            lastMessageAt: "2 min",
+            messages: [
+              "Can I book a skincare appointment this week?",
+              "Yes, we have available slots this week. Which day works for you?",
+              "Wednesday evening works, can you reserve my spot?",
+              "Absolutely. I am forwarding the appointment details to the team now."
+            ],
+            scores: [4.2, 8.1]
+          },
+          {
+            initials: "NP",
+            name: "Noah P.",
+            platform: "instagram",
+            preview: "Can you resend the receipt from my previous appointment?",
+            lastMessageAt: "9 min",
+            messages: [
+              "Can you resend the receipt from my previous appointment?",
+              "Sure, I can forward this as a support request right away.",
+              "I do not need a new booking, only the document.",
+              "Understood. Your request has been forwarded to the support team."
+            ],
+            scores: [2.8, 1.9]
+          },
+          {
+            initials: "MT",
+            name: "Maya T.",
+            platform: "telegram",
+            preview: "We need an office team photo shoot for our company.",
+            lastMessageAt: "21 min",
+            messages: [
+              "We need an office team photo shoot for our company.",
+              "Great fit. We provide on-site corporate shooting and planning.",
+              "Can we schedule a planning call this week?",
+              "Yes, we can schedule it this week. Share your company email and I will send the details today."
+            ],
+            scores: [5.1, 9.0]
+          }
+        ],
         activeNow: "via WhatsApp • Active now",
         leadScore: "Lead Score",
+        leadScoreShort: "Score",
         takeOver: "Take Over",
         today: "Today",
+        typing: "typing...",
+        thinking: "thinking...",
+        composerPlaceholder: "Write a message...",
         customerMsg: "Hi, I need a newborn shoot around mid-October. Which package fits best, and do you offer installment payments?",
         aiDetected: "Qualy identified:",
         intent: "High intent (booking)",
@@ -333,9 +436,9 @@ const translations: Record<Language, Translations> = {
       ]
     },
     challenges: {
-      title_part1: "Manual messaging creates",
-      title_part2: "costly bottlenecks",
-      subtitle: "The same issue appears in every small team: too many repetitive chats, not enough time for high-intent leads.",
+      title_part1: "Role-based",
+      title_part2: "Qualy usage playbook",
+      subtitle: "The same product helps each team differently. Pick your role to see where Qualy saves the most time.",
       roles: {
         founders: "Owner / Founder",
         customerSuccess: "Front Desk / Support",
@@ -344,20 +447,24 @@ const translations: Record<Language, Translations> = {
       },
       cards: {
         founders: {
-          headline: "Growth stalls when the owner is in the inbox.",
-          desc: "If every first reply needs you, scaling means longer days. Qualy handles repetitive intake so you can focus on delivery and hiring."
+          headline: "If you are the owner: automate first contact and protect your day.",
+          compact: "Let Qualy handle first contact.",
+          desc: "Qualy handles repetitive first questions and leaves decision-stage conversations to you. You stay focused on operations, hiring, and growth."
         },
         customerSuccess: {
-          headline: "Repetitive questions consume the whole shift.",
-          desc: "Pricing, availability, policy, cancellation: the same thread repeats all day. Automating first-line replies reduces queue pressure."
+          headline: "For front desk teams: clear repetitive questions without queue overload.",
+          compact: "Automate routine desk questions.",
+          desc: "Qualy instantly answers pricing, availability, policy, and cancellation topics. Your team steps in only for exceptions and sensitive cases."
         },
         sales: {
-          headline: "High-intent leads get buried in noise.",
-          desc: "Not every chat is ready to buy. Lead scoring surfaces urgency, service fit, and intent so your team calls the right people first."
+          headline: "For sales teams: prioritize high-intent conversations first.",
+          compact: "Put high-intent leads first.",
+          desc: "Qualy highlights urgency and service fit from each chat. Your team follows up in the right order and fills the calendar with stronger opportunities."
         },
         marketing: {
-          headline: "Ad spend is wasted on slow responses.",
-          desc: "Campaigns bring traffic, but conversion drops if responses lag. Qualy replies instantly and keeps conversations warm until handover."
+          headline: "For growth teams: capture campaign traffic without delay.",
+          compact: "Keep campaign leads warm.",
+          desc: "When ad traffic spikes, Qualy sends first replies immediately and collects key details. Budget turns into qualified conversations instead of cold drop-offs."
         }
       }
     },
@@ -365,8 +472,8 @@ const translations: Record<Language, Translations> = {
       trustedBy: "Built for modern service teams"
     },
     features: {
-      heading: "Built for WhatsApp-first teams,<br/>not bloated helpdesks.",
-      subheading: "Qualy keeps the MVP focused: text-first channels, grounded answers, lead scoring, and a clean inbox your team can act on fast.",
+      heading: "Turn heavy message traffic into an organized customer flow.",
+      subheading: "Qualy brings WhatsApp, Instagram, and Telegram conversations into one inbox, answers with Skills + Knowledge Base, scores intent, and helps your team focus only on the right conversations.",
       feat1_title: "Train once with Skills + Knowledge Base",
       feat1_desc1: "Add service FAQs, pricing docs, and response playbooks. Qualy uses your own content to answer consistently.",
       feat1_desc2: "When no skill matches, Qualy falls back to your Knowledge Base and asks one clarifying question instead of guessing.",
@@ -374,8 +481,8 @@ const translations: Record<Language, Translations> = {
       feat1_mockup_synced: "Last synced: Just now",
       feat1_mockup_processed: "Indexed",
       feat1_mockup_quote: "\"Grounded answers from your own business context.\"",
-      feat2_title: "Score lead intent before you jump in",
-      feat2_desc: "Every new customer message triggers lead extraction and scoring (0-10). See urgency, service fit, and follow-up priority at a glance.",
+      feat2_title: "Score intent before you step in",
+      feat2_desc: "Every new customer message triggers profile extraction and 0-10 intent scoring. See urgency, service fit, and follow-up priority at a glance.",
       feat2_li1: "<span><strong class=\"text-slate-900\">Low intent:</strong> Early research or vague requests stay in AI flow.</span>",
       feat2_li2: "<span><strong class=\"text-slate-900\">High intent:</strong> Clear service + timeline signals are escalated for immediate follow-up.</span>",
       feat2_mockup_potential: "Lead Potential",
@@ -385,22 +492,36 @@ const translations: Record<Language, Translations> = {
       feat2_mockup_check3: "Decision readiness signaled",
       feat2_mockup_btn: "Open thread",
       feat3_title: "Text-first inbox across channels",
-      feat3_desc1: "MVP supports WhatsApp, Instagram, and Telegram as independent channels with reactive text replies.",
+      feat3_desc1: "WhatsApp, Instagram, and Telegram run as independent text-first channels with reactive replies.",
       feat3_desc2: "Your team can pause AI with Human Takeover, keep visibility in one inbox, and resume automation when ready.",
       feat3_mockup_focus: "Focus Mode",
-      feat3_mockup_voice: "Voice message received (kept out of MVP auto-reply flow)",
-      feat3_mockup_image: "Image received (kept out of MVP auto-reply flow)",
+      feat3_mockup_voice: "Voice message received (outside auto-reply flow)",
+      feat3_mockup_image: "Image received (outside auto-reply flow)",
       feat3_mockup_hidden: "Text-first routing keeps replies predictable.",
-      feat4_title: "Built-in MVP guardrails",
-      feat4_desc: "Use Active/Shadow/Off modes, skill-triggered handover, and lead-threshold escalation to control when AI replies and when humans step in.",
+      feat4_title: "Built-in control layer",
+      feat4_desc: "Use Active/Shadow/Off modes, skill-triggered handover, and high-intent thresholds to control when AI replies and when humans step in.",
       feat4_badges: [
         "Human Takeover",
         "Active / Shadow / Off",
         "Skill-based handover",
-        "Hot lead alerts",
+        "High-intent alerts",
         "TR/EN localized replies",
         "Versioned legal center"
-      ]
+      ],
+      feat5_title: "Extract service profile and key details from the conversation",
+      feat5_desc: "Qualy captures service type, date, budget, and location signals during chat. Missing details are collected naturally so your team can focus on the right conversations.",
+      feat5_mockup_title: "Customer Profile Snapshot",
+      feat5_mockup_badge: "Auto-updated",
+      feat5_mockup_service_label: "Service",
+      feat5_mockup_service_value: "Newborn photoshoot",
+      feat5_mockup_date_label: "Date",
+      feat5_mockup_date_value: "Mid-October",
+      feat5_mockup_budget_label: "Budget",
+      feat5_mockup_budget_value: "Budget-sensitive",
+      feat5_mockup_location_label: "Location",
+      feat5_mockup_location_value: "Kadikoy, Istanbul",
+      feat5_mockup_missing_label: "Missing detail",
+      feat5_mockup_missing_value: "Preferred day is being collected"
     },
     howItWorks: {
       title: "How Qualy runs your inbox",
@@ -495,8 +616,8 @@ const translations: Record<Language, Translations> = {
     },
     hero: {
       status: "Servis ekipleri için WhatsApp odaklı AI gelen kutusu",
-      headline: "Anında yanıt verin. <br /> Ciddi adaylara odaklanın.",
-      subheadline: "Qualy, WhatsApp, Instagram ve Telegram konuşmalarındaki tekrar eden soruları Skills + Bilgi Bankası ile otomatik yanıtlar, niyeti 1-10 puanlar ve doğru anda ekibinize devreder.",
+      headline: "Her mesaja değil, doğru müşteriye odaklanın.",
+      subheadline: "Qualy, mesajları otomatik yanıtlar; hizmet profili çıkarır, gerekli alanları toplar, eksik bilgiyi doğru sorularla tamamlar ve konuşmaları 1-10 niyet skoruna göre önceliklendirir.",
       ctaPrimary: "Ücretsiz Denemeyi Başlat",
       ctaSecondary: "Panele Git",
       connects: "Dakikalar içinde bağlanır",
@@ -504,14 +625,74 @@ const translations: Record<Language, Translations> = {
       mockup: {
         dashboard: "Qualy Paneli",
         online: "Durum: Çevrimiçi",
+        onlineShort: "Çevrimiçi",
         priorityInbox: "Öncelikli Kutu",
         readyToSign: "Randevuya hazır, fatura detayı bekliyor",
         hours: "Bu hafta uygunluğunuz var mı?",
         unknown: "Bilinmiyor",
+        newLead: "Yeni müşteri",
+        thirdLeadName: "Berk O.",
+        thirdLeadPreview: "Cumartesi çekimi için paket detaylarını paylaşır mısınız?",
+        intentHot: "Yüksek niyet (randevu)",
+        intentWarm: "Nitelikli ilgi (takip gerekir)",
+        intentCold: "Yalnızca destek konuşması",
+        toneHot: "Sıcak",
+        toneWarm: "Ilık",
+        toneCold: "Soğuk",
+        summaryTitle: "Konuşma Özeti",
+        summaryPlaceholder: "Özeti aç",
+        animatedScenarios: [
+          {
+            initials: "EK",
+            name: "Elif K.",
+            platform: "whatsapp",
+            preview: "Bu hafta cilt bakımı için randevu alabilir miyim?",
+            lastMessageAt: "2 dk",
+            messages: [
+              "Bu hafta cilt bakımı için randevu alabilir miyim?",
+              "Evet, bu hafta uygun saatimiz var. Hangi gün senin için uygun?",
+              "Çarşamba akşamı olur, benim için ayırabilir misiniz?",
+              "Tabii, Çarşamba akşamı uygun görünüyor. Randevu detaylarını ekibe iletiyorum."
+            ],
+            scores: [4.2, 8.1]
+          },
+          {
+            initials: "CP",
+            name: "Can P.",
+            platform: "instagram",
+            preview: "Geçen randevumun fişini tekrar gönderebilir misiniz?",
+            lastMessageAt: "9 dk",
+            messages: [
+              "Geçen randevumun fişini tekrar gönderebilir misiniz?",
+              "Elbette, bunu hemen destek talebi olarak iletebilirim.",
+              "Yeni randevu istemiyorum, sadece belge gerekiyor.",
+              "Anlaşıldı. Talebin destek ekibine iletildi."
+            ],
+            scores: [2.8, 1.9]
+          },
+          {
+            initials: "MA",
+            name: "Mete A.",
+            platform: "telegram",
+            preview: "Ekibimiz için ofiste kurumsal fotoğraf çekimi istiyoruz.",
+            lastMessageAt: "21 dk",
+            messages: [
+              "Ekibimiz için ofiste kurumsal fotoğraf çekimi istiyoruz.",
+              "Harika, yerinde kurumsal çekim planlaması yapabiliyoruz.",
+              "Bu hafta kısa bir planlama görüşmesi yapabilir miyiz?",
+              "Evet, bu hafta görüşebiliriz. Şirket e-postanı paylaşırsan detayları ileteyim."
+            ],
+            scores: [5.1, 9.0]
+          }
+        ],
         activeNow: "WhatsApp ile • Aktif",
         leadScore: "Müşteri Skoru",
+        leadScoreShort: "Skor",
         takeOver: "Devral",
         today: "Bugün",
+        typing: "yazıyor...",
+        thinking: "düşünüyor...",
+        composerPlaceholder: "Mesaj yaz...",
         customerMsg: "Merhaba, Ekim ortası için yenidoğan çekimi istiyorum. Hangi paket uygun olur ve taksit seçeneğiniz var mı?",
         aiDetected: "Qualy tespiti:",
         intent: "Yüksek niyet (randevu)",
@@ -617,7 +798,7 @@ const translations: Record<Language, Translations> = {
         {
           value: "-61%",
           label: "Daha az tekrarlı mesaj yükü",
-          detail: "Skills ve Bilgi Bankası, rutin soruları manuel efor olmadan karşılar."
+          detail: "Yetenekler ve Bilgi Bankası, rutin soruları manuel efor olmadan karşılar."
         },
         {
           value: "+29%",
@@ -627,9 +808,9 @@ const translations: Record<Language, Translations> = {
       ]
     },
     challenges: {
-      title_part1: "Manuel mesajlaşma",
-      title_part2: "kritik darboğaz yaratıyor",
-      subtitle: "Küçük ekiplerde aynı sorun tekrar ediyor: çok fazla tekrarlayan sohbet, yüksek niyetli adaylara az zaman.",
+      title_part1: "Rolüne göre",
+      title_part2: "Qualy kullanım ipuçları",
+      subtitle: "Aynı ürün, farklı ekiplerde farklı işleri hızlandırır. Rolünü seç ve Qualy'nin nerede zaman kazandırdığını gör.",
       roles: {
         founders: "İşletme Sahibi",
         customerSuccess: "Ön Büro / Destek",
@@ -638,20 +819,24 @@ const translations: Record<Language, Translations> = {
       },
       cards: {
         founders: {
-          headline: "Sahip gelen kutusuna sıkışınca büyüme durur.",
-          desc: "Her ilk yanıt size bağlıysa ölçeklenmek daha uzun mesai demektir. Qualy tekrarlayan ön görüşmeyi devralır, siz teslimat ve büyümeye odaklanırsınız."
+          headline: "İşletme sahibiysen: ilk teması otomatikleştir, gününü geri kazan.",
+          compact: "İlk teması Qualy yönetsin.",
+          desc: "Qualy tekrarlayan ilk soruları yanıtlar, karar aşamasındaki adayları sana bırakır. Sen de operasyon, ekip ve büyüme işlerine odaklanırsın."
         },
         customerSuccess: {
-          headline: "Tekrarlayan sorular tüm vardiyayı tüketiyor.",
-          desc: "Fiyat, müsaitlik, iptal, politika: aynı konuşma gün boyu dönüyor. İlk seviye yanıtların otomasyonu kuyruk baskısını azaltır."
+          headline: "Ön büro/destek için: tekrarlayan soruları kuyruk yaratmadan yönet.",
+          compact: "Rutin sorular otomatik karşılansın.",
+          desc: "Fiyat, müsaitlik, politika ve iptal gibi konulara Qualy anında yanıt verir. Ekip sadece istisna ve hassas durumlarda devreye girer."
         },
         sales: {
-          headline: "Yüksek niyetli adaylar gürültüde kayboluyor.",
-          desc: "Her sohbet satışa hazır değildir. Lead scoring; aciliyet, hizmet uyumu ve niyeti öne çıkarır, ekip doğru kişileri önce arar."
+          headline: "Satış/randevu için: yüksek niyetli adayları önce sırala.",
+          compact: "Sıcak adaylar öne çıksın.",
+          desc: "Qualy her konuşmadan niyet ve aciliyet sinyallerini çıkarır. Ekip doğru kişiyi doğru anda arar, takvim daha verimli dolur."
         },
         marketing: {
-          headline: "Yavaş yanıtlar reklam bütçesini yakıyor.",
-          desc: "Kampanyalar trafik getirir ama yanıt gecikirse dönüşüm düşer. Qualy anında cevap verip konuşmayı devre kadar sıcak tutar."
+          headline: "Pazarlama için: kampanya trafiğini bekletmeden karşıla.",
+          compact: "Kampanya lead'leri sıcak kalsın.",
+          desc: "Reklamdan gelen ilk mesajlara Qualy gecikmeden yanıt verir ve temel bilgileri toplar. Böylece bütçe boşa akmaz, sıcak lead'ler hızlı devralınır."
         }
       }
     },
@@ -659,17 +844,17 @@ const translations: Record<Language, Translations> = {
       trustedBy: "Modern servis ekipleri için geliştirildi"
     },
     features: {
-      heading: "Şişkin helpdeskler için değil,<br/>WhatsApp odaklı ekipler için.",
-      subheading: "Qualy, MVP'yi net tutar: metin odaklı kanallar, kaynaklı yanıtlar, lead scoring ve ekibinizin hızlı aksiyon alabileceği temiz bir gelen kutusu.",
-      feat1_title: "Skills + Bilgi Bankası ile tek seferde öğretin",
+      heading: "Yoğun mesaj trafiğini düzenli bir müşteri akışına çevirin.",
+      subheading: "Qualy, WhatsApp, Instagram ve Telegram konuşmalarını tek yerde toplar; Yetenekler ve Bilgi Bankasıyla yanıt verir, niyeti puanlar ve yalnızca doğru konuşmalara odaklanmanızı sağlar.",
+      feat1_title: "Yetenekler + Bilgi Bankası ile tek seferde öğretin",
       feat1_desc1: "Hizmet SSS'lerini, fiyat dokümanlarını ve yanıt playbook'larını ekleyin. Qualy kendi içeriğinizle tutarlı yanıt verir.",
-      feat1_desc2: "Uygun skill bulunmazsa Qualy Bilgi Bankası'na düşer ve tahmin etmek yerine tek bir netleştirici soru sorar.",
+      feat1_desc2: "Uygun yetenek bulunmazsa Qualy Bilgi Bankası'na düşer ve tahmin etmek yerine tek bir netleştirici soru sorar.",
       feat1_mockup_source: "Bilgi Kaynağı",
       feat1_mockup_synced: "Senkronize: Az önce",
       feat1_mockup_processed: "İndekslendi",
       feat1_mockup_quote: "\"Kendi iş bağlamınızdan beslenen kaynaklı yanıtlar.\"",
       feat2_title: "Müdahale etmeden önce niyeti puanlayın",
-      feat2_desc: "Her yeni müşteri mesajı lead extraction ve 0-10 skorlama tetikler. Aciliyeti, hizmet uyumunu ve takip önceliğini tek bakışta görün.",
+      feat2_desc: "Her yeni müşteri mesajı kişi çıkarımı ve 0-10 niyet skoru üretir. Aciliyeti, hizmet uyumunu ve takip önceliğini tek bakışta görün.",
       feat2_li1: "<span><strong class=\"text-slate-900\">Düşük niyet:</strong> Erken araştırma veya belirsiz talepler AI akışında kalır.</span>",
       feat2_li2: "<span><strong class=\"text-slate-900\">Yüksek niyet:</strong> Net hizmet + zaman sinyalleri anında insan takibine çıkar.</span>",
       feat2_mockup_potential: "Müşteri Potansiyeli",
@@ -679,22 +864,36 @@ const translations: Record<Language, Translations> = {
       feat2_mockup_check3: "Karar sinyali tespit edildi",
       feat2_mockup_btn: "Konuşmayı aç",
       feat3_title: "Kanallar arası metin odaklı gelen kutusu",
-      feat3_desc1: "MVP'de WhatsApp, Instagram ve Telegram bağımsız kanallar olarak metin tabanlı reactive yanıtlarla çalışır.",
+      feat3_desc1: "WhatsApp, Instagram ve Telegram bağımsız kanallar olarak metin odaklı reactive yanıtlarla çalışır.",
       feat3_desc2: "Ekibiniz Human Takeover ile AI'yi durdurabilir, tek gelen kutusunda görünürlüğü korur ve hazır olduğunda otomasyona geri döner.",
       feat3_mockup_focus: "Odak Modu",
-      feat3_mockup_voice: "Ses mesajı alındı (MVP oto-yanıt akışı dışında)",
-      feat3_mockup_image: "Görsel alındı (MVP oto-yanıt akışı dışında)",
+      feat3_mockup_voice: "Ses mesajı alındı (oto-yanıt akışı dışında)",
+      feat3_mockup_image: "Görsel alındı (oto-yanıt akışı dışında)",
       feat3_mockup_hidden: "Metin odaklı akış yanıt kalitesini öngörülebilir tutar.",
-      feat4_title: "MVP için yerleşik kontrol katmanı",
-      feat4_desc: "Active/Shadow/Off modları, skill tetikli devir ve hot lead eşiği ile AI'nin ne zaman konuşacağını siz belirlersiniz.",
+      feat4_title: "Yerleşik kontrol katmanı",
+      feat4_desc: "Active/Shadow/Off modları, yetenek tetikli devir ve yüksek niyet eşiği ile AI'nin ne zaman konuşacağını siz belirlersiniz.",
       feat4_badges: [
         "Human Takeover",
         "Active / Shadow / Off",
-        "Skill tetikli devir",
-        "Sıcak lead uyarıları",
+        "Yetenek tetikli devir",
+        "Yüksek niyet uyarıları",
         "TR/EN yerelleştirme",
         "Versiyonlu yasal merkez"
-      ]
+      ],
+      feat5_title: "Konuşmadan hizmet profilini ve önemli bilgileri çıkarın",
+      feat5_desc: "Qualy konuşma sırasında hizmet tipi, tarih, bütçe ve konum sinyallerini çıkarır. Eksik kalan kritik bilgileri doğal sorularla tamamlayarak doğru konuşmaları öne alır.",
+      feat5_mockup_title: "Kişi Profili Özeti",
+      feat5_mockup_badge: "Otomatik güncelleniyor",
+      feat5_mockup_service_label: "Hizmet",
+      feat5_mockup_service_value: "Yenidoğan çekimi",
+      feat5_mockup_date_label: "Tarih",
+      feat5_mockup_date_value: "Ekim ortası",
+      feat5_mockup_budget_label: "Bütçe",
+      feat5_mockup_budget_value: "Bütçe hassas",
+      feat5_mockup_location_label: "Konum",
+      feat5_mockup_location_value: "Kadıköy, İstanbul",
+      feat5_mockup_missing_label: "Eksik bilgi",
+      feat5_mockup_missing_value: "Tercih edilen gün soruluyor"
     },
     howItWorks: {
       title: "Qualy gelen kutunuzu nasıl yönetir",
@@ -702,7 +901,7 @@ const translations: Record<Language, Translations> = {
       step1_title: "Kanalları bağla",
       step1_desc: "WhatsApp ve Instagram'ı Meta OAuth pop-up ile bağlayın, ardından Telegram ekleyin. Kanallar bağımsız kalır ama tek gelen kutusunda görünür.",
       step2_title: "Yanıtları tanımla",
-      step2_desc: "Skill'leri oluşturun, Bilgi Bankası içeriğini yükleyin ve gerekli alanları belirleyin. Qualy kaynaklı yanıt verir ve kritik bilgileri toplar.",
+      step2_desc: "Yetenekleri oluşturun, Bilgi Bankası içeriğini yükleyin ve gerekli alanları belirleyin. Qualy kaynaklı yanıt verir ve kritik bilgileri toplar.",
       step3_title: "İzle ve devral",
       step3_desc: "Qualy reactive şekilde yanıtlar, lead skorlarını günceller ve yüksek niyetli konuşmaları işaretler. Ekibiniz istediği an Human Takeover ile konuşmayı devralabilir."
     },
@@ -720,7 +919,7 @@ const translations: Record<Language, Translations> = {
         cta: "14 gün ücretsiz dene",
         features: [
             "WhatsApp, Instagram ve Telegram gelen kutusu",
-            "Skill + Bilgi Bankası otomatik yanıtları",
+            "Yetenekler + Bilgi Bankası otomatik yanıtları",
             "Yapay zeka lead extraction ve 0-10 skorlama",
             "İnsan Devralma ve eskalasyon kontrolleri",
             "Versiyonlu politika sayfalarıyla yasal merkez"

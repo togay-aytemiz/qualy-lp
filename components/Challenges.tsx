@@ -12,6 +12,7 @@ const Challenges: React.FC = () => {
       id: 'founders',
       title: t.challenges.roles.founders,
       headline: t.challenges.cards.founders.headline,
+      compactHeadline: t.challenges.cards.founders.compact,
       desc: t.challenges.cards.founders.desc,
       image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=600&h=800"
     },
@@ -19,6 +20,7 @@ const Challenges: React.FC = () => {
       id: 'customerSuccess',
       title: t.challenges.roles.customerSuccess,
       headline: t.challenges.cards.customerSuccess.headline,
+      compactHeadline: t.challenges.cards.customerSuccess.compact,
       desc: t.challenges.cards.customerSuccess.desc,
       image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=600&h=800"
     },
@@ -26,6 +28,7 @@ const Challenges: React.FC = () => {
       id: 'sales',
       title: t.challenges.roles.sales,
       headline: t.challenges.cards.sales.headline,
+      compactHeadline: t.challenges.cards.sales.compact,
       desc: t.challenges.cards.sales.desc,
       image: "https://images.unsplash.com/photo-1553877616-1528073ee413?auto=format&fit=crop&q=80&w=600&h=800"
     },
@@ -33,6 +36,7 @@ const Challenges: React.FC = () => {
       id: 'marketing',
       title: t.challenges.roles.marketing,
       headline: t.challenges.cards.marketing.headline,
+      compactHeadline: t.challenges.cards.marketing.compact,
       desc: t.challenges.cards.marketing.desc,
       image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=600&h=800"
     }
@@ -40,10 +44,11 @@ const Challenges: React.FC = () => {
 
   return (
     <SectionWithHeader
+      id="challenges"
       className="border-b border-slate-100"
       title={
         <>
-          {t.challenges.title_part1} <span className="text-purple-600">{t.challenges.title_part2}</span>
+          {t.challenges.title_part1} {t.challenges.title_part2}
         </>
       }
       subtitle={t.challenges.subtitle}
@@ -63,8 +68,8 @@ const Challenges: React.FC = () => {
               onClick={() => setActiveIndex(index)}
               className={`px-8 py-4 rounded-xl text-sm font-semibold whitespace-nowrap border transition-all duration-300 ${
                 activeIndex === index
-                  ? 'bg-purple-600 text-white border-purple-600 shadow-lg shadow-purple-200'
-                  : 'bg-white text-slate-600 border-slate-200 hover:border-purple-200 hover:text-purple-600'
+                  ? 'bg-slate-900 text-white border-slate-900 shadow-lg shadow-slate-300/40'
+                  : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300 hover:text-slate-900'
               }`}
             >
               {challenge.title}
@@ -86,8 +91,7 @@ const Challenges: React.FC = () => {
               onClick={() => setActiveIndex(index)}
               className={`
                 relative rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 ease-in-out group
-                ${activeIndex === index ? 'flex-[3] shadow-2xl scale-[1.01]' : 'flex-[1] grayscale hover:grayscale-0 opacity-70 hover:opacity-100'}
-                ${activeIndex === index ? 'h-[500px] md:h-auto' : 'hidden md:block'}
+                ${activeIndex === index ? 'h-[500px] shadow-2xl scale-[1.01] md:h-auto md:flex-[3]' : 'hidden md:block md:flex-[1] md:grayscale md:hover:grayscale-0 md:opacity-70 md:hover:opacity-100'}
               `}
             >
               {/* Background Image */}
@@ -106,8 +110,8 @@ const Challenges: React.FC = () => {
               {/* Content Overlay */}
               <div className="absolute bottom-0 left-0 w-full p-8 md:p-10 flex flex-col justify-end h-full">
                 <div className={`transition-all duration-500 ${activeIndex === index ? 'translate-y-0 opacity-100' : 'translate-y-4 md:translate-y-8'}`}>
-                  <h3 className={`font-bold text-white mb-4 leading-tight ${activeIndex === index ? 'text-2xl md:text-3xl' : 'text-xl'}`}>
-                    {challenge.headline}
+                  <h3 className={`font-bold text-white leading-tight ${activeIndex === index ? 'mb-4 text-2xl md:text-3xl' : 'mb-0 text-lg md:text-xl'}`}>
+                    {activeIndex === index ? challenge.headline : challenge.compactHeadline}
                   </h3>
                   <p className={`text-slate-200 text-base md:text-lg leading-relaxed transition-all duration-500 delay-100 ${
                     activeIndex === index 
