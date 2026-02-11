@@ -118,6 +118,7 @@ interface Translations {
   };
   features: {
     heading: string;
+    heading_mobile: string;
     subheading: string;
     feat1_title: string;
     feat1_desc1: string;
@@ -131,6 +132,8 @@ interface Translations {
     feat2_li1: string;
     feat2_li2: string;
     feat2_mockup_potential: string;
+    feat2_mockup_processing: string;
+    feat2_mockup_done: string;
     feat2_mockup_analysis: string;
     feat2_mockup_check1: string;
     feat2_mockup_check2: string;
@@ -473,7 +476,8 @@ const translations: Record<Language, Translations> = {
     },
     features: {
       heading: "Turn heavy message traffic into an organized customer flow.",
-      subheading: "Qualy brings WhatsApp, Instagram, and Telegram conversations into one inbox, answers with Skills + Knowledge Base, scores intent, and helps your team focus only on the right conversations.",
+      heading_mobile: "Turn heavy message traffic into an organized flow.",
+      subheading: "Qualy brings all your conversations into one place; replies with AI, scores intent, and helps you focus only on the right conversations.",
       feat1_title: "Train once with Skills + Knowledge Base",
       feat1_desc1: "Add service FAQs, pricing docs, and response playbooks. Qualy uses your own content to answer consistently.",
       feat1_desc2: "When no skill matches, Qualy falls back to your Knowledge Base and asks one clarifying question instead of guessing.",
@@ -486,7 +490,9 @@ const translations: Record<Language, Translations> = {
       feat2_li1: "<span><strong class=\"text-slate-900\">Low intent:</strong> Early research or vague requests stay in AI flow.</span>",
       feat2_li2: "<span><strong class=\"text-slate-900\">High intent:</strong> Clear service + timeline signals are escalated for immediate follow-up.</span>",
       feat2_mockup_potential: "Lead Potential",
-      feat2_mockup_analysis: "Extraction complete",
+      feat2_mockup_processing: "Extraction running",
+      feat2_mockup_done: "Extraction completed",
+      feat2_mockup_analysis: "Extraction status",
       feat2_mockup_check1: "Service need captured",
       feat2_mockup_check2: "Timeline or urgency detected",
       feat2_mockup_check3: "Decision readiness signaled",
@@ -845,7 +851,8 @@ const translations: Record<Language, Translations> = {
     },
     features: {
       heading: "Yoğun mesaj trafiğini düzenli bir müşteri akışına çevirin.",
-      subheading: "Qualy, WhatsApp, Instagram ve Telegram konuşmalarını tek yerde toplar; Yetenekler ve Bilgi Bankasıyla yanıt verir, niyeti puanlar ve yalnızca doğru konuşmalara odaklanmanızı sağlar.",
+      heading_mobile: "Yoğun mesaj trafiğini düzenli akışa çevirin.",
+      subheading: "Qualy, tüm konuşmalarınızı tek yerde toplar; yapay zeka ile yanıt verir, niyeti puanlar ve yalnızca doğru konuşmalara odaklanmanızı sağlar.",
       feat1_title: "Yetenekler + Bilgi Bankası ile tek seferde öğretin",
       feat1_desc1: "Hizmet SSS'lerini, fiyat dokümanlarını ve yanıt playbook'larını ekleyin. Qualy kendi içeriğinizle tutarlı yanıt verir.",
       feat1_desc2: "Uygun yetenek bulunmazsa Qualy Bilgi Bankası'na düşer ve tahmin etmek yerine tek bir netleştirici soru sorar.",
@@ -858,9 +865,11 @@ const translations: Record<Language, Translations> = {
       feat2_li1: "<span><strong class=\"text-slate-900\">Düşük niyet:</strong> Erken araştırma veya belirsiz talepler AI akışında kalır.</span>",
       feat2_li2: "<span><strong class=\"text-slate-900\">Yüksek niyet:</strong> Net hizmet + zaman sinyalleri anında insan takibine çıkar.</span>",
       feat2_mockup_potential: "Müşteri Potansiyeli",
-      feat2_mockup_analysis: "Çıkarım tamamlandı",
+      feat2_mockup_processing: "Çıkarım yapılıyor",
+      feat2_mockup_done: "Çıkarım tamamlandı",
+      feat2_mockup_analysis: "Çıkarım durumu",
       feat2_mockup_check1: "Hizmet ihtiyacı yakalandı",
-      feat2_mockup_check2: "Zamanlama veya aciliyet algılandı",
+      feat2_mockup_check2: "Aciliyet algılandı",
       feat2_mockup_check3: "Karar sinyali tespit edildi",
       feat2_mockup_btn: "Konuşmayı aç",
       feat3_title: "Kanallar arası metin odaklı gelen kutusu",
