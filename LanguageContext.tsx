@@ -121,12 +121,26 @@ interface Translations {
     heading_mobile: string;
     subheading: string;
     feat1_title: string;
+    feat1_title_highlight: string;
     feat1_desc1: string;
     feat1_desc2: string;
     feat1_mockup_source: string;
     feat1_mockup_synced: string;
     feat1_mockup_processed: string;
     feat1_mockup_quote: string;
+    feat1_mockup_no_code: string;
+    feat1_mockup_step1: string;
+    feat1_mockup_step2: string;
+    feat1_mockup_step3: string;
+    feat1_mockup_skill_title: string;
+    feat1_mockup_skill_detail: string;
+    feat1_mockup_kb_title: string;
+    feat1_mockup_kb_detail: string;
+    feat1_mockup_kb_items: string[];
+    feat1_mockup_skill_items: string[];
+    feat1_mockup_preview_label: string;
+    feat1_mockup_preview_question: string;
+    feat1_mockup_preview_answer: string;
     feat2_title: string;
     feat2_desc: string;
     feat2_li1: string;
@@ -478,13 +492,36 @@ const translations: Record<Language, Translations> = {
       heading: "Turn heavy message traffic into an organized customer flow.",
       heading_mobile: "Turn heavy message traffic into an organized flow.",
       subheading: "Qualy brings all your conversations into one place; replies with AI, scores intent, and helps you focus only on the right conversations.",
-      feat1_title: "Train once with Skills + Knowledge Base",
-      feat1_desc1: "Add service FAQs, pricing docs, and response playbooks. Qualy uses your own content to answer consistently.",
-      feat1_desc2: "When no skill matches, Qualy falls back to your Knowledge Base and asks one clarifying question instead of guessing.",
-      feat1_mockup_source: "Knowledge Source",
-      feat1_mockup_synced: "Last synced: Just now",
-      feat1_mockup_processed: "Indexed",
-      feat1_mockup_quote: "\"Grounded answers from your own business context.\"",
+      feat1_title: "Teach Qualy your business without touching code. Ready in 5 min.",
+      feat1_title_highlight: "Ready in 5 min.",
+      feat1_desc1: "Add your business documents and ready responses. Qualy uses them as references for consistent replies.",
+      feat1_desc2: "No technical setup required.",
+      feat1_mockup_source: "Setup flow",
+      feat1_mockup_synced: "Quick setup",
+      feat1_mockup_processed: "Live",
+      feat1_mockup_quote: "\"No code needed. Teach in settings, let Qualy apply it automatically.\"",
+      feat1_mockup_no_code: "No code",
+      feat1_mockup_step1: "Add skill",
+      feat1_mockup_step2: "Add knowledge",
+      feat1_mockup_step3: "Go live",
+      feat1_mockup_skill_title: "Ready responses (Skills)",
+      feat1_mockup_skill_detail: "Reusable responses for common topics",
+      feat1_mockup_kb_title: "Knowledge Base documents",
+      feat1_mockup_kb_detail: "Your business references",
+      feat1_mockup_kb_items: [
+        "Service scope",
+        "Pricing and packages",
+        "Cancellation policy",
+        "Returns and refunds"
+      ],
+      feat1_mockup_skill_items: [
+        "Availability and booking response",
+        "Pricing and package response",
+        "Support and document request response"
+      ],
+      feat1_mockup_preview_label: "Live preview",
+      feat1_mockup_preview_question: "Do you have availability tomorrow and what are the prices?",
+      feat1_mockup_preview_answer: "I can share availability and pricing in this flow. If you want, I can list the available slots now.",
       feat2_title: "Score intent before you step in",
       feat2_desc: "Every new customer message triggers profile extraction and 0-10 intent scoring. See urgency, service fit, and follow-up priority at a glance.",
       feat2_li1: "<span><strong class=\"text-slate-900\">Low intent:</strong> Early research or vague requests stay in AI flow.</span>",
@@ -853,13 +890,36 @@ const translations: Record<Language, Translations> = {
       heading: "Yoğun mesaj trafiğini düzenli bir müşteri akışına çevirin.",
       heading_mobile: "Yoğun mesaj trafiğini düzenli akışa çevirin.",
       subheading: "Qualy, tüm konuşmalarınızı tek yerde toplar; yapay zeka ile yanıt verir, niyeti puanlar ve yalnızca doğru konuşmalara odaklanmanızı sağlar.",
-      feat1_title: "Yetenekler + Bilgi Bankası ile tek seferde öğretin",
-      feat1_desc1: "Hizmet SSS'lerini, fiyat dokümanlarını ve yanıt playbook'larını ekleyin. Qualy kendi içeriğinizle tutarlı yanıt verir.",
-      feat1_desc2: "Uygun yetenek bulunmazsa Qualy Bilgi Bankası'na düşer ve tahmin etmek yerine tek bir netleştirici soru sorar.",
-      feat1_mockup_source: "Bilgi Kaynağı",
-      feat1_mockup_synced: "Senkronize: Az önce",
-      feat1_mockup_processed: "İndekslendi",
-      feat1_mockup_quote: "\"Kendi iş bağlamınızdan beslenen kaynaklı yanıtlar.\"",
+      feat1_title: "Koda dokunmadan işletmeni Qualy'ye öğret. 5 dk'da hazır.",
+      feat1_title_highlight: "5 dk'da hazır.",
+      feat1_desc1: "İşletmenle ilgili dokümanlarını ve hazır yanıtlarını ekle. Qualy bunları referans alarak tutarlı yanıt verir.",
+      feat1_desc2: "Teknik kurulum gerekmez.",
+      feat1_mockup_source: "Kurulum akışı",
+      feat1_mockup_synced: "Hızlı kurulum",
+      feat1_mockup_processed: "Canlı",
+      feat1_mockup_quote: "\"Kod yok. Ayar paneliyle öğret, Qualy otomatik uygulasın.\"",
+      feat1_mockup_no_code: "Kod yok",
+      feat1_mockup_step1: "Yetenek ekle",
+      feat1_mockup_step2: "Bilgi yükle",
+      feat1_mockup_step3: "Yayına al",
+      feat1_mockup_skill_title: "Hazır yanıtlar (Yetenekler)",
+      feat1_mockup_skill_detail: "Sık konular için tekrar kullanılabilir yanıtlar",
+      feat1_mockup_kb_title: "Bilgi Bankası dokümanları",
+      feat1_mockup_kb_detail: "İşletme referans içerikleri",
+      feat1_mockup_kb_items: [
+        "Hizmet kapsamı",
+        "Fiyatlar ve paketler",
+        "İptal politikası",
+        "İade ve geri ödeme"
+      ],
+      feat1_mockup_skill_items: [
+        "Müsaitlik ve randevu yanıtı",
+        "Fiyat ve paket yanıtı",
+        "Destek ve evrak talebi yanıtı"
+      ],
+      feat1_mockup_preview_label: "Canlı önizleme",
+      feat1_mockup_preview_question: "Yarın için randevu var mı ve fiyatlar nasıl?",
+      feat1_mockup_preview_answer: "Müsaitlik ve fiyatı bu akışta paylaşabilirim. İsterseniz uygun saatleri hemen listeleyeyim.",
       feat2_title: "Müdahale etmeden önce niyeti puanlayın",
       feat2_desc: "Her yeni müşteri mesajı kişi çıkarımı ve 0-10 niyet skoru üretir. Aciliyeti, hizmet uyumunu ve takip önceliğini tek bakışta görün.",
       feat2_li1: "<span><strong class=\"text-slate-900\">Düşük niyet:</strong> Erken araştırma veya belirsiz talepler AI akışında kalır.</span>",

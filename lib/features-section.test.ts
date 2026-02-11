@@ -8,6 +8,13 @@ describe('features section content and layout', () => {
 
     expect(featuresSource).toContain('t.features.heading_mobile');
     expect(featuresSource).toContain('hidden md:inline');
+    expect(featuresSource).toContain('t.features.feat1_mockup_kb_items.map');
+    expect(featuresSource).toContain('t.features.feat1_mockup_skill_items.map');
+    expect(featuresSource).not.toContain('t.features.feat1_mockup_step1');
+    expect(featuresSource).not.toContain('t.features.feat1_mockup_preview_label');
+    expect(featuresSource).not.toContain('Do you have a price list?');
+    expect(featuresSource).not.toContain('Reading document...');
+    expect(featuresSource).not.toContain('Here is the summary of our Growth package...');
     expect(featuresSource).toContain('title={t.features.feat1_title}');
     expect(featuresSource).toContain('title={t.features.feat2_title}');
     expect(featuresSource).toContain('title={t.features.feat3_title}');
@@ -22,6 +29,16 @@ describe('features section content and layout', () => {
 
     expect(languageContext).toContain('heading_mobile: "Yoğun mesaj trafiğini düzenli akışa çevirin."');
     expect(languageContext).toContain('heading_mobile: "Turn heavy message traffic into an organized flow."');
+    expect(languageContext).toContain('feat1_title: "Koda dokunmadan işletmeni Qualy\'ye öğret. 5 dk\'da hazır."');
+    expect(languageContext).toContain('feat1_title: "Teach Qualy your business without touching code. Ready in 5 min."');
+    expect(languageContext).toContain('feat1_title_highlight: "5 dk\'da hazır."');
+    expect(languageContext).toContain('feat1_title_highlight: "Ready in 5 min."');
+    expect(languageContext).toContain('feat1_desc1: "İşletmenle ilgili dokümanlarını ve hazır yanıtlarını ekle. Qualy bunları referans alarak tutarlı yanıt verir."');
+    expect(languageContext).toContain('feat1_desc1: "Add your business documents and ready responses. Qualy uses them as references for consistent replies."');
+    expect(languageContext).toContain('feat1_mockup_kb_items');
+    expect(languageContext).toContain('feat1_mockup_skill_items');
+    expect(languageContext).toContain('"İptal politikası"');
+    expect(languageContext).toContain('"Cancellation policy"');
     expect(languageContext).toContain('Qualy, tüm konuşmalarınızı tek yerde toplar; yapay zeka ile yanıt verir, niyeti puanlar ve yalnızca doğru konuşmalara odaklanmanızı sağlar.');
     expect(languageContext).toContain('Qualy brings all your conversations into one place; replies with AI, scores intent, and helps you focus only on the right conversations.');
     expect(languageContext).not.toContain('Qualy, WhatsApp, Instagram ve Telegram konuşmalarını tek yerde toplar; Yetenekler ve Bilgi Bankasıyla yanıt verir, niyeti puanlar ve yalnızca doğru konuşmalara odaklanmanızı sağlar.');
@@ -39,6 +56,6 @@ describe('features section content and layout', () => {
     expect(featuresSource).toContain('RiTelegramFill');
     expect(featuresSource).toContain('lg:col-span-4 p-8 border-b border-r border-slate-200 border-dashed bg-white relative group transition-colors hover:bg-slate-50/50 flex flex-col');
     expect(featuresSource).toContain('lg:col-span-2 p-8 border-b border-r border-slate-200 border-dashed bg-white relative group transition-colors hover:bg-slate-50/50 flex flex-col');
-    expect(featuresSource).toContain('mt-auto relative h-[300px] md:h-[350px]');
+    expect(featuresSource).toContain('mt-auto relative h-[320px] md:h-[350px]');
   });
 });

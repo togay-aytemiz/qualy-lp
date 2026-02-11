@@ -9,15 +9,36 @@ interface FeatureBlockHeaderProps {
   title: string;
   description: string;
   html?: boolean;
+  titleHighlight?: string;
 }
 
 const FeatureBlockHeader: React.FC<FeatureBlockHeaderProps> = ({
   title,
   description,
   html = false,
+  titleHighlight,
 }) => (
   <div className="relative z-10 mb-8">
-    <h3 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight">{title}</h3>
+    <h3 className="text-2xl font-bold text-slate-900 mb-2 tracking-tight">
+      {(() => {
+        if (!titleHighlight) return title;
+        const highlightIndex = title.indexOf(titleHighlight);
+        if (highlightIndex < 0) return title;
+
+        const before = title.slice(0, highlightIndex);
+        const after = title.slice(highlightIndex + titleHighlight.length);
+
+        return (
+          <>
+            {before}
+            <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-orange-500 bg-clip-text text-transparent">
+              {titleHighlight}
+            </span>
+            {after}
+          </>
+        );
+      })()}
+    </h3>
     {html ? (
       <p
         className="text-slate-600 leading-relaxed max-w-lg text-sm"
@@ -120,6 +141,8 @@ const Features: React.FC = () => {
       text,
       role: (index % 2 === 0 ? 'customer' : 'assistant') as FeatureMessageRole,
     }));
+  const mobileVisibleMessages = visibleMessages.slice(-2);
+  const desktopVisibleMessages = visibleMessages.slice(-3);
 
   const customerMessageCount = visibleMessages.filter((message) => message.role === 'customer').length;
   const scoreStep = Math.max(0, customerMessageCount - 1);
@@ -227,8 +250,11 @@ const Features: React.FC = () => {
                 html
               />
 
-              <div className="mt-auto relative h-[380px] md:h-[350px] w-full bg-white border border-slate-200 rounded-[24px] overflow-hidden flex shadow-sm group-hover:shadow-md transition-all">
-                <div className="md:hidden h-full w-full bg-white p-2 flex flex-col">
+              <div
+                className="mt-auto relative h-[380px] md:h-[350px] w-full bg-white border border-slate-200 rounded-[24px] overflow-hidden flex shadow-sm group-hover:shadow-md transition-all"
+                style={{ overflowAnchor: 'none' }}
+              >
+                <div className="md:hidden h-full w-full bg-white p-2 flex min-h-0 flex-col">
                   <div className="rounded-xl border border-slate-200 bg-slate-50 p-2">
                     <div className="flex items-center justify-between gap-2">
                       <p className="text-sm font-semibold text-slate-900 truncate">{activeScenario?.name}</p>
@@ -263,10 +289,10 @@ const Features: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="mt-2 flex-1 rounded-2xl border border-slate-200 bg-slate-50/60 p-2 overflow-hidden">
-                    <div className="flex h-full flex-col justify-end gap-2">
+                  <div className="mt-2 min-h-0 flex-1 rounded-2xl border border-slate-200 bg-slate-50/60 p-2 overflow-hidden">
+                    <div className="flex h-full min-h-0 flex-col justify-end gap-2 overflow-hidden">
                       <AnimatePresence initial={false}>
-                        {visibleMessages.map((message) => (
+                        {mobileVisibleMessages.map((message) => (
                           <motion.div
                             key={`mobile-${message.id}`}
                             initial={{ opacity: 0, y: 10 }}
@@ -276,7 +302,7 @@ const Features: React.FC = () => {
                             className={`flex ${message.role === 'assistant' ? 'justify-end' : 'justify-start'}`}
                           >
                             <div
-                              className={`max-w-[90%] rounded-2xl px-3 py-2 text-[11px] leading-relaxed shadow-sm ${
+                              className={`max-h-[54px] overflow-hidden max-w-[90%] rounded-2xl px-3 py-2 text-[11px] leading-relaxed shadow-sm ${
                                 message.role === 'assistant'
                                   ? 'rounded-br-none bg-blue-600 text-white'
                                   : 'rounded-bl-none border border-slate-200 bg-white text-slate-700'
@@ -292,8 +318,8 @@ const Features: React.FC = () => {
 
                   <div className="mt-2 rounded-xl border border-slate-200 bg-slate-50 p-2">
                     <div className="flex items-center justify-between text-[10px] text-slate-500">
-                      <span className="font-semibold uppercase tracking-[0.12em]">{leftStatusLabel}</span>
-                      <span className="font-medium">{extractionPhaseLabel}</span>
+                      <span className="max-w-[44%] truncate font-semibold uppercase tracking-[0.12em]">{leftStatusLabel}</span>
+                      <span className="max-w-[52%] truncate text-right font-medium">{extractionPhaseLabel}</span>
                     </div>
                     <div className="mt-2 grid grid-cols-4 gap-1.5">
                       {(activeScenario?.messages ?? []).map((_, index) => (
@@ -310,8 +336,8 @@ const Features: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="hidden md:flex h-full w-full">
-                  <div className="w-1/2 border-r border-slate-100 bg-white p-3 md:p-4 flex flex-col">
+                <div className="hidden md:flex h-full w-full min-h-0">
+                  <div className="w-1/2 border-r border-slate-100 bg-white p-3 md:p-4 flex flex-col min-h-0 overflow-hidden">
                     <div className="flex items-center justify-between gap-2">
                       <div>
                         <p className="text-[10px] uppercase tracking-[0.14em] text-slate-500 font-semibold">
@@ -325,10 +351,10 @@ const Features: React.FC = () => {
                       </span>
                     </div>
 
-                    <div className="mt-3 flex-1 rounded-2xl border border-slate-200 bg-slate-50/60 p-2.5 md:p-3 overflow-hidden">
-                      <div className="flex h-full flex-col justify-end gap-2">
+                    <div className="mt-3 min-h-0 flex-1 rounded-2xl border border-slate-200 bg-slate-50/60 p-2.5 md:p-3 overflow-hidden">
+                      <div className="flex h-full min-h-0 flex-col justify-end gap-2 overflow-hidden">
                         <AnimatePresence initial={false}>
-                          {visibleMessages.map((message) => (
+                          {desktopVisibleMessages.map((message) => (
                             <motion.div
                               key={message.id}
                               initial={{ opacity: 0, y: 10 }}
@@ -338,7 +364,7 @@ const Features: React.FC = () => {
                               className={`flex ${message.role === 'assistant' ? 'justify-end' : 'justify-start'}`}
                             >
                               <div
-                                className={`max-w-[88%] rounded-2xl px-3 py-2 text-[11px] leading-relaxed shadow-sm ${
+                                className={`max-h-[56px] overflow-hidden max-w-[88%] rounded-2xl px-3 py-2 text-[11px] leading-relaxed shadow-sm ${
                                   message.role === 'assistant'
                                     ? 'rounded-br-none bg-blue-600 text-white'
                                     : 'rounded-bl-none border border-slate-200 bg-white text-slate-700'
@@ -456,24 +482,49 @@ const Features: React.FC = () => {
                <FeatureBlockHeader
                  title={t.features.feat1_title}
                  description={t.features.feat1_desc1}
+                 titleHighlight={t.features.feat1_title_highlight}
                />
                
-               {/* Visual: Mobile Chat */}
-               <div className="mt-auto relative h-[300px] md:h-[350px] w-full bg-white rounded-[24px] border border-slate-200 shadow-sm overflow-hidden p-2 group-hover:shadow-md transition-all">
-                  <div className="w-full h-full bg-slate-50 rounded-[20px] p-4 flex flex-col gap-3 overflow-hidden">
-                     <div className="self-end bg-slate-900 text-white p-3 rounded-2xl rounded-tr-sm text-xs shadow-sm">
-                        Do you have a price list?
-                     </div>
-                     <div className="self-start bg-white border border-slate-100 text-slate-700 p-3 rounded-2xl rounded-tl-sm text-xs shadow-sm max-w-[90%]">
-                        <div className="flex items-center gap-2 mb-2">
-                           <FileText className="w-4 h-4 text-red-500" />
-                           <span className="font-bold">Pricing_2024.pdf</span>
+               {/* Visual: No-code setup flow */}
+               <div className="mt-auto relative h-[320px] md:h-[350px] w-full bg-white rounded-[24px] border border-slate-200 shadow-sm overflow-hidden p-1.5 md:p-2 group-hover:shadow-md transition-all">
+                  <div className="w-full h-full bg-slate-50 rounded-[20px] p-2 md:p-4 flex flex-col gap-2 md:gap-2.5 overflow-hidden">
+                     <div className="rounded-xl border border-slate-200 bg-white p-2 md:p-2.5 shadow-sm">
+                        <div className="flex items-center justify-between gap-2">
+                           <p className="text-[11px] md:text-[10px] font-semibold uppercase tracking-[0.11em] text-slate-500">{t.features.feat1_mockup_source}</p>
                         </div>
-                        Reading document...
+                        <p className="mt-1.5 text-[12px] md:text-[10px] leading-relaxed text-slate-600">{t.features.feat1_mockup_kb_detail}</p>
                      </div>
-                     <div className="self-start bg-white border border-slate-100 text-slate-700 p-3 rounded-2xl rounded-tl-sm text-xs shadow-sm mt-1">
-                        Here is the summary of our Growth package...
+
+                     <div className="rounded-xl border border-slate-200 bg-white p-2 md:p-2.5 shadow-sm">
+                        <p className="text-[11px] md:text-[10px] font-semibold uppercase tracking-[0.11em] text-slate-500">{t.features.feat1_mockup_kb_title}</p>
+                        <div className="mt-2 space-y-1 md:space-y-1.5">
+                           {t.features.feat1_mockup_kb_items.map((item) => (
+                              <div key={item} className="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-2 py-1.5">
+                                 <FileText className="h-4 w-4 md:h-3.5 md:w-3.5 shrink-0 text-rose-500" />
+                                 <span className="text-[12px] md:text-[11px] text-slate-700">{item}</span>
+                              </div>
+                           ))}
+                        </div>
                      </div>
+
+                     <div className="rounded-xl border border-slate-200 bg-white p-2 md:p-2.5 shadow-sm">
+                        <div className="flex items-center justify-between gap-2">
+                           <p className="text-[11px] md:text-[10px] font-semibold uppercase tracking-[0.11em] text-slate-500">{t.features.feat1_mockup_skill_title}</p>
+                           <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] md:text-[10px] font-semibold text-emerald-700">
+                              {t.features.feat1_mockup_processed}
+                           </span>
+                        </div>
+                        <div className="mt-2 space-y-1 md:space-y-1.5">
+                           {t.features.feat1_mockup_skill_items.map((item) => (
+                              <div key={item} className="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-2 py-1.5">
+                                 <CheckCircle2 className="h-4 w-4 md:h-3.5 md:w-3.5 shrink-0 text-blue-600" />
+                                 <span className="text-[12px] md:text-[11px] text-slate-700">{item}</span>
+                              </div>
+                           ))}
+                        </div>
+                     </div>
+
+                     <p className="mt-auto px-0.5 text-[11px] md:text-[10px] leading-relaxed text-slate-500">{t.features.feat1_mockup_quote}</p>
                   </div>
                </div>
             </motion.div>

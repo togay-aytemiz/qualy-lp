@@ -8,8 +8,19 @@ describe('features intent scoring card animation', () => {
 
     expect(featuresSource).toContain('col-span-1 lg:col-span-4');
     expect(featuresSource).toContain('h-[380px] md:h-[350px]');
-    expect(featuresSource).toContain('md:hidden h-full w-full bg-white p-2 flex flex-col');
-    expect(featuresSource).toContain('mt-2 flex-1 rounded-2xl border border-slate-200 bg-slate-50/60 p-2 overflow-hidden');
+    expect(featuresSource).toContain("style={{ overflowAnchor: 'none' }}");
+    expect(featuresSource).toContain('const mobileVisibleMessages = visibleMessages.slice(-2);');
+    expect(featuresSource).toContain('const desktopVisibleMessages = visibleMessages.slice(-3);');
+    expect(featuresSource).toContain('md:hidden h-full w-full bg-white p-2 flex min-h-0 flex-col');
+    expect(featuresSource).toContain('mt-2 min-h-0 flex-1 rounded-2xl border border-slate-200 bg-slate-50/60 p-2 overflow-hidden');
+    expect(featuresSource).toContain('hidden md:flex h-full w-full min-h-0');
+    expect(featuresSource).toContain('w-1/2 border-r border-slate-100 bg-white p-3 md:p-4 flex flex-col min-h-0');
+    expect(featuresSource).toContain('w-1/2 border-r border-slate-100 bg-white p-3 md:p-4 flex flex-col min-h-0 overflow-hidden');
+    expect(featuresSource).toContain('mt-3 min-h-0 flex-1 rounded-2xl border border-slate-200 bg-slate-50/60 p-2.5 md:p-3 overflow-hidden');
+    expect(featuresSource).toContain('flex h-full min-h-0 flex-col justify-end gap-2 overflow-hidden');
+    expect(featuresSource).toContain('{desktopVisibleMessages.map((message) => (');
+    expect(featuresSource).toContain('max-h-[54px] overflow-hidden');
+    expect(featuresSource).toContain('max-h-[56px] overflow-hidden max-w-[88%]');
     expect(featuresSource).toContain('name: second?.name ?? t.hero.mockup.thirdLeadName');
     expect(featuresSource).not.toContain("name: 'Qualy'");
     expect(featuresSource).toContain('className="mt-2 flex items-center justify-between gap-2">');
