@@ -47,5 +47,27 @@ describe('applySeoToDocument', () => {
     expect(document.querySelectorAll('#seo-jsonld').length).toBe(1);
     expect(script?.textContent || '').toContain('SoftwareApplication');
   });
-});
 
+  it('upserts hreflang alternate links without duplicating tags', () => {
+    const homeSeo = getSeoByRoute('home', 'en', { siteUrl: 'https://askqualy.com' });
+    const pricingSeo = getSeoByRoute('pricing', 'en', { siteUrl: 'https://askqualy.com' });
+
+    applySeoToDocument(document, homeSeo);
+    applySeoToDocument(document, homeSeo);
+
+    const alternateLinks = Array.from(document.querySelectorAll('link[rel="alternate"][data-seo-alternate="true"]'));
+    const hrefLangs = alternateLinks.map((link) => link.getAttribute('hreflang'));
+    const hrefs = alternateLinks.map((link) => link.getAttribute('href'));
+
+    expect(alternateLinks.length).toBe(3);
+    expect(hrefLangs).toEqual(['tr', 'en', 'x-default']);
+    expect(hrefs).toEqual([
+      'https://askqualy.com/',
+      'https://askqualy.com/en',
+      'https://askqualy.com/',
+    ]);
+
+    applySeoToDocument(document, pricingSeo);
+    expect(document.querySelectorAll('link[rel="alternate"][data-seo-alternate="true"]').length).toBe(0);
+  });
+});

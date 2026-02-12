@@ -16,6 +16,12 @@ import { homePathByLanguage } from '../lib/region-language';
 const Footer: React.FC = () => {
   const { t, language, setLanguage } = useLanguage();
   const homePath = homePathByLanguage(language);
+  const llmResources = [
+    { href: '/llms.txt', label: t.footer.readLlmsTxt },
+    { href: '/llms-full.txt', label: t.footer.readLlmsFullTxt },
+    { href: '/faqs.md', label: t.footer.readFaqsMarkdown },
+    { href: '/faqs-directory', label: t.footer.faqsDirectory },
+  ];
 
   const handleLanguageChange = (nextLanguage: 'en' | 'tr') => {
     if (typeof window !== 'undefined') {
@@ -33,6 +39,14 @@ const Footer: React.FC = () => {
 
     window.history.pushState(window.history.state, '', `${targetHomePath}${window.location.hash}`);
     window.dispatchEvent(new PopStateEvent('popstate'));
+  };
+
+  const handleLanguageLinkClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    nextLanguage: 'en' | 'tr',
+  ) => {
+    event.preventDefault();
+    handleLanguageChange(nextLanguage);
   };
 
   const scrollToHomeSection = (e: React.MouseEvent<HTMLAnchorElement>, key: ProductFooterSectionKey) => {
@@ -54,6 +68,42 @@ const Footer: React.FC = () => {
 
     window.location.hash = sectionId;
   };
+
+  const renderLlmResources = ({
+    summaryId,
+    contentId,
+    className,
+  }: {
+    summaryId: string;
+    contentId: string;
+    className: string;
+  }) => (
+    <details className={className} role="group" aria-labelledby={summaryId}>
+      <summary
+        id={summaryId}
+        className="list-none cursor-pointer select-none text-sm font-semibold text-slate-900 transition-colors"
+        role="button"
+        aria-controls={contentId}
+      >
+        {t.footer.llmResources}
+        <span className="ml-1 inline-block transition-transform group-open:rotate-180" aria-hidden="true">
+          ▼
+        </span>
+      </summary>
+      <ul id={contentId} role="list" className="my-4 space-y-3" aria-labelledby={summaryId}>
+        {llmResources.map((resource) => (
+          <li key={`${summaryId}-${resource.href}`}>
+            <a
+              href={resource.href}
+              className="block text-sm leading-6 text-slate-600 transition-colors hover:text-slate-900"
+            >
+              {resource.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
 
   return (
     <div className="relative w-full overflow-hidden bg-white px-8 py-20">
@@ -93,25 +143,33 @@ const Footer: React.FC = () => {
           <div className="mt-6 ml-2 inline-flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-200">
             <Globe className="w-3 h-3 text-slate-400" />
             <div className="flex gap-2 font-semibold text-xs">
-              <button 
-                onClick={() => handleLanguageChange('en')}
+              <a
+                href={homePathByLanguage('en')}
+                onClick={(event) => handleLanguageLinkClick(event, 'en')}
                 className={`transition-colors ${language === 'en' ? 'text-black' : 'text-slate-400 hover:text-slate-600'}`}
               >
                 EN
-              </button>
+              </a>
               <span className="text-slate-300">|</span>
-              <button 
-                onClick={() => handleLanguageChange('tr')}
+              <a
+                href={homePathByLanguage('tr')}
+                onClick={(event) => handleLanguageLinkClick(event, 'tr')}
                 className={`transition-colors ${language === 'tr' ? 'text-black' : 'text-slate-400 hover:text-slate-600'}`}
               >
                 TR
-              </button>
+              </a>
             </div>
           </div>
+
+          {renderLlmResources({
+            summaryId: 'llm-resources-desktop-summary',
+            contentId: 'llm-resources-desktop-content',
+            className: 'group mt-6 ml-2 hidden md:block',
+          })}
         </div>
 
         {/* Right Side: Grid of Links */}
-        <div className="mt-10 grid grid-cols-2 items-start gap-10 sm:mt-0 md:mt-0 lg:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 items-start gap-10 sm:mt-0 sm:grid-cols-2 md:mt-0">
           
           {/* Column 1: Product */}
           <div className="flex w-full flex-col justify-center space-y-4">
@@ -155,6 +213,12 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
+          {renderLlmResources({
+            summaryId: 'llm-resources-mobile-summary',
+            contentId: 'llm-resources-mobile-content',
+            className: 'group md:hidden sm:col-span-2',
+          })}
+
         </div>
       </div>
       
@@ -172,6 +236,7 @@ const Footer: React.FC = () => {
           decoding="async"
         />
       </div>
+
     </div>
   );
 };

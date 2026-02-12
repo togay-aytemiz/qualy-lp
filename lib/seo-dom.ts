@@ -22,6 +22,24 @@ const upsertCanonical = (doc: Document, href: string) => {
   link.setAttribute('href', href);
 };
 
+const upsertAlternates = (
+  doc: Document,
+  alternates: SeoPayload['alternates'],
+) => {
+  doc
+    .querySelectorAll('link[rel="alternate"][data-seo-alternate="true"]')
+    .forEach((node) => node.remove());
+
+  alternates.forEach((alternate) => {
+    const link = doc.createElement('link');
+    link.setAttribute('rel', 'alternate');
+    link.setAttribute('hreflang', alternate.hrefLang);
+    link.setAttribute('href', alternate.href);
+    link.setAttribute('data-seo-alternate', 'true');
+    doc.head.appendChild(link);
+  });
+};
+
 const toJsonLdPayload = (jsonLd: Record<string, unknown>[]) => {
   if (jsonLd.length <= 1) {
     return jsonLd[0] ?? {};
@@ -53,6 +71,7 @@ const upsertJsonLd = (doc: Document, jsonLd: Record<string, unknown>[]) => {
 export const applySeoToDocument = (doc: Document, seo: SeoPayload) => {
   doc.title = seo.title;
   upsertCanonical(doc, seo.canonicalUrl);
+  upsertAlternates(doc, seo.alternates);
 
   upsertMeta(doc, 'meta[name="description"]', {
     name: 'description',
@@ -112,4 +131,3 @@ export const applySeoToDocument = (doc: Document, seo: SeoPayload) => {
 
   upsertJsonLd(doc, seo.jsonLd);
 };
-

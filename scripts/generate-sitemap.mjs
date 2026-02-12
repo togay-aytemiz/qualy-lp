@@ -55,7 +55,9 @@ const main = async () => {
 
   const entries = [
     { path: '/', changefreq: 'weekly', priority: 1.0 },
+    { path: '/en', changefreq: 'weekly', priority: 0.9 },
     { path: '/pricing', changefreq: 'weekly', priority: 0.8 },
+    { path: '/faqs-directory', changefreq: 'monthly', priority: 0.7 },
     { path: '/legal', changefreq: 'monthly', priority: 0.5 },
     ...legalRoutes,
   ];

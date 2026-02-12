@@ -7,6 +7,7 @@ import { LanguageProvider, useLanguage } from './LanguageContext';
 import { motion } from 'framer-motion';
 import LegalPage from './pages/LegalPage';
 import LegalIndexPage from './pages/LegalIndexPage';
+import LlmFaqDirectoryPage from './pages/LlmFaqDirectoryPage';
 import { legalDocSlugs } from './lib/legal';
 import { applySeoToDocument } from './lib/seo-dom';
 import { getSeoByRoute, getSeoRouteKeyByPath } from './lib/seo';
@@ -36,6 +37,7 @@ const AppContent: React.FC = () => {
   const legalSlug = path.startsWith('/') ? path.slice(1) : path;
   const isLegalIndexRoute = path === '/legal';
   const isLegalRoute = legalDocSlugs.has(legalSlug);
+  const isLlmFaqDirectoryRoute = path === '/faqs-directory';
   const isPricingRoute = path === '/pricing';
 
   useEffect(() => {
@@ -134,6 +136,14 @@ const AppContent: React.FC = () => {
           </main>
           <Footer />
         </motion.div>
+      </div>
+    );
+  }
+
+  if (isLlmFaqDirectoryRoute) {
+    return (
+      <div className="min-h-screen bg-black selection:bg-white selection:text-black">
+        <LlmFaqDirectoryPage />
       </div>
     );
   }

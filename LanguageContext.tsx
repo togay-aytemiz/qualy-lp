@@ -286,6 +286,11 @@ interface Translations {
     legalCenter: string;
     privacy: string;
     terms: string;
+    llmResources: string;
+    readLlmsTxt: string;
+    readLlmsFullTxt: string;
+    readFaqsMarkdown: string;
+    faqsDirectory: string;
     rights: string;
   };
   legal: {
@@ -757,6 +762,11 @@ const translations: Record<Language, Translations> = {
       legalCenter: "Legal Center",
       privacy: "Privacy Policy",
       terms: "Terms of Service",
+      llmResources: "LLM Resources",
+      readLlmsTxt: "Read llms.txt",
+      readLlmsFullTxt: "Read llms-full.txt",
+      readFaqsMarkdown: "Read FAQs.md",
+      faqsDirectory: "FAQs Directory",
       rights: "All rights reserved."
     },
     legal: {
@@ -1226,6 +1236,11 @@ const translations: Record<Language, Translations> = {
       legalCenter: "Yasal Merkez",
       privacy: "Gizlilik Politikası",
       terms: "Hizmet Şartları",
+      llmResources: "LLM Kaynakları",
+      readLlmsTxt: "llms.txt oku",
+      readLlmsFullTxt: "llms-full.txt oku",
+      readFaqsMarkdown: "FAQs.md oku",
+      faqsDirectory: "FAQs Dizini",
       rights: "Tüm hakları saklıdır."
     },
     legal: {

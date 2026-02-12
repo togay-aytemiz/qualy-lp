@@ -1,0 +1,49 @@
+# Qualy
+
+## Overview
+
+Qualy is a no-code messaging platform for service teams. It centralizes WhatsApp, Instagram, and Telegram conversations in one inbox, automates repetitive replies, and helps teams prioritize high-intent chats with AI-assisted scoring.
+
+## Product Highlights
+
+- Unified inbox for WhatsApp, Instagram, and Telegram
+- AI-assisted reply automation for repetitive requests
+- Conversation scoring to prioritize urgent or high-fit leads
+- Human handover when a specialist needs to take over
+- Legal and policy pages with versioned documentation
+
+## Key Links
+
+- Home: https://askqualy.com/
+- Pricing: https://askqualy.com/pricing
+- Legal Center: https://askqualy.com/legal
+- Privacy Policy: https://askqualy.com/privacy
+- Terms of Service: https://askqualy.com/terms
+- FAQs Directory: https://askqualy.com/faqs-directory
+- FAQs Markdown: https://askqualy.com/faqs.md
+
+## FAQs
+
+### What is this platform, and what does Qualy do?
+
+Qualy is a no-code messaging platform for service teams. It brings WhatsApp, Instagram, and Telegram conversations into one inbox, automates repetitive replies, and helps your team respond to the right people faster.
+
+### How can I get started quickly?
+
+Connect your channels, upload your company information, and train Qualy with your business details. You do not need technical setup or coding to go live.
+
+### Which channels can I use today?
+
+You can use WhatsApp, Instagram, and Telegram in a single inbox today. Messenger support is currently being prepared.
+
+### How is person scoring calculated?
+
+Scoring uses signals such as service clarity, timing, budget fit, urgency, and decision readiness. The 0-10 score updates automatically as new messages arrive.
+
+### Is customer data secure?
+
+Organization data is isolated, legal documents are versioned, and your team can pause AI replies during human takeover whenever needed.
+
+### What happens when my team takes over a chat?
+
+When a chat is taken over, AI replies pause and your operator takes control. Conversation history stays intact, and you can return the chat to AI flow at any time.

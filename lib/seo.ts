@@ -1,7 +1,7 @@
 import { getSiteUrl, resolveAbsoluteUrl } from './site-url';
 
 export type SeoLanguage = 'en' | 'tr';
-export type SeoRouteKey = 'home' | 'pricing' | 'legalIndex' | 'terms' | 'privacy';
+export type SeoRouteKey = 'home' | 'pricing' | 'legalIndex' | 'terms' | 'privacy' | 'faqDirectory';
 
 type LocalizedSeoCopy = {
   title: string;
@@ -10,12 +10,18 @@ type LocalizedSeoCopy = {
 
 type RouteSeoMap = Record<SeoRouteKey, LocalizedSeoCopy>;
 
+export type SeoAlternate = {
+  hrefLang: string;
+  href: string;
+};
+
 export type SeoPayload = {
   routeKey: SeoRouteKey;
   title: string;
   description: string;
   robots: string;
   canonicalUrl: string;
+  alternates: SeoAlternate[];
   og: {
     type: 'website';
     siteName: string;
@@ -64,6 +70,11 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
       title: 'Privacy Policy | Qualy',
       description: 'Review how Qualy collects, uses, stores, and protects personal data across the service.',
     },
+    faqDirectory: {
+      title: 'LLM-Optimized FAQs | Qualy',
+      description:
+        'Browse Qualy answer-first FAQs designed for both humans and language models, with links to markdown and llms resources.',
+    },
   },
   tr: {
     home: {
@@ -89,6 +100,11 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
       title: 'Gizlilik Politikası | Qualy',
       description: 'Qualy’nin kişisel verileri nasıl topladığını, kullandığını, sakladığını ve koruduğunu incele.',
     },
+    faqDirectory: {
+      title: 'LLM Odaklı SSS | Qualy',
+      description:
+        'Qualy için hem insanlar hem de dil modelleri için hazırlanan SSS yanıtlarını ve markdown kaynaklarını görüntüle.',
+    },
   },
 };
 
@@ -97,6 +113,7 @@ const ROUTE_PATHS: Record<Exclude<SeoRouteKey, 'home'>, string> = {
   legalIndex: '/legal',
   terms: '/terms',
   privacy: '/privacy',
+  faqDirectory: '/faqs-directory',
 };
 
 const OG_IMAGE_PATH = '/og/qualy-default.png';
@@ -114,10 +131,27 @@ export const getSeoRouteKeyByPath = (path: string): SeoRouteKey => {
   if (normalized === '/legal') return 'legalIndex';
   if (normalized === '/terms') return 'terms';
   if (normalized === '/privacy') return 'privacy';
+  if (normalized === '/faqs-directory') return 'faqDirectory';
   return 'home';
 };
 
 const toOgLocale = (language: SeoLanguage) => (language === 'tr' ? 'tr_TR' : 'en_US');
+
+const buildAlternates = ({
+  routeKey,
+  siteUrl,
+}: {
+  routeKey: SeoRouteKey;
+  siteUrl: string;
+}): SeoAlternate[] => {
+  if (routeKey !== 'home') return [];
+
+  return [
+    { hrefLang: 'tr', href: resolveAbsoluteUrl(siteUrl, '/') },
+    { hrefLang: 'en', href: resolveAbsoluteUrl(siteUrl, '/en') },
+    { hrefLang: 'x-default', href: resolveAbsoluteUrl(siteUrl, '/') },
+  ];
+};
 
 const buildHomeJsonLd = ({
   siteUrl,
@@ -205,6 +239,7 @@ export const getSeoByRoute = (
       : ROUTE_PATHS[routeKey as Exclude<SeoRouteKey, 'home'>];
   const canonicalUrl = resolveAbsoluteUrl(siteUrl, canonicalPath);
   const ogImage = resolveAbsoluteUrl(siteUrl, OG_IMAGE_PATH);
+  const alternates = buildAlternates({ routeKey, siteUrl });
 
   const basePayload: Omit<SeoPayload, 'jsonLd'> = {
     routeKey,
@@ -212,6 +247,7 @@ export const getSeoByRoute = (
     description: copy.description,
     robots: DEFAULT_ROBOTS,
     canonicalUrl,
+    alternates,
     og: {
       type: 'website',
       siteName: 'Qualy',

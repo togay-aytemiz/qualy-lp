@@ -16,6 +16,7 @@ describe('getSeoRouteKeyByPath', () => {
     expect(getSeoRouteKeyByPath('/legal')).toBe('legalIndex');
     expect(getSeoRouteKeyByPath('/terms')).toBe('terms');
     expect(getSeoRouteKeyByPath('/privacy')).toBe('privacy');
+    expect(getSeoRouteKeyByPath('/faqs-directory')).toBe('faqDirectory');
   });
 
   it('falls back to home for unknown paths', () => {
@@ -27,6 +28,7 @@ describe('getSeoByRoute', () => {
   it('returns absolute canonical and og url', () => {
     const seo = getSeoByRoute('terms', 'en', { siteUrl: 'https://askqualy.com' });
     const pricingSeo = getSeoByRoute('pricing', 'en', { siteUrl: 'https://askqualy.com' });
+    const faqDirectorySeo = getSeoByRoute('faqDirectory', 'en', { siteUrl: 'https://askqualy.com' });
     const enHomeSeo = getSeoByRoute('home', 'en', { siteUrl: 'https://askqualy.com' });
     const trHomeSeo = getSeoByRoute('home', 'tr', { siteUrl: 'https://askqualy.com' });
 
@@ -35,6 +37,8 @@ describe('getSeoByRoute', () => {
     expect(seo.og.image).toBe('https://askqualy.com/og/qualy-default.png');
     expect(pricingSeo.canonicalUrl).toBe('https://askqualy.com/pricing');
     expect(pricingSeo.og.url).toBe('https://askqualy.com/pricing');
+    expect(faqDirectorySeo.canonicalUrl).toBe('https://askqualy.com/faqs-directory');
+    expect(faqDirectorySeo.og.url).toBe('https://askqualy.com/faqs-directory');
     expect(enHomeSeo.canonicalUrl).toBe('https://askqualy.com/en');
     expect(enHomeSeo.og.url).toBe('https://askqualy.com/en');
     expect(trHomeSeo.canonicalUrl).toBe('https://askqualy.com/');
@@ -56,5 +60,22 @@ describe('getSeoByRoute', () => {
     expect(schemaTypes).toContain('Organization');
     expect(schemaTypes).toContain('WebSite');
     expect(schemaTypes).toContain('SoftwareApplication');
+  });
+
+  it('returns hreflang alternates for localized home routes', () => {
+    const trHomeSeo = getSeoByRoute('home', 'tr', { siteUrl: 'https://askqualy.com' });
+    const enHomeSeo = getSeoByRoute('home', 'en', { siteUrl: 'https://askqualy.com' });
+
+    expect(trHomeSeo.alternates).toEqual([
+      { hrefLang: 'tr', href: 'https://askqualy.com/' },
+      { hrefLang: 'en', href: 'https://askqualy.com/en' },
+      { hrefLang: 'x-default', href: 'https://askqualy.com/' },
+    ]);
+
+    expect(enHomeSeo.alternates).toEqual([
+      { hrefLang: 'tr', href: 'https://askqualy.com/' },
+      { hrefLang: 'en', href: 'https://askqualy.com/en' },
+      { hrefLang: 'x-default', href: 'https://askqualy.com/' },
+    ]);
   });
 });
