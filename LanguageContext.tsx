@@ -227,28 +227,6 @@ interface Translations {
     step3_title: string;
     step3_desc: string;
   };
-  pricing: {
-    title: string;
-    subtitle: string;
-    monthly: string;
-    yearly: string;
-    save: string;
-    professional: {
-        title: string;
-        desc: string;
-        priceMonthly: string;
-        priceYearly: string;
-        cta: string;
-        features: string[];
-    };
-    enterprise: {
-        title: string;
-        desc: string;
-        price: string;
-        cta: string;
-        features: string[];
-    };
-  };
   cta: {
     title: string;
     desc: string;
@@ -668,40 +646,6 @@ const translations: Record<Language, Translations> = {
       step2_desc: "Upload service details, pricing, and policy documents, then define ready responses. Qualy uses this context to reply consistently.",
       step3_title: "Let Qualy AI reply",
       step3_desc: "Qualy answers routine messages instantly, updates scores, and flags important conversations. Your team steps in only where human attention matters."
-    },
-    pricing: {
-      title: "One practical MVP plan.",
-      subtitle: "Everything needed for automated first-line messaging and lead qualification.",
-      monthly: "Monthly",
-      yearly: "Yearly",
-      save: "Save 20%",
-      professional: {
-        title: "Professional",
-        desc: "For service teams running WhatsApp-first sales and support.",
-        priceMonthly: "$79/mo",
-        priceYearly: "$69/mo",
-        cta: "Start 14-day free trial",
-        features: [
-            "WhatsApp, Instagram, and Telegram inbox",
-            "Skill + Knowledge Base auto-replies",
-            "AI lead extraction and 0-10 scoring",
-            "Human Takeover with escalation controls",
-            "Legal center with versioned policy pages"
-        ]
-      },
-      enterprise: {
-        title: "Advanced",
-        desc: "For custom rollout requirements.",
-        price: "Custom",
-        cta: "Contact Sales",
-        features: [
-            "Everything in Professional",
-            "Implementation planning support",
-            "Custom workflow alignment",
-            "Priority roadmap input",
-            "Dedicated onboarding"
-        ]
-      }
     },
     cta: {
       title: "Ready to turn message traffic into a cleaner flow?",
@@ -1142,40 +1086,6 @@ const translations: Record<Language, Translations> = {
       step2_desc: "Hizmet, fiyat ve politika içeriklerini yükle; hazır yanıtlarını tanımla. Qualy bu içeriği referans alarak tutarlı yanıtlar üretir.",
       step3_title: "Qualy AI yanıtlasın",
       step3_desc: "Qualy rutin mesajları anında yanıtlar, skorları günceller ve önemli konuşmaları işaretler. Yalnızca gerçekten müdahale gereken anlarda devreye girersin."
-    },
-    pricing: {
-      title: "Pratik bir MVP paketi.",
-      subtitle: "Otomatik ilk temas mesajlaşması ve lead qualification için gereken her şey.",
-      monthly: "Aylık",
-      yearly: "Yıllık",
-      save: "%20 İndirim",
-      professional: {
-        title: "Profesyonel",
-        desc: "WhatsApp odaklı satış ve destek yürüten servis ekipleri için.",
-        priceMonthly: "$79/ay",
-        priceYearly: "$69/ay",
-        cta: "14 gün ücretsiz dene",
-        features: [
-            "WhatsApp, Instagram ve Telegram gelen kutusu",
-            "Yetenekler + Bilgi Bankası otomatik yanıtları",
-            "Yapay zeka lead extraction ve 0-10 skorlama",
-            "İnsan Devralma ve eskalasyon kontrolleri",
-            "Versiyonlu politika sayfalarıyla yasal merkez"
-        ]
-      },
-      enterprise: {
-        title: "Gelişmiş",
-        desc: "Özel kurulum ihtiyaçları için.",
-        price: "Özel",
-        cta: "Satışla İletişime Geç",
-        features: [
-            "Profesyonel paketteki her şey",
-            "Kurulum planlama desteği",
-            "Özel iş akışı uyarlaması",
-            "Öncelikli yol haritası geri bildirimi",
-            "Özel onboarding desteği"
-        ]
-      }
     },
     cta: {
       title: "Mesaj trafiğini temiz bir akışa çevirmeye hazır mısın?",

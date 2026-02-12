@@ -9,4 +9,13 @@ describe('pricing page ui', () => {
     expect(pricingSource).not.toContain('{copy.badge}');
     expect(pricingSource).not.toContain('badge:');
   });
+
+  it('removes legacy language-context pricing fields now that pricing copy is local to the page', () => {
+    const languageContextSource = readFileSync(path.join(process.cwd(), 'LanguageContext.tsx'), 'utf8');
+
+    expect(languageContextSource).not.toContain('priceMonthly:');
+    expect(languageContextSource).not.toContain('priceYearly:');
+    expect(languageContextSource).not.toContain('save: "Save 20%"');
+    expect(languageContextSource).not.toContain('save: "%20 İndirim"');
+  });
 });
