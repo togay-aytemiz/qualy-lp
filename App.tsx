@@ -11,6 +11,8 @@ import { legalDocSlugs } from './lib/legal';
 import { applySeoToDocument } from './lib/seo-dom';
 import { getSeoByRoute, getSeoRouteKeyByPath } from './lib/seo';
 import { focusHomeSectionByHashWithRetry } from './lib/home-section-focus';
+import { isHomePath } from './lib/footer-links';
+import { readStoredLanguagePreference, resolvePreferredHomePath } from './lib/language-preference';
 
 const SuccessStories = lazy(() => import('./components/SuccessStories'));
 const Challenges = lazy(() => import('./components/Challenges'));
@@ -28,7 +30,7 @@ const getNormalizedPath = () => {
 };
 
 const AppContent: React.FC = () => {
-  const { language } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   const [path, setPath] = useState(getNormalizedPath);
 
   const legalSlug = path.startsWith('/') ? path.slice(1) : path;
@@ -43,13 +45,46 @@ const AppContent: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (!isHomePath(path) || typeof window === 'undefined') return;
+
+    const locales =
+      navigator.languages && navigator.languages.length > 0
+        ? navigator.languages
+        : [navigator.language];
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    const storedLanguage = readStoredLanguagePreference(window.localStorage);
+    const preferredHomePath = resolvePreferredHomePath({
+      currentPath: path === '/en' ? '/en' : '/',
+      storedLanguage,
+      locales,
+      timeZone,
+    });
+
+    if (!preferredHomePath || path === preferredHomePath) return;
+
+    const nextUrl = `${preferredHomePath}${window.location.hash}`;
+    window.history.replaceState(window.history.state, '', nextUrl);
+    setPath(getNormalizedPath());
+  }, [path]);
+
+  useEffect(() => {
+    if (!isHomePath(path)) return;
+
+    const routeLanguage = path === '/en' ? 'en' : 'tr';
+    if (language !== routeLanguage) {
+      setLanguage(routeLanguage);
+    }
+  }, [language, path, setLanguage]);
+
+  useEffect(() => {
     const seoRoute = getSeoRouteKeyByPath(path);
-    document.documentElement.setAttribute('lang', language);
-    applySeoToDocument(document, getSeoByRoute(seoRoute, language));
+    const seoLanguage = isHomePath(path) ? (path === '/en' ? 'en' : 'tr') : language;
+    document.documentElement.setAttribute('lang', seoLanguage);
+    applySeoToDocument(document, getSeoByRoute(seoRoute, seoLanguage));
   }, [language, path]);
 
   useEffect(() => {
-    if (path !== '/') return;
+    if (!isHomePath(path)) return;
 
     let stopFocusRetry = focusHomeSectionByHashWithRetry(window.location.hash);
 

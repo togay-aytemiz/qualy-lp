@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowDownRight, ArrowUpRight, ChevronDown, Zap } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight, ChevronDown, X, Zap } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { HiMiniSparkles } from 'react-icons/hi2';
@@ -7,6 +7,19 @@ import { AUTH_URLS } from '../lib/auth-links';
 
 type Platform = 'whatsapp' | 'instagram' | 'telegram';
 type MessageRole = 'customer' | 'bot';
+type DemoFormData = {
+  fullName: string;
+  email: string;
+  phone: string;
+  note: string;
+};
+
+const initialDemoFormData: DemoFormData = {
+  fullName: '',
+  email: '',
+  phone: '',
+  note: '',
+};
 
 const Hero: React.FC = () => {
   const { t } = useLanguage();
@@ -16,6 +29,9 @@ const Hero: React.FC = () => {
   const [visibleStep, setVisibleStep] = useState(0);
   const [simulationPhase, setSimulationPhase] = useState<'idle' | 'typing'>('idle');
   const [isMobileViewport, setIsMobileViewport] = useState(false);
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
+  const [demoFormData, setDemoFormData] = useState<DemoFormData>(initialDemoFormData);
+  const [demoFormError, setDemoFormError] = useState<string | null>(null);
   const chatViewportRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -95,6 +111,77 @@ const Hero: React.FC = () => {
 
     return () => window.clearTimeout(timer);
   }, [activeScenarioIndex, prefersReducedMotion, scenarios, simulationPhase, visibleStep]);
+
+  useEffect(() => {
+    if (!isDemoModalOpen || typeof window === 'undefined') return;
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsDemoModalOpen(false);
+      }
+    };
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleEscape);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleEscape);
+    };
+  }, [isDemoModalOpen]);
+
+  const openDemoModal = () => {
+    setDemoFormData(initialDemoFormData);
+    setDemoFormError(null);
+    setIsDemoModalOpen(true);
+  };
+
+  const closeDemoModal = () => {
+    setDemoFormError(null);
+    setIsDemoModalOpen(false);
+  };
+
+  const updateDemoField = (field: keyof DemoFormData) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (demoFormError) {
+      setDemoFormError(null);
+    }
+    setDemoFormData((current) => ({ ...current, [field]: event.target.value }));
+  };
+
+  const handleDemoFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const trimmedFullName = demoFormData.fullName.trim();
+    const trimmedEmail = demoFormData.email.trim();
+    const trimmedPhone = demoFormData.phone.trim();
+    const trimmedNote = demoFormData.note.trim();
+
+    if (!trimmedFullName) {
+      setDemoFormError(t.hero.demoModal.errors.fullNameRequired);
+      return;
+    }
+
+    if (!trimmedEmail && !trimmedPhone) {
+      setDemoFormError(t.hero.demoModal.errors.contactRequired);
+      return;
+    }
+
+    const subject = `${t.hero.demoModal.mailSubject} - ${trimmedFullName}`;
+    const body = [
+      `${t.hero.demoModal.mailLabelName}: ${trimmedFullName}`,
+      `${t.hero.demoModal.mailLabelEmail}: ${trimmedEmail || '-'}`,
+      `${t.hero.demoModal.mailLabelPhone}: ${trimmedPhone || '-'}`,
+      `${t.hero.demoModal.mailLabelNote}: ${trimmedNote || '-'}`,
+    ].join('\n');
+    const mailtoHref = `mailto:askqualy@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    if (typeof window !== 'undefined') {
+      window.location.href = mailtoHref;
+    }
+
+    setIsDemoModalOpen(false);
+  };
 
   const activeScenario = scenarios[activeScenarioIndex] ?? scenarios[0];
   const visibleMessages = activeScenario
@@ -220,7 +307,7 @@ const Hero: React.FC = () => {
         initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: prefersReducedMotion ? 0 : 0.25 }}
-        className="flex items-center justify-center mt-10 relative z-10 px-6"
+        className="relative z-10 mt-10 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row"
       >
         <a
           href={AUTH_URLS.register}
@@ -228,6 +315,13 @@ const Hero: React.FC = () => {
         >
           {t.hero.ctaPrimary}
         </a>
+        <button
+          type="button"
+          onClick={openDemoModal}
+          className="w-full sm:w-auto relative z-10 border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 text-sm md:text-base transition font-medium duration-200 rounded-full px-8 py-3 flex items-center justify-center shadow-[0px_-1px_0px_0px_#FFFFFF40_inset,_0px_1px_0px_0px_#FFFFFF40_inset]"
+        >
+          {t.hero.ctaSecondary}
+        </button>
       </motion.div>
 
       <motion.div
@@ -243,14 +337,15 @@ const Hero: React.FC = () => {
           <span>{t.hero.noCard}</span>
         </div>
 
-        <div className="flex items-center justify-center gap-2.5">
+        <div className="flex items-center justify-center gap-3">
           {heroChannelLogos.map((channel) => (
-            <div
+            <img
               key={channel.name}
-              className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 bg-white shadow-[0_6px_16px_rgba(15,23,42,0.06)] transition-transform duration-200 hover:-translate-y-0.5"
-            >
-              <img src={channel.logo} alt={channel.name} className="h-7 w-7 object-contain" loading="lazy" />
-            </div>
+              src={channel.logo}
+              alt={channel.name}
+              className="h-11 w-11 object-contain transition-transform duration-200 hover:-translate-y-0.5"
+              loading="lazy"
+            />
           ))}
         </div>
       </motion.div>
@@ -554,6 +649,129 @@ const Hero: React.FC = () => {
           </div>
         </motion.div>
       </div>
+
+      <AnimatePresence>
+        {isDemoModalOpen && (
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={prefersReducedMotion ? undefined : { opacity: 0 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
+            className="fixed inset-0 z-[120] flex items-center justify-center bg-slate-900/55 px-4 py-6"
+            onClick={closeDemoModal}
+          >
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 16, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={prefersReducedMotion ? undefined : { opacity: 0, y: 12, scale: 0.98 }}
+              transition={{ duration: prefersReducedMotion ? 0 : 0.22, ease: [0.22, 1, 0.36, 1] }}
+              onClick={(event) => event.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="hero-demo-modal-title"
+              className="w-full max-w-xl rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_24px_64px_rgba(15,23,42,0.35)] sm:p-7"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h2 id="hero-demo-modal-title" className="text-2xl font-semibold text-slate-900">
+                    {t.hero.demoModal.title}
+                  </h2>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{t.hero.demoModal.subtitle}</p>
+                </div>
+                <button
+                  type="button"
+                  aria-label={t.hero.demoModal.closeLabel}
+                  onClick={closeDemoModal}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors hover:border-slate-300 hover:text-slate-900"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+
+              <form className="mt-6 space-y-4" onSubmit={handleDemoFormSubmit}>
+                <div className="space-y-1.5">
+                  <label htmlFor="hero-demo-full-name" className="text-sm font-medium text-slate-800">
+                    {t.hero.demoModal.fullNameLabel}
+                  </label>
+                  <input
+                    id="hero-demo-full-name"
+                    type="text"
+                    value={demoFormData.fullName}
+                    onChange={updateDemoField('fullName')}
+                    placeholder={t.hero.demoModal.fullNamePlaceholder}
+                    className="h-11 w-full rounded-xl border border-slate-300 px-3 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+                  />
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-1.5">
+                    <label htmlFor="hero-demo-email" className="text-sm font-medium text-slate-800">
+                      {t.hero.demoModal.emailLabel}
+                    </label>
+                    <input
+                      id="hero-demo-email"
+                      type="email"
+                      value={demoFormData.email}
+                      onChange={updateDemoField('email')}
+                      placeholder={t.hero.demoModal.emailPlaceholder}
+                      className="h-11 w-full rounded-xl border border-slate-300 px-3 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label htmlFor="hero-demo-phone" className="text-sm font-medium text-slate-800">
+                      {t.hero.demoModal.phoneLabel}
+                    </label>
+                    <input
+                      id="hero-demo-phone"
+                      type="tel"
+                      value={demoFormData.phone}
+                      onChange={updateDemoField('phone')}
+                      placeholder={t.hero.demoModal.phonePlaceholder}
+                      className="h-11 w-full rounded-xl border border-slate-300 px-3 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+                    />
+                  </div>
+                </div>
+
+                <p className="text-xs text-slate-500">{t.hero.demoModal.contactHint}</p>
+
+                <div className="space-y-1.5">
+                  <label htmlFor="hero-demo-note" className="text-sm font-medium text-slate-800">
+                    {t.hero.demoModal.noteLabel}
+                  </label>
+                  <textarea
+                    id="hero-demo-note"
+                    value={demoFormData.note}
+                    onChange={updateDemoField('note')}
+                    placeholder={t.hero.demoModal.notePlaceholder}
+                    rows={4}
+                    className="w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm text-slate-700 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-200"
+                  />
+                </div>
+
+                {demoFormError && (
+                  <p className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">{demoFormError}</p>
+                )}
+
+                <div className="flex flex-col-reverse gap-3 pt-2 sm:flex-row sm:justify-end">
+                  <button
+                    type="button"
+                    onClick={closeDemoModal}
+                    className="inline-flex h-11 items-center justify-center rounded-full border border-slate-300 px-6 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100"
+                  >
+                    {t.hero.demoModal.cancel}
+                  </button>
+                  <button
+                    type="submit"
+                    className="inline-flex h-11 items-center justify-center rounded-full bg-slate-900 px-6 text-sm font-medium text-white transition-colors hover:bg-slate-800"
+                  >
+                    {t.hero.demoModal.submit}
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

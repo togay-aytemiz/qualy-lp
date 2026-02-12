@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 describe('challenges copy and cta', () => {
-  it('renders a primary cta and auto-rotating role progress with reset on click', () => {
+  it('keeps auto-rotating role progress with reset on click and no challenges cta button', () => {
     const challengesSource = readFileSync(path.join(process.cwd(), 'components', 'Challenges.tsx'), 'utf8');
 
     expect(challengesSource).toContain('const AUTO_ROTATE_INTERVAL_MS = 8000;');
@@ -12,8 +12,8 @@ describe('challenges copy and cta', () => {
     expect(challengesSource).toContain('window.setTimeout(() => {');
     expect(challengesSource).toContain('key={`challenge-progress-${activeIndex}-${progressKey}`}');
     expect(challengesSource).toContain('transition={{ duration: AUTO_ROTATE_INTERVAL_MS / 1000, ease: \'linear\' }}');
-    expect(challengesSource).toContain('href={AUTH_URLS.register}');
-    expect(challengesSource).toContain('{t.challenges.ctaPrimary}');
+    expect(challengesSource).not.toContain('href={AUTH_URLS.register}');
+    expect(challengesSource).not.toContain('{t.challenges.ctaPrimary}');
   });
 
   it('uses trial-conversion-focused challenge copy in Turkish', () => {

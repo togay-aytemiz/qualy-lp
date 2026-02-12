@@ -16,22 +16,45 @@ describe('faq section', () => {
     expect(faqRenderIndex).toBeLessThan(ctaRenderIndex);
   });
 
-  it('defines FAQ copy in both locales and includes trial/contact actions', () => {
+  it('defines FAQ copy in both locales and includes trial/demo actions', () => {
     const languageContext = readFileSync(path.join(process.cwd(), 'LanguageContext.tsx'), 'utf8');
     const faqSource = readFileSync(path.join(process.cwd(), 'components', 'FAQ.tsx'), 'utf8');
+    const trStart = languageContext.indexOf('tr: {');
+    const trFaqStart = languageContext.indexOf('faq: {', trStart);
+    const trFaqEnd = languageContext.indexOf('footer: {', trFaqStart);
+    const trFaqBlock = languageContext.slice(trFaqStart, trFaqEnd);
 
     expect(languageContext).toContain('faq: {');
     expect(languageContext).toContain('title: "Frequently Asked Questions"');
     expect(languageContext).toContain('title: "Sıkça Sorulan Sorular"');
-    expect(languageContext).toContain('question: "What exactly does this platform do?"');
-    expect(languageContext).toContain('question: "Bu platform tam olarak ne yapar?"');
-    expect(languageContext).toContain('secondary: "Bize Ulaş"');
-    expect(languageContext).toContain('question: "Aday puanlaması nasıl çalışır?"');
-    expect(languageContext).not.toContain('question: "Lead skorlama nasıl çalışır?"');
-    expect(languageContext).not.toContain('MVP\'de WhatsApp, Instagram ve Telegram');
+    expect(languageContext).toContain('question: "What is this platform, and what does Qualy do?"');
+    expect(languageContext).toContain('question: "Bu platform nedir, Qualy ne işe yarar?"');
+    expect(languageContext).toContain('en sık sorulan soruları burada bulabilirsin');
+    expect(languageContext).toContain('secondary: "Plan a Demo"');
+    expect(languageContext).toContain('secondary: "Demo Planla"');
+    expect(languageContext).toContain('question: "Kişi puanı nasıl hesaplanır?"');
+    expect(languageContext).toContain('question: "Qualy\'i hızlıca nasıl başlatırım?"');
+    expect(languageContext).toContain('şirket bilgilerinle eğit');
+    expect(trFaqBlock).toContain('no-code');
+    expect(trFaqBlock).not.toContain('lead');
+    expect(trFaqBlock).not.toContain('Lead');
+    expect(trFaqBlock).not.toContain('MVP');
+    expect(trFaqBlock).not.toContain('roadmap');
+    expect(trFaqBlock).not.toContain('Roadmap');
+    expect(trFaqBlock).not.toContain('AI');
+    expect(trFaqBlock).not.toContain('aday');
+    expect(trFaqBlock).not.toContain('Aday');
 
     expect(faqSource).toContain('href={AUTH_URLS.register}');
-    expect(faqSource).toContain('mailto:askqualy@gmail.com');
+    expect(faqSource).toContain('{t.hero.ctaSecondary}');
+    expect(faqSource).toContain('const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);');
+    expect(faqSource).toContain('const [demoFormData, setDemoFormData] = useState<DemoFormData>(');
+    expect(faqSource).toContain('if (!trimmedFullName) {');
+    expect(faqSource).toContain('if (!trimmedEmail && !trimmedPhone) {');
+    expect(faqSource).toContain('const mailtoHref = `mailto:askqualy@gmail.com');
+    expect(faqSource).toContain('window.location.href = mailtoHref;');
+    expect(faqSource).toContain('role="dialog"');
+    expect(faqSource).toContain('{t.hero.demoModal.title}');
     expect(faqSource).toContain('t.faq.items.map');
     expect(faqSource).toContain('SectionWithHeader');
     expect(faqSource).not.toContain('t.faq.eyebrow');

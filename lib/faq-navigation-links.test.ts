@@ -10,7 +10,7 @@ describe('faq navigation links', () => {
     expect(navbarSource).toContain("href=\"#faq\"");
     expect(navbarSource).toContain("scrollToSection(e, 'faq')");
 
-    expect(footerSource).toContain("buildHomeSectionHref('faq')");
+    expect(footerSource).toContain("buildHomeSectionHref('faq', homePath)");
     expect(footerSource).toContain("scrollToHomeSection(e, 'faq')");
   });
 });

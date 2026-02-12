@@ -11,6 +11,14 @@ export const PRICING_PAGE_HREF = '/pricing';
 
 export const getProductFooterSectionId = (key: ProductFooterSectionKey) => PRODUCT_SECTION_MAP[key];
 
-export const buildHomeSectionHref = (sectionId: string) => `/#${sectionId}`;
+const normalizePathname = (pathname: string) => {
+  const cleaned = pathname.replace(/\/+$/, '');
+  return cleaned === '' ? '/' : cleaned;
+};
 
-export const isHomePath = (pathname: string) => pathname === '' || pathname === '/';
+export const buildHomeSectionHref = (sectionId: string, homePath = '/') => `${homePath}#${sectionId}`;
+
+export const isHomePath = (pathname: string) => {
+  const normalized = normalizePathname(pathname);
+  return normalized === '/' || normalized === '/en';
+};

@@ -1,17 +1,19 @@
 export type SupportedLanguage = 'en' | 'tr';
+export type SupportedHomePath = '/' | '/en';
 
 const TURKEY_REGION = 'tr';
 const ISTANBUL_TIMEZONE_SEGMENT = '/istanbul';
 
-export function languageFromLocale(locale?: string): SupportedLanguage {
-  if (!locale) {
-    return 'en';
-  }
+const getLocaleRegion = (locale?: string) => {
+  if (!locale) return '';
 
   const normalized = locale.toLowerCase().replace('_', '-');
-  const parts = normalized.split('-').filter(Boolean);
+  const [, region = ''] = normalized.split('-').filter(Boolean);
+  return region;
+};
 
-  if (parts[0] === TURKEY_REGION || parts[1] === TURKEY_REGION) {
+export function languageFromLocale(locale?: string): SupportedLanguage {
+  if (getLocaleRegion(locale) === TURKEY_REGION) {
     return 'tr';
   }
 
@@ -35,3 +37,11 @@ export function resolveLanguageByRegion(
 
   return 'en';
 }
+
+export const homePathByLanguage = (language: SupportedLanguage): SupportedHomePath =>
+  language === 'tr' ? '/' : '/en';
+
+export const resolveHomePathByRegion = (
+  locales: readonly string[] = [],
+  timeZone?: string,
+): SupportedHomePath => homePathByLanguage(resolveLanguageByRegion(locales, timeZone));

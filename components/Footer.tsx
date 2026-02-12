@@ -10,15 +10,36 @@ import {
   type ProductFooterSectionKey,
 } from '../lib/footer-links';
 import { focusHomeSectionById } from '../lib/home-section-focus';
+import { writeStoredLanguagePreference } from '../lib/language-preference';
+import { homePathByLanguage } from '../lib/region-language';
 
 const Footer: React.FC = () => {
   const { t, language, setLanguage } = useLanguage();
+  const homePath = homePathByLanguage(language);
+
+  const handleLanguageChange = (nextLanguage: 'en' | 'tr') => {
+    if (typeof window !== 'undefined') {
+      writeStoredLanguagePreference(nextLanguage, window.localStorage);
+    }
+
+    setLanguage(nextLanguage);
+
+    if (typeof window === 'undefined') return;
+    if (!isHomePath(window.location.pathname)) return;
+
+    const targetHomePath = homePathByLanguage(nextLanguage);
+    const currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
+    if (currentPath === targetHomePath) return;
+
+    window.history.pushState(window.history.state, '', `${targetHomePath}${window.location.hash}`);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  };
 
   const scrollToHomeSection = (e: React.MouseEvent<HTMLAnchorElement>, key: ProductFooterSectionKey) => {
     if (typeof window === 'undefined') return;
 
     const sectionId = getProductFooterSectionId(key);
-    const targetHref = buildHomeSectionHref(sectionId);
+    const targetHref = buildHomeSectionHref(sectionId, homePath);
 
     e.preventDefault();
 
@@ -41,12 +62,12 @@ const Footer: React.FC = () => {
         {/* Left Side: Logo & Info */}
         <div>
           <div className="mr-0 mb-4 md:mr-4 md:flex">
-            <a className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black" href="/">
+            <a className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black" href={homePath}>
               <Logo className="h-7 w-auto" />
             </a>
           </div>
           <div className="mt-2 ml-2">
-            © {new Date().getFullYear()} Qualy Inc. {t.footer.rights}
+            © {new Date().getFullYear()} Qualy. {t.footer.rights}
           </div>
 
           <div className="mt-4 ml-2 flex items-center gap-2">
@@ -73,14 +94,14 @@ const Footer: React.FC = () => {
             <Globe className="w-3 h-3 text-slate-400" />
             <div className="flex gap-2 font-semibold text-xs">
               <button 
-                onClick={() => setLanguage('en')} 
+                onClick={() => handleLanguageChange('en')}
                 className={`transition-colors ${language === 'en' ? 'text-black' : 'text-slate-400 hover:text-slate-600'}`}
               >
                 EN
               </button>
               <span className="text-slate-300">|</span>
               <button 
-                onClick={() => setLanguage('tr')} 
+                onClick={() => handleLanguageChange('tr')}
                 className={`transition-colors ${language === 'tr' ? 'text-black' : 'text-slate-400 hover:text-slate-600'}`}
               >
                 TR
@@ -97,12 +118,12 @@ const Footer: React.FC = () => {
             <p className="font-bold text-slate-900 transition-colors">{t.footer.product}</p>
             <ul className="list-none space-y-4 text-slate-600 transition-colors">
               <li className="list-none">
-                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('features')} onClick={(e) => scrollToHomeSection(e, 'features')}>
+                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('features', homePath)} onClick={(e) => scrollToHomeSection(e, 'features')}>
                   {t.footer.features}
                 </a>
               </li>
               <li className="list-none">
-                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('faq')} onClick={(e) => scrollToHomeSection(e, 'faq')}>
+                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('faq', homePath)} onClick={(e) => scrollToHomeSection(e, 'faq')}>
                   {t.navbar.faq}
                 </a>
               </li>
@@ -112,12 +133,12 @@ const Footer: React.FC = () => {
                 </a>
               </li>
               <li className="list-none">
-                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('testimonials')} onClick={(e) => scrollToHomeSection(e, 'leadScoring')}>
+                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('testimonials', homePath)} onClick={(e) => scrollToHomeSection(e, 'leadScoring')}>
                   {t.footer.leadScoring}
                 </a>
               </li>
               <li className="list-none">
-                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('how-it-works')} onClick={(e) => scrollToHomeSection(e, 'updates')}>
+                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('how-it-works', homePath)} onClick={(e) => scrollToHomeSection(e, 'updates')}>
                   {t.footer.updates}
                 </a>
               </li>

@@ -1,4 +1,5 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
+import { readStoredLanguagePreference } from './lib/language-preference';
 import { resolveLanguageByRegion } from './lib/region-language';
 
 type Language = 'en' | 'tr';
@@ -20,6 +21,31 @@ interface Translations {
     ctaSecondary: string;
     connects: string;
     noCard: string;
+    demoModal: {
+      title: string;
+      subtitle: string;
+      fullNameLabel: string;
+      fullNamePlaceholder: string;
+      emailLabel: string;
+      emailPlaceholder: string;
+      phoneLabel: string;
+      phonePlaceholder: string;
+      contactHint: string;
+      noteLabel: string;
+      notePlaceholder: string;
+      cancel: string;
+      submit: string;
+      closeLabel: string;
+      mailSubject: string;
+      mailLabelName: string;
+      mailLabelEmail: string;
+      mailLabelPhone: string;
+      mailLabelNote: string;
+      errors: {
+        fullNameRequired: string;
+        contactRequired: string;
+      };
+    };
     mockup: {
       dashboard: string;
       online: string;
@@ -289,9 +315,34 @@ const translations: Record<Language, Translations> = {
       headline: "Reply instantly. <br /> Prioritize serious leads.",
       subheadline: "Qualy automates repetitive WhatsApp, Instagram, and Telegram conversations with Skills + Knowledge Base, scores intent 1-10, and hands chats to your team at the right moment.",
       ctaPrimary: "Start Free Trial",
-      ctaSecondary: "Open Dashboard",
+      ctaSecondary: "Plan a Demo",
       connects: "Connect in minutes",
       noCard: "No credit card required",
+      demoModal: {
+        title: "Plan a Demo",
+        subtitle: "Share a few details and we will prepare a short walkthrough for your team.",
+        fullNameLabel: "Full name",
+        fullNamePlaceholder: "Enter your name and surname",
+        emailLabel: "Email",
+        emailPlaceholder: "name@company.com",
+        phoneLabel: "Phone",
+        phonePlaceholder: "+1 555 123 45 67",
+        contactHint: "Email or phone (at least one is required)",
+        noteLabel: "Availability or note",
+        notePlaceholder: "Share your available hours or any context for the demo.",
+        cancel: "Cancel",
+        submit: "Open Email Draft",
+        closeLabel: "Close modal",
+        mailSubject: "Demo Request",
+        mailLabelName: "Full name",
+        mailLabelEmail: "Email",
+        mailLabelPhone: "Phone",
+        mailLabelNote: "Availability / Notes",
+        errors: {
+          fullNameRequired: "Please enter your full name.",
+          contactRequired: "Please provide either an email or a phone number."
+        }
+      },
       mockup: {
         dashboard: "Qualy Dashboard",
         online: "Status: Online",
@@ -657,33 +708,33 @@ const translations: Record<Language, Translations> = {
     faq: {
       eyebrow: "FAQs",
       title: "Frequently Asked Questions",
-      subtitle: "Find quick answers about what Qualy does, how setup works, and how your team stays in control.",
+      subtitle: "Find clear answers to the most frequently asked questions about what Qualy is, how to start, and how your data is protected.",
       primary: "Start Free Trial",
-      secondary: "Contact Us",
+      secondary: "Plan a Demo",
       items: [
         {
-          question: "What exactly does this platform do?",
-          answer: "Qualy automates repetitive customer messages across WhatsApp, Instagram, and Telegram, then extracts lead details and scores intent from 0 to 10 so your team can focus on high-priority conversations."
+          question: "What is this platform, and what does Qualy do?",
+          answer: "Qualy is a no-code messaging platform for service teams. It brings WhatsApp, Instagram, and Telegram conversations into one inbox, automates repetitive replies, and helps your team respond to the right people faster."
         },
         {
-          question: "How do I get started?",
-          answer: "Connect your channels, upload service and policy documents to the Knowledge Base, add a few ready-response Skills, and let Qualy start replying in minutes."
+          question: "How can I get started quickly?",
+          answer: "Connect your channels, upload your company information, and train Qualy with your business details. You do not need technical setup or coding to go live."
         },
         {
-          question: "Which channels are supported right now?",
-          answer: "The MVP supports WhatsApp, Instagram, and Telegram inbox workflows in one panel. Messenger is listed as a coming-soon channel on the roadmap."
+          question: "Which channels can I use today?",
+          answer: "You can use WhatsApp, Instagram, and Telegram in a single inbox today. Messenger support is currently being prepared."
         },
         {
-          question: "How does lead scoring work?",
-          answer: "Qualy analyzes signals like service clarity, timeline, budget fit, urgency, and decision readiness, then updates a 0-10 intent score after new customer messages."
+          question: "How is person scoring calculated?",
+          answer: "Scoring uses signals such as service clarity, timing, budget fit, urgency, and decision readiness. The 0-10 score updates automatically as new messages arrive."
         },
         {
-          question: "Is my customer data secure?",
-          answer: "Organizations are isolated with a multi-tenant model, legal terms are publicly versioned, and human handover controls let your team pause AI replies when needed."
+          question: "Is customer data secure?",
+          answer: "Organization data is isolated, legal documents are versioned, and your team can pause AI replies during human takeover whenever needed."
         },
         {
-          question: "Can my team take over conversations at any time?",
-          answer: "Yes. You can switch a chat to human takeover in one click, keep full conversation history, and return the thread to AI flow when you are ready."
+          question: "What happens when my team takes over a chat?",
+          answer: "When a chat is taken over, AI replies pause and your operator takes control. Conversation history stays intact, and you can return the chat to AI flow at any time."
         }
       ]
     },
@@ -731,11 +782,36 @@ const translations: Record<Language, Translations> = {
     hero: {
       status: "Servis ekipleri için WhatsApp odaklı AI gelen kutusu",
       headline: "Herkese değil, doğru müşteriye odaklan.",
-      subheadline: "Qualy, <span class=\"font-semibold text-slate-700 underline decoration-slate-400/80 underline-offset-4\">mesajları otomatik yanıtlar</span>; hizmet profili çıkarır, gerekli alanları toplar, eksik bilgiyi doğru sorularla tamamlar ve konuşmaları 1-10 niyet skoruna göre <span class=\"font-semibold text-slate-700 underline decoration-slate-400/80 underline-offset-4\">önceliklendirir</span>.",
+      subheadline: "Qualy, <span class=\"font-semibold text-slate-700 underline decoration-slate-400/80 underline-offset-4\">mesajları otomatik yanıtlar</span>; hizmet profili çıkarır, gerekli alanları toplar, eksik bilgiyi doğru sorularla tamamlar ve konuşmaları 1-10 müşteri skoruna göre <span class=\"font-semibold text-slate-700 underline decoration-slate-400/80 underline-offset-4\">önceliklendirir</span>.",
       ctaPrimary: "Ücretsiz Denemeyi Başlat",
-      ctaSecondary: "Panele Git",
-      connects: "Dakikalar içinde bağlanır",
-      noCard: "Kredi kartı gerekmez",
+      ctaSecondary: "Demo Planla",
+      connects: "Dakikalar içinde bağlan",
+      noCard: "Kredi kartı gerekmeden dene",
+      demoModal: {
+        title: "Demo Planla",
+        subtitle: "Bilgilerini bırak, kısa bir tanıtım görüşmesi planlayalım.",
+        fullNameLabel: "Ad soyad",
+        fullNamePlaceholder: "Adını ve soyadını yaz",
+        emailLabel: "E-posta",
+        emailPlaceholder: "ornek@sirket.com",
+        phoneLabel: "Telefon",
+        phonePlaceholder: "+90 5XX XXX XX XX",
+        contactHint: "E-posta veya telefon (en az biri zorunlu)",
+        noteLabel: "Müsaitlik veya not",
+        notePlaceholder: "Müsait olduğun saatleri veya demo için notunu paylaş.",
+        cancel: "Vazgeç",
+        submit: "Devam Et",
+        closeLabel: "Pencereyi kapat",
+        mailSubject: "Demo Talebi",
+        mailLabelName: "Ad soyad",
+        mailLabelEmail: "E-posta",
+        mailLabelPhone: "Telefon",
+        mailLabelNote: "Müsaitlik / Not",
+        errors: {
+          fullNameRequired: "Lütfen ad soyad bilgini gir.",
+          contactRequired: "Lütfen e-posta veya telefon alanlarından en az birini doldur."
+        }
+      },
       mockup: {
         dashboard: "Qualy Paneli",
         online: "Durum: Çevrimiçi",
@@ -909,7 +985,7 @@ const translations: Record<Language, Translations> = {
         {
           value: "+42%",
           label: "Daha fazla nitelikli lead",
-          detail: "Niyet skoru, satışa en yakın konuşmaları hızlı takip için öne çıkarır."
+          detail: "Müşteri skoru, satışa en yakın konuşmaları hızlı takip için öne çıkarır."
         },
         {
           value: "-61%",
@@ -997,7 +1073,7 @@ const translations: Record<Language, Translations> = {
       feat1_mockup_preview_answer: "Müsaitlik ve fiyatı bu akışta paylaşabilirim. İstersen uygun saatleri hemen listeleyeyim.",
       feat2_title: "Qualy yapay zeka ile mesajları cevaplar ve otomatik skor üretir",
       feat2_title_highlight: "yapay zeka ile",
-      feat2_desc: "Her yeni müşteri mesajı kişi çıkarımı ve 0-10 niyet skoru üretir. Aciliyeti, hizmet uyumunu ve takip önceliğini tek bakışta gör.",
+      feat2_desc: "Her yeni müşteri mesajı kişi çıkarımı ve 0-10 müşteri skoru üretir. Aciliyeti, hizmet uyumunu ve takip önceliğini tek bakışta gör.",
       feat2_li1: "<span><strong class=\"text-slate-900\">Düşük niyet:</strong> Erken araştırma veya belirsiz talepler AI akışında kalır.</span>",
       feat2_li2: "<span><strong class=\"text-slate-900\">Yüksek niyet:</strong> Net hizmet + zaman sinyalleri anında insan takibine çıkar.</span>",
       feat2_mockup_potential: "Müşteri Potansiyeli",
@@ -1101,33 +1177,33 @@ const translations: Record<Language, Translations> = {
     faq: {
       eyebrow: "SSS",
       title: "Sıkça Sorulan Sorular",
-      subtitle: "Qualy'nin ne yaptığı, nasıl başladığın ve güvenlik yaklaşımıyla ilgili en sık soruları burada bulabilirsin.",
+      subtitle: "Qualy'nin ne olduğu, nasıl başladığın ve verilerin nasıl korunduğuyla ilgili en sık sorulan soruları burada bulabilirsin.",
       primary: "Ücretsiz dene",
-      secondary: "Bize Ulaş",
+      secondary: "Demo Planla",
       items: [
         {
-          question: "Bu platform tam olarak ne yapar?",
-          answer: "Qualy, WhatsApp, Instagram ve Telegram'daki tekrar eden müşteri mesajlarını otomatik yanıtlar; aday bilgilerini çıkarır ve 0-10 niyet puanıyla hangi konuşmaya önce bakman gerektiğini gösterir."
+          question: "Bu platform nedir, Qualy ne işe yarar?",
+          answer: "Qualy, servis ekipleri için no-code bir mesaj yönetim platformudur. WhatsApp, Instagram ve Telegram konuşmalarını tek gelen kutusunda toplar, tekrar eden soruları otomatik yanıtlar ve ekibinin doğru kişilere daha hızlı dönmesini sağlar."
         },
         {
-          question: "Nasıl başlarım?",
-          answer: "Kanallarını bağla, hizmet ve politika dokümanlarını Bilgi Bankası'na yükle, birkaç hazır yanıt kuralı ekle. Sonra Qualy dakikalar içinde yanıt akışını çalıştırır."
+          question: "Qualy'i hızlıca nasıl başlatırım?",
+          answer: "Kanallarını bağla, şirketine ait hizmet, fiyat ve politika bilgilerini yükle, ardından Qualy'i şirket bilgilerinle eğit. Kod yazmadan birkaç adımda canlıya alabilirsin."
         },
         {
-          question: "Şu anda hangi kanallar destekleniyor?",
-          answer: "Şu anda WhatsApp, Instagram ve Telegram tek panelde yönetilir. Messenger kanal kartı yol haritasında 'Çok Yakında' olarak yer alır."
+          question: "Bugün hangi kanalları kullanabilirim?",
+          answer: "Bugün WhatsApp, Instagram ve Telegram tek panelde kullanılabiliyor. Messenger desteği ise yakında açılacak."
         },
         {
-          question: "Aday puanlaması nasıl çalışır?",
-          answer: "Qualy, hizmet netliği, tarih, bütçe uyumu, aciliyet ve karar sinyallerini birlikte değerlendirir; her yeni müşteri mesajında 0-10 puanı günceller."
+          question: "Kişi puanı nasıl hesaplanır?",
+          answer: "Kişi puanı; hizmetin netliği, tarih bilgisi, bütçe uyumu, aciliyet ve karar sinyalleriyle hesaplanır. Her yeni mesajda 0-10 puan otomatik güncellenir."
         },
         {
           question: "Müşteri verileri güvenli mi?",
-          answer: "Kuruluş verileri birbirinden izole edilir, yasal metinler sürüm takibiyle yayınlanır ve insan devralma kontrolleriyle yapay zeka yanıtını istediğin an durdurabilirsin."
+          answer: "Kuruluş verileri birbirinden izole tutulur. Yasal metinler sürüm takibiyle yayınlanır ve gerektiğinde yapay zeka yanıtı durdurularak süreç ekip tarafından güvenle yönetilir."
         },
         {
-          question: "Ekibim konuşmayı istediği an devralabilir mi?",
-          answer: "Evet. Konuşmayı tek tıkla insana devredebilir, geçmişi aynı ekranda koruyabilir ve hazır olduğunda AI akışına geri dönebilirsin."
+          question: "Ekibim konuşmayı devralınca ne olur?",
+          answer: "Devralınan konuşmada yapay zeka yanıtı durur ve operatör kontrolü alır. Konuşma geçmişi korunur; istersen konuşmayı yeniden yapay zeka akışına döndürebilirsin."
         }
       ]
     },
@@ -1176,6 +1252,11 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 const getInitialLanguage = (): Language => {
   if (typeof window === 'undefined') {
     return 'en';
+  }
+
+  const storedLanguage = readStoredLanguagePreference(window.localStorage);
+  if (storedLanguage) {
+    return storedLanguage;
   }
 
   const locales =

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion, useReducedMotion } from 'framer-motion';
 import SectionWithHeader from './SectionWithHeader';
-import { AUTH_URLS } from '../lib/auth-links';
 
 const AUTO_ROTATE_INTERVAL_MS = 8000;
 
@@ -19,7 +18,7 @@ const Challenges: React.FC = () => {
       headline: t.challenges.cards.founders.headline,
       compactHeadline: t.challenges.cards.founders.compact,
       desc: t.challenges.cards.founders.desc,
-      image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=600&h=800"
+      image: "/roles/1.webp"
     },
     {
       id: 'customerSuccess',
@@ -27,7 +26,7 @@ const Challenges: React.FC = () => {
       headline: t.challenges.cards.customerSuccess.headline,
       compactHeadline: t.challenges.cards.customerSuccess.compact,
       desc: t.challenges.cards.customerSuccess.desc,
-      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=600&h=800"
+      image: "/roles/2.webp"
     },
     {
       id: 'sales',
@@ -35,7 +34,7 @@ const Challenges: React.FC = () => {
       headline: t.challenges.cards.sales.headline,
       compactHeadline: t.challenges.cards.sales.compact,
       desc: t.challenges.cards.sales.desc,
-      image: "https://images.unsplash.com/photo-1553877616-1528073ee413?auto=format&fit=crop&q=80&w=600&h=800"
+      image: "/roles/3.webp"
     },
     {
       id: 'marketing',
@@ -43,7 +42,7 @@ const Challenges: React.FC = () => {
       headline: t.challenges.cards.marketing.headline,
       compactHeadline: t.challenges.cards.marketing.compact,
       desc: t.challenges.cards.marketing.desc,
-      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=600&h=800"
+      image: "/roles/4.webp"
     }
   ];
 
@@ -161,21 +160,6 @@ const Challenges: React.FC = () => {
               </div>
             </div>
           ))}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.35, delay: 0.2 }}
-          className="mt-10 md:mt-12 flex flex-col items-center"
-        >
-          <a
-            href={AUTH_URLS.register}
-            className="inline-flex items-center justify-center rounded-full bg-slate-900 px-7 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,23,42,0.18)] transition-colors hover:bg-slate-800"
-          >
-            {t.challenges.ctaPrimary}
-          </a>
         </motion.div>
 
     </SectionWithHeader>

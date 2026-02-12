@@ -14,6 +14,7 @@ describe('buildHomeSectionHref', () => {
   it('builds hash routes pointing to home sections', () => {
     expect(buildHomeSectionHref('features')).toBe('/#features');
     expect(buildHomeSectionHref('how-it-works')).toBe('/#how-it-works');
+    expect(buildHomeSectionHref('features', '/en')).toBe('/en#features');
   });
 });
 
@@ -26,6 +27,8 @@ describe('PRICING_PAGE_HREF', () => {
 describe('isHomePath', () => {
   it('accepts root path and rejects nested routes', () => {
     expect(isHomePath('/')).toBe(true);
+    expect(isHomePath('/en')).toBe(true);
+    expect(isHomePath('/en/')).toBe(true);
     expect(isHomePath('')).toBe(true);
     expect(isHomePath('/terms')).toBe(false);
     expect(isHomePath('/legal')).toBe(false);

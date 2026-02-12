@@ -34,6 +34,11 @@ export type SeoPayload = {
   jsonLd: Record<string, unknown>[];
 };
 
+const HOME_PATH_BY_LANGUAGE: Record<SeoLanguage, string> = {
+  tr: '/',
+  en: '/en',
+};
+
 const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
   en: {
     home: {
@@ -87,8 +92,7 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
   },
 };
 
-const ROUTE_PATHS: Record<SeoRouteKey, string> = {
-  home: '/',
+const ROUTE_PATHS: Record<Exclude<SeoRouteKey, 'home'>, string> = {
   pricing: '/pricing',
   legalIndex: '/legal',
   terms: '/terms',
@@ -105,6 +109,7 @@ export const normalizeRoutePath = (path: string) => {
 
 export const getSeoRouteKeyByPath = (path: string): SeoRouteKey => {
   const normalized = normalizeRoutePath(path);
+  if (normalized === '/en') return 'home';
   if (normalized === '/pricing') return 'pricing';
   if (normalized === '/legal') return 'legalIndex';
   if (normalized === '/terms') return 'terms';
@@ -194,7 +199,10 @@ export const getSeoByRoute = (
 ): SeoPayload => {
   const siteUrl = options.siteUrl ? options.siteUrl : getSiteUrl();
   const copy = SEO_COPY[language][routeKey];
-  const canonicalPath = ROUTE_PATHS[routeKey];
+  const canonicalPath =
+    routeKey === 'home'
+      ? HOME_PATH_BY_LANGUAGE[language]
+      : ROUTE_PATHS[routeKey as Exclude<SeoRouteKey, 'home'>];
   const canonicalUrl = resolveAbsoluteUrl(siteUrl, canonicalPath);
   const ogImage = resolveAbsoluteUrl(siteUrl, OG_IMAGE_PATH);
 
