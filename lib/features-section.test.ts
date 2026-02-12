@@ -69,9 +69,9 @@ describe('features section content and layout', () => {
   it('aligns first-row cards and uses platform icons in channels card', () => {
     const featuresSource = readFileSync(path.join(process.cwd(), 'components', 'Features.tsx'), 'utf8');
 
-    expect(featuresSource).toContain('RiWhatsappFill');
-    expect(featuresSource).toContain('RiInstagramFill');
-    expect(featuresSource).toContain('RiTelegramFill');
+    expect(featuresSource).toContain("logo: '/whatsapp.svg'");
+    expect(featuresSource).toContain("logo: '/instagram.svg'");
+    expect(featuresSource).toContain("logo: '/Telegram.svg'");
     expect(featuresSource).toContain('lg:col-span-4 p-8 border-b border-r border-slate-200 border-dashed bg-white relative group transition-colors hover:bg-slate-50/50 flex flex-col');
     expect(featuresSource).toContain('lg:col-span-2 p-8 border-b border-r border-slate-200 border-dashed bg-white relative group transition-colors hover:bg-slate-50/50 flex flex-col');
     expect(featuresSource).toContain('mt-auto relative h-[320px] md:h-[350px]');

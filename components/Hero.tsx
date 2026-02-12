@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowDownRight, ArrowUpRight, ChevronDown, X, Zap } from 'lucide-react';
+import { ArrowDownRight, ArrowUpRight, ChevronDown, Sparkles, X, Zap } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { HiMiniSparkles } from 'react-icons/hi2';
 import { AUTH_URLS } from '../lib/auth-links';
 
 type Platform = 'whatsapp' | 'instagram' | 'telegram';
@@ -621,7 +620,7 @@ const Hero: React.FC = () => {
                             aria-hidden
                             className="relative inline-flex h-[17px] w-[17px] items-center justify-center rounded-full bg-gradient-to-br from-violet-500 via-fuchsia-500 to-orange-400 shadow-[0_0_8px_rgba(168,85,247,0.6)]"
                           >
-                            <HiMiniSparkles className="text-white" size={11} />
+                            <Sparkles className="text-white" size={11} />
                           </span>
                         </span>
                         <span>{t.hero.mockup.summaryTitle}</span>

@@ -23,10 +23,10 @@ describe('impact metrics display', () => {
     );
 
     expect(impactMetricsSource).toContain('animate(0, numericTarget');
-    expect(impactMetricsSource).toContain('FaStopwatch');
-    expect(impactMetricsSource).toContain('FaMessage');
-    expect(impactMetricsSource).toContain('FaRankingStar');
-    expect(impactMetricsSource).toContain('FaCalendarCheck');
+    expect(impactMetricsSource).toContain('Timer');
+    expect(impactMetricsSource).toContain('MessageCircle');
+    expect(impactMetricsSource).toContain('Star');
+    expect(impactMetricsSource).toContain('CalendarCheck');
     expect(impactMetricsSource).not.toContain('rotate: 360');
     expect(impactMetricsSource).toContain('formatMetricValue(metric.value)');
     expect(impactMetricsSource).toContain('text-black');

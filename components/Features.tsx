@@ -1,9 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useLanguage } from '../LanguageContext';
-import { FileText, CheckCircle2 } from 'lucide-react';
+import { BellRing, CheckCircle2, FileText, Hand, Undo2 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { HiOutlineArrowUturnLeft, HiOutlineBellAlert, HiOutlineHandRaised } from 'react-icons/hi2';
-import { RiInstagramFill, RiMessengerFill, RiTelegramFill, RiWhatsappFill } from 'react-icons/ri';
 import SectionWithHeader from './SectionWithHeader';
 
 interface FeatureBlockHeaderProps {
@@ -139,9 +137,9 @@ const Features: React.FC = () => {
 
   const handoverStages = useMemo(
     () => [
-      { label: t.features.feat4_badges[4], icon: HiOutlineBellAlert },
-      { label: t.features.feat4_badges[1], icon: HiOutlineHandRaised },
-      { label: t.features.feat4_badges[2], icon: HiOutlineArrowUturnLeft },
+      { label: t.features.feat4_badges[4], icon: BellRing },
+      { label: t.features.feat4_badges[1], icon: Hand },
+      { label: t.features.feat4_badges[2], icon: Undo2 },
     ],
     [t.features.feat4_badges]
   );
@@ -207,23 +205,23 @@ const Features: React.FC = () => {
   const platformMetaMap = {
     whatsapp: {
       label: 'WhatsApp',
-      icon: RiWhatsappFill,
+      logo: '/whatsapp.svg',
       chip: 'border-[#25D366]/40 bg-[#25D366]/10 text-[#1e8f47]',
     },
     instagram: {
       label: 'Instagram',
-      icon: RiInstagramFill,
+      logo: '/instagram.svg',
       chip: 'border-[#E1306C]/40 bg-[#E1306C]/10 text-[#b61f55]',
     },
     telegram: {
       label: 'Telegram',
-      icon: RiTelegramFill,
+      logo: '/Telegram.svg',
       chip: 'border-[#229ED9]/40 bg-[#229ED9]/10 text-[#1d7eac]',
     },
   } as const;
 
   const activeScenarioPlatform = platformMetaMap[activeScenario?.platform ?? 'whatsapp'];
-  const ActiveScenarioPlatformIcon = activeScenarioPlatform.icon;
+  const activeScenarioPlatformLogo = activeScenarioPlatform.logo;
   const handoverOwner = handoverStep === 1 ? (language === 'tr' ? 'İnsan' : 'Human') : 'AI';
   const handoverOwnerLabel = language === 'tr' ? 'Sahip' : 'Owner';
   const handoverHistoryNote = t.features.feat4_badges[3] ?? (language === 'tr' ? 'Konuşma geçmişi korunur' : 'Conversation history stays intact');
@@ -291,7 +289,7 @@ const Features: React.FC = () => {
                     <div className="flex items-center justify-between gap-2">
                       <p className="text-sm font-semibold text-slate-900 truncate">{activeScenario?.name}</p>
                       <span className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-1 text-[10px] font-semibold ${activeScenarioPlatform.chip}`}>
-                        <ActiveScenarioPlatformIcon className="h-3.5 w-3.5" />
+                        <img src={activeScenarioPlatformLogo} alt="" aria-hidden className="h-3.5 w-3.5 rounded-sm object-cover" loading="lazy" />
                         {activeScenarioPlatform.label}
                       </span>
                     </div>
@@ -378,7 +376,7 @@ const Features: React.FC = () => {
                         <p className="text-xs font-semibold text-slate-900 mt-0.5">{activeScenario?.name}</p>
                       </div>
                       <span className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-1 text-[10px] font-semibold ${activeScenarioPlatform.chip}`}>
-                        <ActiveScenarioPlatformIcon className="h-3.5 w-3.5" />
+                        <img src={activeScenarioPlatformLogo} alt="" aria-hidden className="h-3.5 w-3.5 rounded-sm object-cover" loading="lazy" />
                         {activeScenarioPlatform.label}
                       </span>
                     </div>
@@ -481,7 +479,6 @@ const Features: React.FC = () => {
                             const isActive = index === activeScenarioIndex;
 
                             const scenarioPlatform = platformMetaMap[scenario.platform];
-                            const ScenarioPlatformIcon = scenarioPlatform.icon;
 
                             return (
                               <div
@@ -490,7 +487,7 @@ const Features: React.FC = () => {
                               >
                                 <div className="flex items-center justify-between gap-2">
                                   <span className="min-w-0 inline-flex items-center gap-1.5 text-[11px] font-medium text-slate-700">
-                                    <ScenarioPlatformIcon className="h-3.5 w-3.5 shrink-0 text-slate-500" />
+                                    <img src={scenarioPlatform.logo} alt="" aria-hidden className="h-3.5 w-3.5 shrink-0 rounded-sm object-cover" loading="lazy" />
                                     <span className="truncate">{scenario.name}</span>
                                   </span>
                                   <span className="text-[10px] font-semibold text-slate-500">{scenarioScore.toFixed(1)}</span>

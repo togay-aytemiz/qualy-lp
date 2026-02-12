@@ -51,7 +51,7 @@ describe('hero simulation layout', () => {
     expect(hero).toContain('t.hero.mockup.typing');
     expect(hero).toContain('t.hero.mockup.summaryTitle');
     expect(hero).toContain('t.hero.mockup.summaryPlaceholder');
-    expect(hero).toContain('HiMiniSparkles');
+    expect(hero).toContain('Sparkles');
     expect(hero).toContain('ChevronDown');
     expect(hero).toContain('t.hero.mockup.composerPlaceholder');
     expect(hero).toContain('t.hero.mockup.leadScoreShort');

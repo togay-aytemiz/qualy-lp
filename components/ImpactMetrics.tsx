@@ -1,7 +1,6 @@
 import React from 'react';
 import { animate, motion, useInView, useReducedMotion } from 'framer-motion';
-import { FaCalendarCheck, FaMessage, FaRankingStar, FaStopwatch } from 'react-icons/fa6';
-import { X } from 'lucide-react';
+import { CalendarCheck, MessageCircle, Star, Timer, X } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 import { AUTH_URLS } from '../lib/auth-links';
 import { formatMetricValue, getMetricSuffix, getMetricTargetValue } from '../lib/impact-metrics';
@@ -72,7 +71,7 @@ const MetricValue: React.FC<MetricValueProps> = ({ value, prefersReducedMotion }
 const ImpactMetrics: React.FC = () => {
   const { t } = useLanguage();
   const prefersReducedMotion = useReducedMotion();
-  const metricIcons = [FaStopwatch, FaRankingStar, FaMessage, FaCalendarCheck] as const;
+  const metricIcons = [Timer, Star, MessageCircle, CalendarCheck] as const;
   const [isDemoModalOpen, setIsDemoModalOpen] = React.useState(false);
   const [demoFormData, setDemoFormData] = React.useState<DemoFormData>(initialDemoFormData);
   const [demoFormError, setDemoFormError] = React.useState<string | null>(null);
@@ -218,7 +217,7 @@ const ImpactMetrics: React.FC = () => {
 
           <div className="relative mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-14 lg:gap-6">
             {t.impactMetrics.items.map((metric, index) => {
-              const MetricIcon = metricIcons[index] ?? FaRankingStar;
+              const MetricIcon = metricIcons[index] ?? Star;
 
               return (
                 <motion.article

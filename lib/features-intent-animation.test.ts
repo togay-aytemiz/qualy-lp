@@ -32,7 +32,7 @@ describe('features intent scoring card animation', () => {
     expect(featuresSource).toContain('leftStatusLabel');
     expect(featuresSource).toContain('extractionPhaseLabel');
     expect(featuresSource).toContain('activeScenarioPlatform');
-    expect(featuresSource).toContain('activeScenarioPlatform.icon');
+    expect(featuresSource).toContain('activeScenarioPlatformLogo');
     expect(featuresSource).toContain('activeScenarioPlatform.label');
   });
 });
