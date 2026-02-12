@@ -29,7 +29,7 @@ describe('features section content and layout', () => {
   it('uses customer-focused Turkish copy in features intro', () => {
     const languageContext = readFileSync(path.join(process.cwd(), 'LanguageContext.tsx'), 'utf8');
 
-    expect(languageContext).toContain('heading_mobile: "Yoğun mesaj trafiğini düzenli akışa çevirin."');
+    expect(languageContext).toContain('heading_mobile: "Yoğun mesaj trafiğini düzenli akışa çevir."');
     expect(languageContext).toContain('heading_mobile: "Turn heavy message traffic into an organized flow."');
     expect(languageContext).toContain('feat1_title: "Koda dokunmadan işletmeni Qualy\'ye öğret. 5 dk\'da hazır"');
     expect(languageContext).toContain('feat1_title: "Teach Qualy your business without touching code. Ready in 5 min"');
@@ -57,7 +57,7 @@ describe('features section content and layout', () => {
     expect(languageContext).toContain('feat1_mockup_skill_items');
     expect(languageContext).toContain('"İptal politikası"');
     expect(languageContext).toContain('"Cancellation policy"');
-    expect(languageContext).toContain('Qualy, tüm konuşmalarınızı tek yerde toplar; yapay zeka ile yanıt verir, niyeti puanlar ve yalnızca doğru konuşmalara odaklanmanızı sağlar.');
+    expect(languageContext).toContain('Qualy, tüm konuşmalarını tek yerde toplar; yapay zeka ile yanıt verir, niyeti puanlar ve yalnızca doğru konuşmalara odaklanmanı sağlar.');
     expect(languageContext).toContain('Qualy brings all your conversations into one place; replies with AI, scores intent, and helps you focus only on the right conversations.');
     expect(languageContext).not.toContain('Qualy, WhatsApp, Instagram ve Telegram konuşmalarını tek yerde toplar; Yetenekler ve Bilgi Bankasıyla yanıt verir, niyeti puanlar ve yalnızca doğru konuşmalara odaklanmanızı sağlar.');
     expect(languageContext).not.toContain('Qualy brings WhatsApp, Instagram, and Telegram conversations into one inbox, answers with Skills + Knowledge Base, scores intent, and helps your team focus only on the right conversations.');

@@ -10,14 +10,16 @@ import LegalIndexPage from './pages/LegalIndexPage';
 import { legalDocSlugs } from './lib/legal';
 import { applySeoToDocument } from './lib/seo-dom';
 import { getSeoByRoute, getSeoRouteKeyByPath } from './lib/seo';
+import { focusHomeSectionByHashWithRetry } from './lib/home-section-focus';
 
 const SuccessStories = lazy(() => import('./components/SuccessStories'));
 const Challenges = lazy(() => import('./components/Challenges'));
 const ImpactMetrics = lazy(() => import('./components/ImpactMetrics'));
 const Features = lazy(() => import('./components/Features'));
 const HowItWorks = lazy(() => import('./components/HowItWorks'));
-const Pricing = lazy(() => import('./components/Pricing'));
+const FAQ = lazy(() => import('./components/FAQ'));
 const CTA = lazy(() => import('./components/CTA'));
+const PricingPage = lazy(() => import('./pages/PricingPage'));
 
 const getNormalizedPath = () => {
   if (typeof window === 'undefined') return '/';
@@ -32,6 +34,7 @@ const AppContent: React.FC = () => {
   const legalSlug = path.startsWith('/') ? path.slice(1) : path;
   const isLegalIndexRoute = path === '/legal';
   const isLegalRoute = legalDocSlugs.has(legalSlug);
+  const isPricingRoute = path === '/pricing';
 
   useEffect(() => {
     const handleRouteChange = () => setPath(getNormalizedPath());
@@ -45,6 +48,24 @@ const AppContent: React.FC = () => {
     applySeoToDocument(document, getSeoByRoute(seoRoute, language));
   }, [language, path]);
 
+  useEffect(() => {
+    if (path !== '/') return;
+
+    let stopFocusRetry = focusHomeSectionByHashWithRetry(window.location.hash);
+
+    const handleHashChange = () => {
+      stopFocusRetry();
+      stopFocusRetry = focusHomeSectionByHashWithRetry(window.location.hash);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+
+    return () => {
+      stopFocusRetry();
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, [path]);
+
   if (isLegalIndexRoute) {
     return (
       <div className="min-h-screen bg-white selection:bg-black selection:text-white">
@@ -57,6 +78,27 @@ const AppContent: React.FC = () => {
     return (
       <div className="min-h-screen bg-white selection:bg-black selection:text-white">
         <LegalPage slug={legalSlug} />
+      </div>
+    );
+  }
+
+  if (isPricingRoute) {
+    return (
+      <div className="min-h-screen bg-white selection:bg-black selection:text-white">
+        <motion.div
+          key="pricing-page"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+        >
+          <Navbar />
+          <main>
+            <Suspense fallback={<SectionSkeleton />}>
+              <PricingPage />
+            </Suspense>
+          </main>
+          <Footer />
+        </motion.div>
       </div>
     );
   }
@@ -88,7 +130,7 @@ const AppContent: React.FC = () => {
             <HowItWorks />
           </Suspense>
           <Suspense fallback={<SectionSkeleton />}>
-            <Pricing />
+            <FAQ />
           </Suspense>
           <Suspense fallback={<SectionSkeleton />}>
             <CTA />

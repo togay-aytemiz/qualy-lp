@@ -1,7 +1,7 @@
 import { getSiteUrl, resolveAbsoluteUrl } from './site-url';
 
 export type SeoLanguage = 'en' | 'tr';
-export type SeoRouteKey = 'home' | 'legalIndex' | 'terms' | 'privacy';
+export type SeoRouteKey = 'home' | 'pricing' | 'legalIndex' | 'terms' | 'privacy';
 
 type LocalizedSeoCopy = {
   title: string;
@@ -41,6 +41,11 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
       description:
         'Automate repetitive chats, qualify leads with AI scoring, and hand over high-intent conversations at the right moment.',
     },
+    pricing: {
+      title: 'Pricing | Qualy',
+      description:
+        'Review Qualy pricing options and contact us for an enterprise rollout tailored to your team.',
+    },
     legalIndex: {
       title: 'Legal Center | Qualy',
       description:
@@ -59,26 +64,32 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
     home: {
       title: 'Qualy | WhatsApp, Instagram ve Telegram için AI Gelen Kutusu',
       description:
-        'Tekrarlayan konuşmaları otomatikleştirin, AI skorlama ile adayları nitelendirin ve yüksek niyetli konuşmaları doğru anda devralın.',
+        'Tekrarlayan konuşmaları otomatikleştir, AI skorlama ile adayları nitelendir ve yüksek niyetli konuşmaları doğru anda devral.',
+    },
+    pricing: {
+      title: 'Fiyatlandırma | Qualy',
+      description:
+        'Qualy fiyatlandırma seçeneklerini incele ve kurumuna özel Enterprise kurulum için bizimle iletişime geç.',
     },
     legalIndex: {
       title: 'Yasal Merkez | Qualy',
       description:
-        'Qualy yasal dokümanlarına tek sayfadan erişin; Hizmet Şartları ve Gizlilik Politikası sürüm bilgilerini görüntüleyin.',
+        'Qualy yasal dokümanlarına tek sayfadan eriş; Hizmet Şartları ve Gizlilik Politikası sürüm bilgilerini görüntüle.',
     },
     terms: {
       title: 'Hizmet Şartları | Qualy',
-      description: 'Qualy platform kullanımını düzenleyen Hizmet Şartları, sorumluluklar ve hukuki koşulları inceleyin.',
+      description: 'Qualy platform kullanımını düzenleyen Hizmet Şartları, sorumluluklar ve hukuki koşulları incele.',
     },
     privacy: {
       title: 'Gizlilik Politikası | Qualy',
-      description: 'Qualy’nin kişisel verileri nasıl topladığını, kullandığını, sakladığını ve koruduğunu inceleyin.',
+      description: 'Qualy’nin kişisel verileri nasıl topladığını, kullandığını, sakladığını ve koruduğunu incele.',
     },
   },
 };
 
 const ROUTE_PATHS: Record<SeoRouteKey, string> = {
   home: '/',
+  pricing: '/pricing',
   legalIndex: '/legal',
   terms: '/terms',
   privacy: '/privacy',
@@ -94,6 +105,7 @@ export const normalizeRoutePath = (path: string) => {
 
 export const getSeoRouteKeyByPath = (path: string): SeoRouteKey => {
   const normalized = normalizeRoutePath(path);
+  if (normalized === '/pricing') return 'pricing';
   if (normalized === '/legal') return 'legalIndex';
   if (normalized === '/terms') return 'terms';
   if (normalized === '/privacy') return 'privacy';
@@ -230,4 +242,3 @@ export const getSeoByRoute = (
     jsonLd,
   };
 };
-

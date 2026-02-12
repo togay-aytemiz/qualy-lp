@@ -1,29 +1,29 @@
 import React from 'react';
 import { useLanguage } from '../LanguageContext';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Shield, Sparkles, FileText, Lock, Mic, Send, Mail, ArrowRight, Zap } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { AUTH_URLS } from '../lib/auth-links';
+
+type FloatingBadge = {
+  src: string;
+  position: string;
+  delay: number;
+  label: string;
+};
 
 const CTA: React.FC = () => {
   const { t } = useLanguage();
   const prefersReducedMotion = useReducedMotion();
 
-  // Configuration for the floating icons matching the reference image layout
-  // Using larger sizing and solid colors (monochrome)
-  const icons = [
-    // Top Row
-    { Icon: Lock, position: "top-[12%] left-[15%] lg:left-[22%]", delay: 0 },
-    { Icon: Sparkles, position: "top-[5%] left-[50%] -translate-x-1/2", delay: 1.5 },
-    { Icon: FileText, position: "top-[12%] right-[15%] lg:right-[22%]", delay: 0.5 },
-    
-    // Middle Row (sides)
-    { Icon: Shield, position: "top-[45%] left-[5%] lg:left-[15%]", delay: 2 },
-    { Icon: Mic, position: "top-[45%] right-[5%] lg:right-[15%]", delay: 1 },
-
-    // Bottom Row
-    { Icon: Zap, position: "bottom-[12%] left-[15%] lg:left-[22%]", delay: 2.5 }, 
-    { Icon: Send, position: "bottom-[5%] left-[50%] -translate-x-1/2", delay: 0.8 },
-    { Icon: Mail, position: "bottom-[12%] right-[15%] lg:right-[22%]", delay: 1.8 },
+  const icons: FloatingBadge[] = [
+    { src: '/whatsapp.svg', label: 'WhatsApp', position: "top-[12%] left-[15%] lg:left-[22%]", delay: 0 },
+    { src: '/instagram.svg', label: 'Instagram', position: "top-[5%] left-[50%] -translate-x-1/2", delay: 1.5 },
+    { src: '/Telegram.svg', label: 'Telegram', position: "top-[12%] right-[15%] lg:right-[22%]", delay: 0.5 },
+    { src: '/messenger.svg', label: 'Messenger', position: "top-[45%] left-[5%] lg:left-[15%]", delay: 2 },
+    { src: '/whatsapp.svg', label: 'WhatsApp', position: "top-[45%] right-[5%] lg:right-[15%]", delay: 1 },
+    { src: '/instagram.svg', label: 'Instagram', position: "bottom-[12%] left-[15%] lg:left-[22%]", delay: 2.5 },
+    { src: '/Telegram.svg', label: 'Telegram', position: "bottom-[5%] left-[50%] -translate-x-1/2", delay: 0.8 },
+    { src: '/messenger.svg', label: 'Messenger', position: "bottom-[12%] right-[15%] lg:right-[22%]", delay: 1.8 },
   ];
 
   return (
@@ -39,7 +39,7 @@ const CTA: React.FC = () => {
       <div className="absolute inset-0 w-full h-full max-w-[90rem] mx-auto pointer-events-none">
         {icons.map((item, index) => (
           <motion.div
-            key={index}
+            key={`${item.label}-${index}`}
             className={`absolute ${item.position} hidden md:flex items-center justify-center`}
             initial={prefersReducedMotion ? false : { y: 0 }}
             animate={prefersReducedMotion ? { y: 0 } : { y: [0, -20, 0] }}
@@ -50,12 +50,8 @@ const CTA: React.FC = () => {
               delay: item.delay 
             }}
           >
-            {/* Icon Circle */}
-            <div className="w-20 h-20 lg:w-24 lg:h-24 bg-white rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.08)] border border-slate-100 flex items-center justify-center transform transition-transform hover:scale-110 duration-300">
-              {/* Solid filled icons */}
-              <item.Icon 
-                className="w-8 h-8 lg:w-10 lg:h-10 text-slate-900 fill-slate-900" 
-              />
+            <div className="w-20 h-20 lg:w-24 lg:h-24 bg-white rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.08)] flex items-center justify-center transform transition-transform hover:scale-110 duration-300">
+              <img src={item.src} alt={`${item.label} logo`} className="w-8 h-8 lg:w-10 lg:h-10 object-contain" loading="lazy" />
             </div>
           </motion.div>
         ))}
@@ -96,15 +92,6 @@ const CTA: React.FC = () => {
           </a>
         </motion.div>
 
-        <motion.p 
-          initial={prefersReducedMotion ? false : { opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.3, delay: prefersReducedMotion ? 0 : 0.15 }}
-          className="mt-8 text-sm text-slate-400 font-medium"
-        >
-          {t.cta.note}
-        </motion.p>
       </div>
 
       {/* Bottom Gradient for smooth transition to Footer */}

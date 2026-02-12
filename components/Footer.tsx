@@ -6,13 +6,15 @@ import {
   buildHomeSectionHref,
   getProductFooterSectionId,
   isHomePath,
-  type ProductFooterLinkKey,
+  PRICING_PAGE_HREF,
+  type ProductFooterSectionKey,
 } from '../lib/footer-links';
+import { focusHomeSectionById } from '../lib/home-section-focus';
 
 const Footer: React.FC = () => {
   const { t, language, setLanguage } = useLanguage();
 
-  const scrollToHomeSection = (e: React.MouseEvent<HTMLAnchorElement>, key: ProductFooterLinkKey) => {
+  const scrollToHomeSection = (e: React.MouseEvent<HTMLAnchorElement>, key: ProductFooterSectionKey) => {
     if (typeof window === 'undefined') return;
 
     const sectionId = getProductFooterSectionId(key);
@@ -25,9 +27,7 @@ const Footer: React.FC = () => {
       return;
     }
 
-    const targetElement = document.getElementById(sectionId);
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth' });
+    if (focusHomeSectionById(sectionId)) {
       return;
     }
 
@@ -102,7 +102,12 @@ const Footer: React.FC = () => {
                 </a>
               </li>
               <li className="list-none">
-                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('pricing')} onClick={(e) => scrollToHomeSection(e, 'pricing')}>
+                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('faq')} onClick={(e) => scrollToHomeSection(e, 'faq')}>
+                  {t.navbar.faq}
+                </a>
+              </li>
+              <li className="list-none">
+                <a className="hover:text-slate-900 transition-colors" href={PRICING_PAGE_HREF}>
                   {t.navbar.pricing}
                 </a>
               </li>

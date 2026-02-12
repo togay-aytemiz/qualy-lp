@@ -7,6 +7,7 @@ interface Translations {
   navbar: {
     features: string;
     howItWorks: string;
+    faq: string;
     pricing: string;
     login: string;
     getStarted: string;
@@ -229,6 +230,17 @@ interface Translations {
     secondary: string;
     note: string;
   };
+  faq: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    primary: string;
+    secondary: string;
+    items: Array<{
+      question: string;
+      answer: string;
+    }>;
+  };
   footer: {
     desc: string;
     product: string;
@@ -267,6 +279,7 @@ const translations: Record<Language, Translations> = {
     navbar: {
       features: "Features",
       howItWorks: "How it works",
+      faq: "FAQ",
       pricing: "Pricing",
       login: "Log in",
       getStarted: "Get Started"
@@ -591,14 +604,14 @@ const translations: Record<Language, Translations> = {
       feat5_mockup_missing_value: "Asking for preferred day"
     },
     howItWorks: {
-      title: "How Qualy runs your inbox",
-      subtitle: "Setup is fast and scoped to MVP essentials.",
-      step1_title: "Connect channels",
-      step1_desc: "Connect WhatsApp and Instagram via Meta OAuth pop-up, then add Telegram. Channels stay independent but visible in one inbox.",
-      step2_title: "Define responses",
-      step2_desc: "Create skills, upload Knowledge Base content, and set required fields so Qualy can answer grounded questions and collect key details.",
-      step3_title: "Monitor & take over",
-      step3_desc: "Qualy replies reactively, updates lead scores, and flags high-intent chats. Your team can claim conversations anytime with Human Takeover."
+      title: "Start in minutes, let Qualy handle the first response flow",
+      subtitle: "Connect your channels, train Qualy in a few clicks, then let Qualy AI reply automatically.",
+      step1_title: "Connect channels quickly",
+      step1_desc: "Connect WhatsApp, Instagram, Telegram, and Messenger in a few clicks. Keep channels separate, manage all conversations in one inbox.",
+      step2_title: "Train Qualy in a few clicks",
+      step2_desc: "Upload service details, pricing, and policy documents, then define ready responses. Qualy uses this context to reply consistently.",
+      step3_title: "Let Qualy AI reply",
+      step3_desc: "Qualy answers routine messages instantly, updates scores, and flags important conversations. Your team steps in only where human attention matters."
     },
     pricing: {
       title: "One practical MVP plan.",
@@ -635,11 +648,44 @@ const translations: Record<Language, Translations> = {
       }
     },
     cta: {
-      title: "Ready to run a cleaner inbox?",
-      desc: "Automate repetitive messaging, qualify leads earlier, and let your team focus on conversations that convert.",
+      title: "Ready to turn message traffic into a cleaner flow?",
+      desc: "Automate repetitive messaging, qualify leads earlier, and take over high-intent conversations at the right moment.",
       primary: "Start Free Trial",
       secondary: "Talk to Sales",
       note: "14-day free trial • Cancel anytime"
+    },
+    faq: {
+      eyebrow: "FAQs",
+      title: "Frequently Asked Questions",
+      subtitle: "Find quick answers about what Qualy does, how setup works, and how your team stays in control.",
+      primary: "Start Free Trial",
+      secondary: "Contact Us",
+      items: [
+        {
+          question: "What exactly does this platform do?",
+          answer: "Qualy automates repetitive customer messages across WhatsApp, Instagram, and Telegram, then extracts lead details and scores intent from 0 to 10 so your team can focus on high-priority conversations."
+        },
+        {
+          question: "How do I get started?",
+          answer: "Connect your channels, upload service and policy documents to the Knowledge Base, add a few ready-response Skills, and let Qualy start replying in minutes."
+        },
+        {
+          question: "Which channels are supported right now?",
+          answer: "The MVP supports WhatsApp, Instagram, and Telegram inbox workflows in one panel. Messenger is listed as a coming-soon channel on the roadmap."
+        },
+        {
+          question: "How does lead scoring work?",
+          answer: "Qualy analyzes signals like service clarity, timeline, budget fit, urgency, and decision readiness, then updates a 0-10 intent score after new customer messages."
+        },
+        {
+          question: "Is my customer data secure?",
+          answer: "Organizations are isolated with a multi-tenant model, legal terms are publicly versioned, and human handover controls let your team pause AI replies when needed."
+        },
+        {
+          question: "Can my team take over conversations at any time?",
+          answer: "Yes. You can switch a chat to human takeover in one click, keep full conversation history, and return the thread to AI flow when you are ready."
+        }
+      ]
     },
     footer: {
       desc: "AI-first inbox for service businesses. Automate replies, qualify leads, and hand over at the right time.",
@@ -677,13 +723,14 @@ const translations: Record<Language, Translations> = {
     navbar: {
       features: "Özellikler",
       howItWorks: "Nasıl Çalışır",
+      faq: "SSS",
       pricing: "Fiyatlandırma",
       login: "Giriş Yap",
       getStarted: "Ücretsiz Başla"
     },
     hero: {
       status: "Servis ekipleri için WhatsApp odaklı AI gelen kutusu",
-      headline: "Herkese değil, doğru müşteriye odaklanın.",
+      headline: "Herkese değil, doğru müşteriye odaklan.",
       subheadline: "Qualy, <span class=\"font-semibold text-slate-700 underline decoration-slate-400/80 underline-offset-4\">mesajları otomatik yanıtlar</span>; hizmet profili çıkarır, gerekli alanları toplar, eksik bilgiyi doğru sorularla tamamlar ve konuşmaları 1-10 niyet skoruna göre <span class=\"font-semibold text-slate-700 underline decoration-slate-400/80 underline-offset-4\">önceliklendirir</span>.",
       ctaPrimary: "Ücretsiz Denemeyi Başlat",
       ctaSecondary: "Panele Git",
@@ -695,11 +742,11 @@ const translations: Record<Language, Translations> = {
         onlineShort: "Çevrimiçi",
         priorityInbox: "Öncelikli Kutu",
         readyToSign: "Randevuya hazır, fatura detayı bekliyor",
-        hours: "Bu hafta uygunluğunuz var mı?",
+        hours: "Bu hafta uygunluğun var mı?",
         unknown: "Bilinmiyor",
         newLead: "Yeni müşteri",
         thirdLeadName: "Berk O.",
-        thirdLeadPreview: "Cumartesi çekimi için paket detaylarını paylaşır mısınız?",
+        thirdLeadPreview: "Cumartesi çekimi için paket detaylarını paylaşır mısın?",
         intentHot: "Yüksek niyet (randevu)",
         intentWarm: "Nitelikli ilgi (takip gerekir)",
         intentCold: "Yalnızca destek konuşması",
@@ -718,7 +765,7 @@ const translations: Record<Language, Translations> = {
             messages: [
               "Bu hafta cilt bakımı için randevu alabilir miyim?",
               "Evet, bu hafta uygun saatimiz var. Hangi gün senin için uygun?",
-              "Çarşamba akşamı olur, benim için ayırabilir misiniz?",
+              "Çarşamba akşamı olur, benim için ayırabilir misin?",
               "Tabii, Çarşamba akşamı uygun görünüyor. Randevu detaylarını ekibe iletiyorum."
             ],
             scores: [4.2, 8.1]
@@ -727,10 +774,10 @@ const translations: Record<Language, Translations> = {
             initials: "CP",
             name: "Can P.",
             platform: "instagram",
-            preview: "Geçen randevumun fişini tekrar gönderebilir misiniz?",
+            preview: "Geçen randevumun fişini tekrar gönderebilir misin?",
             lastMessageAt: "9 dk",
             messages: [
-              "Geçen randevumun fişini tekrar gönderebilir misiniz?",
+              "Geçen randevumun fişini tekrar gönderebilir misin?",
               "Elbette, bunu hemen destek talebi olarak iletebilirim.",
               "Yeni randevu istemiyorum, sadece belge gerekiyor.",
               "Anlaşıldı. Talebin destek ekibine iletildi."
@@ -760,16 +807,16 @@ const translations: Record<Language, Translations> = {
         typing: "yazıyor...",
         thinking: "düşünüyor...",
         composerPlaceholder: "Mesaj yaz...",
-        customerMsg: "Merhaba, Ekim ortası için yenidoğan çekimi istiyorum. Hangi paket uygun olur ve taksit seçeneğiniz var mı?",
+        customerMsg: "Merhaba, Ekim ortası için yenidoğan çekimi istiyorum. Hangi paket uygun olur ve taksit seçeneğin var mı?",
         aiDetected: "Qualy tespiti:",
         intent: "Yüksek niyet (randevu)",
-        aiResponse: "Harika bir tarih. Ekim ortası yenidoğan çekimi için Standart ve Premium paketlerimiz uygun. Uygun olduğunuz günü paylaşırsanız müsaitliği ayırıp taksit seçeneklerini iletebilirim."
+        aiResponse: "Harika bir tarih. Ekim ortası yenidoğan çekimi için Standart ve Premium paketlerimiz uygun. Uygun olduğun günü paylaşırsan müsaitliği ayırıp taksit seçeneklerini iletebilirim."
       }
     },
     successStories: {
       pill: "Başarı Hikayeleri",
       title: "Büyüyen işletmeler <br/> Qualy ile kazanıyor",
-      subtitle: "Qualy kullanarak müşteri elemeyi ve desteği otomatize eden yüzlerce hızlı büyüyen profesyonele katılın.",
+      subtitle: "Qualy kullanarak müşteri elemeyi ve desteği otomatize eden yüzlerce hızlı büyüyen profesyonelden biri ol.",
       stories: [
         {
           text: "Eskiden gün boyu aynı fiyat ve randevu sorularına dönüyordum. Qualy ilk konuşmayı toparlıyor, ben sadece gerçekten dönüşecek müşterilere odaklanıyorum.",
@@ -915,9 +962,9 @@ const translations: Record<Language, Translations> = {
       trustedBy: "Modern servis ekipleri için geliştirildi"
     },
     features: {
-      heading: "Yoğun mesaj trafiğini düzenli bir müşteri akışına çevirin.",
-      heading_mobile: "Yoğun mesaj trafiğini düzenli akışa çevirin.",
-      subheading: "Qualy, tüm konuşmalarınızı tek yerde toplar; yapay zeka ile yanıt verir, niyeti puanlar ve yalnızca doğru konuşmalara odaklanmanızı sağlar.",
+      heading: "Yoğun mesaj trafiğini düzenli bir müşteri akışına çevir.",
+      heading_mobile: "Yoğun mesaj trafiğini düzenli akışa çevir.",
+      subheading: "Qualy, tüm konuşmalarını tek yerde toplar; yapay zeka ile yanıt verir, niyeti puanlar ve yalnızca doğru konuşmalara odaklanmanı sağlar.",
       feat1_title: "Koda dokunmadan işletmeni Qualy'ye öğret. 5 dk'da hazır",
       feat1_title_highlight: "5 dk'da hazır",
       feat1_desc1: "İşletmenle ilgili dokümanlarını ve hazır yanıtlarını ekle. Qualy bunları referans alarak tutarlı yanıt verir.",
@@ -947,10 +994,10 @@ const translations: Record<Language, Translations> = {
       ],
       feat1_mockup_preview_label: "Canlı önizleme",
       feat1_mockup_preview_question: "Yarın için randevu var mı ve fiyatlar nasıl?",
-      feat1_mockup_preview_answer: "Müsaitlik ve fiyatı bu akışta paylaşabilirim. İsterseniz uygun saatleri hemen listeleyeyim.",
+      feat1_mockup_preview_answer: "Müsaitlik ve fiyatı bu akışta paylaşabilirim. İstersen uygun saatleri hemen listeleyeyim.",
       feat2_title: "Qualy yapay zeka ile mesajları cevaplar ve otomatik skor üretir",
       feat2_title_highlight: "yapay zeka ile",
-      feat2_desc: "Her yeni müşteri mesajı kişi çıkarımı ve 0-10 niyet skoru üretir. Aciliyeti, hizmet uyumunu ve takip önceliğini tek bakışta görün.",
+      feat2_desc: "Her yeni müşteri mesajı kişi çıkarımı ve 0-10 niyet skoru üretir. Aciliyeti, hizmet uyumunu ve takip önceliğini tek bakışta gör.",
       feat2_li1: "<span><strong class=\"text-slate-900\">Düşük niyet:</strong> Erken araştırma veya belirsiz talepler AI akışında kalır.</span>",
       feat2_li2: "<span><strong class=\"text-slate-900\">Yüksek niyet:</strong> Net hizmet + zaman sinyalleri anında insan takibine çıkar.</span>",
       feat2_mockup_potential: "Müşteri Potansiyeli",
@@ -963,7 +1010,7 @@ const translations: Record<Language, Translations> = {
       feat2_mockup_btn: "Konuşmayı aç",
       feat3_title: "Tüm konuşmalar tek ekranda",
       feat3_title_highlight: "tek ekranda",
-      feat3_desc1: "WhatsApp, Instagram, Telegram ve Messenger mesajlarını tek ekrandan yönetin. Kanalları dakikalar içinde bağlayın, uygulama değiştirmeden yanıtlayın.",
+      feat3_desc1: "WhatsApp, Instagram, Telegram ve Messenger mesajlarını tek ekrandan yönet. Kanalları dakikalar içinde bağla, uygulama değiştirmeden yanıtla.",
       feat3_desc2: "Bağlantı çok kolay, gelen kutusu tek merkezde kalır.",
       feat3_mockup_focus: "Birleşik gelen kutusu",
       feat3_mockup_easy: "Dakikalar içinde bağlantı",
@@ -974,7 +1021,7 @@ const translations: Record<Language, Translations> = {
       feat3_mockup_hidden: "Tüm mesajlar tek gelen kutusunda toplanır.",
       feat4_title: "Gerekli durumlarda insan devri",
       feat4_title_highlight: "insan devri",
-      feat4_desc: "Qualy rutin mesajları yönetir; gerektiğinde konuşma insana devredilir. Tek tıkla devralın, uygun olduğunda AI akışına geri verin.",
+      feat4_desc: "Qualy rutin mesajları yönetir; gerektiğinde konuşma insana devredilir. Tek tıkla devral, uygun olduğunda AI akışına geri ver.",
       feat4_badges: [
         "İnsan devri tetikleyicileri",
         "Tek tıkla devral",
@@ -985,7 +1032,7 @@ const translations: Record<Language, Translations> = {
       ],
       feat5_title: "Qualy hizmet profilini çıkarır ve eksik bilgileri müşteriyle otomatik netleştirir",
       feat5_title_highlight: "otomatik netleştirir",
-      feat5_desc: "Qualy, yüklediğiniz Bilgi Bankası dokümanlarını tarayarak işletme ve hizmet profilini oluşturur, toplanması gereken kritik bilgileri belirler. Ardından konuşma içinde yapay zeka doğal takip soruları sorarak eksik bilgileri tamamlar.",
+      feat5_desc: "Qualy, yüklediğin Bilgi Bankası dokümanlarını tarayarak işletme ve hizmet profilini oluşturur, toplanması gereken kritik bilgileri belirler. Ardından konuşma içinde yapay zeka doğal takip soruları sorarak eksik bilgileri tamamlar.",
       feat5_mockup_title: "Kişi Profili Özeti",
       feat5_mockup_title_tag: "(AI çıkarımı)",
       feat5_mockup_badge: "Otomatik güncelleniyor",
@@ -1001,14 +1048,14 @@ const translations: Record<Language, Translations> = {
       feat5_mockup_missing_value: "Tercih edilen günü netleştiriyor"
     },
     howItWorks: {
-      title: "Qualy gelen kutunuzu nasıl yönetir",
-      subtitle: "Kurulum hızlıdır ve MVP ihtiyaçlarına odaklanır.",
-      step1_title: "Kanalları bağla",
-      step1_desc: "WhatsApp ve Instagram'ı Meta OAuth pop-up ile bağlayın, ardından Telegram ekleyin. Kanallar bağımsız kalır ama tek gelen kutusunda görünür.",
-      step2_title: "Yanıtları tanımla",
-      step2_desc: "Yetenekleri oluşturun, Bilgi Bankası içeriğini yükleyin ve gerekli alanları belirleyin. Qualy kaynaklı yanıt verir ve kritik bilgileri toplar.",
-      step3_title: "İzle ve devral",
-      step3_desc: "Qualy reactive şekilde yanıtlar, lead skorlarını günceller ve yüksek niyetli konuşmaları işaretler. Ekibiniz istediği an Human Takeover ile konuşmayı devralabilir."
+      title: "Dakikalar içinde başla, gelen mesajları Qualy yönetsin",
+      subtitle: "Kanalları bağla, Qualy'i birkaç tıkla eğit, ardından Qualy yapay zeka mesajları otomatik yanıtlasın.",
+      step1_title: "Kanalları kolayca bağla",
+      step1_desc: "WhatsApp, Instagram, Telegram ve Messenger kanallarını birkaç adımda bağla. Kanallar bağımsız kalır, tüm konuşmalar tek gelen kutusunda görünür.",
+      step2_title: "Qualy'i birkaç tıkla eğit",
+      step2_desc: "Hizmet, fiyat ve politika içeriklerini yükle; hazır yanıtlarını tanımla. Qualy bu içeriği referans alarak tutarlı yanıtlar üretir.",
+      step3_title: "Qualy AI yanıtlasın",
+      step3_desc: "Qualy rutin mesajları anında yanıtlar, skorları günceller ve önemli konuşmaları işaretler. Yalnızca gerçekten müdahale gereken anlarda devreye girersin."
     },
     pricing: {
       title: "Pratik bir MVP paketi.",
@@ -1045,14 +1092,47 @@ const translations: Record<Language, Translations> = {
       }
     },
     cta: {
-      title: "Daha temiz bir gelen kutusuna hazır mısın?",
-      desc: "Tekrarlayan mesajları otomatikleştirin, adayları daha erken nitelendirin ve ekibinizin dönüşecek konuşmalara odaklanmasını sağlayın.",
+      title: "Mesaj trafiğini temiz bir akışa çevirmeye hazır mısın?",
+      desc: "Tekrarlayan mesajları otomatik yanıtla, adayları erken nitelendir ve yüksek niyetli konuşmaları doğru anda devral.",
       primary: "Ücretsiz Denemeyi Başlat",
       secondary: "Satışla Konuş",
-      note: "14 gün ücretsiz deneme • İstediğiniz zaman iptal edin"
+      note: "14 gün ücretsiz deneme • İstediğin zaman iptal et"
+    },
+    faq: {
+      eyebrow: "SSS",
+      title: "Sıkça Sorulan Sorular",
+      subtitle: "Qualy'nin ne yaptığı, nasıl başladığın ve güvenlik yaklaşımıyla ilgili en sık soruları burada bulabilirsin.",
+      primary: "Ücretsiz dene",
+      secondary: "Bize Ulaş",
+      items: [
+        {
+          question: "Bu platform tam olarak ne yapar?",
+          answer: "Qualy, WhatsApp, Instagram ve Telegram'daki tekrar eden müşteri mesajlarını otomatik yanıtlar; aday bilgilerini çıkarır ve 0-10 niyet puanıyla hangi konuşmaya önce bakman gerektiğini gösterir."
+        },
+        {
+          question: "Nasıl başlarım?",
+          answer: "Kanallarını bağla, hizmet ve politika dokümanlarını Bilgi Bankası'na yükle, birkaç hazır yanıt kuralı ekle. Sonra Qualy dakikalar içinde yanıt akışını çalıştırır."
+        },
+        {
+          question: "Şu anda hangi kanallar destekleniyor?",
+          answer: "Şu anda WhatsApp, Instagram ve Telegram tek panelde yönetilir. Messenger kanal kartı yol haritasında 'Çok Yakında' olarak yer alır."
+        },
+        {
+          question: "Aday puanlaması nasıl çalışır?",
+          answer: "Qualy, hizmet netliği, tarih, bütçe uyumu, aciliyet ve karar sinyallerini birlikte değerlendirir; her yeni müşteri mesajında 0-10 puanı günceller."
+        },
+        {
+          question: "Müşteri verileri güvenli mi?",
+          answer: "Kuruluş verileri birbirinden izole edilir, yasal metinler sürüm takibiyle yayınlanır ve insan devralma kontrolleriyle yapay zeka yanıtını istediğin an durdurabilirsin."
+        },
+        {
+          question: "Ekibim konuşmayı istediği an devralabilir mi?",
+          answer: "Evet. Konuşmayı tek tıkla insana devredebilir, geçmişi aynı ekranda koruyabilir ve hazır olduğunda AI akışına geri dönebilirsin."
+        }
+      ]
     },
     footer: {
-      desc: "Servis işletmeleri için AI öncelikli gelen kutusu. Yanıtları otomatikleştirin, adayları nitelendirin ve doğru anda devralın.",
+      desc: "Servis işletmen için AI öncelikli gelen kutu. Yanıtları otomatikleştir, adayları nitelendir ve doğru anda devral.",
       product: "Ürün",
       resources: "Kaynaklar",
       company: "Şirket",
@@ -1075,12 +1155,12 @@ const translations: Record<Language, Translations> = {
     legal: {
       center: "Yasal",
       centerTitle: "Gizlilik ve Şartlar Merkezi",
-      centerDescription: "Gizlilik Politikası ve Hizmet Şartları dahil tüm yasal dokümanlara tek sayfadan erişebilirsiniz.",
+      centerDescription: "Gizlilik Politikası ve Hizmet Şartları dahil tüm yasal dokümanlara tek sayfadan erişebilirsin.",
       backToHome: "Ana Sayfaya Dön",
       lastUpdated: "Son güncelleme",
       version: "Versiyon",
       notFoundTitle: "Doküman bulunamadı",
-      notFoundDescription: "Talep ettiğiniz yasal doküman şu anda mevcut değil."
+      notFoundDescription: "Talep ettiğin yasal doküman şu anda mevcut değil."
     }
   }
 };

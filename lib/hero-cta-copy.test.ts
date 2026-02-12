@@ -24,7 +24,7 @@ describe('hero cta and turkish copy', () => {
 
     expect(languageContext).toContain('Yetenekler + Bilgi Bankası');
     expect(languageContext).not.toContain('Skills + Bilgi Bankası');
-    expect(languageContext).toContain('headline: "Herkese değil, doğru müşteriye odaklanın."');
+    expect(languageContext).toContain('headline: "Herkese değil, doğru müşteriye odaklan."');
     expect(languageContext).toContain('mesajları otomatik yanıtlar</span>');
     expect(languageContext).toContain('>önceliklendirir</span>');
   });

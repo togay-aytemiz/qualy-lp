@@ -55,6 +55,7 @@ const main = async () => {
 
   const entries = [
     { path: '/', changefreq: 'weekly', priority: 1.0 },
+    { path: '/pricing', changefreq: 'weekly', priority: 0.8 },
     { path: '/legal', changefreq: 'monthly', priority: 0.5 },
     ...legalRoutes,
   ];
@@ -68,4 +69,3 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
-

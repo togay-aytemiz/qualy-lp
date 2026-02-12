@@ -3,6 +3,7 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 import { Logo } from './Logo';
 import { AUTH_URLS } from '../lib/auth-links';
+import { focusHomeSectionById } from '../lib/home-section-focus';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,14 +18,28 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const isHomeRoute = () => window.location.pathname === '/' || window.location.pathname === '';
+
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    if (typeof window === 'undefined') return;
     e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+
+    if (!isHomeRoute()) {
       setIsMobileMenuOpen(false);
+      window.location.href = `/#${id}`;
+      return;
     }
+
+    if (focusHomeSectionById(id)) {
+      setIsMobileMenuOpen(false);
+      return;
+    }
+
+    window.location.hash = id;
+    setIsMobileMenuOpen(false);
   };
+
+  const handlePricingClick = () => setIsMobileMenuOpen(false);
 
   return (
     <>
@@ -42,15 +57,16 @@ const Navbar: React.FC = () => {
           `}
         >
           {/* Logo */}
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <a href="/" className="flex items-center gap-2">
             <Logo className="h-7 w-auto" />
-          </div>
+          </a>
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.features}</a>
             <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.howItWorks}</a>
-            <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.pricing}</a>
+            <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.faq}</a>
+            <a href="/pricing" onClick={handlePricingClick} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.pricing}</a>
           </div>
 
           {/* CTA */}
@@ -78,7 +94,8 @@ const Navbar: React.FC = () => {
           <div className="flex flex-col gap-6 text-center">
             <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="text-xl font-medium text-slate-900">{t.navbar.features}</a>
             <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className="text-xl font-medium text-slate-900">{t.navbar.howItWorks}</a>
-            <a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className="text-xl font-medium text-slate-900">{t.navbar.pricing}</a>
+            <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="text-xl font-medium text-slate-900">{t.navbar.faq}</a>
+            <a href="/pricing" onClick={handlePricingClick} className="text-xl font-medium text-slate-900">{t.navbar.pricing}</a>
             <hr className="border-slate-100 w-1/2 mx-auto" />
             <a href={AUTH_URLS.login} className="text-xl font-semibold text-slate-900">{t.navbar.login}</a>
             <a href={AUTH_URLS.register} className="bg-slate-900 text-white w-full py-4 rounded-2xl text-lg font-medium shadow-xl block">

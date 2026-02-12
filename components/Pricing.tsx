@@ -1,96 +1,169 @@
-import React, { useState } from 'react';
-import { Check } from 'lucide-react';
-import { useLanguage } from '../LanguageContext';
+import React from 'react';
+import { ArrowRight, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { AUTH_URLS } from '../lib/auth-links';
-import SectionWithHeader from './SectionWithHeader';
+import { useLanguage } from '../LanguageContext';
+
+type PricingPageCopy = {
+  title: string;
+  subtitle: string;
+  plansCard: {
+    title: string;
+    description: string;
+    note: string;
+    bullets: string[];
+  };
+  enterpriseCard: {
+    title: string;
+    contact: string;
+    description: string;
+    cta: string;
+    subject: string;
+    bullets: string[];
+  };
+};
+
+const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
+  en: {
+    title: 'Simple pricing, flexible rollout.',
+    subtitle:
+      'We are still finalizing standard packages. Enterprise is available today with a custom setup and onboarding support.',
+    plansCard: {
+      title: 'Standard plans are in progress',
+      description:
+        'We are shaping self-serve package tiers to match real customer usage. Share your use case and we can notify you when plans are finalized.',
+      note: 'You can still start with Enterprise while standard plans are being finalized.',
+      bullets: [
+        'Self-serve package details are being finalized',
+        'Final limits and pricing will be announced soon',
+        'Early feedback helps us shape the right plans',
+      ],
+    },
+    enterpriseCard: {
+      title: 'Enterprise',
+      contact: 'Contact Us',
+      description:
+        'For teams needing custom rollout, advanced controls, and coordinated onboarding across channels.',
+      cta: 'Contact Us',
+      subject: 'Enterprise Plan Inquiry',
+      bullets: [
+        'Custom setup and implementation support',
+        'Priority onboarding and migration planning',
+        'Advanced workflow and governance alignment',
+      ],
+    },
+  },
+  tr: {
+    title: 'Basit fiyatlandırma, esnek kurulum.',
+    subtitle:
+      'Standart paketleri şu anda netleştiriyoruz. Enterprise planı ise özel kurulum ve onboarding desteğiyle hemen kullanılabilir.',
+    plansCard: {
+      title: 'Standart paketler hazırlanıyor',
+      description:
+        'Self-serve paket katmanlarını gerçek kullanım senaryolarına göre şekillendiriyoruz. İhtiyacını paylaşırsan paketler netleştiğinde seni bilgilendirebiliriz.',
+      note: 'Standart paketler netleşene kadar Enterprise ile başlayabilirsin.',
+      bullets: [
+        'Self-serve paket detayları netleştiriliyor',
+        'Final limitler ve fiyatlar yakında duyurulacak',
+        'Erken geri bildirimler doğru paketi oluşturmamıza yardımcı oluyor',
+      ],
+    },
+    enterpriseCard: {
+      title: 'Enterprise',
+      contact: 'Contact Us',
+      description:
+        'Özel kurulum, ileri seviye kontroller ve çok kanallı onboarding koordinasyonuna ihtiyaç duyan ekipler için.',
+      cta: 'Contact Us',
+      subject: 'Enterprise Plan Talebi',
+      bullets: [
+        'Özel kurulum ve implementasyon desteği',
+        'Öncelikli onboarding ve geçiş planlaması',
+        'İleri seviye workflow ve yönetim uyumu',
+      ],
+    },
+  },
+};
 
 const Pricing: React.FC = () => {
-  const { t } = useLanguage();
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
+  const { language } = useLanguage();
+  const copy = COPY_BY_LANGUAGE[language];
 
   return (
-    <SectionWithHeader
-      id="pricing"
-      className="relative"
-      title={t.pricing.title}
-      subtitle={t.pricing.subtitle}
-    >
+    <section className="relative overflow-hidden bg-white pb-24 pt-36 md:pb-32 md:pt-44">
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(15,23,42,0.09),transparent_60%)]" />
+        <div className="absolute inset-0 [background-size:34px_34px] [background-image:linear-gradient(to_right,rgba(15,23,42,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.06)_1px,transparent_1px)]" />
+        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white via-white/90 to-transparent" />
+      </div>
 
-        <div className="flex flex-col items-center">
-          {/* Custom Toggle from Reference */}
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center justify-center bg-neutral-100 p-1 w-fit mx-auto mb-12 rounded-md overflow-hidden"
+      <div className="relative mx-auto max-w-7xl px-6 md:px-12">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45 }}
+          className="mx-auto max-w-4xl text-center"
+        >
+          <h1 className="text-4xl font-semibold leading-tight tracking-tight text-slate-900 md:text-6xl">
+            {copy.title}
+          </h1>
+          <p className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-slate-600 md:text-xl">
+            {copy.subtitle}
+          </p>
+        </motion.div>
+
+        <div className="mx-auto mt-14 grid max-w-5xl gap-6 lg:grid-cols-2">
+          <motion.article
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.1 }}
+            className="rounded-3xl border border-slate-200 bg-white/95 p-8 shadow-sm backdrop-blur"
           >
-            <button 
-              onClick={() => setBillingCycle('monthly')}
-              className={`text-sm font-medium px-6 py-2 rounded-md relative transition-all duration-200 ${billingCycle === 'monthly' ? 'text-white' : 'text-gray-500 hover:text-gray-900'}`}
-            >
-              {billingCycle === 'monthly' && (
-                <span className="absolute inset-0 bg-black rounded-md shadow-sm"></span>
-              )}
-              <span className="relative z-10">{t.pricing.monthly}</span>
-            </button>
-            <button 
-              onClick={() => setBillingCycle('yearly')}
-              className={`text-sm font-medium px-6 py-2 rounded-md relative transition-all duration-200 ${billingCycle === 'yearly' ? 'text-white' : 'text-gray-500 hover:text-gray-900'}`}
-            >
-              {billingCycle === 'yearly' && (
-                <span className="absolute inset-0 bg-black rounded-md shadow-sm"></span>
-              )}
-              <span className="relative z-10">{t.pricing.yearly}</span>
-            </button>
-          </motion.div>
+            <h2 className="text-2xl font-semibold text-slate-900">{copy.plansCard.title}</h2>
+            <p className="mt-4 text-sm leading-7 text-slate-600">{copy.plansCard.description}</p>
 
-          {/* Single Premium Card */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-lg mx-auto"
-          >
-            <div className="relative bg-[radial-gradient(164.75%_100%_at_50%_0%,#334155_0%,#0F172A_48.73%)] shadow-2xl rounded-2xl px-8 py-10 flex flex-col h-full border border-slate-700">
-              <div className="mb-8">
-                <h3 className="text-white text-xl font-bold leading-7">{t.pricing.professional.title}</h3>
-                <p className="text-slate-300 mt-2 text-sm leading-6">
-                  {t.pricing.professional.desc}
-                </p>
-                <div className="mt-6 flex items-baseline gap-x-2">
-                  <span className="text-5xl font-bold tracking-tight text-white">
-                    {billingCycle === 'monthly' ? t.pricing.professional.priceMonthly : t.pricing.professional.priceYearly}
-                  </span>
-                  {billingCycle === 'yearly' && (
-                     <span className="text-sm font-semibold leading-6 text-emerald-400">
-                       {t.pricing.save}
-                     </span>
-                  )}
-                </div>
-              </div>
-              
-              <ul role="list" className="flex-1 space-y-4 text-sm leading-6 text-slate-300 mb-10">
-                {t.pricing.professional.features.map((feature, index) => (
-                  <li key={index} className="flex gap-x-3 items-start">
-                    <Check className="h-6 w-5 flex-none text-white" aria-hidden="true" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
+            <ul className="mt-8 space-y-3">
+              {copy.plansCard.bullets.map((item) => (
+                <li key={item} className="flex items-start gap-3 text-sm text-slate-700">
+                  <Check className="mt-0.5 h-4 w-4 flex-none text-slate-500" aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
 
-              <a href={AUTH_URLS.register} className="bg-white text-black hover:bg-slate-100 transition-colors duration-200 w-full rounded-full py-3 px-4 text-center text-sm font-bold shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white block">
-                {t.pricing.professional.cta}
-              </a>
+            <div className="mt-8 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+              {copy.plansCard.note}
             </div>
-            
-            {/* Decoration behind card */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-[2rem] blur-2xl opacity-20 -z-10"></div>
-          </motion.div>
+          </motion.article>
+
+          <motion.article
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.18 }}
+            className="rounded-3xl bg-[radial-gradient(164.75%_100%_at_50%_0%,#334155_0%,#0F172A_48.73%)] p-8 text-white shadow-2xl"
+          >
+            <h2 className="text-2xl font-semibold">{copy.enterpriseCard.title}</h2>
+            <p className="mt-4 text-4xl font-bold tracking-tight">{copy.enterpriseCard.contact}</p>
+            <p className="mt-4 text-sm leading-7 text-slate-200">{copy.enterpriseCard.description}</p>
+
+            <ul className="mt-8 space-y-3">
+              {copy.enterpriseCard.bullets.map((item) => (
+                <li key={item} className="flex items-start gap-3 text-sm text-slate-100">
+                  <Check className="mt-0.5 h-4 w-4 flex-none text-white" aria-hidden="true" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={`mailto:askqualy@gmail.com?subject=${encodeURIComponent(copy.enterpriseCard.subject)}`}
+              className="mt-10 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition-colors hover:bg-slate-100"
+            >
+              {copy.enterpriseCard.cta}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
+          </motion.article>
         </div>
-    </SectionWithHeader>
+      </div>
+    </section>
   );
 };
 
