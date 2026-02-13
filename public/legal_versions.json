@@ -1,10 +1,10 @@
 {
   "terms": {
-    "version": "v1.0",
-    "last_updated": "2026-02-10"
+    "version": "v2.0",
+    "last_updated": "2026-02-13"
   },
   "privacy": {
-    "version": "v1.0",
-    "last_updated": "2026-02-10"
+    "version": "v2.0",
+    "last_updated": "2026-02-13"
   }
 }
