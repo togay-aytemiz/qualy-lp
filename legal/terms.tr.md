@@ -104,7 +104,7 @@ Hizmet, aşağıdakiler dahil ancak bunlarla sınırlı olmaksızın üçüncü 
 |---|---|---|
 | **OpenAI** | LLM çıkarımı, gömme (embeddings) | ABD |
 | **Supabase** | Veri tabanı (PostgreSQL), kimlik doğrulama, depolama | ABD/AB |
-| **Vercel** | Uygulama barındırma | ABD/AB |
+| **Netlify** | Uygulama barındırma | ABD |
 | **Meta** | WhatsApp Business API, Instagram Messaging API | ABD |
 | **Telegram** | Bot API | Küresel |
 

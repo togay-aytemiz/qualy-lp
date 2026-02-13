@@ -135,7 +135,7 @@ Verileri aşağıdaki üçüncü taraf kategorileriyle paylaşabiliriz:
 | Kategori | Örnekler | Amaç |
 |---|---|---|
 | **Yapay Zeka / LLM Sağlayıcıları** | OpenAI | Yapay zeka çıkarımı, gömme (embedding) üretimi |
-| **Bulut Altyapı** | Supabase (PostgreSQL, Auth, Storage), Vercel | Barındırma, veri tabanı, kimlik doğrulama |
+| **Bulut Altyapı** | Supabase (PostgreSQL, Auth, Storage), Netlify | Barındırma, veri tabanı, kimlik doğrulama |
 | **Mesajlaşma Platformları** | Meta (WhatsApp, Instagram), Telegram | Kanal bağlantısı, mesaj iletimi |
 | **Analitik** | Kullanım izleme araçları | Performans izleme |
 | **Hukuki/Profesyonel** | Danışmanlar, denetçiler | Gizlilik yükümlülüğü kapsamında |
@@ -147,7 +147,7 @@ Kişisel verileri satmayız.
 
 Verileriniz Türkiye dışındaki ülkelere aktarılabilir ve bu ülkelerde işlenebilir, bunlar arasında:
 
-- **Amerika Birleşik Devletleri** — OpenAI API işleme, Vercel barındırma, Supabase altyapısı.
+- **Amerika Birleşik Devletleri** — OpenAI API işleme, Netlify barındırma, Supabase altyapısı.
 
 KVKK m.9 kapsamında yurt dışına veri aktarımı için:
 

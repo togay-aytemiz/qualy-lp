@@ -103,7 +103,7 @@ The Service relies on third-party products and infrastructure, including but not
 |---|---|---|
 | **OpenAI** | LLM inference, embeddings | USA |
 | **Supabase** | Database (PostgreSQL), authentication, storage | USA/EU |
-| **Vercel** | Application hosting | USA/EU |
+| **Netlify** | Application hosting | USA |
 | **Meta** | WhatsApp Business API, Instagram Messaging API | USA |
 | **Telegram** | Bot API | Global |
 

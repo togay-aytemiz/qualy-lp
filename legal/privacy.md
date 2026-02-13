@@ -131,7 +131,7 @@ We may share data with the following categories of third parties:
 | Category | Examples | Purpose |
 |---|---|---|
 | **AI/LLM Providers** | OpenAI | AI inference, embedding generation |
-| **Cloud Infrastructure** | Supabase (PostgreSQL, Auth, Storage), Vercel | Hosting, database, authentication |
+| **Cloud Infrastructure** | Supabase (PostgreSQL, Auth, Storage), Netlify | Hosting, database, authentication |
 | **Messaging Platforms** | Meta (WhatsApp, Instagram), Telegram | Channel connectivity, message delivery |
 | **Analytics** | Usage tracking tools | Performance monitoring |
 | **Legal/Professional** | Advisors, auditors | Under confidentiality obligations |
@@ -143,7 +143,7 @@ We do not sell personal data.
 
 Your data may be transferred to and processed in countries other than Turkey, including but not limited to:
 
-- **United States** — OpenAI API processing, Vercel hosting, Supabase infrastructure.
+- **United States** — OpenAI API processing, Netlify hosting, Supabase infrastructure.
 
 Where required by Turkish law (KVKK) or EU law (GDPR), we rely on:
 
