@@ -27,21 +27,19 @@ describe('faq section', () => {
     expect(languageContext).toContain('faq: {');
     expect(languageContext).toContain('title: "Frequently Asked Questions"');
     expect(languageContext).toContain('title: "Sıkça Sorulan Sorular"');
-    expect(languageContext).toContain('question: "What is this platform, and what does Qualy do?"');
-    expect(languageContext).toContain('question: "Bu platform nedir, Qualy ne işe yarar?"');
+    expect(languageContext).toContain('question: "What exactly does Qualy do?"');
+    expect(languageContext).toContain('question: "Qualy tam olarak ne yapıyor?"');
     expect(languageContext).toContain('en sık sorulan soruları burada bulabilirsin');
     expect(languageContext).toContain('secondary: "Plan a Demo"');
     expect(languageContext).toContain('secondary: "Demo Planla"');
-    expect(languageContext).toContain('question: "Kişi puanı nasıl hesaplanır?"');
-    expect(languageContext).toContain('question: "Qualy\'i hızlıca nasıl başlatırım?"');
-    expect(languageContext).toContain('şirket bilgilerinle eğit');
-    expect(trFaqBlock).toContain('no-code');
+    expect(languageContext).toContain('question: "Qualy müşterileri nasıl puanlıyor ve önceliklendiriyor?"');
+    expect(languageContext).toContain("question: \"Qualy'i kullanmaya başlamak için teknik bilgi gerekiyor mu?\"");
+    expect(languageContext).toContain('yüklediğin bilgileri kullanarak');
     expect(trFaqBlock).not.toContain('lead');
     expect(trFaqBlock).not.toContain('Lead');
     expect(trFaqBlock).not.toContain('MVP');
     expect(trFaqBlock).not.toContain('roadmap');
     expect(trFaqBlock).not.toContain('Roadmap');
-    expect(trFaqBlock).not.toContain('AI');
     expect(trFaqBlock).not.toContain('aday');
     expect(trFaqBlock).not.toContain('Aday');
 

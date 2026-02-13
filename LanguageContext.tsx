@@ -662,28 +662,28 @@ const translations: Record<Language, Translations> = {
       secondary: "Plan a Demo",
       items: [
         {
-          question: "What is this platform, and what does Qualy do?",
-          answer: "Qualy is a no-code messaging platform for service teams. It brings WhatsApp, Instagram, and Telegram conversations into one inbox, automates repetitive replies, and helps your team respond to the right people faster."
+          question: "What exactly does Qualy do?",
+          answer: "Qualy brings your WhatsApp, Instagram, and Telegram messages into one inbox. It automatically replies to customers using the information you provide, figures out what each customer needs from the conversation, and gives you a priority score from 1 to 10. You only deal with the customers who actually need your attention \u2014 Qualy handles the rest."
         },
         {
-          question: "How can I get started quickly?",
-          answer: "Connect your channels, upload your company information, and train Qualy with your business details. You do not need technical setup or coding to go live."
+          question: "Do I need technical skills to start using Qualy?",
+          answer: "No coding required. Connect your channels (WhatsApp, Instagram, or Telegram), upload a few documents about your services and pricing, add ready-made answers for common questions, and you can go live in minutes. Qualy uses what you upload to give your customers consistent, accurate replies."
         },
         {
-          question: "Which channels can I use today?",
-          answer: "You can use WhatsApp, Instagram, and Telegram in a single inbox today. Messenger support is currently being prepared."
+          question: "Which messaging apps does Qualy work with?",
+          answer: "We currently support WhatsApp, Instagram, and Telegram \u2014 you can manage all three from a single screen. Messenger support is coming soon. Connecting a channel takes just a few minutes, and messages from every channel appear in the same inbox."
         },
         {
-          question: "How is person scoring calculated?",
-          answer: "Scoring uses signals such as service clarity, timing, budget fit, urgency, and decision readiness. The 0-10 score updates automatically as new messages arrive."
+          question: "How does Qualy score and prioritize customers?",
+          answer: "Every time a customer sends a message, Qualy reads the conversation and figures out how serious they are. It does this by looking at your uploaded service info alongside the customer's messages. For example, if a customer mentions a specific date, service type, and budget, their score goes up. If they only ask \"how much?\", the score stays low. The score runs from 0 to 10 and updates with every message. When you open your dashboard, the most serious customers always appear first."
         },
         {
-          question: "Is customer data secure?",
-          answer: "Organization data is isolated, legal documents are versioned, and your team can pause AI replies during human takeover whenever needed."
+          question: "Is my customer data and conversations secure?",
+          answer: "Yes. Every business's data is completely separated \u2014 no other user can see your conversations. Connections are encrypted and data is stored on secure cloud infrastructure. You can also pause AI replies at any time and take control yourself. You can review our legal documents on our Privacy Policy and Terms of Service pages."
         },
         {
-          question: "What happens when my team takes over a chat?",
-          answer: "When a chat is taken over, AI replies pause and your operator takes control. Conversation history stays intact, and you can return the chat to AI flow at any time."
+          question: "Can I jump in and take over while AI is replying?",
+          answer: "Yes, with one click. When you hit the takeover button, Qualy's automatic replies stop and the conversation is yours. The full message history stays intact \u2014 your customer won't notice any interruption. When you're done, you can hand the conversation back to AI flow."
         }
       ]
     },
@@ -1102,28 +1102,28 @@ const translations: Record<Language, Translations> = {
       secondary: "Demo Planla",
       items: [
         {
-          question: "Bu platform nedir, Qualy ne işe yarar?",
-          answer: "Qualy, servis ekipleri için no-code bir mesaj yönetim platformudur. WhatsApp, Instagram ve Telegram konuşmalarını tek gelen kutusunda toplar, tekrar eden soruları otomatik yanıtlar ve ekibinin doğru kişilere daha hızlı dönmesini sağlar."
+          question: "Qualy tam olarak ne yapıyor?",
+          answer: "Qualy, WhatsApp, Instagram ve Telegram'dan gelen müşteri mesajlarını tek bir panelde topluyor. Gelen mesajları senin belirlediğin bilgilere göre otomatik yanıtlıyor, her konuşmadan müşterinin ne istediğini çıkarıyor ve sana 1-10 arasında bir öncelik puanı veriyor. Sen sadece gerçekten ilgilenmen gereken müşterilerle ilgileniyorsun \u2014 geri kalanını Qualy hallediyor."
         },
         {
-          question: "Qualy'i hızlıca nasıl başlatırım?",
-          answer: "Kanallarını bağla, şirketine ait hizmet, fiyat ve politika bilgilerini yükle, ardından Qualy'i şirket bilgilerinle eğit. Kod yazmadan birkaç adımda canlıya alabilirsin."
+          question: "Qualy'i kullanmaya başlamak için teknik bilgi gerekiyor mu?",
+          answer: "Hayır, hiç kod yazmana gerek yok. Kanallarını bağla (WhatsApp, Instagram veya Telegram), hizmetlerini ve fiyatlarını anlatan birkaç belge yükle, sık sorulan sorulara hazır yanıtlar ekle \u2014 birkaç dakikada canlıya geçebilirsin. Qualy, yüklediğin bilgileri kullanarak müşterilere tutarlı ve doğru yanıtlar veriyor."
         },
         {
-          question: "Bugün hangi kanalları kullanabilirim?",
-          answer: "Bugün WhatsApp, Instagram ve Telegram tek panelde kullanılabiliyor. Messenger desteği ise yakında açılacak."
+          question: "Qualy hangi mesajlaşma uygulamalarıyla çalışıyor?",
+          answer: "Şu anda WhatsApp, Instagram ve Telegram'ı destekliyoruz \u2014 üçünü de tek ekrandan yönetebilirsin. Messenger desteği de yakında geliyor. Kanalları bağlamak birkaç dakika sürüyor ve her kanaldan gelen mesajlar aynı gelen kutusunda görünüyor."
         },
         {
-          question: "Kişi puanı nasıl hesaplanır?",
-          answer: "Kişi puanı; hizmetin netliği, tarih bilgisi, bütçe uyumu, aciliyet ve karar sinyalleriyle hesaplanır. Her yeni mesajda 0-10 puan otomatik güncellenir."
+          question: "Qualy müşterileri nasıl puanlıyor ve önceliklendiriyor?",
+          answer: "Her yeni müşteri mesajında Qualy, konuşmayı okuyup müşterinin ne kadar ciddi olduğunu anlıyor. Bunu yaparken senin yüklediğin hizmet bilgilerini ve müşterinin mesajlarını birlikte değerlendiriyor. Mesela müşteri net bir tarih, hizmet türü ve bütçe bilgisi verdiyse puanı yükseliyor. Sadece \"fiyat ne?\" diye sorduysa puanı düşük kalıyor. Bu puan 0-10 arasında, her mesajda kendini güncelliyor. Sen panelde bakınca en ciddi müşteriyi en üstte görüyorsun."
         },
         {
-          question: "Müşteri verileri güvenli mi?",
-          answer: "Kuruluş verileri birbirinden izole tutulur. Yasal metinler sürüm takibiyle yayınlanır ve gerektiğinde yapay zeka yanıtı durdurularak süreç ekip tarafından güvenle yönetilir."
+          question: "Müşteri verileri ve konuşmalar güvende mi?",
+          answer: "Evet. Her işletmenin verileri birbirinden tamamen izole \u2014 başka bir kullanıcı senin konuşmalarını göremez. Bağlantılar şifrelidir ve veriler güvenli bulut altyapısında saklanır. Ayrıca, konuşmalar yapay zeka tarafından yanıtlanırken istediğin anda yapay zekayı durdurup kontrolü kendine alabilirsin. Yasal metinlerimize Gizlilik Politikası ve Hizmet Şartları sayfalarından ulaşabilirsin."
         },
         {
-          question: "Ekibim konuşmayı devralınca ne olur?",
-          answer: "Devralınan konuşmada yapay zeka yanıtı durur ve operatör kontrolü alır. Konuşma geçmişi korunur; istersen konuşmayı yeniden yapay zeka akışına döndürebilirsin."
+          question: "Yapay zeka yanıt verirken araya girip konuşmayı devralabilir miyim?",
+          answer: "Evet, tek tıkla. Devralma düğmesine bastığında Qualy'nin otomatik yanıtları durur ve konuşma sana geçer. Tüm mesaj geçmişi aynen korunuyor \u2014 müşteri hiçbir kopukluk hissetmiyor. İşin bitince konuşmayı tekrar yapay zeka akışına döndürebilirsin."
         }
       ]
     },
