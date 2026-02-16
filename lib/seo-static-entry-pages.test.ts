@@ -16,6 +16,13 @@ describe('static SEO entry pages', () => {
     expect(readEntry('privacy/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/privacy" />');
   });
 
+  it('includes trial-first pricing metadata copy in static pricing entry', () => {
+    const pricing = readEntry('pricing/index.html');
+
+    expect(pricing).toContain('14 gün ücretsiz dene');
+    expect(pricing).toContain('Kredi kartı gerekmez');
+  });
+
   it('exposes hreflang alternates for tr and en home variants', () => {
     const home = readEntry('index.html');
     const enHome = readEntry('en/index.html');

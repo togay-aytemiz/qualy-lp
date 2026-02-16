@@ -53,6 +53,16 @@ describe('getSeoByRoute', () => {
     expect(seo.og.locale).toBe('tr_TR');
   });
 
+  it('uses trial-first pricing messaging for both locales', () => {
+    const pricingEn = getSeoByRoute('pricing', 'en', { siteUrl: 'https://askqualy.com' });
+    const pricingTr = getSeoByRoute('pricing', 'tr', { siteUrl: 'https://askqualy.com' });
+
+    expect(pricingEn.description).toContain('14-day free trial');
+    expect(pricingEn.description).toContain('No credit card required');
+    expect(pricingTr.description).toContain('14 gün ücretsiz dene');
+    expect(pricingTr.description).toContain('Kredi kartı gerekmez');
+  });
+
   it('builds schema payloads for home route', () => {
     const seo = getSeoByRoute('home', 'en', { siteUrl: 'https://askqualy.com' });
     const schemaTypes = seo.jsonLd.map((item) => item['@type']);

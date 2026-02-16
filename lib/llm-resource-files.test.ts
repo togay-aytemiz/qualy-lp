@@ -20,6 +20,6 @@ describe('llm resource files', () => {
     const faqsMarkdown = readPublicFile('faqs.md');
 
     expect(faqsMarkdown).toContain('# Qualy FAQs');
-    expect(faqsMarkdown).toContain('## What is this platform, and what does Qualy do?');
+    expect(faqsMarkdown).toContain('## What exactly does Qualy do?');
   });
 });

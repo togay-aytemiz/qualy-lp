@@ -55,7 +55,7 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
     pricing: {
       title: 'Pricing | Qualy',
       description:
-        'Review Qualy pricing options and contact us for an enterprise rollout tailored to your team.',
+        'Start Qualy with a 14-day free trial. No credit card required. Compare Starter, Growth, and Scale by monthly credits and conversation volume, with Enterprise available.',
     },
     legalIndex: {
       title: 'Legal Center | Qualy',
@@ -85,7 +85,7 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
     pricing: {
       title: 'Fiyatlandırma | Qualy',
       description:
-        'Qualy fiyatlandırma seçeneklerini incele ve kurumuna özel Enterprise kurulum için bizimle iletişime geç.',
+        "Qualy'yi 14 gün ücretsiz dene. Kredi kartı gerekmez. Starter, Growth ve Scale paketlerini aylık kredi ve konuşma hacmine göre karşılaştır; Enterprise seçeneği hazır.",
     },
     legalIndex: {
       title: 'Yasal Merkez | Qualy',
