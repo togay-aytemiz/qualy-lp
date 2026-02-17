@@ -260,12 +260,12 @@ const ImpactMetrics: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: prefersReducedMotion ? 0 : 0.4, delay: prefersReducedMotion ? 0 : 0.12 }}
-              className="mt-20 flex flex-col items-center text-center lg:mt-24"
+              className="mt-20 flex flex-col items-center text-center lg:mt-24 lg:ml-auto lg:items-end lg:text-right"
             >
-              <p className="max-w-2xl text-2xl font-semibold tracking-tight text-slate-900 md:text-4xl">
+              <p className="max-w-2xl whitespace-pre-line text-2xl font-semibold tracking-tight text-slate-900 md:text-4xl">
                 {t.impactMetrics.ctaText}
               </p>
-              <div className="mt-6 flex w-full max-w-xl flex-col items-center justify-center gap-3 sm:flex-row">
+              <div className="mt-6 flex w-full max-w-xl flex-col items-center justify-center gap-3 sm:flex-row lg:justify-end">
                 <a
                   href={AUTH_URLS.register}
                   className="inline-flex w-full items-center justify-center rounded-full bg-slate-900 px-8 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_rgba(15,23,42,0.18)] transition-colors hover:bg-slate-800 sm:w-auto"

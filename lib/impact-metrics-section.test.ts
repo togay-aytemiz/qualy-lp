@@ -30,6 +30,7 @@ describe('impact metrics section', () => {
     expect(impactMetricsSource).toContain('{t.impactMetrics.ctaText}');
     expect(impactMetricsSource).toContain('{t.impactMetrics.ctaPrimary}');
     expect(impactMetricsSource).toContain('{t.impactMetrics.disclaimer}');
+    expect(impactMetricsSource).toContain('whitespace-pre-line');
     expect(impactMetricsSource).toContain('{t.hero.ctaSecondary}');
     expect(impactMetricsSource).toContain('href={AUTH_URLS.register}');
     expect(impactMetricsSource).toContain('const [isDemoModalOpen, setIsDemoModalOpen] = React.useState(false);');
@@ -41,7 +42,7 @@ describe('impact metrics section', () => {
     expect(impactMetricsSource).toContain('role="dialog"');
     expect(impactMetricsSource).toContain('{t.hero.demoModal.title}');
     expect(languageContextSource).toContain('ctaText: "Ready to grow your results with Qualy?"');
-    expect(languageContextSource).toContain('ctaText: "Qualy ile sonuçlarını büyütmeye hazır mısın?"');
+    expect(languageContextSource).toContain('ctaText: "Qualy ile sonuçlarını\\nbüyütmeye hazır mısın?"');
     expect(languageContextSource).toContain('ctaPrimary: "Start Free Trial"');
     expect(languageContextSource).toContain('ctaPrimary: "Ücretsiz denemeni başlat"');
     expect(languageContextSource).toContain('disclaimer: "These rates represent average improvements observed across businesses using Qualy; results may vary by workflow."');
@@ -80,6 +81,7 @@ describe('impact metrics section', () => {
   it('keeps conversion headline lower to avoid overlap with background curve', () => {
     const impactMetricsSource = readFileSync(path.join(process.cwd(), 'components', 'ImpactMetrics.tsx'), 'utf8');
 
-    expect(impactMetricsSource).toContain('className="mt-20 flex flex-col items-center text-center lg:mt-24"');
+    expect(impactMetricsSource).toContain('className="mt-20 flex flex-col items-center text-center lg:mt-24 lg:ml-auto lg:items-end lg:text-right"');
+    expect(impactMetricsSource).toContain('className="mt-6 flex w-full max-w-xl flex-col items-center justify-center gap-3 sm:flex-row lg:justify-end"');
   });
 });

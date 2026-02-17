@@ -930,7 +930,7 @@ const translations: Record<Language, Translations> = {
     impactMetrics: {
       title: "Qualy ile iyileşen metrikler",
       subtitle: "İlk yanıt hızından randevuya dönen kişi oranına kadar, daha çok müşteri kazanmanı sağlayan metrikleri birlikte yukarı taşırız.",
-      ctaText: "Qualy ile sonuçlarını büyütmeye hazır mısın?",
+      ctaText: "Qualy ile sonuçlarını\nbüyütmeye hazır mısın?",
       ctaPrimary: "Ücretsiz denemeni başlat",
       disclaimer: "Bu oranlar, Qualy kullanan işletmelerde gözlenen ortalama iyileşmeleri temsil eder; sonuçlar iş akışına göre değişebilir.",
       items: [
