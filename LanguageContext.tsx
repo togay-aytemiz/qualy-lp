@@ -103,6 +103,7 @@ interface Translations {
     subtitle: string;
     ctaText: string;
     ctaPrimary: string;
+    disclaimer: string;
     items: Array<{
       value: string;
       label: string;
@@ -487,29 +488,30 @@ const translations: Record<Language, Translations> = {
     },
     impactMetrics: {
       title: "Metrics teams improve with Qualy",
-      subtitle: "From first-response speed to lead quality, Qualy moves the numbers that directly affect revenue and workload.",
+      subtitle: "From first-response speed to booked-appointment rate, Qualy improves the metrics that bring you more customers.",
       ctaText: "Ready to grow your results with Qualy?",
       ctaPrimary: "Start Free Trial",
+      disclaimer: "These rates represent average improvements observed across businesses using Qualy; results may vary by workflow.",
       items: [
         {
           value: "-78%",
           label: "Faster first-response time",
-          detail: "Automated first-line replies reduce waiting time before a human joins."
+          detail: "Replies in seconds keep potential customers from dropping off."
         },
         {
           value: "+42%",
-          label: "More qualified leads",
-          detail: "Intent scoring surfaces high-fit conversations for priority follow-up."
+          label: "More purchase-ready people",
+          detail: "People most likely to buy are surfaced first, so you can follow up at the right moment."
         },
         {
           value: "-61%",
           label: "Less repetitive inbox workload",
-          detail: "Skills and Knowledge Base resolve routine questions without manual effort."
+          detail: "Common questions are answered automatically, so you do not waste time repeating the same replies."
         },
         {
           value: "+29%",
           label: "Higher booked-conversation rate",
-          detail: "Warm follow-ups keep high-intent leads moving toward booking."
+          detail: "Consistent follow-up moves high-intent people to booked appointments faster."
         }
       ]
     },
@@ -927,29 +929,30 @@ const translations: Record<Language, Translations> = {
     },
     impactMetrics: {
       title: "Qualy ile iyileşen metrikler",
-      subtitle: "İlk yanıt hızından lead kalitesine kadar, dönüşümü ve ekip verimini etkileyen rakamları birlikte yukarı taşırız.",
+      subtitle: "İlk yanıt hızından randevuya dönen kişi oranına kadar, daha çok müşteri kazanmanı sağlayan metrikleri birlikte yukarı taşırız.",
       ctaText: "Qualy ile sonuçlarını büyütmeye hazır mısın?",
       ctaPrimary: "Ücretsiz denemeni başlat",
+      disclaimer: "Bu oranlar, Qualy kullanan işletmelerde gözlenen ortalama iyileşmeleri temsil eder; sonuçlar iş akışına göre değişebilir.",
       items: [
         {
           value: "-78%",
           label: "Daha hızlı ilk yanıt süresi",
-          detail: "İlk seviye otomatik yanıtlar, ekip devralmadan önce bekleme süresini ciddi şekilde düşürür."
+          detail: "Mesajlara saniyeler içinde dönüş yapıldığı için potansiyel müşteriler beklemeden ilerler."
         },
         {
           value: "+42%",
-          label: "Daha fazla nitelikli lead",
-          detail: "Müşteri skoru, satışa en yakın konuşmaları hızlı takip için öne çıkarır."
+          label: "Daha fazla satın almaya hazır kişi",
+          detail: "Satın almaya en yakın kişiler öne çıkar, doğru kişiye doğru anda dönüş yaparsın."
         },
         {
           value: "-61%",
           label: "Daha az tekrarlı mesaj yükü",
-          detail: "Yetenekler ve Bilgi Bankası, rutin soruları manuel efor olmadan karşılar."
+          detail: "Sık sorulan sorular otomatik yanıtlandığı için aynı şeyleri tekrar tekrar yazmazsın."
         },
         {
           value: "+29%",
           label: "Daha yüksek randevuya dönüşüm",
-          detail: "Sıcak takip akışı, yüksek niyetli adayları daha hızlı şekilde randevuya taşır."
+          detail: "Düzenli takip, ilgisi yüksek kişilerin daha hızlı randevuya dönmesini sağlar."
         }
       ]
     },

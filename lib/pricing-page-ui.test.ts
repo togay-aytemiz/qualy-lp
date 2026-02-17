@@ -23,12 +23,12 @@ describe('pricing page ui', () => {
     const pricingSource = readFileSync(path.join(process.cwd(), 'components', 'Pricing.tsx'), 'utf8');
 
     expect(pricingSource).toContain('Temel');
-    expect(pricingSource).toContain('Akış');
-    expect(pricingSource).toContain('Yoğun');
+    expect(pricingSource).toContain('Gelişmiş');
+    expect(pricingSource).toContain('Profesyonel');
 
     expect(pricingSource).toContain('349');
     expect(pricingSource).toContain('649');
-    expect(pricingSource).toContain('999');
+    expect(pricingSource).toContain('949');
 
     expect(pricingSource).toContain('1000');
     expect(pricingSource).toContain('2000');
@@ -37,6 +37,13 @@ describe('pricing page ui', () => {
     expect(pricingSource).toContain('Ayda yaklaşık 90-120 konuşma');
     expect(pricingSource).toContain('Ayda yaklaşık 180-240 konuşma');
     expect(pricingSource).toContain('Ayda yaklaşık 360-480 konuşma');
+
+    expect(pricingSource).toContain('İlk otomasyon adımını atan işletmeler');
+    expect(pricingSource).toContain('Düzenli mesaj trafiği olan işletmeler');
+    expect(pricingSource).toContain('Yüksek konuşma hacmi yöneten işletmeler');
+    expect(pricingSource).not.toContain('İlk otomasyon adımını atan işletmeler için');
+    expect(pricingSource).not.toContain('Düzenli mesaj trafiği olan işletmeler için');
+    expect(pricingSource).not.toContain('Yüksek konuşma hacmi yöneten işletmeler için');
   });
 
   it('renders shared standard features inside each pricing card instead of a global top section', () => {
@@ -44,9 +51,12 @@ describe('pricing page ui', () => {
 
     expect(pricingSource).toContain('planIncludesLabel');
     expect(pricingSource).toContain('planIncludedFeatures');
-    expect(pricingSource).toContain('WhatsApp, Instagram ve Telegram için ortak inbox');
-    expect(pricingSource).toContain('Hazır yanıtlar (şablonlar)');
-    expect(pricingSource).toContain('Temel raporlama ve kullanım görünümü');
+    expect(pricingSource).toContain('WhatsApp, Instagram, Telegram tek gelen kutusu');
+    expect(pricingSource).toContain('Yetenek + Bilgi Bankası ile yapay zeka yanıtı');
+    expect(pricingSource).toContain('Kişi nitelendirme ve skorlama');
+    expect(pricingSource).toContain('Konuşma özeti');
+    expect(pricingSource).not.toContain('Konuşma özeti ve kişi skoru');
+    expect(pricingSource).not.toContain('Hazır yanıtlar ve temel raporlar');
     expect(pricingSource).not.toContain('sameFeatures:');
     expect(pricingSource).not.toContain('sameFeatureLabel');
   });
@@ -58,6 +68,8 @@ describe('pricing page ui', () => {
     expect(pricingSource).toContain('Start your 14-day free trial');
     expect(pricingSource).toContain('Kredi kartı gerekmez');
     expect(pricingSource).toContain('No credit card required');
+    expect(pricingSource).toContain('href={AUTH_URLS.register}');
+    expect(pricingSource).not.toContain('mailto:askqualy@gmail.com?subject=${encodeURIComponent(plan.subject)}');
     expect(pricingSource).not.toContain('trialBadge:');
     expect(pricingSource).not.toContain('trialTitle:');
     expect(pricingSource).not.toContain('trialDescription:');
@@ -70,6 +82,7 @@ describe('pricing page ui', () => {
     const pricingSource = readFileSync(path.join(process.cwd(), 'components', 'Pricing.tsx'), 'utf8');
 
     expect(pricingSource).toContain('flex h-full flex-col');
+    expect(pricingSource).toContain('truncate whitespace-nowrap');
     expect(pricingSource).toContain('mb-6 rounded-2xl border');
     expect(pricingSource).toContain('mt-auto inline-flex');
     expect(pricingSource).not.toContain('recommendedRibbon');
@@ -77,11 +90,13 @@ describe('pricing page ui', () => {
     expect(pricingSource).not.toContain('En çok tercih edilen');
   });
 
-  it('keeps enterprise as a separate premium contact path with a dedicated card marker', () => {
+  it('keeps a separate custom-package contact path with dedicated card marker and tr-localized labels', () => {
     const pricingSource = readFileSync(path.join(process.cwd(), 'components', 'Pricing.tsx'), 'utf8');
 
     expect(pricingSource).toContain('enterpriseCard');
-    expect(pricingSource).toContain('Enterprise');
+    expect(pricingSource).toContain('Özel Paket');
+    expect(pricingSource).toContain('Özel Çözüm');
+    expect(pricingSource).toContain('Özel Teklif Al');
     expect(pricingSource).toContain('data-pricing-enterprise="true"');
   });
 });

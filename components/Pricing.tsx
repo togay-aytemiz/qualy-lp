@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../LanguageContext';
+import { AUTH_URLS } from '../lib/auth-links';
 
 type PricingTier = {
   name: string;
@@ -47,7 +48,7 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
       'AI auto-replies with lead qualification',
       'Team assignment and human handover flow',
       'Saved replies (templates)',
-      'Basic reporting and usage visibility',
+      'Conversation summary and scoring view',
     ],
     plans: [
       {
@@ -68,7 +69,7 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
       },
       {
         name: 'Scale',
-        price: '999',
+        price: '949',
         credits: '4000',
         conversations: 'About 360-480 conversations/month',
         bestFor: 'Best for high-volume sales operations',
@@ -77,34 +78,34 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
     ],
     footnote: 'Conversation range may vary by message length, language, and response complexity.',
     enterpriseCard: {
-      kicker: 'Enterprise',
-      title: 'Enterprise',
+      kicker: 'Custom',
+      title: 'Custom Plan',
       description:
-        'For organizations that need custom integration, advanced governance, and rollout coordination across teams.',
-      cta: 'Contact Us',
-      subject: 'Enterprise Plan Inquiry',
+        'For teams that outgrow package credits or need tailored integrations, workflows, and rollout support.',
+      cta: 'Get Custom Offer',
+      subject: 'Custom Plan Inquiry',
       responseSla: 'Response within 1 business day',
       bullets: [
-        'Custom deployment and integration planning',
-        'Channel migration support with dedicated onboarding',
-        'Security, governance, and workflow customization',
+        'Extra monthly credits beyond package limits',
+        'Tailored integration and workflow requirements',
+        'Dedicated onboarding and migration planning',
       ],
     },
   },
   tr: {
-    title: 'Dakikalar içinde canlıya çık. Konuşma hacmi arttıkça ölçekle.',
+    title: 'Hemen başla. Hacim arttıkça ölçekle.',
     subtitle:
-      "Tüm paketlerde aynı güçlü ürün var. Temel'le hemen başla, konuşma hacmin arttıkça Akış ve Yoğun'a geçerek daha fazla lead'i kaçırmadan yönet.",
+      'Tüm paketlerde aynı güçlü ürün var. Temel ile hemen başla; hacim arttıkça Gelişmiş ve Profesyonel paketlerine geç.',
     trialInlineText: '14 gün ücretsiz dene. Kredi kartı gerekmez.',
     trialNoCardLabel: 'Kredi kartı gerekmez',
     planCta: '14 gün ücretsiz dene',
     planIncludesLabel: 'Her pakette standart',
     planIncludedFeatures: [
-      'WhatsApp, Instagram ve Telegram için ortak inbox',
-      'AI otomatik yanıt ve lead nitelendirme',
-      'Atama ve insan devri akışı',
-      'Hazır yanıtlar (şablonlar)',
-      'Temel raporlama ve kullanım görünümü',
+      'WhatsApp, Instagram, Telegram tek gelen kutusu',
+      'Yetenek + Bilgi Bankası ile yapay zeka yanıtı',
+      'Kişi nitelendirme ve skorlama',
+      'Atama ve insan devri',
+      'Konuşma özeti',
     ],
     plans: [
       {
@@ -112,39 +113,39 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
         price: '349',
         credits: '1000',
         conversations: 'Ayda yaklaşık 90-120 konuşma',
-        bestFor: 'Otomasyona yeni başlayan işletmeler için',
+        bestFor: 'İlk otomasyon adımını atan işletmeler',
         subject: 'Temel Plan Ücretsiz Deneme Talebi',
       },
       {
-        name: 'Akış',
+        name: 'Gelişmiş',
         price: '649',
         credits: '2000',
         conversations: 'Ayda yaklaşık 180-240 konuşma',
-        bestFor: 'Düzenli lead akışı olan işletmeler için',
-        subject: 'Akış Plan Ücretsiz Deneme Talebi',
+        bestFor: 'Düzenli mesaj trafiği olan işletmeler',
+        subject: 'Gelişmiş Plan Ücretsiz Deneme Talebi',
       },
       {
-        name: 'Yoğun',
-        price: '999',
+        name: 'Profesyonel',
+        price: '949',
         credits: '4000',
         conversations: 'Ayda yaklaşık 360-480 konuşma',
-        bestFor: 'Yüksek hacimli operasyonlar için',
-        subject: 'Yoğun Plan Ücretsiz Deneme Talebi',
+        bestFor: 'Yüksek konuşma hacmi yöneten işletmeler',
+        subject: 'Profesyonel Plan Ücretsiz Deneme Talebi',
       },
     ],
     footnote: 'Konuşma aralığı; mesaj uzunluğu, dil ve yanıt karmaşıklığına göre değişebilir.',
     enterpriseCard: {
-      kicker: 'Enterprise',
-      title: 'Enterprise',
+      kicker: 'Özel Paket',
+      title: 'İhtiyaca Özel Çözüm',
       description:
-        'Kuruma özel entegrasyon, ileri seviye yönetim ve birimler arası rollout koordinasyonuna ihtiyaç duyan yapılar için.',
-      cta: 'Bize Ulaşın',
-      subject: 'Enterprise Plan Talebi',
+        'Paket kredileri yetmiyorsa veya farklı ihtiyaçların varsa, işletmene özel kredi hacmi ve kurulum planı oluşturuyoruz.',
+      cta: 'Özel Teklif Al',
+      subject: 'Özel Paket Talebi',
       responseSla: '1 iş günü içinde dönüş',
       bullets: [
-        'Kuruma özel kurulum ve entegrasyon planı',
-        'Kanal geçişi ve öncelikli onboarding desteği',
-        'Güvenlik, yetkilendirme ve workflow özelleştirmesi',
+        'Paket limitini aşan kredi ihtiyacı için özel hacim',
+        'İşletmene özel entegrasyon ve süreç tasarımı',
+        'Öncelikli kurulum ve geçiş planı',
       ],
     },
   },
@@ -220,7 +221,9 @@ const Pricing: React.FC = () => {
                   {plan.name}
                 </div>
 
-                <p className={`mt-3 text-sm font-medium ${subLabelClass}`}>{plan.bestFor}</p>
+                <p title={plan.bestFor} className={`mt-3 truncate whitespace-nowrap text-sm font-medium ${subLabelClass}`}>
+                  {plan.bestFor}
+                </p>
 
                 <p className="mt-6 text-5xl font-semibold tracking-tight">
                   {plan.price}
@@ -250,7 +253,7 @@ const Pricing: React.FC = () => {
                 </div>
 
                 <a
-                  href={`mailto:askqualy@gmail.com?subject=${encodeURIComponent(plan.subject)}`}
+                  href={AUTH_URLS.register}
                   className={`mt-auto inline-flex w-full items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-semibold transition-colors ${ctaClass}`}
                 >
                   {copy.planCta}
@@ -272,20 +275,20 @@ const Pricing: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.42 }}
           data-pricing-enterprise="true"
-          className="relative mx-auto mt-8 max-w-6xl overflow-hidden rounded-3xl border border-slate-900/10 bg-[radial-gradient(100%_180%_at_0%_0%,#111827_0%,#0F172A_52%,#020617_100%)] p-8 text-white shadow-2xl md:p-10"
+          className="relative mx-auto mt-8 max-w-6xl overflow-hidden rounded-3xl border border-slate-300 bg-[radial-gradient(120%_190%_at_0%_0%,#FFFFFF_0%,#F8FAFC_52%,#E5E7EB_100%)] p-8 text-slate-900 shadow-lg md:p-10"
         >
-          <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 bg-[linear-gradient(120deg,rgba(8,47,73,0.15)_0%,rgba(8,145,178,0.20)_100%)] md:block" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 bg-[linear-gradient(120deg,rgba(148,163,184,0.10)_0%,rgba(241,245,249,0.65)_100%)] md:block" />
 
           <div className="relative grid gap-8 md:grid-cols-2 md:items-end">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-200">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
                 {copy.enterpriseCard.kicker}
               </p>
               <h2 className="mt-3 text-4xl font-semibold tracking-tight md:text-5xl">
                 {copy.enterpriseCard.title}
               </h2>
-              <p className="mt-4 max-w-xl text-sm leading-7 text-slate-200">{copy.enterpriseCard.description}</p>
-              <p className="mt-6 inline-flex items-center rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-semibold text-slate-100">
+              <p className="mt-4 max-w-xl text-sm leading-7 text-slate-700">{copy.enterpriseCard.description}</p>
+              <p className="mt-6 inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-semibold text-slate-700">
                 {copy.enterpriseCard.responseSla}
               </p>
             </div>
@@ -293,8 +296,8 @@ const Pricing: React.FC = () => {
             <div>
               <ul className="space-y-3">
                 {copy.enterpriseCard.bullets.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-sm text-slate-100">
-                    <Check className="mt-0.5 h-4 w-4 flex-none text-cyan-200" aria-hidden="true" />
+                  <li key={item} className="flex items-start gap-3 text-sm text-slate-700">
+                    <Check className="mt-0.5 h-4 w-4 flex-none text-slate-600" aria-hidden="true" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -302,7 +305,7 @@ const Pricing: React.FC = () => {
 
               <a
                 href={`mailto:askqualy@gmail.com?subject=${encodeURIComponent(copy.enterpriseCard.subject)}`}
-                className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition-colors hover:bg-cyan-50 md:w-auto md:min-w-[220px]"
+                className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-slate-900 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-slate-700 md:w-auto md:min-w-[220px]"
               >
                 {copy.enterpriseCard.cta}
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />

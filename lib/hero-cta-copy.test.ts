@@ -28,7 +28,7 @@ describe('hero cta and turkish copy', () => {
     expect(hero).toContain('dangerouslySetInnerHTML={{ __html: t.hero.subheadline }}');
   });
 
-  it('uses "Yetenekler" wording in Turkish hero copy', () => {
+  it('keeps Turkish hero copy free from mixed-language technical phrases', () => {
     const languageContext = readFileSync(path.join(process.cwd(), 'LanguageContext.tsx'), 'utf8');
 
     expect(languageContext).toContain('ctaSecondary: "Plan a Demo"');
@@ -37,7 +37,7 @@ describe('hero cta and turkish copy', () => {
     expect(languageContext).toContain('title: "Demo Planla"');
     expect(languageContext).toContain('contactHint: "Email or phone (at least one is required)"');
     expect(languageContext).toContain('contactHint: "E-posta veya telefon (en az biri zorunlu)"');
-    expect(languageContext).toContain('Yetenekler ve Bilgi Bankası');
+    expect(languageContext).not.toContain('Yetenekler ve Bilgi Bankası');
     expect(languageContext).not.toContain('Skills + Bilgi Bankası');
     expect(languageContext).toContain('headline: "Herkese değil, doğru müşteriye odaklan."');
     expect(languageContext).toContain('mesajları otomatik yanıtlar</span>');

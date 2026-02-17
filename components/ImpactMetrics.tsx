@@ -260,7 +260,7 @@ const ImpactMetrics: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: prefersReducedMotion ? 0 : 0.4, delay: prefersReducedMotion ? 0 : 0.12 }}
-              className="mt-10 flex flex-col items-center text-center lg:mt-14"
+              className="mt-20 flex flex-col items-center text-center lg:mt-24"
             >
               <p className="max-w-2xl text-2xl font-semibold tracking-tight text-slate-900 md:text-4xl">
                 {t.impactMetrics.ctaText}
@@ -280,6 +280,9 @@ const ImpactMetrics: React.FC = () => {
                   {t.hero.ctaSecondary}
                 </button>
               </div>
+              <p className="mt-4 max-w-2xl text-[11px] leading-relaxed text-slate-500/80 md:text-xs">
+                {t.impactMetrics.disclaimer}
+              </p>
             </motion.div>
           </div>
         </div>
