@@ -173,8 +173,12 @@ const Navbar: React.FC = () => {
 
           {/* Mobile Toggle */}
           <button
+            type="button"
             className="md:hidden text-slate-900 p-1"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? t.navbar.closeMenu : t.navbar.openMenu}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-navigation-menu"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -183,7 +187,10 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden animate-in fade-in slide-in-from-top-10 duration-200">
+        <div
+          id="mobile-navigation-menu"
+          className="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden animate-in fade-in slide-in-from-top-10 duration-200"
+        >
           <div className="mx-auto flex h-full w-full max-w-md flex-col pb-10 text-center">
             <div className="flex flex-col gap-6">
               <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="text-xl font-medium text-slate-900">{t.navbar.features}</a>

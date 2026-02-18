@@ -149,7 +149,8 @@ const Footer: React.FC = () => {
               <a
                 href={homePathByLanguage('en')}
                 onClick={(event) => handleLanguageLinkClick(event, 'en')}
-                className={`transition-colors ${language === 'en' ? 'text-black' : 'text-slate-400 hover:text-slate-600'}`}
+                aria-current={language === 'en' ? 'page' : undefined}
+                className={`transition-colors ${language === 'en' ? 'text-black' : 'text-slate-600 hover:text-slate-900'}`}
               >
                 EN
               </a>
@@ -157,7 +158,8 @@ const Footer: React.FC = () => {
               <a
                 href={homePathByLanguage('tr')}
                 onClick={(event) => handleLanguageLinkClick(event, 'tr')}
-                className={`transition-colors ${language === 'tr' ? 'text-black' : 'text-slate-400 hover:text-slate-600'}`}
+                aria-current={language === 'tr' ? 'page' : undefined}
+                className={`transition-colors ${language === 'tr' ? 'text-black' : 'text-slate-600 hover:text-slate-900'}`}
               >
                 TR
               </a>

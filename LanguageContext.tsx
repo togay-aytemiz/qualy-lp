@@ -12,6 +12,8 @@ interface Translations {
     pricing: string;
     login: string;
     getStarted: string;
+    openMenu: string;
+    closeMenu: string;
   };
   hero: {
     status: string;
@@ -292,7 +294,9 @@ const translations: Record<Language, Translations> = {
       faq: "FAQ",
       pricing: "Pricing",
       login: "Log in",
-      getStarted: "Get Started"
+      getStarted: "Get Started",
+      openMenu: "Open menu",
+      closeMenu: "Close menu"
     },
     hero: {
       status: "WhatsApp-first AI inbox for service teams",
@@ -733,7 +737,9 @@ const translations: Record<Language, Translations> = {
       faq: "SSS",
       pricing: "Fiyatlandırma",
       login: "Giriş Yap",
-      getStarted: "Ücretsiz Başla"
+      getStarted: "Ücretsiz Başla",
+      openMenu: "Menüyü aç",
+      closeMenu: "Menüyü kapat"
     },
     hero: {
       status: "Servis ekipleri için WhatsApp odaklı AI gelen kutusu",

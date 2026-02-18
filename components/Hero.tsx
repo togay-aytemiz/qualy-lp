@@ -450,7 +450,7 @@ const Hero: React.FC = () => {
                       <div className="flex items-center gap-3">
                         <span className="sm:hidden leading-none">{activeScenario ? renderPlatformIcon(activeScenario.platform, 16) : null}</span>
                         <div className="hidden h-2 w-2 rounded-full bg-emerald-500 sm:block"></div>
-                        <h3 className="font-bold text-slate-900 text-sm">{activeScenario?.name}</h3>
+                        <p className="font-bold text-slate-900 text-sm">{activeScenario?.name}</p>
                       </div>
                       <div className="sm:hidden flex items-center gap-1.5 rounded-full border border-emerald-100 bg-emerald-50 px-2.5 py-0.5">
                         <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
@@ -498,7 +498,7 @@ const Hero: React.FC = () => {
                     <div ref={chatViewportRef} className="mobile-scrollbar-hide flex-1 overflow-y-auto overscroll-contain p-4 sm:p-5 md:p-8">
                       <div className="flex min-h-full flex-col justify-end gap-5">
                         <div className="flex justify-center">
-                          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider bg-gray-100 px-3 py-1.5 rounded-full border border-gray-200">
+                          <span className="text-[10px] font-bold text-gray-700 uppercase tracking-wider bg-gray-100 px-3 py-1.5 rounded-full border border-gray-200">
                             {t.hero.mockup.today}
                           </span>
                         </div>
