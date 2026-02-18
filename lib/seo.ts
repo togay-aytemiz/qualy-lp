@@ -1,7 +1,7 @@
 import { getSiteUrl, resolveAbsoluteUrl } from './site-url';
 
 export type SeoLanguage = 'en' | 'tr';
-export type SeoRouteKey = 'home' | 'pricing' | 'legalIndex' | 'terms' | 'privacy' | 'faqDirectory';
+export type SeoRouteKey = 'home' | 'pricing' | 'dataDeletion' | 'legalIndex' | 'terms' | 'privacy' | 'faqDirectory';
 
 type LocalizedSeoCopy = {
   title: string;
@@ -57,6 +57,11 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
       description:
         'Start Qualy with a 14-day free trial. No credit card required. Compare Starter, Growth, and Scale by monthly credits and conversation volume, with a Custom plan available.',
     },
+    dataDeletion: {
+      title: 'Data Deletion Instructions | Qualy',
+      description:
+        'Learn simple steps to delete your data in Qualy, including what is deleted, processing time, confirmation, and support contact.',
+    },
     legalIndex: {
       title: 'Legal Center | Qualy',
       description:
@@ -87,6 +92,11 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
       description:
         "Qualy'yi 14 gün ücretsiz dene. Kredi kartı gerekmez. Temel, Gelişmiş ve Profesyonel paketlerini aylık kredi ve konuşma hacmine göre karşılaştır; Özel Paket seçeneği hazır.",
     },
+    dataDeletion: {
+      title: 'Veri Silme Talimatları | Qualy',
+      description:
+        'Qualy’de verilerini nasıl sileceğini adım adım öğren. Bu sayfada silinen veriler, işlem süresi, onay ve destek bilgisi yer alır.',
+    },
     legalIndex: {
       title: 'Yasal Merkez | Qualy',
       description:
@@ -110,6 +120,7 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
 
 const ROUTE_PATHS: Record<Exclude<SeoRouteKey, 'home'>, string> = {
   pricing: '/pricing',
+  dataDeletion: '/data-deletion',
   legalIndex: '/legal',
   terms: '/terms',
   privacy: '/privacy',
@@ -128,6 +139,7 @@ export const getSeoRouteKeyByPath = (path: string): SeoRouteKey => {
   const normalized = normalizeRoutePath(path);
   if (normalized === '/en') return 'home';
   if (normalized === '/pricing') return 'pricing';
+  if (normalized === '/data-deletion') return 'dataDeletion';
   if (normalized === '/legal') return 'legalIndex';
   if (normalized === '/terms') return 'terms';
   if (normalized === '/privacy') return 'privacy';

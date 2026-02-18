@@ -15,6 +15,7 @@ export default defineConfig(({ mode }) => {
             home: path.resolve(__dirname, 'index.html'),
             homeEn: path.resolve(__dirname, 'en/index.html'),
             pricing: path.resolve(__dirname, 'pricing/index.html'),
+            dataDeletion: path.resolve(__dirname, 'data-deletion/index.html'),
             faqDirectory: path.resolve(__dirname, 'faqs-directory/index.html'),
             legal: path.resolve(__dirname, 'legal/index.html'),
             terms: path.resolve(__dirname, 'terms/index.html'),

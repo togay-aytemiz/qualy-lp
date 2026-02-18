@@ -13,6 +13,7 @@ describe('getSeoRouteKeyByPath', () => {
     expect(getSeoRouteKeyByPath('/')).toBe('home');
     expect(getSeoRouteKeyByPath('/en')).toBe('home');
     expect(getSeoRouteKeyByPath('/pricing')).toBe('pricing');
+    expect(getSeoRouteKeyByPath('/data-deletion')).toBe('dataDeletion');
     expect(getSeoRouteKeyByPath('/legal')).toBe('legalIndex');
     expect(getSeoRouteKeyByPath('/terms')).toBe('terms');
     expect(getSeoRouteKeyByPath('/privacy')).toBe('privacy');
@@ -28,6 +29,7 @@ describe('getSeoByRoute', () => {
   it('returns absolute canonical and og url', () => {
     const seo = getSeoByRoute('terms', 'en', { siteUrl: 'https://askqualy.com' });
     const pricingSeo = getSeoByRoute('pricing', 'en', { siteUrl: 'https://askqualy.com' });
+    const dataDeletionSeo = getSeoByRoute('dataDeletion', 'en', { siteUrl: 'https://askqualy.com' });
     const faqDirectorySeo = getSeoByRoute('faqDirectory', 'en', { siteUrl: 'https://askqualy.com' });
     const enHomeSeo = getSeoByRoute('home', 'en', { siteUrl: 'https://askqualy.com' });
     const trHomeSeo = getSeoByRoute('home', 'tr', { siteUrl: 'https://askqualy.com' });
@@ -37,6 +39,8 @@ describe('getSeoByRoute', () => {
     expect(seo.og.image).toBe('https://askqualy.com/og/qualy-default.png');
     expect(pricingSeo.canonicalUrl).toBe('https://askqualy.com/pricing');
     expect(pricingSeo.og.url).toBe('https://askqualy.com/pricing');
+    expect(dataDeletionSeo.canonicalUrl).toBe('https://askqualy.com/data-deletion');
+    expect(dataDeletionSeo.og.url).toBe('https://askqualy.com/data-deletion');
     expect(faqDirectorySeo.canonicalUrl).toBe('https://askqualy.com/faqs-directory');
     expect(faqDirectorySeo.og.url).toBe('https://askqualy.com/faqs-directory');
     expect(enHomeSeo.canonicalUrl).toBe('https://askqualy.com/en');

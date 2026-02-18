@@ -23,6 +23,7 @@ const HowItWorks = lazy(() => import('./components/HowItWorks'));
 const FAQ = lazy(() => import('./components/FAQ'));
 const CTA = lazy(() => import('./components/CTA'));
 const PricingPage = lazy(() => import('./pages/PricingPage'));
+const DataDeletionPage = lazy(() => import('./pages/DataDeletionPage'));
 
 const getNormalizedPath = () => {
   if (typeof window === 'undefined') return '/';
@@ -39,6 +40,7 @@ const AppContent: React.FC = () => {
   const isLegalRoute = legalDocSlugs.has(legalSlug);
   const isLlmFaqDirectoryRoute = path === '/faqs-directory';
   const isPricingRoute = path === '/pricing';
+  const isDataDeletionRoute = path === '/data-deletion';
 
   useEffect(() => {
     const handleRouteChange = () => setPath(getNormalizedPath());
@@ -132,6 +134,27 @@ const AppContent: React.FC = () => {
           <main>
             <Suspense fallback={<SectionSkeleton />}>
               <PricingPage />
+            </Suspense>
+          </main>
+          <Footer />
+        </motion.div>
+      </div>
+    );
+  }
+
+  if (isDataDeletionRoute) {
+    return (
+      <div className="min-h-screen bg-white selection:bg-black selection:text-white">
+        <motion.div
+          key="data-deletion-page"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+        >
+          <Navbar />
+          <main>
+            <Suspense fallback={<SectionSkeleton />}>
+              <DataDeletionPage />
             </Suspense>
           </main>
           <Footer />
