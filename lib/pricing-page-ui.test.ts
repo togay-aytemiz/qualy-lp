@@ -99,4 +99,11 @@ describe('pricing page ui', () => {
     expect(pricingSource).toContain('Özel Teklif Al');
     expect(pricingSource).toContain('data-pricing-enterprise="true"');
   });
+
+  it('uses section-level background gradient to soften footer transition without extra overlay layers', () => {
+    const pricingSource = readFileSync(path.join(process.cwd(), 'components', 'Pricing.tsx'), 'utf8');
+
+    expect(pricingSource).toContain('bg-[linear-gradient(to_bottom,#f8fafc_0%,#f8fafc_82%,#ffffff_100%)]');
+    expect(pricingSource).not.toContain('data-pricing-footer-fade="true"');
+  });
 });

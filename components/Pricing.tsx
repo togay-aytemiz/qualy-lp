@@ -177,7 +177,7 @@ const Pricing: React.FC = () => {
   const pricingCurrency = React.useMemo(() => resolvePricingCurrencyFromBrowser(), []);
 
   return (
-    <section className="relative overflow-hidden bg-[#f8fafc] pb-24 pt-36 md:pb-32 md:pt-44">
+    <section className="relative overflow-hidden bg-[linear-gradient(to_bottom,#f8fafc_0%,#f8fafc_82%,#ffffff_100%)] pb-24 pt-36 md:pb-32 md:pt-44">
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(15,23,42,0.14),transparent_58%)]" />
         <div className="absolute -left-20 top-20 h-64 w-64 rounded-full bg-amber-200/40 blur-3xl" />
