@@ -5,9 +5,6 @@ import Footer from './components/Footer';
 import SectionSkeleton from './components/SectionSkeleton';
 import { LanguageProvider, useLanguage } from './LanguageContext';
 import { motion } from 'framer-motion';
-import LegalPage from './pages/LegalPage';
-import LegalIndexPage from './pages/LegalIndexPage';
-import LlmFaqDirectoryPage from './pages/LlmFaqDirectoryPage';
 import { legalDocSlugs } from './lib/legal';
 import { applySeoToDocument } from './lib/seo-dom';
 import { getSeoByRoute, getSeoRouteKeyByPath } from './lib/seo';
@@ -24,6 +21,9 @@ const FAQ = lazy(() => import('./components/FAQ'));
 const CTA = lazy(() => import('./components/CTA'));
 const PricingPage = lazy(() => import('./pages/PricingPage'));
 const DataDeletionPage = lazy(() => import('./pages/DataDeletionPage'));
+const LegalPage = lazy(() => import('./pages/LegalPage'));
+const LegalIndexPage = lazy(() => import('./pages/LegalIndexPage'));
+const LlmFaqDirectoryPage = lazy(() => import('./pages/LlmFaqDirectoryPage'));
 
 const getNormalizedPath = () => {
   if (typeof window === 'undefined') return '/';
@@ -131,7 +131,9 @@ const AppContent: React.FC = () => {
   if (isLegalIndexRoute) {
     return (
       <div className="min-h-screen bg-white selection:bg-black selection:text-white">
-        <LegalIndexPage />
+        <Suspense fallback={<SectionSkeleton />}>
+          <LegalIndexPage />
+        </Suspense>
       </div>
     );
   }
@@ -139,7 +141,9 @@ const AppContent: React.FC = () => {
   if (isLegalRoute) {
     return (
       <div className="min-h-screen bg-white selection:bg-black selection:text-white">
-        <LegalPage slug={legalSlug} />
+        <Suspense fallback={<SectionSkeleton />}>
+          <LegalPage slug={legalSlug} />
+        </Suspense>
       </div>
     );
   }
@@ -189,7 +193,9 @@ const AppContent: React.FC = () => {
   if (isLlmFaqDirectoryRoute) {
     return (
       <div className="min-h-screen bg-black selection:bg-white selection:text-black">
-        <LlmFaqDirectoryPage />
+        <Suspense fallback={<div className="min-h-screen bg-black" />}>
+          <LlmFaqDirectoryPage />
+        </Suspense>
       </div>
     );
   }
