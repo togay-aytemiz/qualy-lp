@@ -28,8 +28,12 @@ describe('font delivery', () => {
     }
   });
 
-  it('uses a local-first system font stack in css', () => {
+  it('uses self-hosted Plus Jakarta font-face with swap and fallback stack', () => {
     const css = readFileSync(path.join(process.cwd(), 'index.css'), 'utf8');
-    expect(css).toContain("font-family: Inter, 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;");
+    expect(css).toContain("font-family: 'Plus Jakarta Sans';");
+    expect(css).toContain("src: local('Plus Jakarta Sans'), url('/fonts/plus-jakarta/PlusJakartaSans-VariableFont_wght.ttf') format('truetype-variations');");
+    expect(css).toContain("src: local('Plus Jakarta Sans Italic'), url('/fonts/plus-jakarta/PlusJakartaSans-Italic-VariableFont_wght.ttf') format('truetype-variations');");
+    expect(css).toContain('font-display: swap;');
+    expect(css).toContain("font-family: 'Plus Jakarta Sans', Inter, 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;");
   });
 });

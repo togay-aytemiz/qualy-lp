@@ -2,8 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: local('Plus Jakarta Sans'), url('/fonts/plus-jakarta/PlusJakartaSans-VariableFont_wght.ttf') format('truetype-variations');
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: local('Plus Jakarta Sans Italic'), url('/fonts/plus-jakarta/PlusJakartaSans-Italic-VariableFont_wght.ttf') format('truetype-variations');
+  font-style: italic;
+  font-weight: 200 800;
+  font-display: swap;
+}
+
 body {
-  font-family: Inter, 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Plus Jakarta Sans', Inter, 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
