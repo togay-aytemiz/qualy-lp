@@ -3,10 +3,12 @@ import { ArrowRight, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../LanguageContext';
 import { AUTH_URLS } from '../lib/auth-links';
+import { resolvePricingCurrencyFromBrowser } from '../lib/pricing-currency';
 
 type PricingTier = {
   name: string;
-  price: string;
+  priceTry: string;
+  priceUsd: string;
   credits: string;
   conversations: string;
   bestFor: string;
@@ -21,6 +23,8 @@ type PricingPageCopy = {
   planCta: string;
   planIncludesLabel: string;
   planIncludedFeatures: string[];
+  monthlyPriceLabel: Record<'TRY' | 'USD', string>;
+  creditsPerMonthLabel: string;
   plans: PricingTier[];
   footnote: string;
   enterpriseCard: {
@@ -43,6 +47,11 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
     trialNoCardLabel: 'No credit card required',
     planCta: 'Start your 14-day free trial',
     planIncludesLabel: 'Standard in every plan',
+    monthlyPriceLabel: {
+      TRY: 'TRY / month',
+      USD: 'USD / month',
+    },
+    creditsPerMonthLabel: 'credits / month',
     planIncludedFeatures: [
       'Shared inbox for WhatsApp, Instagram, and Telegram',
       'AI auto-replies with lead qualification',
@@ -53,7 +62,8 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
     plans: [
       {
         name: 'Starter',
-        price: '349',
+        priceTry: '349',
+        priceUsd: '9.99',
         credits: '1000',
         conversations: 'About 90-120 conversations/month',
         bestFor: 'Best for teams starting to automate',
@@ -61,7 +71,8 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
       },
       {
         name: 'Growth',
-        price: '649',
+        priceTry: '649',
+        priceUsd: '17.99',
         credits: '2000',
         conversations: 'About 180-240 conversations/month',
         bestFor: 'Best for teams with steady lead volume',
@@ -69,7 +80,8 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
       },
       {
         name: 'Scale',
-        price: '949',
+        priceTry: '949',
+        priceUsd: '26.99',
         credits: '4000',
         conversations: 'About 360-480 conversations/month',
         bestFor: 'Best for high-volume sales operations',
@@ -100,6 +112,11 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
     trialNoCardLabel: 'Kredi kartı gerekmez',
     planCta: '14 gün ücretsiz dene',
     planIncludesLabel: 'Her pakette standart',
+    monthlyPriceLabel: {
+      TRY: 'TRY / ay',
+      USD: 'USD / ay',
+    },
+    creditsPerMonthLabel: 'kredi / ay',
     planIncludedFeatures: [
       'WhatsApp, Instagram, Telegram tek gelen kutusu',
       'Yetenek + Bilgi Bankası ile yapay zeka yanıtı',
@@ -110,7 +127,8 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
     plans: [
       {
         name: 'Temel',
-        price: '349',
+        priceTry: '349',
+        priceUsd: '9.99',
         credits: '1000',
         conversations: 'Ayda yaklaşık 90-120 konuşma',
         bestFor: 'İlk otomasyon adımını atan işletmeler',
@@ -118,7 +136,8 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
       },
       {
         name: 'Gelişmiş',
-        price: '649',
+        priceTry: '649',
+        priceUsd: '17.99',
         credits: '2000',
         conversations: 'Ayda yaklaşık 180-240 konuşma',
         bestFor: 'Düzenli mesaj trafiği olan işletmeler',
@@ -126,7 +145,8 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
       },
       {
         name: 'Profesyonel',
-        price: '949',
+        priceTry: '949',
+        priceUsd: '26.99',
         credits: '4000',
         conversations: 'Ayda yaklaşık 360-480 konuşma',
         bestFor: 'Yüksek konuşma hacmi yöneten işletmeler',
@@ -154,6 +174,7 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
 const Pricing: React.FC = () => {
   const { language } = useLanguage();
   const copy = COPY_BY_LANGUAGE[language];
+  const pricingCurrency = React.useMemo(() => resolvePricingCurrencyFromBrowser(), []);
 
   return (
     <section className="relative overflow-hidden bg-[#f8fafc] pb-24 pt-36 md:pb-32 md:pt-44">
@@ -184,6 +205,7 @@ const Pricing: React.FC = () => {
 
         <div className="mx-auto mt-12 grid max-w-6xl gap-6 lg:grid-cols-3 lg:items-stretch">
           {copy.plans.map((plan, index) => {
+            const planPrice = pricingCurrency === 'TRY' ? plan.priceTry : plan.priceUsd;
             const isFeatured = index === 1;
             const cardBaseClass = isFeatured
               ? 'relative flex h-full flex-col overflow-hidden rounded-3xl border border-slate-900 bg-[radial-gradient(125%_140%_at_50%_0%,#1E3A5F_0%,#0F172A_52%,#020617_100%)] p-8 pt-10 text-white shadow-2xl'
@@ -226,12 +248,16 @@ const Pricing: React.FC = () => {
                 </p>
 
                 <p className="mt-6 text-5xl font-semibold tracking-tight">
-                  {plan.price}
-                  <span className={`ml-2 text-base font-medium ${helperClass}`}>TRY / ay</span>
+                  {planPrice}
+                  <span className={`ml-2 text-base font-medium ${helperClass}`}>
+                    {copy.monthlyPriceLabel[pricingCurrency]}
+                  </span>
                 </p>
 
                 <div className={`mt-6 min-h-[102px] rounded-2xl border px-4 py-4 ${creditClass}`}>
-                  <p className="text-sm font-semibold uppercase tracking-[0.12em]">{plan.credits} kredi / ay</p>
+                  <p className="text-sm font-semibold uppercase tracking-[0.12em]">
+                    {plan.credits} {copy.creditsPerMonthLabel}
+                  </p>
                   <p className={`mt-2 text-sm ${isFeatured ? 'text-slate-100' : 'text-slate-600'}`}>
                     {plan.conversations}
                   </p>

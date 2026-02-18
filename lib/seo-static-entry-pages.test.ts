@@ -10,11 +10,16 @@ describe('static SEO entry pages', () => {
     expect(readEntry('index.html')).toContain('<link rel="canonical" href="https://askqualy.com/" />');
     expect(readEntry('en/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en" />');
     expect(readEntry('pricing/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/pricing" />');
+    expect(readEntry('en/pricing/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en/pricing" />');
     expect(readEntry('data-deletion/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/data-deletion" />');
+    expect(readEntry('en/data-deletion/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en/data-deletion" />');
     expect(readEntry('faqs-directory/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/faqs-directory" />');
     expect(readEntry('legal/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/legal" />');
+    expect(readEntry('en/legal/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en/legal" />');
     expect(readEntry('terms/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/terms" />');
+    expect(readEntry('en/terms/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en/terms" />');
     expect(readEntry('privacy/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/privacy" />');
+    expect(readEntry('en/privacy/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en/privacy" />');
   });
 
   it('includes trial-first pricing metadata copy in static pricing entry', () => {

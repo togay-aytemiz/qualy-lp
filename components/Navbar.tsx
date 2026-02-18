@@ -28,6 +28,8 @@ const Navbar: React.FC = () => {
   const [demoFormData, setDemoFormData] = useState<DemoFormData>(initialDemoFormData);
   const [demoFormError, setDemoFormError] = useState<string | null>(null);
   const { t, language } = useLanguage();
+  const homePath = homePathByLanguage(language);
+  const pricingPath = language === 'en' ? '/en/pricing' : '/pricing';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,7 +66,6 @@ const Navbar: React.FC = () => {
 
     if (!isHomeRoute()) {
       setIsMobileMenuOpen(false);
-      const homePath = homePathByLanguage(language);
       window.location.href = `${homePath}#${id}`;
       return;
     }
@@ -149,7 +150,7 @@ const Navbar: React.FC = () => {
           `}
         >
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2">
+          <a href={homePath} className="flex items-center gap-2">
             <Logo className="h-7 w-auto" />
           </a>
 
@@ -158,7 +159,7 @@ const Navbar: React.FC = () => {
             <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.features}</a>
             <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.howItWorks}</a>
             <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.faq}</a>
-            <a href="/pricing" onClick={handlePricingClick} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.pricing}</a>
+            <a href={pricingPath} onClick={handlePricingClick} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.pricing}</a>
           </div>
 
           {/* CTA */}
@@ -188,7 +189,7 @@ const Navbar: React.FC = () => {
               <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="text-xl font-medium text-slate-900">{t.navbar.features}</a>
               <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className="text-xl font-medium text-slate-900">{t.navbar.howItWorks}</a>
               <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="text-xl font-medium text-slate-900">{t.navbar.faq}</a>
-              <a href="/pricing" onClick={handlePricingClick} className="text-xl font-medium text-slate-900">{t.navbar.pricing}</a>
+              <a href={pricingPath} onClick={handlePricingClick} className="text-xl font-medium text-slate-900">{t.navbar.pricing}</a>
               <hr className="border-slate-100 w-1/2 mx-auto" />
             </div>
 

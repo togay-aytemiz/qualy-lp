@@ -118,13 +118,31 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
   },
 };
 
-const ROUTE_PATHS: Record<Exclude<SeoRouteKey, 'home'>, string> = {
-  pricing: '/pricing',
-  dataDeletion: '/data-deletion',
-  legalIndex: '/legal',
-  terms: '/terms',
-  privacy: '/privacy',
-  faqDirectory: '/faqs-directory',
+const ROUTE_PATHS: Record<Exclude<SeoRouteKey, 'home'>, Record<SeoLanguage, string>> = {
+  pricing: {
+    tr: '/pricing',
+    en: '/en/pricing',
+  },
+  dataDeletion: {
+    tr: '/data-deletion',
+    en: '/en/data-deletion',
+  },
+  legalIndex: {
+    tr: '/legal',
+    en: '/en/legal',
+  },
+  terms: {
+    tr: '/terms',
+    en: '/en/terms',
+  },
+  privacy: {
+    tr: '/privacy',
+    en: '/en/privacy',
+  },
+  faqDirectory: {
+    tr: '/faqs-directory',
+    en: '/faqs-directory',
+  },
 };
 
 const OG_IMAGE_PATH = '/og/qualy-default.png';
@@ -135,9 +153,19 @@ export const normalizeRoutePath = (path: string) => {
   return cleaned === '' ? '/' : cleaned;
 };
 
-export const getSeoRouteKeyByPath = (path: string): SeoRouteKey => {
+const stripLocalizedPrefix = (path: string) => {
   const normalized = normalizeRoutePath(path);
-  if (normalized === '/en') return 'home';
+  if (normalized === '/en') return '/';
+  if (normalized.startsWith('/en/')) {
+    const stripped = normalized.slice(3);
+    return stripped === '' ? '/' : stripped;
+  }
+  return normalized;
+};
+
+export const getSeoRouteKeyByPath = (path: string): SeoRouteKey => {
+  const normalized = stripLocalizedPrefix(path);
+  if (normalized === '/') return 'home';
   if (normalized === '/pricing') return 'pricing';
   if (normalized === '/data-deletion') return 'dataDeletion';
   if (normalized === '/legal') return 'legalIndex';
@@ -149,6 +177,17 @@ export const getSeoRouteKeyByPath = (path: string): SeoRouteKey => {
 
 const toOgLocale = (language: SeoLanguage) => (language === 'tr' ? 'tr_TR' : 'en_US');
 
+const getCanonicalPathForRoute = (
+  routeKey: SeoRouteKey,
+  language: SeoLanguage,
+) => {
+  if (routeKey === 'home') {
+    return HOME_PATH_BY_LANGUAGE[language];
+  }
+
+  return ROUTE_PATHS[routeKey][language];
+};
+
 const buildAlternates = ({
   routeKey,
   siteUrl,
@@ -156,12 +195,14 @@ const buildAlternates = ({
   routeKey: SeoRouteKey;
   siteUrl: string;
 }): SeoAlternate[] => {
-  if (routeKey !== 'home') return [];
+  const trPath = getCanonicalPathForRoute(routeKey, 'tr');
+  const enPath = getCanonicalPathForRoute(routeKey, 'en');
+  if (trPath === enPath) return [];
 
   return [
-    { hrefLang: 'tr', href: resolveAbsoluteUrl(siteUrl, '/') },
-    { hrefLang: 'en', href: resolveAbsoluteUrl(siteUrl, '/en') },
-    { hrefLang: 'x-default', href: resolveAbsoluteUrl(siteUrl, '/') },
+    { hrefLang: 'tr', href: resolveAbsoluteUrl(siteUrl, trPath) },
+    { hrefLang: 'en', href: resolveAbsoluteUrl(siteUrl, enPath) },
+    { hrefLang: 'x-default', href: resolveAbsoluteUrl(siteUrl, trPath) },
   ];
 };
 
@@ -245,10 +286,7 @@ export const getSeoByRoute = (
 ): SeoPayload => {
   const siteUrl = options.siteUrl ? options.siteUrl : getSiteUrl();
   const copy = SEO_COPY[language][routeKey];
-  const canonicalPath =
-    routeKey === 'home'
-      ? HOME_PATH_BY_LANGUAGE[language]
-      : ROUTE_PATHS[routeKey as Exclude<SeoRouteKey, 'home'>];
+  const canonicalPath = getCanonicalPathForRoute(routeKey, language);
   const canonicalUrl = resolveAbsoluteUrl(siteUrl, canonicalPath);
   const ogImage = resolveAbsoluteUrl(siteUrl, OG_IMAGE_PATH);
   const alternates = buildAlternates({ routeKey, siteUrl });

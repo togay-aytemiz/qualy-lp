@@ -31,16 +31,39 @@ const getNormalizedPath = () => {
   return cleanedPath === '' ? '/' : cleanedPath;
 };
 
+const isEnglishRoutePath = (path: string) => path === '/en' || path.startsWith('/en/');
+
+const stripEnglishRoutePrefix = (path: string) => {
+  if (path === '/en') return '/';
+  if (path.startsWith('/en/')) {
+    const strippedPath = path.slice(3);
+    return strippedPath === '' ? '/' : strippedPath;
+  }
+  return path;
+};
+
+const LOCALIZED_CONTENT_PATHS = new Set([
+  '/',
+  '/pricing',
+  '/data-deletion',
+  '/legal',
+  '/terms',
+  '/privacy',
+]);
+
 const AppContent: React.FC = () => {
   const { language, setLanguage } = useLanguage();
   const [path, setPath] = useState(getNormalizedPath);
 
-  const legalSlug = path.startsWith('/') ? path.slice(1) : path;
-  const isLegalIndexRoute = path === '/legal';
+  const normalizedPath = stripEnglishRoutePrefix(path);
+  const isEnglishPath = isEnglishRoutePath(path);
+  const legalSlug = normalizedPath.startsWith('/') ? normalizedPath.slice(1) : normalizedPath;
+  const isLegalIndexRoute = normalizedPath === '/legal';
   const isLegalRoute = legalDocSlugs.has(legalSlug);
-  const isLlmFaqDirectoryRoute = path === '/faqs-directory';
-  const isPricingRoute = path === '/pricing';
-  const isDataDeletionRoute = path === '/data-deletion';
+  const isLlmFaqDirectoryRoute = normalizedPath === '/faqs-directory';
+  const isPricingRoute = path === '/pricing' || path === '/en/pricing';
+  const isDataDeletionRoute = path === '/data-deletion' || path === '/en/data-deletion';
+  const isLocalizedContentRoute = LOCALIZED_CONTENT_PATHS.has(normalizedPath);
 
   useEffect(() => {
     const handleRouteChange = () => setPath(getNormalizedPath());
@@ -72,20 +95,20 @@ const AppContent: React.FC = () => {
   }, [path]);
 
   useEffect(() => {
-    if (!isHomePath(path)) return;
+    if (!isLocalizedContentRoute) return;
 
-    const routeLanguage = path === '/en' ? 'en' : 'tr';
+    const routeLanguage = isEnglishPath ? 'en' : 'tr';
     if (language !== routeLanguage) {
       setLanguage(routeLanguage);
     }
-  }, [language, path, setLanguage]);
+  }, [isEnglishPath, isLocalizedContentRoute, language, setLanguage]);
 
   useEffect(() => {
     const seoRoute = getSeoRouteKeyByPath(path);
-    const seoLanguage = isHomePath(path) ? (path === '/en' ? 'en' : 'tr') : language;
+    const seoLanguage = isLocalizedContentRoute ? (isEnglishPath ? 'en' : 'tr') : language;
     document.documentElement.setAttribute('lang', seoLanguage);
     applySeoToDocument(document, getSeoByRoute(seoRoute, seoLanguage));
-  }, [language, path]);
+  }, [isEnglishPath, isLocalizedContentRoute, language, path]);
 
   useEffect(() => {
     if (!isHomePath(path)) return;

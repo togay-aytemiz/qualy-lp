@@ -32,7 +32,7 @@ describe('applySeoToDocument', () => {
 
     expect(document.querySelectorAll('link[rel="canonical"]').length).toBe(1);
     expect(document.querySelectorAll('meta[name="description"]').length).toBe(1);
-    expect(document.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe('https://askqualy.com/terms');
+    expect(document.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe('https://askqualy.com/en/terms');
     expect(document.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(termsSeo.description);
   });
 
@@ -51,6 +51,7 @@ describe('applySeoToDocument', () => {
   it('upserts hreflang alternate links without duplicating tags', () => {
     const homeSeo = getSeoByRoute('home', 'en', { siteUrl: 'https://askqualy.com' });
     const pricingSeo = getSeoByRoute('pricing', 'en', { siteUrl: 'https://askqualy.com' });
+    const faqSeo = getSeoByRoute('faqDirectory', 'en', { siteUrl: 'https://askqualy.com' });
 
     applySeoToDocument(document, homeSeo);
     applySeoToDocument(document, homeSeo);
@@ -68,6 +69,18 @@ describe('applySeoToDocument', () => {
     ]);
 
     applySeoToDocument(document, pricingSeo);
+    expect(document.querySelectorAll('link[rel="alternate"][data-seo-alternate="true"]').length).toBe(3);
+
+    const pricingAlternateHrefs = Array.from(
+      document.querySelectorAll('link[rel="alternate"][data-seo-alternate="true"]')
+    ).map((link) => link.getAttribute('href'));
+    expect(pricingAlternateHrefs).toEqual([
+      'https://askqualy.com/pricing',
+      'https://askqualy.com/en/pricing',
+      'https://askqualy.com/pricing',
+    ]);
+
+    applySeoToDocument(document, faqSeo);
     expect(document.querySelectorAll('link[rel="alternate"][data-seo-alternate="true"]').length).toBe(0);
   });
 });

@@ -6,7 +6,6 @@ import {
   buildHomeSectionHref,
   getProductFooterSectionId,
   isHomePath,
-  PRICING_PAGE_HREF,
   type ProductFooterSectionKey,
 } from '../lib/footer-links';
 import { focusHomeSectionById } from '../lib/home-section-focus';
@@ -16,6 +15,10 @@ import { homePathByLanguage } from '../lib/region-language';
 const Footer: React.FC = () => {
   const { t, language, setLanguage } = useLanguage();
   const homePath = homePathByLanguage(language);
+  const pricingPath = language === 'en' ? '/en/pricing' : '/pricing';
+  const legalPath = language === 'en' ? '/en/legal' : '/legal';
+  const privacyPath = language === 'en' ? '/en/privacy' : '/privacy';
+  const termsPath = language === 'en' ? '/en/terms' : '/terms';
   const llmResources = [
     { href: '/llms.txt', label: t.footer.readLlmsTxt },
     { href: '/llms-full.txt', label: t.footer.readLlmsFullTxt },
@@ -186,7 +189,7 @@ const Footer: React.FC = () => {
                 </a>
               </li>
               <li className="list-none">
-                <a className="hover:text-slate-900 transition-colors" href={PRICING_PAGE_HREF}>
+                <a className="hover:text-slate-900 transition-colors" href={pricingPath}>
                   {t.navbar.pricing}
                 </a>
               </li>
@@ -207,9 +210,9 @@ const Footer: React.FC = () => {
           <div className="flex flex-col justify-center space-y-4">
             <p className="font-bold text-slate-900 transition-colors">{t.footer.legal}</p>
             <ul className="list-none space-y-4 text-slate-600 transition-colors">
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="/legal">{t.footer.legalCenter}</a></li>
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="/privacy">{t.footer.privacy}</a></li>
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href="/terms">{t.footer.terms}</a></li>
+               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href={legalPath}>{t.footer.legalCenter}</a></li>
+               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href={privacyPath}>{t.footer.privacy}</a></li>
+               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href={termsPath}>{t.footer.terms}</a></li>
             </ul>
           </div>
 

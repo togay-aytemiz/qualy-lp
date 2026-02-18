@@ -2,6 +2,7 @@ import React from 'react';
 import Footer from './Footer';
 import { Logo } from './Logo';
 import { useLanguage } from '../LanguageContext';
+import { homePathByLanguage } from '../lib/region-language';
 
 type LegalShellProps = {
   title: string;
@@ -10,20 +11,22 @@ type LegalShellProps = {
 };
 
 const LegalShell: React.FC<LegalShellProps> = ({ title, subtitle, children }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const homePath = homePathByLanguage(language);
+  const legalPath = language === 'en' ? '/en/legal' : '/legal';
 
   return (
     <div className="min-h-screen bg-white text-slate-900">
       <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <a href="/" className="inline-flex items-center">
+          <a href={homePath} className="inline-flex items-center">
             <Logo className="h-7 w-auto" />
           </a>
           <div className="flex items-center gap-5 text-xs font-semibold text-slate-600 sm:text-sm">
-            <a href="/legal" className="hover:text-slate-900 transition-colors">
+            <a href={legalPath} className="hover:text-slate-900 transition-colors">
               {t.legal.center}
             </a>
-            <a href="/" className="hover:text-slate-900 transition-colors">
+            <a href={homePath} className="hover:text-slate-900 transition-colors">
               {t.legal.backToHome}
             </a>
           </div>
