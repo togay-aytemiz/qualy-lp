@@ -192,7 +192,7 @@ const Pricing: React.FC = () => {
           transition={{ duration: 0.45 }}
           className="mx-auto max-w-4xl text-center"
         >
-          <h1 className="text-4xl font-semibold leading-tight tracking-tight text-slate-900 md:text-6xl">
+          <h1 className="text-4xl font-semibold leading-[1.15] tracking-tight text-slate-900 md:text-6xl md:leading-[1.12]">
             {copy.title}
           </h1>
           <p className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-slate-600 md:text-xl">

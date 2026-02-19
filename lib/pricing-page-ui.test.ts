@@ -100,6 +100,13 @@ describe('pricing page ui', () => {
     expect(pricingSource).toContain('data-pricing-enterprise="true"');
   });
 
+  it('uses slightly roomier line-height on pricing hero headline for multiline titles', () => {
+    const pricingSource = readFileSync(path.join(process.cwd(), 'components', 'Pricing.tsx'), 'utf8');
+
+    expect(pricingSource).toContain('leading-[1.15]');
+    expect(pricingSource).toContain('md:leading-[1.12]');
+  });
+
   it('uses section-level background gradient to soften footer transition without extra overlay layers', () => {
     const pricingSource = readFileSync(path.join(process.cwd(), 'components', 'Pricing.tsx'), 'utf8');
 
