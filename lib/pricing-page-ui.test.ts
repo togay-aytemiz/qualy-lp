@@ -51,7 +51,7 @@ describe('pricing page ui', () => {
 
     expect(pricingSource).toContain('planIncludesLabel');
     expect(pricingSource).toContain('planIncludedFeatures');
-    expect(pricingSource).toContain('WhatsApp, Instagram, Telegram tek gelen kutusu');
+    expect(pricingSource).toContain('WhatsApp, Instagram, Messenger, Telegram tek gelen kutusu');
     expect(pricingSource).toContain('Yetenek + Bilgi Bankası ile yapay zeka yanıtı');
     expect(pricingSource).toContain('Kişi nitelendirme ve skorlama');
     expect(pricingSource).toContain('Konuşma özeti');

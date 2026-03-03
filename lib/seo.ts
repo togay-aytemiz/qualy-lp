@@ -1,7 +1,20 @@
 import { getSiteUrl, resolveAbsoluteUrl } from './site-url';
 
 export type SeoLanguage = 'en' | 'tr';
-export type SeoRouteKey = 'home' | 'pricing' | 'dataDeletion' | 'legalIndex' | 'terms' | 'privacy' | 'faqDirectory';
+export type SeoRouteKey =
+  | 'home'
+  | 'pricing'
+  | 'about'
+  | 'dataDeletion'
+  | 'legalIndex'
+  | 'terms'
+  | 'privacy'
+  | 'kvkk'
+  | 'preInformation'
+  | 'distanceSalesAgreement'
+  | 'cancellationRefund'
+  | 'subscriptionTrial'
+  | 'faqDirectory';
 
 type LocalizedSeoCopy = {
   title: string;
@@ -48,7 +61,7 @@ const HOME_PATH_BY_LANGUAGE: Record<SeoLanguage, string> = {
 const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
   en: {
     home: {
-      title: 'Qualy | AI-First Inbox for WhatsApp, Instagram, and Telegram',
+      title: 'Qualy | AI-First Inbox for WhatsApp, Instagram, Messenger, and Telegram',
       description:
         'Automate repetitive chats, qualify leads with AI scoring, and hand over high-intent conversations at the right moment.',
     },
@@ -56,6 +69,11 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
       title: 'Pricing | Qualy',
       description:
         'Start Qualy with a 14-day free trial. No credit card required. Compare Starter, Growth, and Scale by monthly credits and conversation volume, with a Custom plan available.',
+    },
+    about: {
+      title: 'About Qualy | Qualy',
+      description:
+        'Learn about Qualy, our mission, and company details for AI-assisted customer communication and lead qualification.',
     },
     dataDeletion: {
       title: 'Data Deletion Instructions | Qualy',
@@ -75,6 +93,31 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
       title: 'Privacy Policy | Qualy',
       description: 'Review how Qualy collects, uses, stores, and protects personal data across the service.',
     },
+    kvkk: {
+      title: 'Personal Data Disclosure (KVKK) | Qualy',
+      description:
+        'Review Qualy personal data disclosure prepared under Turkish KVKK, including legal bases, transfers, and data subject rights.',
+    },
+    preInformation: {
+      title: 'Pre-Information Form | Qualy',
+      description:
+        'Read Qualy pre-information details before purchase, including plan fees, trial model, payment flow, and withdrawal information.',
+    },
+    distanceSalesAgreement: {
+      title: 'Distance Sales Agreement | Qualy',
+      description:
+        'Review the distance sales agreement for Qualy digital services, including subscription terms, delivery model, and legal conditions.',
+    },
+    cancellationRefund: {
+      title: 'Cancellation, Refund, and Withdrawal Policy | Qualy',
+      description:
+        'See Qualy cancellation, refund, and withdrawal conditions for SaaS subscriptions, including trial and recurring billing scenarios.',
+    },
+    subscriptionTrial: {
+      title: 'Subscription and 14-Day Trial Terms | Qualy',
+      description:
+        'Understand Qualy 14-day trial and subscription renewal model, including billing cycles, cancellation timing, and failed payment handling.',
+    },
     faqDirectory: {
       title: 'LLM-Optimized FAQs | Qualy',
       description:
@@ -83,7 +126,7 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
   },
   tr: {
     home: {
-      title: 'Qualy | WhatsApp, Instagram ve Telegram için AI Gelen Kutusu',
+      title: 'Qualy | WhatsApp, Instagram, Messenger ve Telegram için AI Gelen Kutusu',
       description:
         'Tekrarlayan konuşmaları otomatikleştir, AI skorlama ile adayları nitelendir ve yüksek niyetli konuşmaları doğru anda devral.',
     },
@@ -91,6 +134,11 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
       title: 'Fiyatlandırma | Qualy',
       description:
         "Qualy'yi 14 gün ücretsiz dene. Kredi kartı gerekmez. Temel, Gelişmiş ve Profesyonel paketlerini aylık kredi ve konuşma hacmine göre karşılaştır; Özel Paket seçeneği hazır.",
+    },
+    about: {
+      title: 'Hakkımızda | Qualy',
+      description:
+        'Qualy hakkında şirket bilgilerini, misyonumuzu ve AI destekli müşteri iletişimi yaklaşımımızı incele.',
     },
     dataDeletion: {
       title: 'Veri Silme Talimatları | Qualy',
@@ -110,6 +158,31 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
       title: 'Gizlilik Politikası | Qualy',
       description: 'Qualy’nin kişisel verileri nasıl topladığını, kullandığını, sakladığını ve koruduğunu incele.',
     },
+    kvkk: {
+      title: 'KVKK Aydınlatma Metni | Qualy',
+      description:
+        'Qualy KVKK aydınlatma metnini incele; işlenen veri kategorileri, hukuki dayanaklar, aktarımlar ve ilgili kişi haklarını görüntüle.',
+    },
+    preInformation: {
+      title: 'Ön Bilgilendirme Formu | Qualy',
+      description:
+        'Satın alma öncesi plan ücretleri, deneme modeli, ödeme akışı ve cayma bilgilerini içeren Qualy ön bilgilendirme formunu incele.',
+    },
+    distanceSalesAgreement: {
+      title: 'Mesafeli Hizmet Sözleşmesi | Qualy',
+      description:
+        'Qualy dijital hizmetlerine ilişkin mesafeli sözleşme koşullarını, abonelik modelini ve hukuki şartları incele.',
+    },
+    cancellationRefund: {
+      title: 'İptal, İade ve Cayma Politikası | Qualy',
+      description:
+        'Qualy SaaS abonelikleri için iptal, iade ve cayma süreçlerini; deneme ve tekrarlayan tahsilat senaryolarıyla birlikte incele.',
+    },
+    subscriptionTrial: {
+      title: 'Abonelik ve 14 Gün Deneme Koşulları | Qualy',
+      description:
+        'Qualy’de 14 gün deneme, ücretli plana geçiş, otomatik yenileme, iptal zamanı ve başarısız ödeme yönetimi kurallarını incele.',
+    },
     faqDirectory: {
       title: 'LLM Odaklı SSS | Qualy',
       description:
@@ -122,6 +195,10 @@ const ROUTE_PATHS: Record<Exclude<SeoRouteKey, 'home'>, Record<SeoLanguage, stri
   pricing: {
     tr: '/pricing',
     en: '/en/pricing',
+  },
+  about: {
+    tr: '/about',
+    en: '/en/about',
   },
   dataDeletion: {
     tr: '/data-deletion',
@@ -138,6 +215,26 @@ const ROUTE_PATHS: Record<Exclude<SeoRouteKey, 'home'>, Record<SeoLanguage, stri
   privacy: {
     tr: '/privacy',
     en: '/en/privacy',
+  },
+  kvkk: {
+    tr: '/kvkk',
+    en: '/en/kvkk',
+  },
+  preInformation: {
+    tr: '/pre-information',
+    en: '/en/pre-information',
+  },
+  distanceSalesAgreement: {
+    tr: '/distance-sales-agreement',
+    en: '/en/distance-sales-agreement',
+  },
+  cancellationRefund: {
+    tr: '/cancellation-refund',
+    en: '/en/cancellation-refund',
+  },
+  subscriptionTrial: {
+    tr: '/subscription-trial',
+    en: '/en/subscription-trial',
   },
   faqDirectory: {
     tr: '/faqs-directory',
@@ -167,10 +264,16 @@ export const getSeoRouteKeyByPath = (path: string): SeoRouteKey => {
   const normalized = stripLocalizedPrefix(path);
   if (normalized === '/') return 'home';
   if (normalized === '/pricing') return 'pricing';
+  if (normalized === '/about') return 'about';
   if (normalized === '/data-deletion') return 'dataDeletion';
   if (normalized === '/legal') return 'legalIndex';
   if (normalized === '/terms') return 'terms';
   if (normalized === '/privacy') return 'privacy';
+  if (normalized === '/kvkk') return 'kvkk';
+  if (normalized === '/pre-information') return 'preInformation';
+  if (normalized === '/distance-sales-agreement') return 'distanceSalesAgreement';
+  if (normalized === '/cancellation-refund') return 'cancellationRefund';
+  if (normalized === '/subscription-trial') return 'subscriptionTrial';
   if (normalized === '/faqs-directory') return 'faqDirectory';
   return 'home';
 };

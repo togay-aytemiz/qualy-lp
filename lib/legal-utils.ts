@@ -10,7 +10,15 @@ export type ParsedLegalDoc = {
   body: string;
 };
 
-export const preferredLegalOrder = ['terms', 'privacy'];
+export const preferredLegalOrder = [
+  'terms',
+  'privacy',
+  'kvkk',
+  'pre-information',
+  'distance-sales-agreement',
+  'cancellation-refund',
+  'subscription-trial',
+];
 
 const FRONTMATTER_REGEX = /^---\s*[\r\n]+([\s\S]*?)\r?\n---\s*[\r\n]*/;
 

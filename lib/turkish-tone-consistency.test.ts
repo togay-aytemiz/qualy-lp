@@ -9,7 +9,7 @@ describe('turkish tone consistency', () => {
     expect(languageContext).toContain('headline: "Herkese değil, doğru müşteriye odaklan."');
     expect(languageContext).toContain('heading: "Yoğun mesaj trafiğini düzenli bir müşteri akışına çevir."');
     expect(languageContext).toContain('heading_mobile: "Yoğun mesaj trafiğini düzenli akışa çevir."');
-    expect(languageContext).toContain('feat3_desc1: "WhatsApp, Instagram, Telegram ve Messenger mesajlarını tek ekrandan yönet. Kanalları dakikalar içinde bağla, uygulama değiştirmeden yanıtla."');
+    expect(languageContext).toContain('feat3_desc1: "WhatsApp, Instagram, Messenger ve Telegram mesajlarını tek ekrandan yönet. Kanalları dakikalar içinde bağla, uygulama değiştirmeden yanıtla."');
     expect(languageContext).toContain('feat4_desc: "Qualy rutin mesajları yönetir; gerektiğinde konuşma insana devredilir. Tek tıkla devral, uygun olduğunda AI akışına geri ver."');
     expect(languageContext).toContain('desc: "Tekrarlayan mesajları otomatik yanıtla, adayları erken nitelendir ve yüksek niyetli konuşmaları doğru anda devral."');
     expect(languageContext).toContain('desc: "Servis işletmen için AI öncelikli gelen kutu. Yanıtları otomatikleştir, adayları nitelendir ve doğru anda devral."');

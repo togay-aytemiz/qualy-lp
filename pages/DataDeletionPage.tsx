@@ -28,7 +28,7 @@ const COPY: Record<'tr' | 'en', DataDeletionCopy> = {
       'Ayarlar > Organizasyon sayfasina git.',
       'Veri Silme bolumunu ac.',
       'Verileri sil secenegine bas.',
-      'Sifreni gir ve Simdi sil ile onayla.',
+      'Qualy hesap sifreni gir ve Simdi sil ile onayla.',
     ],
     whatTitle: 'Hangi veriler silinir?',
     whatItems: [
@@ -54,7 +54,7 @@ const COPY: Record<'tr' | 'en', DataDeletionCopy> = {
       'Go to Settings > Organization.',
       'Open the Data Deletion section.',
       'Click Delete data.',
-      'Enter your password and confirm with Delete now.',
+      'Enter your Qualy account password and confirm with Delete now.',
     ],
     whatTitle: 'What will be deleted?',
     whatItems: [
@@ -113,8 +113,8 @@ const DataDeletionPage: React.FC = () => {
           <h3 className="mt-6 text-lg font-semibold text-slate-900">{copy.supportTitle}</h3>
           <p className="mt-2 text-sm leading-6 text-slate-700">
             {copy.supportPrefix}{' '}
-            <a className="font-semibold text-slate-900 underline" href="mailto:support@askqualy.com">
-              support@askqualy.com
+            <a className="font-semibold text-slate-900 underline" href="mailto:askqualy@gmail.com">
+              askqualy@gmail.com
             </a>
           </p>
         </article>

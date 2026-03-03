@@ -1,0 +1,54 @@
+---
+id: "subscription-trial"
+locale: "tr"
+version: "v1.0"
+last_updated: "2026-03-03"
+document_title: "Abonelik ve 14 Gün Deneme Koşulları"
+---
+
+# Abonelik ve 14 Gün Deneme Koşulları
+
+**Son Güncelleme:** 3 Mart 2026
+
+Bu metin, Qualy deneme ve abonelik tahsilat modelinin nasıl çalıştığını açıklar.
+
+## 1. Deneme Uygunluğu ve Süresi
+
+- Qualy 14 gün ücretsiz deneme sunabilir.
+- Deneme, ilk kez hesap açan kullanıcılarla sınırlı olabilir; Qualy deneme koşullarını değiştirme, askıya alma veya sonlandırma hakkını saklı tutar.
+
+## 2. Denemede Kredi Kartı Gerekliliği
+
+- Deneme başlangıcında kredi kartı girme zorunluluğu yoktur.
+- Ödeme bilgisi yalnızca ücretli plana geçmek istediğinizde talep edilir.
+
+## 3. Ücretli Plana Geçiş
+
+- Ücretli hizmet, plan seçimi ve ödeme adımının başarıyla tamamlanmasıyla başlar.
+- Ücretli plan aktive edilmezse deneme süresi sonunda erişim kendiliğinden sona erer.
+
+## 4. Tekrarlayan Tahsilat
+
+- Ücretli abonelikler seçilen plana göre aylık veya yıllık dönemlerle yinelenen şekilde tahsil edilir.
+- Yenileme ücretleri kayıtlı ödeme yöntemi üzerinden otomatik tahsil edilir.
+
+## 5. İptal
+
+- Bir sonraki yenilemeden önce tekrarlayan tahsilatı istediğiniz zaman iptal edebilirsiniz.
+- İptal, gelecekteki yenilemeleri durdurur; ödenmiş dönem dönem sonuna kadar aktif kalır.
+
+## 6. Başarısız Ödeme
+
+- Yenileme tahsilatı başarısız olursa tekrar tahsilat denenebilir ve tarafınıza bilgilendirme yapılır.
+- Ödeme tamamlanmazsa erişim kısıtlanabilir veya askıya alınabilir.
+
+## 7. Ücret Değişikliği
+
+- Qualy, abonelik ücretlerini gelecekte güncelleyebilir.
+- Önemli ücret değişiklikleri, yenileme döneminden önce bildirilir.
+
+## 8. İlgili Dokümanlar
+
+- [Hizmet Şartları](terms)
+- [İptal, İade ve Cayma Politikası](cancellation-refund)
+- [Mesafeli Hizmet Sözleşmesi](distance-sales-agreement)

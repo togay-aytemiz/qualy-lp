@@ -4,7 +4,15 @@ import path from 'node:path';
 const ROOT = process.cwd();
 const LEGAL_DIR = path.join(ROOT, 'legal');
 const OUTPUT_PATH = path.join(ROOT, 'public', 'legal_versions.json');
-const PREFERRED_ORDER = ['terms', 'privacy'];
+const PREFERRED_ORDER = [
+  'terms',
+  'privacy',
+  'kvkk',
+  'pre-information',
+  'distance-sales-agreement',
+  'cancellation-refund',
+  'subscription-trial',
+];
 const FRONTMATTER_REGEX = /^---\s*[\r\n]+([\s\S]*?)\r?\n---\s*[\r\n]*/;
 
 const normalizeValue = (value) =>

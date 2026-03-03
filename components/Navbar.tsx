@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
+import { RiMetaFill } from 'react-icons/ri';
 import { useLanguage } from '../LanguageContext';
 import { Logo } from './Logo';
 import { AUTH_URLS } from '../lib/auth-links';
@@ -152,6 +153,13 @@ const Navbar: React.FC = () => {
           {/* Logo */}
           <a href={homePath} className="flex items-center gap-2">
             <Logo className="h-7 w-auto" />
+            <span className="hidden md:flex items-center rounded-full border border-slate-200 bg-white pl-2.5 pr-3 py-1.5 shadow-[0_1px_1px_rgba(15,23,42,0.04)]">
+              <RiMetaFill className="h-5 w-5 text-[#0866FF]" aria-hidden="true" />
+              <span className="ml-1.5 flex flex-col leading-none">
+                <span className="text-[15px] font-semibold tracking-[-0.01em] text-slate-800">Meta</span>
+                <span className="text-[10px] font-semibold tracking-[0.08em] text-slate-500">Tech Provider</span>
+              </span>
+            </span>
           </a>
 
           {/* Desktop Links */}
@@ -193,6 +201,14 @@ const Navbar: React.FC = () => {
         >
           <div className="mx-auto flex h-full w-full max-w-md flex-col pb-10 text-center">
             <div className="flex flex-col gap-6">
+              {/* Mobile Trust Badge */}
+              <span className="mx-auto inline-flex items-center rounded-full border border-slate-200 bg-white pl-3 pr-3.5 py-2 shadow-[0_1px_1px_rgba(15,23,42,0.04)]">
+                <RiMetaFill className="h-6 w-6 text-[#0866FF]" aria-hidden="true" />
+                <span className="ml-2 flex flex-col items-start leading-none">
+                  <span className="text-[18px] font-semibold tracking-[-0.01em] text-slate-800">Meta</span>
+                  <span className="text-[11px] font-semibold tracking-[0.08em] text-slate-500">Tech Provider</span>
+                </span>
+              </span>
               <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="text-xl font-medium text-slate-900">{t.navbar.features}</a>
               <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className="text-xl font-medium text-slate-900">{t.navbar.howItWorks}</a>
               <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="text-xl font-medium text-slate-900">{t.navbar.faq}</a>

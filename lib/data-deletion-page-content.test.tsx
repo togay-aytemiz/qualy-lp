@@ -26,6 +26,7 @@ describe('data deletion page content', () => {
 
     expect(html).toContain('Data Deletion Instructions');
     expect(html).toContain('How do I delete my data?');
+    expect(html).toContain('Enter your Qualy account password and confirm with Delete now.');
     expect(html).not.toContain('Nasil silerim?');
   });
 

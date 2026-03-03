@@ -1,6 +1,6 @@
 # Qualy
 
-> Qualy is an AI-first inbox for service teams. It unifies WhatsApp, Instagram, and Telegram conversations, automates repetitive replies, and helps teams prioritize high-intent chats.
+> Qualy is an AI-first inbox for service teams. It unifies WhatsApp, Instagram, Messenger, and Telegram conversations, automates repetitive replies, and helps teams prioritize high-intent chats.
 
 ## LLM Resources
 

@@ -227,9 +227,9 @@ const Features: React.FC = () => {
   const handoverHistoryNote = t.features.feat4_badges[3] ?? (language === 'tr' ? 'Konuşma geçmişi korunur' : 'Conversation history stays intact');
   const omnichannelChannels = [
     { name: 'WhatsApp', status: true, logo: '/whatsapp.svg' },
-    { name: 'Instagram', status: false, logo: '/instagram.svg' },
+    { name: 'Instagram', status: true, logo: '/instagram.svg' },
     { name: 'Telegram', status: true, logo: '/Telegram.svg' },
-    { name: 'Messenger', status: false, logo: '/messenger.svg' },
+    { name: 'Messenger', status: true, logo: '/messenger.svg' },
   ] as const;
 
   const container = {

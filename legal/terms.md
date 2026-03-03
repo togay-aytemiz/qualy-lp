@@ -25,7 +25,7 @@ The Service is provided by **Seray Aytemiz — Sweet Dreams Fotoğrafçılık**,
 | **Owner** | Seray Aytemiz |
 | **Tax Office / Tax ID** | Doğanbey / 8430312977 |
 | **Address** | Çayyolu Mah. 2699 Sk. Oyak 4 Sitesi No: 1 İç Kapı No: 36 Çankaya / Ankara, Turkey |
-| **Contact** | legal@askqualy.com |
+| **Contact** | askqualy@gmail.com |
 
 ## 3. Eligibility and Accounts
 
@@ -114,10 +114,20 @@ Your use of third-party integrations may be subject to separate third-party term
 If you purchase a paid plan:
 
 - Fees are charged according to your selected plan and billing cycle.
-- Unless otherwise stated, fees are non-refundable.
-- You authorize us (or our payment processor) to charge applicable amounts.
+- We may process payments through licensed providers, including iyzico.
+- You authorize us (or our payment processor) to charge applicable amounts for active subscriptions.
 
-Free trials or promotional access may be limited, modified, or terminated at any time.
+Trial and subscription model:
+
+- Qualy may provide a 14-day free trial without requiring credit card details.
+- Trial access ends unless you activate a paid plan.
+- Paid plans renew automatically unless you cancel before the next billing date.
+
+Refunds and withdrawal rights are subject to mandatory law and our published legal documents:
+
+- [Subscription and 14-Day Trial Terms](subscription-trial)
+- [Cancellation, Refund, and Withdrawal Policy](cancellation-refund)
+- [Distance Sales Agreement](distance-sales-agreement)
 
 ## 9. Intellectual Property
 
@@ -129,7 +139,7 @@ Subject to these Terms, we grant you a limited, non-exclusive, non-transferable,
 
 As between you and us, you retain rights to your customer data and workspace content.
 
-We process data according to our [Privacy Policy](https://askqualy.com/privacy). You are responsible for:
+We process data according to our [Privacy Policy](privacy). You are responsible for:
 
 - Obtaining all necessary notices and consents from your end-users.
 - Ensuring that your use of the Service (including AI processing of customer conversations) complies with applicable data protection laws.
@@ -193,5 +203,5 @@ These Terms, together with our Privacy Policy and any applicable order forms, co
 
 For legal notices and questions:
 
-- **Email:** legal@askqualy.com
+- **Email:** askqualy@gmail.com
 - **Address:** Çayyolu Mah. 2699 Sk. Oyak 4 Sitesi No: 1 İç Kapı No: 36 Çankaya / Ankara, Turkey

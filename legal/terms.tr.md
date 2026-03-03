@@ -26,7 +26,7 @@ Hizmet, Türkiye Cumhuriyeti'nde kayıtlı bir şahıs işletmesi olan **Seray A
 | **Sahibi** | Seray Aytemiz |
 | **Vergi Dairesi / VKN** | Doğanbey / 8430312977 |
 | **Adres** | Çayyolu Mah. 2699 Sk. Oyak 4 Sitesi No: 1 İç Kapı No: 36 Çankaya / Ankara |
-| **İletişim** | legal@askqualy.com |
+| **İletişim** | askqualy@gmail.com |
 
 ## 3. Uygunluk ve Hesaplar
 
@@ -115,10 +115,20 @@ Hizmet, aşağıdakiler dahil ancak bunlarla sınırlı olmaksızın üçüncü 
 Ücretli bir plan satın alırsanız:
 
 - Ücretler seçtiğiniz plan ve faturalama dönemine göre tahsil edilir.
-- Aksi belirtilmedikçe ücretler iade edilmez.
-- Bize (veya ödeme aracımıza) ilgili tutarları tahsil etme yetkisi verirsiniz.
+- Ödemeler iyzico dahil lisanslı ödeme kuruluşları üzerinden işlenebilir.
+- Aktif abonelikler için ilgili tutarları bizim (veya ödeme aracımızın) tahsil etmesine yetki verirsiniz.
 
-Ücretsiz deneme veya promosyonlu erişimler her zaman sınırlandırılabilir, değiştirilebilir veya sonlandırılabilir.
+Deneme ve abonelik modeli:
+
+- Qualy, kredi kartı gerektirmeden 14 gün ücretsiz deneme sunabilir.
+- Deneme süresi sonunda ücretli plan aktive edilmezse erişim sona erer.
+- Ücretli planlar, bir sonraki tahsilat tarihinden önce iptal edilmedikçe otomatik yenilenir.
+
+İade ve cayma süreçleri zorunlu mevzuat ile aşağıdaki dokümanlara tabidir:
+
+- [Abonelik ve 14 Gün Deneme Koşulları](subscription-trial)
+- [İptal, İade ve Cayma Politikası](cancellation-refund)
+- [Mesafeli Hizmet Sözleşmesi](distance-sales-agreement)
 
 ## 9. Fikri Mülkiyet
 
@@ -130,7 +140,7 @@ Bu Şartlara tabi olmak kaydıyla, Hizmeti iç iş amaçlarınız için kullanma
 
 Sizinle bizim aramızdaki ilişkide, müşteri veriniz ve çalışma alanı içeriğiniz üzerindeki haklar sizde kalır.
 
-Verileri [Gizlilik Politikamıza](https://askqualy.com/privacy) göre işleriz. Şunlardan siz sorumlusunuz:
+Verileri [Gizlilik Politikamıza](privacy) göre işleriz. Şunlardan siz sorumlusunuz:
 
 - Son kullanıcılarınızdan gerekli bildirim ve onayların alınması.
 - Hizmeti kullanımınızın (müşteri konuşmalarının yapay zeka ile işlenmesi dahil) yürürlükteki veri koruma mevzuatına uygun olmasının sağlanması.
@@ -194,5 +204,5 @@ Bu Şartlar, Gizlilik Politikamız ve uygulanabilir sipariş formları ile birli
 
 Hukuki bildirimler ve sorularınız için:
 
-- **E-posta:** legal@askqualy.com
+- **E-posta:** askqualy@gmail.com
 - **Adres:** Çayyolu Mah. 2699 Sk. Oyak 4 Sitesi No: 1 İç Kapı No: 36 Çankaya / Ankara

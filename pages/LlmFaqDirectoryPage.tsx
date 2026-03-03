@@ -6,19 +6,19 @@ const faqs = [
     id: 'what-is-qualy',
     question: 'What exactly does Qualy do?',
     answer:
-      'Qualy brings your WhatsApp, Instagram, and Telegram messages into one inbox. It automatically replies to customers using the information you provide, figures out what each customer needs from the conversation, and gives you a priority score from 1 to 10. You only deal with the customers who actually need your attention — Qualy handles the rest.',
+      'Qualy brings your WhatsApp, Instagram, Messenger, and Telegram messages into one inbox. It automatically replies to customers using the information you provide, figures out what each customer needs from the conversation, and gives you a priority score from 1 to 10. You only deal with the customers who actually need your attention — Qualy handles the rest.',
   },
   {
     id: 'getting-started',
     question: 'Do I need technical skills to start using Qualy?',
     answer:
-      'No coding required. Connect your channels (WhatsApp, Instagram, or Telegram), upload a few documents about your services and pricing, add ready-made answers for common questions, and you can go live in minutes. Qualy uses what you upload to give your customers consistent, accurate replies.',
+      'No coding required. Connect your channels (WhatsApp, Instagram, Messenger, or Telegram), upload a few documents about your services and pricing, add ready-made answers for common questions, and you can go live in minutes. Qualy uses what you upload to give your customers consistent, accurate replies.',
   },
   {
     id: 'supported-channels',
     question: 'Which messaging apps does Qualy work with?',
     answer:
-      'We currently support WhatsApp, Instagram, and Telegram — you can manage all three from a single screen. Messenger support is coming soon. Connecting a channel takes just a few minutes, and messages from every channel appear in the same inbox.',
+      'You can manage WhatsApp, Instagram, Messenger, and Telegram from a single screen. Connecting a channel takes just a few minutes, and messages from every channel appear in the same inbox.',
   },
   {
     id: 'lead-scoring',

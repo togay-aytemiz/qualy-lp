@@ -53,7 +53,7 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
     },
     creditsPerMonthLabel: 'credits / month',
     planIncludedFeatures: [
-      'Shared inbox for WhatsApp, Instagram, and Telegram',
+      'Shared inbox for WhatsApp, Instagram, Messenger, and Telegram',
       'AI auto-replies with lead qualification',
       'Team assignment and human handover flow',
       'Saved replies (templates)',
@@ -118,7 +118,7 @@ const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
     },
     creditsPerMonthLabel: 'kredi / ay',
     planIncludedFeatures: [
-      'WhatsApp, Instagram, Telegram tek gelen kutusu',
+      'WhatsApp, Instagram, Messenger, Telegram tek gelen kutusu',
       'Yetenek + Bilgi Bankası ile yapay zeka yanıtı',
       'Kişi nitelendirme ve skorlama',
       'Atama ve insan devri',

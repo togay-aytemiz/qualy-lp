@@ -42,11 +42,13 @@ describe('sortLegalDocs', () => {
   it('puts preferred legal docs first', () => {
     const sorted = sortLegalDocs([
       { id: 'z-custom', slug: 'z-custom', locale: 'en', title: 'Z Custom', version: 'v1.0', lastUpdated: '2026-02-10', body: 'a' },
+      { id: 'pre-information', slug: 'pre-information', locale: 'en', title: 'Pre-Information Form', version: 'v1.0', lastUpdated: '2026-03-03', body: 'a' },
+      { id: 'kvkk', slug: 'kvkk', locale: 'en', title: 'KVKK', version: 'v1.0', lastUpdated: '2026-03-03', body: 'a' },
       { id: 'privacy', slug: 'privacy', locale: 'en', title: 'Privacy Policy', version: 'v1.0', lastUpdated: '2026-02-10', body: 'a' },
       { id: 'terms', slug: 'terms', locale: 'en', title: 'Terms of Service', version: 'v1.0', lastUpdated: '2026-02-10', body: 'a' },
     ]);
 
-    expect(sorted.map((doc) => doc.slug)).toEqual(['terms', 'privacy', 'z-custom']);
+    expect(sorted.map((doc) => doc.slug)).toEqual(['terms', 'privacy', 'kvkk', 'pre-information', 'z-custom']);
   });
 });
 

@@ -2,11 +2,11 @@
 
 ## Overview
 
-Qualy is a no-code messaging platform for service teams. It centralizes WhatsApp, Instagram, and Telegram conversations in one inbox, automates repetitive replies, and helps teams prioritize high-intent chats with AI-assisted scoring.
+Qualy is a no-code messaging platform for service teams. It centralizes WhatsApp, Instagram, Messenger, and Telegram conversations in one inbox, automates repetitive replies, and helps teams prioritize high-intent chats with AI-assisted scoring.
 
 ## Product Highlights
 
-- Unified inbox for WhatsApp, Instagram, and Telegram
+- Unified inbox for WhatsApp, Instagram, Messenger, and Telegram
 - AI-assisted reply automation for repetitive requests
 - Conversation scoring to prioritize urgent or high-fit leads
 - Human handover when a specialist needs to take over
@@ -26,7 +26,7 @@ Qualy is a no-code messaging platform for service teams. It centralizes WhatsApp
 
 ### What is this platform, and what does Qualy do?
 
-Qualy is a no-code messaging platform for service teams. It brings WhatsApp, Instagram, and Telegram conversations into one inbox, automates repetitive replies, and helps your team respond to the right people faster.
+Qualy is a no-code messaging platform for service teams. It brings WhatsApp, Instagram, Messenger, and Telegram conversations into one inbox, automates repetitive replies, and helps your team respond to the right people faster.
 
 ### How can I get started quickly?
 
@@ -34,7 +34,7 @@ Connect your channels, upload your company information, and train Qualy with you
 
 ### Which channels can I use today?
 
-You can use WhatsApp, Instagram, and Telegram in a single inbox today. Messenger support is currently being prepared.
+You can use WhatsApp, Instagram, Messenger, and Telegram in a single inbox today.
 
 ### How is person scoring calculated?
 

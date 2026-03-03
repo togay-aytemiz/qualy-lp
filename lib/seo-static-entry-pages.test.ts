@@ -11,6 +11,8 @@ describe('static SEO entry pages', () => {
     expect(readEntry('en/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en" />');
     expect(readEntry('pricing/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/pricing" />');
     expect(readEntry('en/pricing/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en/pricing" />');
+    expect(readEntry('about/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/about" />');
+    expect(readEntry('en/about/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en/about" />');
     expect(readEntry('data-deletion/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/data-deletion" />');
     expect(readEntry('en/data-deletion/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en/data-deletion" />');
     expect(readEntry('faqs-directory/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/faqs-directory" />');
@@ -20,6 +22,32 @@ describe('static SEO entry pages', () => {
     expect(readEntry('en/terms/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en/terms" />');
     expect(readEntry('privacy/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/privacy" />');
     expect(readEntry('en/privacy/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en/privacy" />');
+    expect(readEntry('kvkk/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/kvkk" />');
+    expect(readEntry('en/kvkk/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en/kvkk" />');
+    expect(readEntry('pre-information/index.html')).toContain(
+      '<link rel="canonical" href="https://askqualy.com/pre-information" />'
+    );
+    expect(readEntry('en/pre-information/index.html')).toContain(
+      '<link rel="canonical" href="https://askqualy.com/en/pre-information" />'
+    );
+    expect(readEntry('distance-sales-agreement/index.html')).toContain(
+      '<link rel="canonical" href="https://askqualy.com/distance-sales-agreement" />'
+    );
+    expect(readEntry('en/distance-sales-agreement/index.html')).toContain(
+      '<link rel="canonical" href="https://askqualy.com/en/distance-sales-agreement" />'
+    );
+    expect(readEntry('cancellation-refund/index.html')).toContain(
+      '<link rel="canonical" href="https://askqualy.com/cancellation-refund" />'
+    );
+    expect(readEntry('en/cancellation-refund/index.html')).toContain(
+      '<link rel="canonical" href="https://askqualy.com/en/cancellation-refund" />'
+    );
+    expect(readEntry('subscription-trial/index.html')).toContain(
+      '<link rel="canonical" href="https://askqualy.com/subscription-trial" />'
+    );
+    expect(readEntry('en/subscription-trial/index.html')).toContain(
+      '<link rel="canonical" href="https://askqualy.com/en/subscription-trial" />'
+    );
   });
 
   it('includes trial-first pricing metadata copy in static pricing entry', () => {

@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import SectionSkeleton from './components/SectionSkeleton';
 import { LanguageProvider, useLanguage } from './LanguageContext';
 import { motion } from 'framer-motion';
-import { legalDocSlugs } from './lib/legal';
+import { LEGAL_ROUTE_SLUGS } from './lib/legal-slugs';
 import { applySeoToDocument } from './lib/seo-dom';
 import { getSeoByRoute, getSeoRouteKeyByPath } from './lib/seo';
 import { focusHomeSectionByHashWithRetry } from './lib/home-section-focus';
@@ -20,6 +20,7 @@ const HowItWorks = lazy(() => import('./components/HowItWorks'));
 const FAQ = lazy(() => import('./components/FAQ'));
 const CTA = lazy(() => import('./components/CTA'));
 const PricingPage = lazy(() => import('./pages/PricingPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
 const DataDeletionPage = lazy(() => import('./pages/DataDeletionPage'));
 const LegalPage = lazy(() => import('./pages/LegalPage'));
 const LegalIndexPage = lazy(() => import('./pages/LegalIndexPage'));
@@ -42,15 +43,6 @@ const stripEnglishRoutePrefix = (path: string) => {
   return path;
 };
 
-const LOCALIZED_CONTENT_PATHS = new Set([
-  '/',
-  '/pricing',
-  '/data-deletion',
-  '/legal',
-  '/terms',
-  '/privacy',
-]);
-
 const AppContent: React.FC = () => {
   const { language, setLanguage } = useLanguage();
   const [path, setPath] = useState(getNormalizedPath);
@@ -59,11 +51,18 @@ const AppContent: React.FC = () => {
   const isEnglishPath = isEnglishRoutePath(path);
   const legalSlug = normalizedPath.startsWith('/') ? normalizedPath.slice(1) : normalizedPath;
   const isLegalIndexRoute = normalizedPath === '/legal';
-  const isLegalRoute = legalDocSlugs.has(legalSlug);
+  const isLegalRoute = LEGAL_ROUTE_SLUGS.has(legalSlug);
   const isLlmFaqDirectoryRoute = normalizedPath === '/faqs-directory';
   const isPricingRoute = path === '/pricing' || path === '/en/pricing';
+  const isAboutRoute = path === '/about' || path === '/en/about';
   const isDataDeletionRoute = path === '/data-deletion' || path === '/en/data-deletion';
-  const isLocalizedContentRoute = LOCALIZED_CONTENT_PATHS.has(normalizedPath);
+  const isLocalizedContentRoute =
+    normalizedPath === '/' ||
+    normalizedPath === '/pricing' ||
+    normalizedPath === '/about' ||
+    normalizedPath === '/data-deletion' ||
+    isLegalIndexRoute ||
+    isLegalRoute;
 
   useEffect(() => {
     const handleRouteChange = () => setPath(getNormalizedPath());
@@ -161,6 +160,27 @@ const AppContent: React.FC = () => {
           <main>
             <Suspense fallback={<SectionSkeleton />}>
               <PricingPage />
+            </Suspense>
+          </main>
+          <Footer />
+        </motion.div>
+      </div>
+    );
+  }
+
+  if (isAboutRoute) {
+    return (
+      <div className="min-h-screen bg-white selection:bg-black selection:text-white">
+        <motion.div
+          key="about-page"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+        >
+          <Navbar />
+          <main>
+            <Suspense fallback={<SectionSkeleton />}>
+              <AboutPage />
             </Suspense>
           </main>
           <Footer />

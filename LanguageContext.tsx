@@ -17,6 +17,11 @@ interface Translations {
   };
   hero: {
     status: string;
+    trust: {
+      metaProvider: string;
+      verifiedIntegration: string;
+      secureConnection: string;
+    };
     headline: string;
     subheadline: string;
     ctaPrimary: string;
@@ -265,8 +270,11 @@ interface Translations {
     careers: string;
     legal: string;
     legalCenter: string;
+    securityTrust: string;
     privacy: string;
     terms: string;
+    cancellationRefund: string;
+    distanceSalesAgreement: string;
     llmResources: string;
     readLlmsTxt: string;
     readLlmsFullTxt: string;
@@ -299,9 +307,14 @@ const translations: Record<Language, Translations> = {
       closeMenu: "Close menu"
     },
     hero: {
-      status: "WhatsApp-first AI inbox for service teams",
+      status: "AI inbox for WhatsApp, Instagram, Messenger, and Telegram service teams",
+      trust: {
+        metaProvider: "Official Meta Tech Provider",
+        verifiedIntegration: "Verified Integration",
+        secureConnection: "Secure connection via official Meta APIs — no channel passwords required"
+      },
       headline: "Reply instantly. <br /> Prioritize serious leads.",
-      subheadline: "Qualy automates repetitive WhatsApp, Instagram, and Telegram conversations with Skills + Knowledge Base, scores intent 1-10, and hands chats to your team at the right moment.",
+      subheadline: "Qualy automates repetitive WhatsApp, Instagram, Messenger, and Telegram conversations with Skills + Knowledge Base, scores intent 1-10, and hands chats to your team at the right moment.",
       ctaPrimary: "Start Free Trial",
       ctaSecondary: "Plan a Demo",
       connects: "Connect in minutes",
@@ -606,7 +619,7 @@ const translations: Record<Language, Translations> = {
       feat2_mockup_btn: "Open thread",
       feat3_title: "All conversations on one screen",
       feat3_title_highlight: "one screen",
-      feat3_desc1: "Manage WhatsApp, Instagram, Telegram, and Messenger messages from one screen. Connect channels in minutes and reply without switching apps.",
+      feat3_desc1: "Manage WhatsApp, Instagram, Messenger, and Telegram messages from one screen. Connect channels in minutes and reply without switching apps.",
       feat3_desc2: "Connection is simple, inbox stays unified.",
       feat3_mockup_focus: "Unified inbox",
       feat3_mockup_easy: "Connect in minutes",
@@ -647,7 +660,7 @@ const translations: Record<Language, Translations> = {
       title: "Start in minutes, let Qualy handle the first response flow",
       subtitle: "Connect your channels, train Qualy in a few clicks, then let Qualy AI reply automatically.",
       step1_title: "Connect channels quickly",
-      step1_desc: "Connect WhatsApp, Instagram, Telegram, and Messenger in a few clicks. Keep channels separate, manage all conversations in one inbox.",
+      step1_desc: "Connect WhatsApp, Instagram, Messenger, and Telegram in a few clicks. Meta channels run through official Meta authorization flows, so you never share channel passwords with Qualy.",
       step2_title: "Train Qualy in a few clicks",
       step2_desc: "Upload service details, pricing, and policy documents, then define ready responses. Qualy uses this context to reply consistently.",
       step3_title: "Let Qualy AI reply",
@@ -669,15 +682,19 @@ const translations: Record<Language, Translations> = {
       items: [
         {
           question: "What exactly does Qualy do?",
-          answer: "Qualy brings your WhatsApp, Instagram, and Telegram messages into one inbox. It automatically replies to customers using the information you provide, figures out what each customer needs from the conversation, and gives you a priority score from 1 to 10. You only deal with the customers who actually need your attention \u2014 Qualy handles the rest."
+          answer: "Qualy brings your WhatsApp, Instagram, Messenger, and Telegram messages into one inbox. It automatically replies to customers using the information you provide, figures out what each customer needs from the conversation, and gives you a priority score from 1 to 10. You only deal with the customers who actually need your attention \u2014 Qualy handles the rest."
         },
         {
           question: "Do I need technical skills to start using Qualy?",
-          answer: "No coding required. Connect your channels (WhatsApp, Instagram, or Telegram), upload a few documents about your services and pricing, add ready-made answers for common questions, and you can go live in minutes. Qualy uses what you upload to give your customers consistent, accurate replies."
+          answer: "No coding required. Connect your channels (WhatsApp, Instagram, Messenger, or Telegram), upload a few documents about your services and pricing, add ready-made answers for common questions, and you can go live in minutes. Qualy uses what you upload to give your customers consistent, accurate replies."
         },
         {
           question: "Which messaging apps does Qualy work with?",
-          answer: "We currently support WhatsApp, Instagram, and Telegram \u2014 you can manage all three from a single screen. Messenger support is coming soon. Connecting a channel takes just a few minutes, and messages from every channel appear in the same inbox."
+          answer: "Today, you can manage WhatsApp, Instagram, Messenger, and Telegram from one inbox. Channel setup takes just a few minutes, and all connected channels appear on the same screen."
+        },
+        {
+          question: "Do I need to share WhatsApp, Instagram, or Messenger passwords to connect channels?",
+          answer: "No. Connections are authorized through official Meta flows, so permissions are granted on the provider side. Qualy does not ask for channel passwords, and you can revoke channel access any time from your provider settings."
         },
         {
           question: "How does Qualy score and prioritize customers?",
@@ -685,7 +702,7 @@ const translations: Record<Language, Translations> = {
         },
         {
           question: "Is my customer data and conversations secure?",
-          answer: "Yes. Every business's data is completely separated \u2014 no other user can see your conversations. Connections are encrypted and data is stored on secure cloud infrastructure. You can also pause AI replies at any time and take control yourself. You can review our legal documents on our Privacy Policy and Terms of Service pages."
+          answer: "We apply technical and organizational safeguards for your workspace, including encrypted connections and isolated tenant data boundaries. You can pause AI replies and take over any conversation at any time. For full details, review our Privacy Policy and Terms of Service."
         },
         {
           question: "Can I jump in and take over while AI is replying?",
@@ -710,8 +727,11 @@ const translations: Record<Language, Translations> = {
       careers: "Careers",
       legal: "Legal",
       legalCenter: "Legal Center",
+      securityTrust: "Security & Trust",
       privacy: "Privacy Policy",
       terms: "Terms of Service",
+      cancellationRefund: "Cancellation & Refund",
+      distanceSalesAgreement: "Distance Sales Agreement",
       llmResources: "LLM Resources",
       readLlmsTxt: "Read llms.txt",
       readLlmsFullTxt: "Read llms-full.txt",
@@ -742,7 +762,12 @@ const translations: Record<Language, Translations> = {
       closeMenu: "Menüyü kapat"
     },
     hero: {
-      status: "Servis ekipleri için WhatsApp odaklı AI gelen kutusu",
+      status: "Servis ekipleri için WhatsApp, Instagram, Messenger ve Telegram AI gelen kutusu",
+      trust: {
+        metaProvider: "Resmi Meta Tech Provider",
+        verifiedIntegration: "Doğrulanmış Entegrasyon",
+        secureConnection: "Resmi Meta API akışıyla güvenli bağlantı — kanal şifresi gerekmez"
+      },
       headline: "Herkese değil, doğru müşteriye odaklan.",
       subheadline: "Qualy, <span class=\"font-semibold text-slate-700 underline decoration-slate-400/80 underline-offset-4\">mesajları otomatik yanıtlar</span>; hizmet profili çıkarır, gerekli alanları toplar, eksik bilgiyi doğru sorularla tamamlar ve konuşmaları 1-10 müşteri skoruna göre <span class=\"font-semibold text-slate-700 underline decoration-slate-400/80 underline-offset-4\">önceliklendirir</span>.",
       ctaPrimary: "Ücretsiz Denemeyi Başlat",
@@ -1049,7 +1074,7 @@ const translations: Record<Language, Translations> = {
       feat2_mockup_btn: "Konuşmayı aç",
       feat3_title: "Tüm konuşmalar tek ekranda",
       feat3_title_highlight: "tek ekranda",
-      feat3_desc1: "WhatsApp, Instagram, Telegram ve Messenger mesajlarını tek ekrandan yönet. Kanalları dakikalar içinde bağla, uygulama değiştirmeden yanıtla.",
+      feat3_desc1: "WhatsApp, Instagram, Messenger ve Telegram mesajlarını tek ekrandan yönet. Kanalları dakikalar içinde bağla, uygulama değiştirmeden yanıtla.",
       feat3_desc2: "Bağlantı çok kolay, gelen kutusu tek merkezde kalır.",
       feat3_mockup_focus: "Birleşik gelen kutusu",
       feat3_mockup_easy: "Dakikalar içinde bağlantı",
@@ -1090,7 +1115,7 @@ const translations: Record<Language, Translations> = {
       title: "Dakikalar içinde başla, gelen mesajları Qualy yönetsin",
       subtitle: "Kanalları bağla, Qualy'i birkaç tıkla eğit, ardından Qualy yapay zeka mesajları otomatik yanıtlasın.",
       step1_title: "Kanalları kolayca bağla",
-      step1_desc: "WhatsApp, Instagram, Telegram ve Messenger kanallarını birkaç adımda bağla. Kanallar bağımsız kalır, tüm konuşmalar tek gelen kutusunda görünür.",
+      step1_desc: "WhatsApp, Instagram, Messenger ve Telegram kanallarını birkaç adımda bağla. Meta kanalları resmi Meta yetkilendirme akışıyla bağlanır; kanal şifrelerini Qualy ile paylaşmazsın.",
       step2_title: "Qualy'i birkaç tıkla eğit",
       step2_desc: "Hizmet, fiyat ve politika içeriklerini yükle; hazır yanıtlarını tanımla. Qualy bu içeriği referans alarak tutarlı yanıtlar üretir.",
       step3_title: "Qualy AI yanıtlasın",
@@ -1112,15 +1137,19 @@ const translations: Record<Language, Translations> = {
       items: [
         {
           question: "Qualy tam olarak ne yapıyor?",
-          answer: "Qualy, WhatsApp, Instagram ve Telegram'dan gelen müşteri mesajlarını tek bir panelde topluyor. Gelen mesajları senin belirlediğin bilgilere göre otomatik yanıtlıyor, her konuşmadan müşterinin ne istediğini çıkarıyor ve sana 1-10 arasında bir öncelik puanı veriyor. Sen sadece gerçekten ilgilenmen gereken müşterilerle ilgileniyorsun \u2014 geri kalanını Qualy hallediyor."
+          answer: "Qualy, WhatsApp, Instagram, Messenger ve Telegram'dan gelen müşteri mesajlarını tek bir panelde topluyor. Gelen mesajları senin belirlediğin bilgilere göre otomatik yanıtlıyor, her konuşmadan müşterinin ne istediğini çıkarıyor ve sana 1-10 arasında bir öncelik puanı veriyor. Sen sadece gerçekten ilgilenmen gereken müşterilerle ilgileniyorsun \u2014 geri kalanını Qualy hallediyor."
         },
         {
           question: "Qualy'i kullanmaya başlamak için teknik bilgi gerekiyor mu?",
-          answer: "Hayır, hiç kod yazmana gerek yok. Kanallarını bağla (WhatsApp, Instagram veya Telegram), hizmetlerini ve fiyatlarını anlatan birkaç belge yükle, sık sorulan sorulara hazır yanıtlar ekle \u2014 birkaç dakikada canlıya geçebilirsin. Qualy, yüklediğin bilgileri kullanarak müşterilere tutarlı ve doğru yanıtlar veriyor."
+          answer: "Hayır, hiç kod yazmana gerek yok. Kanallarını bağla (WhatsApp, Instagram, Messenger veya Telegram), hizmetlerini ve fiyatlarını anlatan birkaç belge yükle, sık sorulan sorulara hazır yanıtlar ekle \u2014 birkaç dakikada canlıya geçebilirsin. Qualy, yüklediğin bilgileri kullanarak müşterilere tutarlı ve doğru yanıtlar veriyor."
         },
         {
           question: "Qualy hangi mesajlaşma uygulamalarıyla çalışıyor?",
-          answer: "Şu anda WhatsApp, Instagram ve Telegram'ı destekliyoruz \u2014 üçünü de tek ekrandan yönetebilirsin. Messenger desteği de yakında geliyor. Kanalları bağlamak birkaç dakika sürüyor ve her kanaldan gelen mesajlar aynı gelen kutusunda görünüyor."
+          answer: "Bugün WhatsApp, Instagram, Messenger ve Telegram'ı tek gelen kutusunda yönetebilirsin. Kanal kurulumu birkaç dakika sürer ve bağlı kanallar aynı ekranda görünür."
+        },
+        {
+          question: "WhatsApp, Instagram veya Messenger bağlamak için şifre paylaşmam gerekir mi?",
+          answer: "Hayır. Bağlantılar resmi Meta yetkilendirme akışıyla yapılır; izinler sağlayıcı tarafında verilir. Qualy kanal şifresi istemez ve kanal erişimini sağlayıcı ayarlarından istediğin zaman iptal edebilirsin."
         },
         {
           question: "Qualy müşterileri nasıl puanlıyor ve önceliklendiriyor?",
@@ -1128,7 +1157,7 @@ const translations: Record<Language, Translations> = {
         },
         {
           question: "Müşteri verileri ve konuşmalar güvende mi?",
-          answer: "Evet. Her işletmenin verileri birbirinden tamamen izole \u2014 başka bir kullanıcı senin konuşmalarını göremez. Bağlantılar şifrelidir ve veriler güvenli bulut altyapısında saklanır. Ayrıca, konuşmalar yapay zeka tarafından yanıtlanırken istediğin anda yapay zekayı durdurup kontrolü kendine alabilirsin. Yasal metinlerimize Gizlilik Politikası ve Hizmet Şartları sayfalarından ulaşabilirsin."
+          answer: "Çalışma alanın için şifreli bağlantılar ve tenant seviyesinde veri izolasyonu gibi teknik ve organizasyonel önlemler uygularız. Yapay zeka yanıtlarını istediğin anda durdurup konuşmayı devralabilirsin. Detaylar için Gizlilik Politikası ve Hizmet Şartları sayfalarını inceleyebilirsin."
         },
         {
           question: "Yapay zeka yanıt verirken araya girip konuşmayı devralabilir miyim?",
@@ -1148,13 +1177,16 @@ const translations: Record<Language, Translations> = {
       api: "API Referansı",
       community: "Topluluk",
       help: "Yardım Merkezi",
-      about: "Hakkında",
+      about: "Hakkımızda",
       blog: "Blog",
       careers: "Kariyer",
       legal: "Yasal",
       legalCenter: "Yasal Merkez",
+      securityTrust: "Güvenlik ve Güven",
       privacy: "Gizlilik Politikası",
       terms: "Hizmet Şartları",
+      cancellationRefund: "İptal, İade ve Cayma",
+      distanceSalesAgreement: "Mesafeli Hizmet Sözleşmesi",
       llmResources: "LLM Kaynakları",
       readLlmsTxt: "llms.txt oku",
       readLlmsFullTxt: "llms-full.txt oku",

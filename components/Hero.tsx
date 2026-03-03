@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowDownRight, ArrowUpRight, ChevronDown, Sparkles, X, Zap } from 'lucide-react';
+import { RiMetaFill } from 'react-icons/ri';
 import { useLanguage } from '../LanguageContext';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { AUTH_URLS } from '../lib/auth-links';
@@ -285,6 +286,29 @@ const Hero: React.FC = () => {
         transition={{ duration: prefersReducedMotion ? 0 : 0.5 }}
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-indigo-50/50 rounded-[100%] blur-3xl -z-10 pointer-events-none"
       ></motion.div>
+
+      <motion.div
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.3 }}
+        className="relative z-10 mx-auto mt-2 flex w-full max-w-5xl flex-col items-center px-5 sm:px-6"
+      >
+        <div className="inline-flex max-w-full flex-col items-center gap-2 rounded-2xl border border-slate-200 bg-white/95 px-4 py-2 shadow-[0_10px_28px_rgba(15,23,42,0.08)] sm:flex-row sm:gap-4 sm:rounded-full sm:px-5">
+          <span className="inline-flex items-center gap-1.5 text-slate-900">
+            <RiMetaFill className="h-5 w-5 text-[#0866FF]" aria-hidden="true" />
+            <span className="text-[11px] font-semibold tracking-[-0.01em] sm:text-sm">
+              {t.hero.trust.metaProvider}
+            </span>
+          </span>
+          <span className="hidden h-4 w-px bg-slate-200 sm:block" aria-hidden="true" />
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-2.5 py-1 text-[10px] font-semibold text-blue-700 sm:rounded-none sm:bg-transparent sm:px-0 sm:py-0 sm:text-xs">
+            <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 text-[10px] font-bold leading-none text-white">
+              ✓
+            </span>
+            <span>{t.hero.trust.verifiedIntegration}</span>
+          </span>
+        </div>
+      </motion.div>
 
       <motion.h1
         initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}

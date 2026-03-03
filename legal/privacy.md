@@ -115,6 +115,8 @@ We process personal data in accordance with the Turkish Personal Data Protection
 - Necessity for the data controller to fulfill its legal obligations.
 - Necessity for legitimate interests, provided that fundamental rights are not harmed.
 
+For Turkey-specific disclosure details, please also review our [Personal Data Disclosure (KVKK)](kvkk).
+
 ### 5.2 Under GDPR (Where Applicable)
 
 For individuals in the EEA, we rely on:
@@ -132,7 +134,7 @@ We may share data with the following categories of third parties:
 |---|---|---|
 | **AI/LLM Providers** | OpenAI | AI inference, embedding generation |
 | **Cloud Infrastructure** | Supabase (PostgreSQL, Auth, Storage), Netlify | Hosting, database, authentication |
-| **Messaging Platforms** | Meta (WhatsApp, Instagram), Telegram | Channel connectivity, message delivery |
+| **Messaging Platforms** | Meta (WhatsApp, Instagram, Messenger), Telegram | Channel connectivity, message delivery |
 | **Analytics** | Usage tracking tools | Performance monitoring |
 | **Legal/Professional** | Advisors, auditors | Under confidentiality obligations |
 | **Authorities** | Government bodies | When required by law or valid legal process |
@@ -189,7 +191,7 @@ You have the right to:
 
 You may have rights to access, correct, delete, restrict processing, data portability, and withdraw consent.
 
-To exercise your rights, contact: **privacy@askqualy.com**
+To exercise your rights, contact: **askqualy@gmail.com**
 
 ## 11. Cookies and Similar Technologies
 
@@ -213,6 +215,6 @@ We may update this Privacy Policy from time to time. Material changes will be co
 
 For privacy questions, data access requests, or complaints:
 
-- **Email:** privacy@askqualy.com
-- **Legal:** legal@askqualy.com
+- **Email:** askqualy@gmail.com
+- **Legal:** askqualy@gmail.com
 - **Address:** Çayyolu Mah. 2699 Sk. Oyak 4 Sitesi No: 1 İç Kapı No: 36 Çankaya / Ankara, Turkey

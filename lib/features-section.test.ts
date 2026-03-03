@@ -10,7 +10,8 @@ describe('features section content and layout', () => {
     expect(featuresSource).toContain('hidden md:inline');
     expect(featuresSource).toContain('t.features.feat1_mockup_kb_items.map');
     expect(featuresSource).toContain('t.features.feat1_mockup_skill_items.map');
-    expect(featuresSource).toContain("{ name: 'Messenger', status: false");
+    expect(featuresSource).toContain("{ name: 'Instagram', status: true");
+    expect(featuresSource).toContain("{ name: 'Messenger', status: true");
     expect(featuresSource).not.toContain('bg-slate-950');
     expect(featuresSource).not.toContain('t.features.feat1_mockup_step1');
     expect(featuresSource).not.toContain('t.features.feat1_mockup_preview_label');

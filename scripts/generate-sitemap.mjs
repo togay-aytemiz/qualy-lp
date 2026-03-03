@@ -65,6 +65,8 @@ const main = async () => {
     { path: '/en', changefreq: 'weekly', priority: 0.9 },
     { path: '/pricing', changefreq: 'weekly', priority: 0.8 },
     { path: '/en/pricing', changefreq: 'weekly', priority: 0.7 },
+    { path: '/about', changefreq: 'monthly', priority: 0.6 },
+    { path: '/en/about', changefreq: 'monthly', priority: 0.5 },
     { path: '/data-deletion', changefreq: 'monthly', priority: 0.6 },
     { path: '/en/data-deletion', changefreq: 'monthly', priority: 0.5 },
     { path: '/faqs-directory', changefreq: 'monthly', priority: 0.7 },

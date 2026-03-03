@@ -19,8 +19,21 @@ describe('localized legal docs', () => {
   it('returns one doc per slug in index list', () => {
     const docs = getLegalDocs('tr');
 
-    expect(docs.map((doc) => doc.slug)).toEqual(['terms', 'privacy']);
+    expect(docs.map((doc) => doc.slug)).toEqual([
+      'terms',
+      'privacy',
+      'kvkk',
+      'pre-information',
+      'distance-sales-agreement',
+      'cancellation-refund',
+      'subscription-trial',
+    ]);
     expect(legalDocSlugs.has('terms')).toBe(true);
     expect(legalDocSlugs.has('privacy')).toBe(true);
+    expect(legalDocSlugs.has('kvkk')).toBe(true);
+    expect(legalDocSlugs.has('pre-information')).toBe(true);
+    expect(legalDocSlugs.has('distance-sales-agreement')).toBe(true);
+    expect(legalDocSlugs.has('cancellation-refund')).toBe(true);
+    expect(legalDocSlugs.has('subscription-trial')).toBe(true);
   });
 });

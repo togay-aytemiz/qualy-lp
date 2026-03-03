@@ -116,6 +116,8 @@ Kişisel verilerinizi 6698 sayılı KVKK kapsamında aşağıdaki hukuki dayanak
 - **Hukuki yükümlülük** (KVKK m.5/2-ç): Yasal zorunlulukların yerine getirilmesi.
 - **Meşru menfaat** (KVKK m.5/2-f): Temel hak ve özgürlüklere zarar vermemek kaydıyla veri sorumlusunun meşru menfaatleri.
 
+Türkiye'ye özel aydınlatma detayları için ayrıca [KVKK Aydınlatma Metni](kvkk) dokümanını inceleyebilirsiniz.
+
 **Veri Sorumlusu:** Seray Aytemiz — Sweet Dreams Fotoğrafçılık
 **VKN:** 8430312977
 
@@ -136,7 +138,7 @@ Verileri aşağıdaki üçüncü taraf kategorileriyle paylaşabiliriz:
 |---|---|---|
 | **Yapay Zeka / LLM Sağlayıcıları** | OpenAI | Yapay zeka çıkarımı, gömme (embedding) üretimi |
 | **Bulut Altyapı** | Supabase (PostgreSQL, Auth, Storage), Netlify | Barındırma, veri tabanı, kimlik doğrulama |
-| **Mesajlaşma Platformları** | Meta (WhatsApp, Instagram), Telegram | Kanal bağlantısı, mesaj iletimi |
+| **Mesajlaşma Platformları** | Meta (WhatsApp, Instagram, Messenger), Telegram | Kanal bağlantısı, mesaj iletimi |
 | **Analitik** | Kullanım izleme araçları | Performans izleme |
 | **Hukuki/Profesyonel** | Danışmanlar, denetçiler | Gizlilik yükümlülüğü kapsamında |
 | **Yetkili Makamlar** | Devlet kurumları | Hukuken zorunlu olduğunda veya geçerli yasal süreçlerde |
@@ -195,7 +197,7 @@ Aşağıdaki haklara sahipsiniz:
 
 Erişim, düzeltme, silme, işleme kısıtlama, veri taşınabilirliği ve rızayı geri çekme haklarınız olabilir.
 
-Haklarınızı kullanmak için: **privacy@askqualy.com**
+Haklarınızı kullanmak için: **askqualy@gmail.com**
 
 ## 11. Çerezler ve Benzer Teknolojiler
 
@@ -219,8 +221,8 @@ Bu Gizlilik Politikasını zaman zaman güncelleyebiliriz. Esaslı değişiklikl
 
 Gizlilikle ilgili sorularınız, veri erişim talepleriniz veya şikayetleriniz için:
 
-- **E-posta:** privacy@askqualy.com
-- **Hukuki:** legal@askqualy.com
+- **E-posta:** askqualy@gmail.com
+- **Hukuki:** askqualy@gmail.com
 - **Adres:** Çayyolu Mah. 2699 Sk. Oyak 4 Sitesi No: 1 İç Kapı No: 36 Çankaya / Ankara
 
-**KVKK kapsamında başvurularınızı** yazılı olarak yukarıdaki adrese, kayıtlı elektronik posta (KEP) ile veya privacy@askqualy.com adresine kimliğinizi doğrulayan belgelerle birlikte iletebilirsiniz.
+**KVKK kapsamında başvurularınızı** yazılı olarak yukarıdaki adrese, kayıtlı elektronik posta (KEP) ile veya askqualy@gmail.com adresine kimliğinizi doğrulayan belgelerle birlikte iletebilirsiniz.
