@@ -37,13 +37,13 @@ type AboutCopy = {
 const COPY: Record<'tr' | 'en', AboutCopy> = {
   tr: {
     badge: 'Hakkımızda',
-    title: 'Qualy ile AI Destekli Müşteri İletişimini Ölçeklendirin',
+    title: 'Qualy: WhatsApp ve Instagram için AI Müşteri İletişim Platformu',
     intro:
-      'Qualy; WhatsApp, Instagram, Messenger ve Telegram konuşmalarını tek panelde toplayan, servis işletmelerine odaklı bir SaaS platformudur.',
+      'Qualy; WhatsApp otomatik yanıt, Instagram mesaj yönetimi, Telegram konuşma takibi ve çoklu kanal gelen kutusunu tek panelde birleştiren AI müşteri iletişimi platformudur.',
     introSecondary:
-      'Amacımız, dağınık mesaj trafiğini net bir operasyon akışına dönüştürmek, yüksek niyetli müşteri taleplerini erkenden görünür kılmak ve ekiplerin satışa dönüşen konuşmalara daha fazla zaman ayırmasını sağlamaktır.',
+      'Servis işletmeleri için müşteri mesaj yönetimi, potansiyel müşteri takibi, randevu yönetimi ve teklif konuşmalarını tek operasyon akışında toplar.',
     introTertiary:
-      'Bu sayfa; Qualy ürün yaklaşımını, kimler için geliştirildiğini ve neden müşteri iletişimi süreçlerinde daha yüksek verim sağladığını detaylı biçimde açıklar.',
+      'Bu sayfa; Qualy’nin ürün yaklaşımını, hangi ekiplerle en iyi sonucu verdiğini ve potansiyel müşteri nitelendirme ile insan devralma modelinin nasıl çalıştığını açıklar.',
     whyTitle: 'Neden Qualy?',
     whyLead: 'Müşteri mesaj yönetiminde yalnızca hız yeterli değildir.',
     whyBody:
@@ -52,21 +52,22 @@ const COPY: Record<'tr' | 'en', AboutCopy> = {
       'Sistem; tekrar eden soruları yanıtlar, müşteri niyetini skorlar ve ekip müdahalesi gereken anları öne çıkarır. Böylece',
     whyUnderlineText: 'WhatsApp otomatik yanıt, Instagram mesaj yönetimi ve potansiyel müşteri sınıflandırması',
     whyTail: 'süreçleri aynı çatı altında daha ölçülebilir hale gelir.',
-    seoTitle: 'SEO Odaklı İletişim Altyapısı',
+    seoTitle: 'WhatsApp, Instagram ve Telegram için Akıllı Mesaj Yönetimi',
     seoBody:
-      'Qualy ile oluşturulan bilgi tabanı ve soru-yanıt akışları, markanızın hizmet dilini tutarlı hale getirerek web sitenizdeki içerik stratejisini de besler. Bu yaklaşım, arama motorlarında doğru niyeti yakalayan içerikler üretmenizi kolaylaştırır.',
+      'Qualy ile ortak gelen kutusunda müşteri konuşmalarını yönetir, bilgi bankası destekli yanıtlar üretir ve satışa yakın konuşmaları ekip ekranına taşırsınız.',
     seoBodySecondary:
-      'Özellikle hizmet sayfaları, sık sorulan sorular ve teklif süreçlerinde kullanılan net terminoloji; organik görünürlük, kullanıcı güveni ve dönüşüm oranı arasında güçlü bir bağ kurar.',
-    seoHighlight: 'SEO uyumlu müşteri iletişimi, yerel arama görünürlüğü ve dönüşüm odaklı metin standardı',
-    seoTail: 'yaklaşımıyla daha güçlü bir dijital vitrin oluşturabilirsiniz.',
+      'Güzellik merkezi, fotoğraf stüdyosu ve klinik gibi servis ekipleri için; AI destekli müşteri iletişimi yazılımı olarak yanıt hızını ve operasyon tutarlılığını artırır.',
+    seoHighlight:
+      'WhatsApp AI otomatik yanıt, Instagram DM yönetimi, potansiyel müşteri nitelendirme (niyet skorlama) ve insan devralma akışı',
+    seoTail: 'sayesinde ekipler satışa yakın konuşmaları daha hızlı fark eder ve daha kontrollü yönetir.',
     fitTitle: 'Kimler için uygun?',
     fitBody:
       'Qualy; hizmet satışı yapan, müşteri konuşmaları üzerinden teklif ve randevu üreten ekipler için tasarlanmıştır.',
     fitItems: [
-      'WhatsApp ve Instagram üzerinden yoğun talep alan servis işletmeleri',
+      'WhatsApp ve Instagram üzerinden yoğun talep alan güzellik merkezleri, fotoğraf stüdyoları ve klinikler',
       'Randevu, teklif ve ön görüşme trafiğini tek merkezde yönetmek isteyen ekipler',
       'Satışa yakın müşterileri kaçırmadan operasyon maliyetini düşürmek isteyen şirketler',
-      'Arama motorlarından gelen trafiği doğru mesaj akışıyla satış fırsatına çevirmek isteyen markalar',
+      'Müşteri iletişim kalitesini büyüme hedefleriyle aynı çizgide yönetmek isteyen markalar',
     ],
     workflowTitle: 'Qualy nasıl çalışır?',
     workflowBody:
@@ -88,13 +89,13 @@ const COPY: Record<'tr' | 'en', AboutCopy> = {
   },
   en: {
     badge: 'About',
-    title: 'Scale AI-Assisted Customer Communication with Qualy',
+    title: 'Qualy: AI Customer Communication Platform for WhatsApp and Instagram',
     intro:
-      'Qualy is a SaaS platform for service businesses that unifies WhatsApp, Instagram, Messenger, and Telegram conversations in one operational inbox.',
+      'Qualy is an AI customer communication platform that unifies WhatsApp auto reply, Instagram message management, Telegram conversation flow, and a multi-channel shared inbox in one system.',
     introSecondary:
-      'We help teams turn fragmented message traffic into a repeatable growth workflow, prioritize high-intent leads earlier, and spend more time on conversations that actually convert.',
+      'For service businesses, it combines customer message management, lead follow-up, appointment flow, and quote conversations into one operational workflow.',
     introTertiary:
-      'This page explains our operating philosophy, ideal customer profile, and why Qualy improves service communication outcomes in measurable ways.',
+      'This page explains Qualy’s operating model, ideal customer profile, and how lead qualification plus human takeover work together.',
     whyTitle: 'Why Qualy?',
     whyLead: 'Speed alone is not enough in a crowded inbox.',
     whyBody:
@@ -103,21 +104,22 @@ const COPY: Record<'tr' | 'en', AboutCopy> = {
       'The platform handles repetitive questions, scores customer intent, and surfaces takeover moments for your team. That means',
     whyUnderlineText: 'AI customer communication, lead qualification, and conversion optimization',
     whyTail: 'run on a clearer and more measurable operating model.',
-    seoTitle: 'SEO-Aligned Communication Infrastructure',
+    seoTitle: 'Smart Messaging Operations for WhatsApp, Instagram, and Telegram',
     seoBody:
-      'The same knowledge architecture used for customer conversations can strengthen your website content strategy with clearer terminology and intent-aligned language.',
+      'With Qualy, teams manage customer conversations in a shared inbox, generate knowledge-base-backed responses, and surface sales-ready conversations faster.',
     seoBodySecondary:
-      'That consistency supports organic visibility, trust signals, and conversion-ready journeys from search to conversation.',
-    seoHighlight: 'SEO-ready customer communication and conversion-focused messaging standards',
-    seoTail: 'can help you build a stronger digital storefront.',
+      'For beauty centers, photography studios, and clinics, it works as an AI-assisted customer communication software layer that improves response speed and consistency.',
+    seoHighlight:
+      'WhatsApp AI auto reply, Instagram DM management, lead qualification, and human takeover flow',
+    seoTail: 'help teams identify sales-ready conversations sooner and handle them with higher consistency.',
     fitTitle: 'Who is it for?',
     fitBody:
       'Qualy is built for service businesses where messaging channels directly influence appointments, proposals, and sales outcomes.',
     fitItems: [
-      'Service teams handling high message volume on WhatsApp and Instagram',
+      'Beauty centers, photography studios, and clinics handling high message volume on WhatsApp and Instagram',
       'Businesses that want one command center for appointment, quote, and pre-sales flows',
-      'SaaS-focused teams that want to reduce operation cost without missing sales-ready leads',
-      'Brands that want to convert organic traffic into qualified conversations more consistently',
+      'Operations-focused teams that want to reduce cost without missing sales-ready leads',
+      'Brands that want communication quality to directly support measurable growth',
     ],
     workflowTitle: 'How does Qualy work?',
     workflowBody:

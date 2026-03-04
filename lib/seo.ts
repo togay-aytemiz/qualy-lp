@@ -73,7 +73,7 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
     about: {
       title: 'About Qualy | Qualy',
       description:
-        'Learn about Qualy, our mission, and company details for AI-assisted customer communication and lead qualification.',
+        'Learn how Qualy combines WhatsApp auto reply, Instagram message management, AI customer communication, and lead qualification for service teams.',
     },
     dataDeletion: {
       title: 'Data Deletion Instructions | Qualy',
@@ -138,7 +138,7 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
     about: {
       title: 'Hakkımızda | Qualy',
       description:
-        'Qualy hakkında şirket bilgilerini, misyonumuzu ve AI destekli müşteri iletişimi yaklaşımımızı incele.',
+        'Qualy hakkında; WhatsApp otomatik yanıt, Instagram mesaj yönetimi, AI müşteri iletişimi ve potansiyel müşteri nitelendirme yaklaşımını incele.',
     },
     dataDeletion: {
       title: 'Veri Silme Talimatları | Qualy',
