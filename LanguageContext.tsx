@@ -258,6 +258,8 @@ interface Translations {
     product: string;
     resources: string;
     company: string;
+    qualy: string;
+    contact: string;
     features: string;
     leadScoring: string;
     updates: string;
@@ -715,6 +717,8 @@ const translations: Record<Language, Translations> = {
       product: "Product",
       resources: "Resources",
       company: "Company",
+      qualy: "Qualy",
+      contact: "Contact",
       features: "Features",
       leadScoring: "Testimonials",
       updates: "How it works",
@@ -1170,6 +1174,8 @@ const translations: Record<Language, Translations> = {
       product: "Ürün",
       resources: "Kaynaklar",
       company: "Şirket",
+      qualy: "Qualy",
+      contact: "İletişim",
       features: "Özellikler",
       leadScoring: "Müşteri Yorumları",
       updates: "Nasıl çalışır",

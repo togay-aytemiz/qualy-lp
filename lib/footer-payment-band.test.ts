@@ -3,10 +3,12 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 describe('footer payment band', () => {
-  it('renders iyzico payment band asset in footer', () => {
+  it('renders iyzico payment band in the top brand row opposite the logo and meta badge', () => {
     const footerSource = readFileSync(path.join(process.cwd(), 'components', 'Footer.tsx'), 'utf8');
 
     expect(footerSource).toContain('data-payment-band="iyzico"');
     expect(footerSource).toContain('/payment-logos/iyzico/footer/iyzico-payment-band-colored.svg');
+    expect(footerSource).toContain('Top Row: Brand + Payment Band');
+    expect(footerSource).toContain('flex flex-wrap items-center justify-between gap-4');
   });
 });

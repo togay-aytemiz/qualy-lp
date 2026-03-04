@@ -117,15 +117,14 @@ const Footer: React.FC = () => {
 
   return (
     <div className="relative w-full overflow-hidden bg-white px-8 py-20">
-      <div className="mx-auto flex max-w-7xl flex-col items-start justify-between text-sm text-slate-500 sm:flex-row md:px-8">
-        
-        {/* Left Side: Logo & Info */}
-        <div>
-          <div className="mr-0 mb-4 flex flex-wrap items-center gap-2 md:mr-4">
+      <div className="mx-auto max-w-7xl text-sm text-slate-500 md:px-8">
+        {/* Top Row: Brand + Payment Band */}
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="mr-0 flex flex-wrap items-center gap-2 md:mr-4">
             <a className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black" href={homePath}>
               <Logo className="h-7 w-auto" />
             </a>
-            <span className="inline-flex items-center rounded-full border border-slate-200 bg-white pl-2.5 pr-3 py-1.5 shadow-[0_1px_1px_rgba(15,23,42,0.04)]">
+            <span className="inline-flex items-center rounded-full border border-slate-200 bg-white py-1.5 pl-2.5 pr-3 shadow-[0_1px_1px_rgba(15,23,42,0.04)]">
               <RiMetaFill className="h-5 w-5 text-[#0866FF]" aria-hidden="true" />
               <span className="ml-1.5 flex flex-col leading-none">
                 <span className="text-[15px] font-semibold tracking-[-0.01em] text-slate-800">Meta</span>
@@ -133,129 +132,134 @@ const Footer: React.FC = () => {
               </span>
             </span>
           </div>
-          <div className="mt-2 ml-2">
-            © {new Date().getFullYear()} Qualy. {t.footer.rights}
-          </div>
 
-          <div className="mt-4 ml-2 flex items-center gap-2">
-            <a
-              href="mailto:askqualy@gmail.com"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition-colors hover:border-slate-300 hover:text-slate-900"
-              aria-label="Email Qualy"
-            >
-              <Mail className="h-3.5 w-3.5 text-slate-500" />
-              <span className="sr-only">E-posta gönder</span>
-            </a>
-            <a
-              href="tel:+905074699692"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 transition-colors hover:border-slate-300 hover:text-slate-900"
-              aria-label="Call Qualy"
-            >
-              <Phone className="h-3.5 w-3.5 text-slate-500" />
-              <span className="sr-only">Telefonla ara</span>
-            </a>
-          </div>
+          <img
+            data-payment-band="iyzico"
+            src={iyzicoFooterBandPath}
+            alt={
+              language === 'en'
+                ? 'Secure payments via iyzico, Visa, Mastercard, American Express, and Troy'
+                : 'iyzico, Visa, Mastercard, American Express ve Troy ile guvenli odeme'
+            }
+            className="h-7 w-auto"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
 
-          <div className="mt-5 ml-2">
-            <img
-              data-payment-band="iyzico"
-              src={iyzicoFooterBandPath}
-              alt={
-                language === 'en'
-                  ? 'Secure payments via iyzico, Visa, Mastercard, American Express, and Troy'
-                  : 'iyzico, Visa, Mastercard, American Express ve Troy ile guvenli odeme'
-              }
-              className="h-7 w-auto"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          
-          {/* Language Switcher */}
-          <div className="mt-6 ml-2 inline-flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-200">
-            <Globe className="w-3 h-3 text-slate-400" />
-            <div className="flex gap-2 font-semibold text-xs">
-              <a
-                href={homePathByLanguage('en')}
-                onClick={(event) => handleLanguageLinkClick(event, 'en')}
-                aria-current={language === 'en' ? 'page' : undefined}
-                className={`transition-colors ${language === 'en' ? 'text-black' : 'text-slate-600 hover:text-slate-900'}`}
-              >
-                EN
-              </a>
-              <span className="text-slate-300">|</span>
-              <a
-                href={homePathByLanguage('tr')}
-                onClick={(event) => handleLanguageLinkClick(event, 'tr')}
-                aria-current={language === 'tr' ? 'page' : undefined}
-                className={`transition-colors ${language === 'tr' ? 'text-black' : 'text-slate-600 hover:text-slate-900'}`}
-              >
-                TR
-              </a>
+        <div className="mt-4 ml-2">
+          © {new Date().getFullYear()} Qualy. {t.footer.rights}
+        </div>
+
+        {/* Bottom Row: Links + Utilities */}
+        <div className="mt-10 flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
+          {/* Left Side: Grid of Links */}
+          <div className="grid grid-cols-1 items-start gap-10 sm:flex-1 sm:grid-cols-3 sm:gap-x-12">
+            {/* Column 1: Product */}
+            <div className="flex w-full flex-col items-start space-y-4">
+              <p className="font-bold text-slate-900 transition-colors">{t.footer.product}</p>
+              <ul className="list-none space-y-4 text-slate-600 transition-colors">
+                <li className="list-none">
+                  <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('features', homePath)} onClick={(e) => scrollToHomeSection(e, 'features')}>
+                    {t.footer.features}
+                  </a>
+                </li>
+                <li className="list-none">
+                  <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('faq', homePath)} onClick={(e) => scrollToHomeSection(e, 'faq')}>
+                    {t.navbar.faq}
+                  </a>
+                </li>
+                <li className="list-none">
+                  <a className="hover:text-slate-900 transition-colors" href={pricingPath}>
+                    {t.navbar.pricing}
+                  </a>
+                </li>
+                <li className="list-none">
+                  <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('testimonials', homePath)} onClick={(e) => scrollToHomeSection(e, 'leadScoring')}>
+                    {t.footer.leadScoring}
+                  </a>
+                </li>
+                <li className="list-none">
+                  <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('how-it-works', homePath)} onClick={(e) => scrollToHomeSection(e, 'updates')}>
+                    {t.footer.updates}
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Column 2: Legal */}
+            <div className="flex w-full flex-col items-start space-y-4">
+              <p className="font-bold text-slate-900 transition-colors">{t.footer.legal}</p>
+              <ul className="list-none space-y-4 text-slate-600 transition-colors">
+                 <li className="list-none"><a className="hover:text-slate-900 transition-colors" href={legalPath}>{t.footer.legalCenter}</a></li>
+                 <li className="list-none"><a className="hover:text-slate-900 transition-colors" href={privacyPath}>{t.footer.privacy}</a></li>
+                 <li className="list-none"><a className="hover:text-slate-900 transition-colors" href={termsPath}>{t.footer.terms}</a></li>
+                 <li className="list-none"><a className="hover:text-slate-900 transition-colors" href={cancellationRefundPath}>{t.footer.cancellationRefund}</a></li>
+                 <li className="list-none"><a className="hover:text-slate-900 transition-colors" href={distanceSalesAgreementPath}>{t.footer.distanceSalesAgreement}</a></li>
+              </ul>
+            </div>
+
+            {/* Column 3: Contact */}
+            <div className="flex w-full flex-col items-start space-y-4">
+              <p className="font-bold text-slate-900 transition-colors">{t.footer.contact}</p>
+              <ul className="list-none space-y-4 text-slate-600 transition-colors">
+                <li className="list-none">
+                  <a className="hover:text-slate-900 transition-colors" href={aboutPath}>{t.footer.about}</a>
+                </li>
+                <li className="list-none">
+                  <a
+                    href="mailto:askqualy@gmail.com"
+                    className="flex items-center gap-2 transition-colors hover:text-slate-900"
+                  >
+                    <Mail className="h-4 w-4 text-slate-500" />
+                    <span>askqualy@gmail.com</span>
+                  </a>
+                </li>
+                <li className="list-none">
+                  <a
+                    href="tel:+905074699692"
+                    className="flex items-center gap-2 transition-colors hover:text-slate-900"
+                  >
+                    <Phone className="h-4 w-4 text-slate-500" />
+                    <span>+90 507 469 9692</span>
+                  </a>
+                </li>
+              </ul>
             </div>
           </div>
 
-          {renderLlmResources({
-            summaryId: 'llm-resources-desktop-summary',
-            contentId: 'llm-resources-desktop-content',
-            className: 'group mt-6 ml-2 hidden md:block',
-          })}
-        </div>
+          {/* Footer Utilities */}
+          <div className="flex flex-col items-start gap-6 sm:ml-8 sm:items-end">
+            {/* Language Switcher */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5">
+              <Globe className="h-3 w-3 text-slate-400" />
+              <div className="flex gap-2 text-xs font-semibold">
+                <a
+                  href={homePathByLanguage('en')}
+                  onClick={(event) => handleLanguageLinkClick(event, 'en')}
+                  aria-current={language === 'en' ? 'page' : undefined}
+                  className={`transition-colors ${language === 'en' ? 'text-black' : 'text-slate-600 hover:text-slate-900'}`}
+                >
+                  EN
+                </a>
+                <span className="text-slate-300">|</span>
+                <a
+                  href={homePathByLanguage('tr')}
+                  onClick={(event) => handleLanguageLinkClick(event, 'tr')}
+                  aria-current={language === 'tr' ? 'page' : undefined}
+                  className={`transition-colors ${language === 'tr' ? 'text-black' : 'text-slate-600 hover:text-slate-900'}`}
+                >
+                  TR
+                </a>
+              </div>
+            </div>
 
-        {/* Right Side: Grid of Links */}
-        <div className="mt-10 grid grid-cols-1 items-start gap-10 sm:mt-0 sm:grid-cols-2 md:mt-0">
-          
-          {/* Column 1: Product */}
-          <div className="flex w-full flex-col justify-center space-y-4">
-            <p className="font-bold text-slate-900 transition-colors">{t.footer.product}</p>
-            <ul className="list-none space-y-4 text-slate-600 transition-colors">
-              <li className="list-none">
-                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('features', homePath)} onClick={(e) => scrollToHomeSection(e, 'features')}>
-                  {t.footer.features}
-                </a>
-              </li>
-              <li className="list-none">
-                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('faq', homePath)} onClick={(e) => scrollToHomeSection(e, 'faq')}>
-                  {t.navbar.faq}
-                </a>
-              </li>
-              <li className="list-none">
-                <a className="hover:text-slate-900 transition-colors" href={pricingPath}>
-                  {t.navbar.pricing}
-                </a>
-              </li>
-              <li className="list-none">
-                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('testimonials', homePath)} onClick={(e) => scrollToHomeSection(e, 'leadScoring')}>
-                  {t.footer.leadScoring}
-                </a>
-              </li>
-              <li className="list-none">
-                <a className="hover:text-slate-900 transition-colors" href={buildHomeSectionHref('how-it-works', homePath)} onClick={(e) => scrollToHomeSection(e, 'updates')}>
-                  {t.footer.updates}
-                </a>
-              </li>
-            </ul>
+            {renderLlmResources({
+              summaryId: 'llm-resources-desktop-summary',
+              contentId: 'llm-resources-desktop-content',
+              className: 'group w-full sm:w-auto',
+            })}
           </div>
-
-          {/* Column 2: Legal */}
-          <div className="flex flex-col justify-center space-y-4">
-            <p className="font-bold text-slate-900 transition-colors">{t.footer.legal}</p>
-            <ul className="list-none space-y-4 text-slate-600 transition-colors">
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href={aboutPath}>{t.footer.about}</a></li>
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href={legalPath}>{t.footer.legalCenter}</a></li>
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href={privacyPath}>{t.footer.privacy}</a></li>
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href={termsPath}>{t.footer.terms}</a></li>
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href={cancellationRefundPath}>{t.footer.cancellationRefund}</a></li>
-               <li className="list-none"><a className="hover:text-slate-900 transition-colors" href={distanceSalesAgreementPath}>{t.footer.distanceSalesAgreement}</a></li>
-            </ul>
-          </div>
-
-          {renderLlmResources({
-            summaryId: 'llm-resources-mobile-summary',
-            contentId: 'llm-resources-mobile-content',
-            className: 'group md:hidden sm:col-span-2',
-          })}
-
         </div>
       </div>
       
