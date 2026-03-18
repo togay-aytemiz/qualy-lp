@@ -209,6 +209,7 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
     language === 'en'
       ? 'There are no posts in this category yet.'
       : 'Bu kategoride henüz yazı yok.';
+  const featuredHref = featuredPost ? buildBlogHref(featuredPost.slug, featuredPost.locale ?? language) : null;
 
   return (
     <section className="bg-[#f6f7f8]">
@@ -219,59 +220,65 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
           </div>
         ) : (
           <div className="space-y-8">
-            <article className="relative overflow-hidden rounded-[1.35rem] bg-slate-900 shadow-[0_18px_70px_rgba(15,23,42,0.14)]">
-              <div className="absolute inset-0">
-                {featuredPost.coverImage ? (
-                  <img
-                    src={featuredPost.coverImage}
-                    alt={featuredPost.title}
-                    className="h-full w-full object-cover opacity-65"
-                    loading="lazy"
-                  />
-                ) : (
-                  buildFallbackArtwork(featuredPost)
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/70 to-slate-700/25" />
-              </div>
-
-              <div className="relative z-10 flex min-h-[320px] flex-col justify-end gap-5 p-6 sm:min-h-[420px] sm:p-10 lg:min-h-[520px] lg:p-12">
-                <div className="max-w-4xl">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="inline-flex rounded-full border border-white/70 bg-white/92 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.22em] text-slate-950 shadow-[0_14px_30px_rgba(15,23,42,0.14)] backdrop-blur">
-                      {featuredLabel}
-                    </span>
-                    <span className="inline-flex rounded-full border border-white/20 bg-slate-950/20 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white/90 backdrop-blur">
-                      {titleCase(getCategory(featuredPost, language).label)}
-                    </span>
-                  </div>
-                  <h1 className="mt-5 max-w-3xl text-4xl font-black leading-[1.02] tracking-tight text-white sm:text-5xl lg:text-6xl">
-                    {featuredPost.title}
-                  </h1>
-                  <p className="mt-5 max-w-3xl text-base leading-8 text-slate-100/95 sm:text-lg">
-                    {featuredPost.excerpt}
-                  </p>
+            <a
+              href={featuredHref ?? undefined}
+              aria-label={`${readArticleLabel}: ${featuredPost.title}`}
+              className="group block rounded-[1.35rem] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#1173d4]/20 focus-visible:ring-offset-4 focus-visible:ring-offset-[#f6f7f8]"
+            >
+              <article className="relative overflow-hidden rounded-[1.35rem] bg-slate-900 shadow-[0_18px_70px_rgba(15,23,42,0.14)] transition-transform duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_28px_90px_rgba(15,23,42,0.18)]">
+                <div className="absolute inset-0">
+                  {featuredPost.coverImage ? (
+                    <img
+                      src={featuredPost.coverImage}
+                      alt={featuredPost.title}
+                      className="h-full w-full object-cover opacity-50 transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  ) : (
+                    buildFallbackArtwork(featuredPost)
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/82 to-slate-950/44" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/28 to-transparent" />
                 </div>
 
-                <div className="flex flex-col gap-5 pt-2 sm:flex-row sm:items-end sm:justify-between">
-                  <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-200/90">
-                    {featuredPost.publishedAt ? (
-                      <span>{formatBlogDate(featuredPost.publishedAt, language)}</span>
-                    ) : null}
-                    {featuredPost.publishedAt ? (
-                      <span className="h-1 w-1 rounded-full bg-white/40" />
-                    ) : null}
-                    <span>{getReadTimeLabel(featuredPost, language)}</span>
-                  </div>
+                <div className="relative z-10 flex min-h-[320px] items-end p-6 sm:min-h-[420px] sm:p-10 lg:min-h-[520px] lg:p-12">
+                  <div className="flex w-full flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+                    <div className="max-w-4xl rounded-[1.75rem] bg-slate-950/55 p-6 shadow-[0_30px_90px_rgba(15,23,42,0.3)] ring-1 ring-white/10 backdrop-blur-[2px] sm:p-8">
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="inline-flex rounded-full border border-white/70 bg-white/92 px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.22em] text-slate-950 shadow-[0_14px_30px_rgba(15,23,42,0.14)] backdrop-blur">
+                          {featuredLabel}
+                        </span>
+                        <span className="inline-flex rounded-full border border-white/20 bg-slate-950/20 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.22em] text-white/90 backdrop-blur">
+                          {titleCase(getCategory(featuredPost, language).label)}
+                        </span>
+                      </div>
+                      <h1 className="mt-5 max-w-3xl text-4xl font-black leading-[1.02] tracking-tight text-white sm:text-5xl lg:text-6xl">
+                        {featuredPost.title}
+                      </h1>
+                      <p className="mt-5 max-w-3xl text-base leading-8 text-slate-50 sm:text-lg">
+                        {featuredPost.excerpt}
+                      </p>
 
-                  <a
-                    href={buildBlogHref(featuredPost.slug, featuredPost.locale ?? language)}
-                    className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-bold text-slate-900 transition-all hover:bg-slate-100"
-                  >
-                    {readArticleLabel}
-                  </a>
+                      <div className="mt-6 flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-200/90">
+                        {featuredPost.publishedAt ? (
+                          <span>{formatBlogDate(featuredPost.publishedAt, language)}</span>
+                        ) : null}
+                        {featuredPost.publishedAt ? (
+                          <span className="h-1 w-1 rounded-full bg-white/40" />
+                        ) : null}
+                        <span>{getReadTimeLabel(featuredPost, language)}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-start lg:justify-end">
+                      <span className="inline-flex h-12 items-center justify-center rounded-xl bg-white px-6 text-sm font-bold text-slate-900 transition-all duration-300 group-hover:bg-slate-100 group-hover:translate-x-1">
+                        {readArticleLabel}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </article>
+              </article>
+            </a>
 
             <div className="-mx-1 overflow-x-auto px-1 pb-4">
               <div className="flex items-center gap-3">

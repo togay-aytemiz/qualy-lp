@@ -12,7 +12,7 @@ import BlogIndexPage from '../pages/BlogIndexPage';
 import BlogPostPage from '../pages/BlogPostPage';
 
 describe('blog layout render', () => {
-  it('renders the featured blog card with a more relaxed title leading and a high-contrast badge', () => {
+  it('renders the featured blog card as a fully clickable surface with a filled contrast panel', () => {
     mockedLanguage.value = 'tr';
 
     const html = renderToStaticMarkup(
@@ -34,10 +34,14 @@ describe('blog layout render', () => {
       />
     );
 
+    expect(html).toMatch(/<a href="\/blog\/qualy-blog-yayin-optimizasyonu"[^>]*class="group block/);
+    expect(html).toContain('bg-slate-950/55');
+    expect(html).toContain('ring-1 ring-white/10');
     expect(html).toContain('leading-[1.02]');
     expect(html).toContain('bg-white/92');
     expect(html).toContain('text-slate-950');
     expect(html).not.toContain('bg-sky-500/15');
+    expect(html).not.toMatch(/<a href="\/blog\/qualy-blog-yayin-optimizasyonu"[^>]*inline-flex h-12 items-center justify-center rounded-xl bg-white/);
   });
 
   it('renders the blog detail page as a single-column article layout without boxed chrome or a sticky sidebar', () => {
