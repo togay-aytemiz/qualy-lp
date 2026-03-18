@@ -3,10 +3,10 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 describe('blog build helpers', () => {
-  it('defines the Strapi blog build contract in lib/blog-build.ts', () => {
+  it('defines the Sanity blog build contract in lib/blog-build.ts', () => {
     const source = readFileSync(path.join(process.cwd(), 'lib', 'blog-build.ts'), 'utf8');
 
-    expect(source).toContain('normalizeStrapiBlogResponse');
+    expect(source).toContain('normalizeSanityBlogResponse');
     expect(source).toContain('groupLocalizedPosts');
     expect(source).toContain('buildBlogManifest');
     expect(source).toContain('getBlogPostSeo');

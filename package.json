@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "vite",
     "predev": "npm run blog:generate",
+    "sanity:dev": "npm --prefix sanity-studio run dev",
+    "sanity:build": "npm --prefix sanity-studio run build",
+    "sanity:seed": "node scripts/seed-sanity-blog.mjs",
     "legal:generate": "node scripts/generate-legal-assets.mjs",
     "blog:generate": "node scripts/generate-blog-assets.mjs",
     "seo:generate:sitemap": "node scripts/generate-sitemap.mjs",

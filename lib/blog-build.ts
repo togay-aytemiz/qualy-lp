@@ -9,38 +9,24 @@ import {
   type BlogSeo,
 } from './blog';
 
-type StrapiBlogPost = {
-  id?: number | string;
-  attributes?: {
-    title?: string;
-    slug?: string;
-    excerpt?: string;
-    content?: string;
-    seoTitle?: string;
-    seoDescription?: string;
-    publishedAt?: string;
-    locale?: BlogLocale;
-    coverImage?: {
-      data?: {
-        attributes?: {
-          url?: string;
-        };
-      } | null;
-    } | null;
-    localizations?: {
-      data?: Array<{
-        id?: number | string;
-        attributes?: {
-          slug?: string;
-          locale?: BlogLocale;
-        };
-      }>;
-    } | null;
-  };
+type SanityBlogPost = {
+  _id?: string;
+  title?: string;
+  slug?: {
+    current?: string;
+  } | string;
+  excerpt?: string;
+  bodyMarkdown?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  publishedAt?: string;
+  language?: BlogLocale;
+  locale?: BlogLocale;
+  coverImageUrl?: string;
 };
 
-type StrapiResponse = {
-  data?: StrapiBlogPost[];
+type SanityQueryResponse = {
+  result?: SanityBlogPost[];
 };
 
 const DEFAULT_SITE_NAME = 'Qualy';
@@ -50,16 +36,15 @@ const normalizeText = (value: unknown) => String(value ?? '').trim();
 
 const toLocale = (value: unknown): BlogLocale => (value === 'tr' ? 'tr' : 'en');
 
-const toBlogSummary = (post: StrapiBlogPost): BlogPostSummary => {
-  const attributes = post.attributes ?? {};
-  const slug = normalizeText(attributes.slug || '');
-  const title = normalizeText(attributes.title || '');
-  const excerpt = normalizeText(attributes.excerpt || '');
-  const publishedAt = normalizeText(attributes.publishedAt || '');
-  const locale = toLocale(attributes.locale);
+const toBlogSummary = (post: SanityBlogPost): BlogPostSummary => {
+  const slug = normalizeText(typeof post.slug === 'string' ? post.slug : post.slug?.current || '');
+  const title = normalizeText(post.title || '');
+  const excerpt = normalizeText(post.excerpt || '');
+  const publishedAt = normalizeText(post.publishedAt || '');
+  const locale = toLocale(post.language || post.locale);
 
   if (!slug || !title || !publishedAt) {
-    throw new Error('Invalid Strapi blog post payload.');
+    throw new Error('Invalid Sanity blog post payload.');
   }
 
   return {
@@ -71,19 +56,18 @@ const toBlogSummary = (post: StrapiBlogPost): BlogPostSummary => {
   };
 };
 
-export const normalizeStrapiBlogResponse = (input: StrapiResponse): BlogPostRecord[] => {
-  const posts = Array.isArray(input.data) ? input.data : [];
+export const normalizeSanityBlogResponse = (input: SanityQueryResponse): BlogPostRecord[] => {
+  const posts = Array.isArray(input.result) ? input.result : [];
 
   return posts.map((post) => {
-    const attributes = post.attributes ?? {};
     const summary = toBlogSummary(post);
 
     return {
       ...summary,
-      content: normalizeText(attributes.content || ''),
-      seoTitle: normalizeText(attributes.seoTitle || '') || undefined,
-      seoDescription: normalizeText(attributes.seoDescription || '') || undefined,
-      coverImage: attributes.coverImage?.data?.attributes?.url || null,
+      content: normalizeText(post.bodyMarkdown || ''),
+      seoTitle: normalizeText(post.seoTitle || '') || undefined,
+      seoDescription: normalizeText(post.seoDescription || '') || undefined,
+      coverImage: normalizeText(post.coverImageUrl || '') || null,
       canonicalPath: getBlogPostPath(summary.slug, summary.locale),
     };
   });

@@ -3,22 +3,23 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 describe('blog generator config', () => {
-  it('supports collection-based and endpoint-based Strapi configuration with fallback routes', () => {
+  it('supports Sanity configuration, translation grouping, and cache fallback', () => {
     const source = readFileSync(path.join(process.cwd(), 'scripts', 'generate-blog-assets.mjs'), 'utf8');
 
-    expect(source).toContain('STRAPI_BLOG_COLLECTION');
-    expect(source).toContain('STRAPI_BLOG_ENDPOINT');
-    expect(source).toContain('/api/blog-posts');
-    expect(source).toContain('/api/blogs');
-    expect(source).toContain('/api/articles');
+    expect(source).toContain('SANITY_PROJECT_ID');
+    expect(source).toContain('SANITY_DATASET');
+    expect(source).toContain('SANITY_API_VERSION');
+    expect(source).toContain('SANITY_API_TOKEN');
+    expect(source).toContain('SANITY_API_KEY');
+    expect(source).toContain('translationKey');
+    expect(source).toContain('bodyMarkdown');
+    expect(source).toContain('.env.local');
+    expect(source).toContain('loadEnvironmentFiles');
+    expect(source).toContain('/data/query/');
+    expect(source).toContain("source: enabled ? 'sanity' : 'empty'");
     expect(source).toContain('Falling back to empty blog artifacts');
     expect(source).toContain('localizations');
-    expect(source).toContain('source.cover');
-    expect(source).toContain('source.blocks');
-    expect(source).toContain('source.category');
-    expect(source).toContain("searchParams.set('locale', 'all')");
     expect(source).toContain('marked.parse');
-    expect(source).toContain("searchParams.set('populate', '*')");
     expect(source).toContain('async function fetchWithRetries');
     expect(source).toContain('cleanGeneratedBlogArtifacts');
     expect(source).toContain("fs.rm(POSTS_DIR");
@@ -30,6 +31,7 @@ describe('blog generator config', () => {
     expect(source).toContain('enabledSettingRaw');
     expect(source).toContain('hasExplicitEnableFlag');
     expect(source).toContain('shouldRestoreFromCache');
-    expect(source).toContain('Restored blog artifacts from cache because Strapi env is disabled or missing.');
+    expect(source).toContain('Restored blog artifacts from cache because Sanity env is disabled or missing.');
+    expect(source).toContain('Sanity blog fetch failed');
   });
 });

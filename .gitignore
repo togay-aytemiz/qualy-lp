@@ -26,3 +26,6 @@ public/blog_manifest.json
 public/blog-posts/
 blog/*/
 en/blog/*/
+
+# Local Netlify folder
+.netlify
