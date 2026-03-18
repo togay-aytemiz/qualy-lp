@@ -282,7 +282,7 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
                     onClick={() => setActiveCategory(filter.slug)}
                     className={
                       activeCategory === filter.slug
-                        ? 'flex h-10 shrink-0 items-center justify-center rounded-full bg-[#1173d4] px-6 text-sm font-bold text-white shadow-[0_10px_24px_rgba(17,115,212,0.22)]'
+                        ? 'flex h-10 shrink-0 items-center justify-center rounded-full border border-[#1173d4] bg-[#1173d4] px-6 text-sm font-bold text-white'
                         : 'flex h-10 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white px-6 text-sm font-semibold text-slate-600 transition-colors hover:border-slate-300 hover:text-slate-900'
                     }
                   >

@@ -12,10 +12,11 @@ describe('blog generator config', () => {
     expect(source).toContain('/api/blogs');
     expect(source).toContain('/api/articles');
     expect(source).toContain('Falling back to empty blog artifacts');
-    expect(source).toContain('sharedAcrossLocales');
+    expect(source).toContain('localizations');
     expect(source).toContain('source.cover');
     expect(source).toContain('source.blocks');
     expect(source).toContain('source.category');
+    expect(source).toContain("searchParams.set('locale', 'all')");
     expect(source).toContain('marked.parse');
     expect(source).toContain("searchParams.set('populate', '*')");
     expect(source).toContain('async function fetchWithRetries');
@@ -26,5 +27,9 @@ describe('blog generator config', () => {
     expect(source).toContain('BLOG_CACHE_DIR');
     expect(source).toContain('loadCachedPosts');
     expect(source).toContain('writeCacheArtifacts');
+    expect(source).toContain('enabledSettingRaw');
+    expect(source).toContain('hasExplicitEnableFlag');
+    expect(source).toContain('shouldRestoreFromCache');
+    expect(source).toContain('Restored blog artifacts from cache because Strapi env is disabled or missing.');
   });
 });

@@ -18,6 +18,7 @@ describe('blog index page content', () => {
     expect(source).toContain('overflow-x-auto px-1 pb-4');
     expect(source).toContain('empty state');
     expect(source).not.toContain('Subscribe to our Newsletter');
+    expect(source).not.toContain('shadow-[0_10px_24px_rgba(17,115,212,0.22)]');
     expect(source).not.toContain('Qualy Team');
     expect(source).not.toContain('Qualy Ekibi');
     expect(source).not.toContain('Shared article');

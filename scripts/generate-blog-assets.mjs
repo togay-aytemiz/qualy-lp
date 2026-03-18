@@ -251,23 +251,12 @@ function renderBlocksToHtml(blocks) {
     .join('\n');
 }
 
-function buildSharedLocalizations(baseId, slug, locale) {
-  return BLOG_LOCALES.filter((entry) => entry !== locale).map((entry) => ({
-    id: `${baseId}:${entry}`,
-    locale: entry,
-    slug,
-    path: getBlogPostPath(entry, slug),
-    canonicalUrl: resolveAbsoluteUrl(SITE_URL, getBlogPostPath(entry, slug)),
-    sharedAcrossLocales: true,
-  }));
-}
-
 function buildPostVariant({ basePost, baseId, locale, localizations, sharedAcrossLocales }) {
   const path = getBlogPostPath(locale, basePost.slug);
 
   return {
     ...basePost,
-    id: sharedAcrossLocales ? `${baseId}:${locale}` : baseId,
+    id: baseId,
     locale,
     path,
     canonicalUrl: resolveAbsoluteUrl(SITE_URL, path),
@@ -302,7 +291,7 @@ function normalizePost(item) {
   const locale = normalizeBlogLocale(source.locale);
   const publishedAt = String(source.publishedAt ?? source.published_at ?? '').trim();
 
-  if (!slug || !title || !publishedAt) {
+  if (!slug || !title || !publishedAt || !isSupportedBlogLocale(locale)) {
     return [];
   }
 
@@ -316,7 +305,6 @@ function normalizePost(item) {
     null;
   const coverImageUrl = String(coverImageSource?.url ?? '').trim();
   const coverImageAlt = String(coverImageSource?.alternativeText ?? coverImageSource?.alt ?? '').trim();
-  const sharedAcrossLocales = !isSupportedBlogLocale(locale);
 
   const localizations = Array.isArray(source.localizations?.data)
     ? source.localizations.data.map(normalizeLocalization).filter(Boolean)
@@ -343,18 +331,6 @@ function normalizePost(item) {
       : null,
     category,
   };
-
-  if (sharedAcrossLocales) {
-    return BLOG_LOCALES.map((entry) =>
-      buildPostVariant({
-        basePost,
-        baseId,
-        locale: entry,
-        localizations: buildSharedLocalizations(baseId, slug, entry),
-        sharedAcrossLocales: true,
-      }),
-    );
-  }
 
   return [
     buildPostVariant({
@@ -586,6 +562,14 @@ async function loadCachedPosts() {
   }
 }
 
+async function writeArtifactsFromPosts(posts) {
+  await cleanGeneratedBlogArtifacts();
+  await writeJson(MANIFEST_PATH, buildBlogManifest({ enabled: true, posts }));
+  await writeText(path.join(ROOT, 'blog', 'index.html'), buildIndexHtml('tr'));
+  await writeText(path.join(ROOT, 'en', 'blog', 'index.html'), buildIndexHtml('en'));
+  await writePostArtifacts(posts);
+}
+
 async function writePostArtifacts(posts) {
   const groups = groupLocalizedPosts(posts);
   const groupById = new Map();
@@ -665,6 +649,7 @@ async function fetchPostsFromStrapi() {
 
   for (const endpoint of candidateEndpoints) {
     const url = new URL(endpoint, `${baseUrl}/`);
+    url.searchParams.set('locale', 'all');
     url.searchParams.set('publicationState', 'live');
     url.searchParams.set('sort[0]', 'publishedAt:desc');
     url.searchParams.set('populate', '*');
@@ -711,10 +696,23 @@ const isRecoverableBlogFetchError = (error) => {
 };
 
 async function main() {
-  const enabled = truthy(process.env.STRAPI_BLOG_ENABLED);
+  const enabledSettingRaw = String(process.env.STRAPI_BLOG_ENABLED ?? '').trim();
+  const enabled = truthy(enabledSettingRaw);
+  const hasExplicitEnableFlag = enabledSettingRaw.length > 0;
   const hasBaseUrl = Boolean(String(process.env.STRAPI_BASE_URL || '').trim());
 
   if (!enabled || !hasBaseUrl) {
+    const shouldRestoreFromCache = !hasBaseUrl && (!hasExplicitEnableFlag || enabled);
+    if (shouldRestoreFromCache) {
+      const cachedPosts = await loadCachedPosts();
+      if (cachedPosts.length > 0) {
+        await writeArtifactsFromPosts(cachedPosts);
+        console.log('Restored blog artifacts from cache because Strapi env is disabled or missing.');
+        console.log(`Generated cached blog artifacts for ${cachedPosts.length} posts at ${MANIFEST_PATH}.`);
+        return;
+      }
+    }
+
     if (enabled && !hasBaseUrl) {
       console.log('STRAPI_BLOG_ENABLED is set but STRAPI_BASE_URL is missing. Writing empty blog artifacts.');
     }
@@ -733,11 +731,7 @@ async function main() {
 
     const cachedPosts = await loadCachedPosts();
     if (cachedPosts.length > 0) {
-      await cleanGeneratedBlogArtifacts();
-      await writeJson(MANIFEST_PATH, buildBlogManifest({ enabled: true, posts: cachedPosts }));
-      await writeText(path.join(ROOT, 'blog', 'index.html'), buildIndexHtml('tr'));
-      await writeText(path.join(ROOT, 'en', 'blog', 'index.html'), buildIndexHtml('en'));
-      await writePostArtifacts(cachedPosts);
+      await writeArtifactsFromPosts(cachedPosts);
       console.warn(`Strapi fetch failed; restored blog artifacts from cache: ${error.message}`);
       console.log(`Generated cached blog artifacts for ${cachedPosts.length} posts at ${MANIFEST_PATH}.`);
       return;
@@ -749,11 +743,7 @@ async function main() {
     return;
   }
 
-  await cleanGeneratedBlogArtifacts();
-  await writeJson(MANIFEST_PATH, buildBlogManifest({ enabled: true, posts }));
-  await writeText(path.join(ROOT, 'blog', 'index.html'), buildIndexHtml('tr'));
-  await writeText(path.join(ROOT, 'en', 'blog', 'index.html'), buildIndexHtml('en'));
-  await writePostArtifacts(posts);
+  await writeArtifactsFromPosts(posts);
   await writeCacheArtifacts(posts);
 
   console.log(`Generated blog artifacts for ${posts.length} posts at ${MANIFEST_PATH}.`);
