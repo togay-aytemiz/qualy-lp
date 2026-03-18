@@ -8,6 +8,8 @@ describe('blog index page content', () => {
 
     expect(source).toContain('initialPosts');
     expect(source).toContain("/blog_manifest.json");
+    expect(source).toContain('featuredPost');
+    expect(source).toContain('remainingPosts');
     expect(source).toContain('empty state');
     expect(source).toContain('BlogIndexPage');
   });

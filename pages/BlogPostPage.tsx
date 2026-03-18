@@ -10,11 +10,35 @@ type BlogPostRecord = {
   publishedAt?: string;
   locale?: 'en' | 'tr';
   coverImage?: string;
+  sharedAcrossLocales?: boolean;
 };
 
 type Props = {
   slug: string;
   initialPost?: BlogPostRecord | null;
+};
+
+const formatBlogDate = (publishedAt: string | undefined, language: 'en' | 'tr') => {
+  if (!publishedAt) return '';
+
+  const parsedDate = new Date(publishedAt);
+  if (Number.isNaN(parsedDate.getTime())) {
+    return publishedAt;
+  }
+
+  return new Intl.DateTimeFormat(language === 'en' ? 'en-US' : 'tr-TR', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(parsedDate);
+};
+
+const getLocaleLabel = (post: BlogPostRecord, language: 'en' | 'tr') => {
+  if (post.sharedAcrossLocales) {
+    return language === 'en' ? 'Shared article' : 'Ortak yayin';
+  }
+
+  return post.locale === 'en' ? 'English' : 'Turkce';
 };
 
 const BlogPostPage: React.FC<Props> = ({ slug, initialPost }) => {
@@ -27,18 +51,25 @@ const BlogPostPage: React.FC<Props> = ({ slug, initialPost }) => {
     let isMounted = true;
 
     const loadPost = async () => {
+      const localeCandidates = language === 'en' ? ['en', 'tr'] : ['tr', 'en'];
+
       try {
-        const response = await fetch(`/blog-posts/${language}/${slug}.json`);
-        if (!response.ok) {
-          if (isMounted) setPost(null);
+        for (const locale of localeCandidates) {
+          const response = await fetch(`/blog-posts/${locale}/${slug}.json`);
+          if (!response.ok) {
+            continue;
+          }
+
+          const data = (await response.json()) as BlogPostRecord;
+          if (isMounted) setPost(data);
           return;
         }
-
-        const data = (await response.json()) as BlogPostRecord;
-        if (isMounted) setPost(data);
       } catch {
         if (isMounted) setPost(null);
+        return;
       }
+
+      if (isMounted) setPost(null);
     };
 
     void loadPost();
@@ -67,23 +98,35 @@ const BlogPostPage: React.FC<Props> = ({ slug, initialPost }) => {
         </a>
 
         {post ? (
-          <article className="mt-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-500">
-              {post.locale === 'en' ? 'English' : 'Turkish'}
-            </p>
-            <h1 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{post.title}</h1>
-            {post.excerpt ? <p className="mt-4 text-base leading-7 text-slate-600">{post.excerpt}</p> : null}
-            {post.coverImage ? (
-              <img
-                src={post.coverImage}
-                alt={post.title}
-                className="mt-8 w-full rounded-3xl border border-slate-200 object-cover"
+          <article className="mt-8 overflow-hidden rounded-[2rem] border border-slate-300 bg-[radial-gradient(120%_190%_at_0%_0%,#FFFFFF_0%,#F8FAFC_52%,#E2E8F0_100%)] p-2 shadow-lg">
+            <div className="rounded-[calc(2rem-2px)] bg-white p-6 sm:p-8 lg:p-10">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
+                  {getLocaleLabel(post, language)}
+                </span>
+                {post.publishedAt ? (
+                  <span className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                    {formatBlogDate(post.publishedAt, language)}
+                  </span>
+                ) : null}
+              </div>
+
+              <h1 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">{post.title}</h1>
+              {post.excerpt ? <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600">{post.excerpt}</p> : null}
+              {post.coverImage ? (
+                <div className="mt-8 overflow-hidden rounded-3xl border border-slate-200 bg-slate-100">
+                  <img
+                    src={post.coverImage}
+                    alt={post.title}
+                    className="w-full object-cover"
+                  />
+                </div>
+              ) : null}
+              <div
+                className="prose prose-slate mt-10 max-w-none"
+                dangerouslySetInnerHTML={{ __html: post.contentHtml ?? post.content ?? '' }}
               />
-            ) : null}
-            <div
-              className="prose prose-slate mt-8 max-w-none"
-              dangerouslySetInnerHTML={{ __html: post.contentHtml ?? post.content ?? '' }}
-            />
+            </div>
           </article>
         ) : (
           <div className="mt-8 rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-8 text-slate-600">

@@ -12,5 +12,13 @@ describe('blog generator config', () => {
     expect(source).toContain('/api/blogs');
     expect(source).toContain('/api/articles');
     expect(source).toContain('Falling back to empty blog artifacts');
+    expect(source).toContain('sharedAcrossLocales');
+    expect(source).toContain('source.cover');
+    expect(source).toContain('source.blocks');
+    expect(source).toContain('marked.parse');
+    expect(source).toContain("searchParams.set('populate', '*')");
+    expect(source).toContain('async function fetchWithRetries');
+    expect(source).toContain('cleanGeneratedBlogArtifacts');
+    expect(source).toContain("fs.rm(POSTS_DIR");
   });
 });

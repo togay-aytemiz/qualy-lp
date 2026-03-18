@@ -8,6 +8,7 @@ describe('blog post page content', () => {
 
     expect(source).toContain('initialPost');
     expect(source).toContain('/blog-posts/');
+    expect(source).toContain('sharedAcrossLocales');
     expect(source).toContain('back to blog');
     expect(source).toContain('BlogPostPage');
   });

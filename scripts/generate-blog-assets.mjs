@@ -1,5 +1,6 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import { marked } from 'marked';
 
 const ROOT = process.cwd();
 const PUBLIC_DIR = path.join(ROOT, 'public');
@@ -27,6 +28,7 @@ const DEFAULT_STRAPI_BLOG_ENDPOINTS = [
   '/api/blogs',
   '/api/articles',
 ];
+const BLOG_LOCALES = ['tr', 'en'];
 
 const truthy = (value) => /^(1|true|yes|on)$/i.test(String(value ?? '').trim());
 
@@ -73,12 +75,26 @@ async function writeText(filePath, value) {
   await fs.writeFile(filePath, value, 'utf8');
 }
 
+async function cleanGeneratedBlogArtifacts() {
+  await fs.rm(POSTS_DIR, { recursive: true, force: true });
+  await fs.rm(path.join(ROOT, 'blog'), { recursive: true, force: true });
+  await fs.rm(path.join(ROOT, 'en', 'blog'), { recursive: true, force: true });
+}
+
 function getBlogIndexPath(locale) {
   return locale === 'en' ? '/en/blog' : '/blog';
 }
 
 function getBlogPostPath(locale, slug) {
   return `${getBlogIndexPath(locale)}/${slug}`;
+}
+
+function normalizeBlogLocale(value) {
+  return String(value ?? '').trim().toLowerCase();
+}
+
+function isSupportedBlogLocale(locale) {
+  return BLOG_LOCALES.includes(locale);
 }
 
 function getAlternatesFromPaths(siteUrl, trPath, enPath) {
@@ -152,9 +168,9 @@ ${alternateLinks}
 function normalizeLocalization(raw) {
   const source = raw?.attributes ?? raw ?? {};
   const slug = String(source.slug ?? '').trim();
-  const locale = String(source.locale ?? '').trim().toLowerCase();
+  const locale = normalizeBlogLocale(source.locale);
 
-  if (!slug || (locale !== 'tr' && locale !== 'en')) {
+  if (!slug || !isSupportedBlogLocale(locale)) {
     return null;
   }
 
@@ -167,41 +183,132 @@ function normalizeLocalization(raw) {
   };
 }
 
+function renderQuoteBlock(block) {
+  const quoteBody = String(block?.body ?? '').trim();
+  const quoteTitle = String(block?.title ?? '').trim();
+
+  if (!quoteBody) return '';
+
+  return `<figure class="rounded-3xl border border-slate-200 bg-slate-50 px-6 py-5"><blockquote><p>${escapeHtml(quoteBody)}</p></blockquote>${quoteTitle ? `<figcaption class="mt-3 text-sm font-semibold text-slate-500">${escapeHtml(quoteTitle)}</figcaption>` : ''}</figure>`;
+}
+
+function collectMediaUrls(value, bucket) {
+  if (!value) return;
+
+  if (Array.isArray(value)) {
+    for (const item of value) collectMediaUrls(item, bucket);
+    return;
+  }
+
+  if (typeof value === 'object') {
+    const url = String(value.url ?? '').trim();
+    if (url && /\.(avif|gif|jpe?g|png|svg|webp)$/i.test(url)) {
+      bucket.add(url.startsWith('http') ? url : resolveAbsoluteUrl(SITE_URL, url));
+    }
+
+    for (const nestedValue of Object.values(value)) {
+      collectMediaUrls(nestedValue, bucket);
+    }
+  }
+}
+
+function renderBlocksToHtml(blocks) {
+  if (!Array.isArray(blocks) || blocks.length === 0) {
+    return '';
+  }
+
+  return blocks
+    .map((block) => {
+      const component = String(block?.__component ?? '').trim();
+      const blockBody = String(block?.body ?? '').trim();
+
+      if (component === 'shared.rich-text' && blockBody) {
+        return marked.parse(blockBody);
+      }
+
+      if (component === 'shared.quote') {
+        return renderQuoteBlock(block);
+      }
+
+      const mediaUrls = new Set();
+      collectMediaUrls(block, mediaUrls);
+      if (mediaUrls.size > 0) {
+        return Array.from(mediaUrls)
+          .map((mediaUrl) => `<figure class="overflow-hidden rounded-3xl border border-slate-200"><img src="${escapeHtml(mediaUrl)}" alt="" loading="lazy" /></figure>`)
+          .join('\n');
+      }
+
+      if (blockBody) {
+        return `<p>${escapeHtml(blockBody)}</p>`;
+      }
+
+      return '';
+    })
+    .filter(Boolean)
+    .join('\n');
+}
+
+function buildSharedLocalizations(baseId, slug, locale) {
+  return BLOG_LOCALES.filter((entry) => entry !== locale).map((entry) => ({
+    id: `${baseId}:${entry}`,
+    locale: entry,
+    slug,
+    path: getBlogPostPath(entry, slug),
+    canonicalUrl: resolveAbsoluteUrl(SITE_URL, getBlogPostPath(entry, slug)),
+    sharedAcrossLocales: true,
+  }));
+}
+
+function buildPostVariant({ basePost, baseId, locale, localizations, sharedAcrossLocales }) {
+  const path = getBlogPostPath(locale, basePost.slug);
+
+  return {
+    ...basePost,
+    id: sharedAcrossLocales ? `${baseId}:${locale}` : baseId,
+    locale,
+    path,
+    canonicalUrl: resolveAbsoluteUrl(SITE_URL, path),
+    localizations,
+    sharedAcrossLocales,
+  };
+}
+
 function normalizePost(item) {
   const source = item?.attributes ?? item ?? {};
   const slug = String(source.slug ?? '').trim();
   const title = String(source.title ?? '').trim();
-  const locale = String(source.locale ?? '').trim().toLowerCase();
+  const locale = normalizeBlogLocale(source.locale);
   const publishedAt = String(source.publishedAt ?? source.published_at ?? '').trim();
 
-  if (!slug || !title || !publishedAt || (locale !== 'tr' && locale !== 'en')) {
-    return null;
+  if (!slug || !title || !publishedAt) {
+    return [];
   }
 
   const coverImageSource =
+    source.cover?.data?.attributes ??
+    source.cover?.data ??
+    source.cover ??
     source.coverImage?.data?.attributes ??
     source.coverImage?.data ??
     source.coverImage ??
     null;
   const coverImageUrl = String(coverImageSource?.url ?? '').trim();
   const coverImageAlt = String(coverImageSource?.alternativeText ?? coverImageSource?.alt ?? '').trim();
+  const sharedAcrossLocales = !isSupportedBlogLocale(locale);
 
   const localizations = Array.isArray(source.localizations?.data)
     ? source.localizations.data.map(normalizeLocalization).filter(Boolean)
     : Array.isArray(source.localizations)
       ? source.localizations.map(normalizeLocalization).filter(Boolean)
       : [];
-
-  const path = getBlogPostPath(locale, slug);
-  const canonicalUrl = resolveAbsoluteUrl(SITE_URL, path);
-
-  return {
-    id: item?.id ?? source.id ?? slug,
-    locale,
+  const contentHtml = renderBlocksToHtml(source.blocks);
+  const baseId = item?.id ?? source.id ?? slug;
+  const basePost = {
     slug,
     title,
     excerpt: String(source.excerpt ?? source.description ?? '').trim(),
     content: String(source.content ?? source.body ?? '').trim(),
+    contentHtml,
     seoTitle: String(source.seoTitle ?? title).trim(),
     seoDescription: String(source.seoDescription ?? source.excerpt ?? source.description ?? '').trim(),
     publishedAt,
@@ -211,15 +318,34 @@ function normalizePost(item) {
           alt: coverImageAlt,
         }
       : null,
-    path,
-    canonicalUrl,
-    localizations,
   };
+
+  if (sharedAcrossLocales) {
+    return BLOG_LOCALES.map((entry) =>
+      buildPostVariant({
+        basePost,
+        baseId,
+        locale: entry,
+        localizations: buildSharedLocalizations(baseId, slug, entry),
+        sharedAcrossLocales: true,
+      }),
+    );
+  }
+
+  return [
+    buildPostVariant({
+      basePost,
+      baseId,
+      locale,
+      localizations,
+      sharedAcrossLocales: false,
+    }),
+  ];
 }
 
 function normalizeStrapiBlogResponse(payload) {
   const data = Array.isArray(payload?.data) ? payload.data : [];
-  return data.map(normalizePost).filter(Boolean);
+  return data.flatMap(normalizePost).filter(Boolean);
 }
 
 function groupLocalizedPosts(posts) {
@@ -270,12 +396,15 @@ function buildBlogPostManifestEntry(post) {
     seoTitle: post.seoTitle,
     seoDescription: post.seoDescription,
     coverImage: post.coverImage?.url ?? null,
+    contentHtml: post.contentHtml ?? '',
+    sharedAcrossLocales: Boolean(post.sharedAcrossLocales),
     localizations: (post.localizations ?? []).map((localization) => ({
       id: localization.id ?? null,
       locale: localization.locale,
       slug: localization.slug,
       path: localization.path,
       canonicalUrl: localization.canonicalUrl,
+      sharedAcrossLocales: Boolean(localization.sharedAcrossLocales),
     })),
   };
 }
@@ -385,6 +514,7 @@ function buildIndexHtml(locale) {
 }
 
 async function writeEmptyArtifacts() {
+  await cleanGeneratedBlogArtifacts();
   await writeJson(MANIFEST_PATH, buildBlogManifest({ enabled: false, posts: [] }));
   await writeText(path.join(ROOT, 'blog', 'index.html'), buildIndexHtml('tr'));
   await writeText(path.join(ROOT, 'en', 'blog', 'index.html'), buildIndexHtml('en'));
@@ -420,13 +550,42 @@ async function writePostArtifacts(posts) {
   }
 }
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+async function fetchWithRetries(makeRequest) {
+  let lastResponse = null;
+
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    try {
+      lastResponse = await makeRequest();
+    } catch (error) {
+      if (attempt === 2) {
+        throw error;
+      }
+
+      await delay(1200 * (attempt + 1));
+      continue;
+    }
+
+    if (lastResponse.status < 500) {
+      return lastResponse;
+    }
+
+    if (attempt < 2) {
+      await delay(1200 * (attempt + 1));
+    }
+  }
+
+  return lastResponse;
+}
+
 async function fetchPostsFromStrapi() {
   const baseUrl = normalizeBaseUrl(process.env.STRAPI_BASE_URL || '');
   const token = String(process.env.STRAPI_API_TOKEN || '').trim();
   const collectionOverride = normalizeCollectionName(process.env.STRAPI_BLOG_COLLECTION || '');
   const endpointOverride = normalizeEndpointPath(process.env.STRAPI_BLOG_ENDPOINT || '');
 
-  if (!baseUrl || !token) {
+  if (!baseUrl) {
     return [];
   }
 
@@ -441,18 +600,22 @@ async function fetchPostsFromStrapi() {
   for (const endpoint of candidateEndpoints) {
     const url = new URL(endpoint, `${baseUrl}/`);
     url.searchParams.set('publicationState', 'live');
-    url.searchParams.set('locale', 'all');
     url.searchParams.set('sort[0]', 'publishedAt:desc');
-    url.searchParams.set('populate[coverImage]', '*');
-    url.searchParams.set('populate[localizations]', '*');
+    url.searchParams.set('populate', '*');
     attemptedUrls.push(url.toString());
 
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-      },
-    });
+    const makeRequest = (bearerToken) =>
+      fetch(url, {
+        headers: {
+          ...(bearerToken ? { Authorization: `Bearer ${bearerToken}` } : {}),
+          Accept: 'application/json',
+        },
+      });
+
+    let response = await fetchWithRetries(() => makeRequest(token));
+    if (response.status === 401 && token) {
+      response = await fetchWithRetries(() => makeRequest(''));
+    }
 
     if (response.ok) {
       return normalizeStrapiBlogResponse(await response.json());
@@ -483,11 +646,11 @@ const isRecoverableBlogFetchError = (error) => {
 
 async function main() {
   const enabled = truthy(process.env.STRAPI_BLOG_ENABLED);
-  const hasCredentials = Boolean(String(process.env.STRAPI_BASE_URL || '').trim() && String(process.env.STRAPI_API_TOKEN || '').trim());
+  const hasBaseUrl = Boolean(String(process.env.STRAPI_BASE_URL || '').trim());
 
-  if (!enabled || !hasCredentials) {
-    if (enabled && !hasCredentials) {
-      console.log('STRAPI_BLOG_ENABLED is set but blog credentials are missing. Writing empty blog artifacts.');
+  if (!enabled || !hasBaseUrl) {
+    if (enabled && !hasBaseUrl) {
+      console.log('STRAPI_BLOG_ENABLED is set but STRAPI_BASE_URL is missing. Writing empty blog artifacts.');
     }
     await writeEmptyArtifacts();
     console.log(`Generated empty blog artifacts at ${MANIFEST_PATH} and blog index routes.`);
@@ -508,6 +671,7 @@ async function main() {
     return;
   }
 
+  await cleanGeneratedBlogArtifacts();
   await writeJson(MANIFEST_PATH, buildBlogManifest({ enabled: true, posts }));
   await writeText(path.join(ROOT, 'blog', 'index.html'), buildIndexHtml('tr'));
   await writeText(path.join(ROOT, 'en', 'blog', 'index.html'), buildIndexHtml('en'));
