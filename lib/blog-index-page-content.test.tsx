@@ -13,8 +13,15 @@ describe('blog index page content', () => {
     expect(source).toContain('activeCategory');
     expect(source).toContain('categoryFilters');
     expect(source).toContain('Read article');
+    expect(source).toContain('Yazıyı oku');
+    expect(source).toContain('Tümü');
+    expect(source).toContain('overflow-x-auto px-1 pb-4');
     expect(source).toContain('empty state');
     expect(source).not.toContain('Subscribe to our Newsletter');
+    expect(source).not.toContain('Qualy Team');
+    expect(source).not.toContain('Qualy Ekibi');
+    expect(source).not.toContain('Shared article');
+    expect(source).not.toContain('Ortak yayin');
     expect(source).toContain('BlogIndexPage');
   });
 });

@@ -48,6 +48,11 @@ const estimateReadMinutes = (post: BlogPostSummary) => {
   return Math.max(4, Math.ceil(wordCount / 180) || 0);
 };
 
+const getReadTimeLabel = (post: BlogPostSummary, language: 'en' | 'tr') => {
+  const minutes = estimateReadMinutes(post);
+  return language === 'en' ? `${minutes} min read` : `${minutes} dk okuma`;
+};
+
 const formatBlogDate = (publishedAt: string | undefined, language: 'en' | 'tr') => {
   if (!publishedAt) return '';
 
@@ -80,22 +85,36 @@ const getCategory = (post: BlogPostSummary, language: 'en' | 'tr') => {
 
   return {
     slug: 'updates',
-    label: language === 'en' ? 'Updates' : 'Guncellemeler',
+    label: language === 'en' ? 'Updates' : 'Güncellemeler',
   };
-};
-
-const getLocaleMetaLabel = (post: BlogPostSummary, language: 'en' | 'tr') => {
-  if (post.sharedAcrossLocales) {
-    return language === 'en' ? 'Shared article' : 'Ortak yayin';
-  }
-
-  return post.locale === 'en' ? 'English' : 'Turkce';
 };
 
 const sortPostsByDate = (posts: BlogPostSummary[]) =>
   posts
     .slice()
     .sort((left, right) => String(right.publishedAt ?? '').localeCompare(String(left.publishedAt ?? '')));
+
+const selectVisiblePosts = (posts: BlogPostSummary[], language: 'en' | 'tr') => {
+  const uniquePosts = new Map<string, BlogPostSummary>();
+
+  for (const post of sortPostsByDate(posts)) {
+    if (!(post.sharedAcrossLocales || !post.locale || post.locale === language)) {
+      continue;
+    }
+
+    const existingPost = uniquePosts.get(post.slug);
+    if (!existingPost) {
+      uniquePosts.set(post.slug, post);
+      continue;
+    }
+
+    if (existingPost.locale !== language && post.locale === language) {
+      uniquePosts.set(post.slug, post);
+    }
+  }
+
+  return sortPostsByDate(Array.from(uniquePosts.values()));
+};
 
 const buildFallbackArtwork = (post: BlogPostSummary) => {
   const palette = [
@@ -159,9 +178,7 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
     };
   }, [initialPosts]);
 
-  const visiblePosts = sortPostsByDate(
-    posts.filter((post) => post.sharedAcrossLocales || !post.locale || post.locale === language),
-  );
+  const visiblePosts = selectVisiblePosts(posts, language);
 
   const uniqueCategories = new Map<string, BlogCategory>();
   for (const post of visiblePosts) {
@@ -172,7 +189,7 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
   const categoryFilters = [
     {
       slug: 'all',
-      label: language === 'en' ? 'All' : 'Tumu',
+      label: language === 'en' ? 'All' : 'Tümü',
     },
     ...Array.from(uniqueCategories.values()),
   ];
@@ -186,13 +203,12 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
   const filteredPosts = visiblePosts.filter((post) => activeCategory === 'all' || getCategory(post, language).slug === activeCategory);
   const [featuredPost, ...remainingPosts] = filteredPosts;
   const emptyStateLabel = language === 'en' ? 'No blog posts yet.' : 'Henüz blog yazısı yok.'; // empty state
-  const readArticleLabel = language === 'en' ? 'Read article' : 'Yaziyi oku';
-  const featuredLabel = language === 'en' ? 'Featured post' : 'One cikan yazi';
-  const authorLabel = language === 'en' ? 'Qualy Team' : 'Qualy Ekibi';
+  const readArticleLabel = language === 'en' ? 'Read article' : 'Yazıyı oku';
+  const featuredLabel = language === 'en' ? 'Featured post' : 'Öne çıkan yazı';
   const categoryEmptyLabel =
     language === 'en'
       ? 'There are no posts in this category yet.'
-      : 'Bu kategoride henuz yazi yok.';
+      : 'Bu kategoride henüz yazı yok.';
 
   return (
     <section className="bg-[#f6f7f8]">
@@ -237,16 +253,14 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
                 </div>
 
                 <div className="flex flex-col gap-5 pt-2 sm:flex-row sm:items-end sm:justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-full border border-sky-300/40 bg-white/10 text-sm font-bold text-white backdrop-blur">
-                      Q
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-white">{authorLabel}</p>
-                      <p className="text-xs text-slate-300">
-                        {formatBlogDate(featuredPost.publishedAt, language)} • {estimateReadMinutes(featuredPost)} min read • {getLocaleMetaLabel(featuredPost, language)}
-                      </p>
-                    </div>
+                  <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-200/90">
+                    {featuredPost.publishedAt ? (
+                      <span>{formatBlogDate(featuredPost.publishedAt, language)}</span>
+                    ) : null}
+                    {featuredPost.publishedAt ? (
+                      <span className="h-1 w-1 rounded-full bg-white/40" />
+                    ) : null}
+                    <span>{getReadTimeLabel(featuredPost, language)}</span>
                   </div>
 
                   <a
@@ -259,21 +273,23 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
               </div>
             </article>
 
-            <div className="flex items-center gap-3 overflow-x-auto pb-1">
-              {categoryFilters.map((filter) => (
-                <button
-                  key={filter.slug}
-                  type="button"
-                  onClick={() => setActiveCategory(filter.slug)}
-                  className={
-                    activeCategory === filter.slug
-                      ? 'flex h-10 shrink-0 items-center justify-center rounded-full bg-[#1173d4] px-6 text-sm font-bold text-white shadow-[0_10px_24px_rgba(17,115,212,0.22)]'
-                      : 'flex h-10 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white px-6 text-sm font-semibold text-slate-600 transition-colors hover:border-slate-300 hover:text-slate-900'
-                  }
-                >
-                  {titleCase(filter.label)}
-                </button>
-              ))}
+            <div className="-mx-1 overflow-x-auto px-1 pb-4">
+              <div className="flex items-center gap-3">
+                {categoryFilters.map((filter) => (
+                  <button
+                    key={filter.slug}
+                    type="button"
+                    onClick={() => setActiveCategory(filter.slug)}
+                    className={
+                      activeCategory === filter.slug
+                        ? 'flex h-10 shrink-0 items-center justify-center rounded-full bg-[#1173d4] px-6 text-sm font-bold text-white shadow-[0_10px_24px_rgba(17,115,212,0.22)]'
+                        : 'flex h-10 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white px-6 text-sm font-semibold text-slate-600 transition-colors hover:border-slate-300 hover:text-slate-900'
+                    }
+                  >
+                    {titleCase(filter.label)}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {remainingPosts.length > 0 ? (
@@ -312,10 +328,12 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
                         {post.excerpt ? <p className="text-sm leading-6 text-slate-500">{post.excerpt}</p> : null}
                         <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
                           <div className="space-y-1">
-                            <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
-                              {getLocaleMetaLabel(post, language)}
-                            </p>
-                            <p className="text-xs font-medium text-slate-400">{estimateReadMinutes(post)} min read</p>
+                            {post.publishedAt ? (
+                              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
+                                {formatBlogDate(post.publishedAt, language)}
+                              </p>
+                            ) : null}
+                            <p className="text-xs font-medium text-slate-400">{getReadTimeLabel(post, language)}</p>
                           </div>
                           <a
                             href={href}
