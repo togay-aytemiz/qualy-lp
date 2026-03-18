@@ -20,5 +20,10 @@ describe('blog generator config', () => {
     expect(source).toContain('async function fetchWithRetries');
     expect(source).toContain('cleanGeneratedBlogArtifacts');
     expect(source).toContain("fs.rm(POSTS_DIR");
+    expect(source).toContain('FETCH_RETRY_DELAYS_MS');
+    expect(source).toContain('15000');
+    expect(source).toContain('BLOG_CACHE_DIR');
+    expect(source).toContain('loadCachedPosts');
+    expect(source).toContain('writeCacheArtifacts');
   });
 });

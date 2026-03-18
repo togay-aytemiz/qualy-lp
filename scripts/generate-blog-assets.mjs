@@ -6,6 +6,8 @@ const ROOT = process.cwd();
 const PUBLIC_DIR = path.join(ROOT, 'public');
 const MANIFEST_PATH = path.join(PUBLIC_DIR, 'blog_manifest.json');
 const POSTS_DIR = path.join(PUBLIC_DIR, 'blog-posts');
+const BLOG_CACHE_DIR = path.join(ROOT, 'data', 'blog-cache');
+const BLOG_CACHE_MANIFEST_PATH = path.join(BLOG_CACHE_DIR, 'blog_manifest.json');
 const SITE_URL = normalizeBaseUrl(process.env.VITE_SITE_URL || 'https://askqualy.com');
 
 const INDEX_COPY = {
@@ -29,6 +31,7 @@ const DEFAULT_STRAPI_BLOG_ENDPOINTS = [
   '/api/articles',
 ];
 const BLOG_LOCALES = ['tr', 'en'];
+const FETCH_RETRY_DELAYS_MS = [0, 2000, 5000, 10000, 15000];
 
 const truthy = (value) => /^(1|true|yes|on)$/i.test(String(value ?? '').trim());
 
@@ -409,6 +412,31 @@ function buildBlogPostManifestEntry(post) {
   };
 }
 
+function restorePostFromCache(entry) {
+  return {
+    id: entry.id,
+    locale: entry.locale,
+    slug: entry.slug,
+    title: entry.title,
+    excerpt: entry.excerpt,
+    content: '',
+    contentHtml: entry.contentHtml ?? '',
+    seoTitle: entry.seoTitle,
+    seoDescription: entry.seoDescription,
+    publishedAt: entry.publishedAt,
+    coverImage: entry.coverImage
+      ? {
+          url: entry.coverImage,
+          alt: '',
+        }
+      : null,
+    path: entry.path,
+    canonicalUrl: entry.canonicalUrl,
+    sharedAcrossLocales: Boolean(entry.sharedAcrossLocales),
+    localizations: Array.isArray(entry.localizations) ? entry.localizations : [],
+  };
+}
+
 function buildBlogManifest({ enabled, posts }) {
   return {
     generatedAt: new Date().toISOString(),
@@ -520,6 +548,21 @@ async function writeEmptyArtifacts() {
   await writeText(path.join(ROOT, 'en', 'blog', 'index.html'), buildIndexHtml('en'));
 }
 
+async function writeCacheArtifacts(posts) {
+  await writeJson(BLOG_CACHE_MANIFEST_PATH, buildBlogManifest({ enabled: true, posts }));
+}
+
+async function loadCachedPosts() {
+  try {
+    const raw = await fs.readFile(BLOG_CACHE_MANIFEST_PATH, 'utf8');
+    const payload = JSON.parse(raw);
+    const cachedPosts = Array.isArray(payload?.posts) ? payload.posts.map(restorePostFromCache).filter(Boolean) : [];
+    return cachedPosts;
+  } catch {
+    return [];
+  }
+}
+
 async function writePostArtifacts(posts) {
   const groups = groupLocalizedPosts(posts);
   const groupById = new Map();
@@ -555,24 +598,24 @@ const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 async function fetchWithRetries(makeRequest) {
   let lastResponse = null;
 
-  for (let attempt = 0; attempt < 3; attempt += 1) {
+  for (let attempt = 0; attempt < FETCH_RETRY_DELAYS_MS.length; attempt += 1) {
+    const delayMs = FETCH_RETRY_DELAYS_MS[attempt];
+
+    if (delayMs > 0) {
+      await delay(delayMs);
+    }
+
     try {
       lastResponse = await makeRequest();
     } catch (error) {
-      if (attempt === 2) {
+      if (attempt === FETCH_RETRY_DELAYS_MS.length - 1) {
         throw error;
       }
-
-      await delay(1200 * (attempt + 1));
       continue;
     }
 
     if (lastResponse.status < 500) {
       return lastResponse;
-    }
-
-    if (attempt < 2) {
-      await delay(1200 * (attempt + 1));
     }
   }
 
@@ -665,6 +708,18 @@ async function main() {
       throw error;
     }
 
+    const cachedPosts = await loadCachedPosts();
+    if (cachedPosts.length > 0) {
+      await cleanGeneratedBlogArtifacts();
+      await writeJson(MANIFEST_PATH, buildBlogManifest({ enabled: true, posts: cachedPosts }));
+      await writeText(path.join(ROOT, 'blog', 'index.html'), buildIndexHtml('tr'));
+      await writeText(path.join(ROOT, 'en', 'blog', 'index.html'), buildIndexHtml('en'));
+      await writePostArtifacts(cachedPosts);
+      console.warn(`Strapi fetch failed; restored blog artifacts from cache: ${error.message}`);
+      console.log(`Generated cached blog artifacts for ${cachedPosts.length} posts at ${MANIFEST_PATH}.`);
+      return;
+    }
+
     console.warn(`Falling back to empty blog artifacts: ${error.message}`);
     await writeEmptyArtifacts();
     console.log(`Generated empty blog artifacts at ${MANIFEST_PATH} and blog index routes.`);
@@ -676,6 +731,7 @@ async function main() {
   await writeText(path.join(ROOT, 'blog', 'index.html'), buildIndexHtml('tr'));
   await writeText(path.join(ROOT, 'en', 'blog', 'index.html'), buildIndexHtml('en'));
   await writePostArtifacts(posts);
+  await writeCacheArtifacts(posts);
 
   console.log(`Generated blog artifacts for ${posts.length} posts at ${MANIFEST_PATH}.`);
 }
