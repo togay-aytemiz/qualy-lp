@@ -16,6 +16,10 @@ describe('static SEO entry pages', () => {
     expect(readEntry('data-deletion/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/data-deletion" />');
     expect(readEntry('en/data-deletion/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en/data-deletion" />');
     expect(readEntry('faqs-directory/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/faqs-directory" />');
+    expect(readEntry('blog/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/blog" />');
+    expect(readEntry('blog/index.html')).toContain('<meta name="robots" content="noindex,follow" />');
+    expect(readEntry('en/blog/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en/blog" />');
+    expect(readEntry('en/blog/index.html')).toContain('<meta name="robots" content="noindex,follow" />');
     expect(readEntry('legal/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/legal" />');
     expect(readEntry('en/legal/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/en/legal" />');
     expect(readEntry('terms/index.html')).toContain('<link rel="canonical" href="https://askqualy.com/terms" />');

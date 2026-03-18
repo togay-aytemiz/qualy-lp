@@ -31,6 +31,15 @@ When adding or changing routes, keep this checklist updated and follow it before
 7. If a new static entry HTML is added, include it in Vite multi-input build:
    - `/vite.config.ts` -> `build.rollupOptions.input`
 
+## Hidden Route Exception
+
+If a route is intentionally hidden for launch and ships with `meta name="robots" content="noindex,follow"`:
+
+- Keep it out of the navbar and footer until launch.
+- Keep it out of sitemap generation until launch.
+- Do not add a `robots.txt` disallow that blocks crawlers from seeing the `noindex` directive.
+- Document the hidden state in the implementation plan or task notes so the launch diff is explicit.
+
 ## Required Verification
 
 Run both before claiming completion:

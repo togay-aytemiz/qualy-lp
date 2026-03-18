@@ -25,6 +25,8 @@ const DataDeletionPage = lazy(() => import('./pages/DataDeletionPage'));
 const LegalPage = lazy(() => import('./pages/LegalPage'));
 const LegalIndexPage = lazy(() => import('./pages/LegalIndexPage'));
 const LlmFaqDirectoryPage = lazy(() => import('./pages/LlmFaqDirectoryPage'));
+const BlogIndexPage = lazy(() => import('./pages/BlogIndexPage'));
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 
 const getNormalizedPath = () => {
   if (typeof window === 'undefined') return '/';
@@ -53,11 +55,16 @@ const AppContent: React.FC = () => {
   const isLegalIndexRoute = normalizedPath === '/legal';
   const isLegalRoute = LEGAL_ROUTE_SLUGS.has(legalSlug);
   const isLlmFaqDirectoryRoute = normalizedPath === '/faqs-directory';
+  const isBlogIndexRoute = normalizedPath === '/blog' || path === '/en/blog';
+  const isBlogPostRoute = normalizedPath.startsWith('/blog/') || path.startsWith('/en/blog/');
+  // normalizedPath === '/en/blog' and normalizedPath.startsWith('/en/blog/') are handled after stripping the locale prefix.
   const isPricingRoute = path === '/pricing' || path === '/en/pricing';
   const isAboutRoute = path === '/about' || path === '/en/about';
   const isDataDeletionRoute = path === '/data-deletion' || path === '/en/data-deletion';
   const isLocalizedContentRoute =
     normalizedPath === '/' ||
+    isBlogIndexRoute ||
+    isBlogPostRoute ||
     normalizedPath === '/pricing' ||
     normalizedPath === '/about' ||
     normalizedPath === '/data-deletion' ||
@@ -106,8 +113,11 @@ const AppContent: React.FC = () => {
     const seoRoute = getSeoRouteKeyByPath(path);
     const seoLanguage = isLocalizedContentRoute ? (isEnglishPath ? 'en' : 'tr') : language;
     document.documentElement.setAttribute('lang', seoLanguage);
+
+    if (isBlogIndexRoute || isBlogPostRoute) return;
+
     applySeoToDocument(document, getSeoByRoute(seoRoute, seoLanguage));
-  }, [isEnglishPath, isLocalizedContentRoute, language, path]);
+  }, [isBlogIndexRoute, isBlogPostRoute, isEnglishPath, isLocalizedContentRoute, language, path]);
 
   useEffect(() => {
     if (!isHomePath(path)) return;
@@ -216,6 +226,51 @@ const AppContent: React.FC = () => {
         <Suspense fallback={<div className="min-h-screen bg-black" />}>
           <LlmFaqDirectoryPage />
         </Suspense>
+      </div>
+    );
+  }
+
+  if (isBlogIndexRoute) {
+    return (
+      <div className="min-h-screen bg-white selection:bg-black selection:text-white">
+        <motion.div
+          key="blog-index-page"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+        >
+          <Navbar />
+          <main>
+            <Suspense fallback={<SectionSkeleton />}>
+              <BlogIndexPage />
+            </Suspense>
+          </main>
+          <Footer />
+        </motion.div>
+      </div>
+    );
+  }
+
+  if (isBlogPostRoute) {
+    const blogSlug = normalizedPath.slice('/blog/'.length);
+
+    // <BlogPostPage /> is rendered through the slug-aware branch below.
+    return (
+      <div className="min-h-screen bg-white selection:bg-black selection:text-white">
+        <motion.div
+          key="blog-post-page"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+        >
+          <Navbar />
+          <main>
+            <Suspense fallback={<SectionSkeleton />}>
+              <BlogPostPage slug={blogSlug} />
+            </Suspense>
+          </main>
+          <Footer />
+        </motion.div>
       </div>
     );
   }

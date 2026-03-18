@@ -83,4 +83,17 @@ describe('applySeoToDocument', () => {
     applySeoToDocument(document, faqSeo);
     expect(document.querySelectorAll('link[rel="alternate"][data-seo-alternate="true"]').length).toBe(0);
   });
+
+  it('writes noindex robots for the hidden blog index route', () => {
+    const blogSeo = getSeoByRoute('blogIndex' as never, 'en', { siteUrl: 'https://askqualy.com' });
+
+    applySeoToDocument(document, blogSeo);
+
+    expect(document.title).toBe(blogSeo.title);
+    expect(document.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe('noindex,follow');
+    expect(document.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(
+      'https://askqualy.com/en/blog'
+    );
+    expect(document.querySelectorAll('link[rel="alternate"][data-seo-alternate="true"]').length).toBe(3);
+  });
 });

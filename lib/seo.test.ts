@@ -12,6 +12,8 @@ describe('getSeoRouteKeyByPath', () => {
   it('maps known routes', () => {
     expect(getSeoRouteKeyByPath('/')).toBe('home');
     expect(getSeoRouteKeyByPath('/en')).toBe('home');
+    expect(getSeoRouteKeyByPath('/blog')).toBe('blogIndex');
+    expect(getSeoRouteKeyByPath('/en/blog')).toBe('blogIndex');
     expect(getSeoRouteKeyByPath('/pricing')).toBe('pricing');
     expect(getSeoRouteKeyByPath('/en/pricing')).toBe('pricing');
     expect(getSeoRouteKeyByPath('/about')).toBe('about');
@@ -45,6 +47,7 @@ describe('getSeoRouteKeyByPath', () => {
 describe('getSeoByRoute', () => {
   it('returns absolute canonical and og url', () => {
     const seo = getSeoByRoute('terms', 'en', { siteUrl: 'https://askqualy.com' });
+    const blogSeo = getSeoByRoute('blogIndex' as never, 'en', { siteUrl: 'https://askqualy.com' });
     const pricingSeo = getSeoByRoute('pricing', 'en', { siteUrl: 'https://askqualy.com' });
     const aboutSeo = getSeoByRoute('about', 'en', { siteUrl: 'https://askqualy.com' });
     const dataDeletionSeo = getSeoByRoute('dataDeletion', 'en', { siteUrl: 'https://askqualy.com' });
@@ -55,6 +58,9 @@ describe('getSeoByRoute', () => {
     expect(seo.canonicalUrl).toBe('https://askqualy.com/en/terms');
     expect(seo.og.url).toBe('https://askqualy.com/en/terms');
     expect(seo.og.image).toBe('https://askqualy.com/og/qualy-default.png');
+    expect(blogSeo.canonicalUrl).toBe('https://askqualy.com/en/blog');
+    expect(blogSeo.robots).toBe('noindex,follow');
+    expect(blogSeo.og.url).toBe('https://askqualy.com/en/blog');
     expect(pricingSeo.canonicalUrl).toBe('https://askqualy.com/en/pricing');
     expect(pricingSeo.og.url).toBe('https://askqualy.com/en/pricing');
     expect(aboutSeo.canonicalUrl).toBe('https://askqualy.com/en/about');
@@ -125,6 +131,8 @@ describe('getSeoByRoute', () => {
   it('returns hreflang alternates for localized non-home routes', () => {
     const pricingTrSeo = getSeoByRoute('pricing', 'tr', { siteUrl: 'https://askqualy.com' });
     const pricingEnSeo = getSeoByRoute('pricing', 'en', { siteUrl: 'https://askqualy.com' });
+    const blogTrSeo = getSeoByRoute('blogIndex' as never, 'tr', { siteUrl: 'https://askqualy.com' });
+    const blogEnSeo = getSeoByRoute('blogIndex' as never, 'en', { siteUrl: 'https://askqualy.com' });
 
     expect(pricingTrSeo.alternates).toEqual([
       { hrefLang: 'tr', href: 'https://askqualy.com/pricing' },
@@ -136,6 +144,18 @@ describe('getSeoByRoute', () => {
       { hrefLang: 'tr', href: 'https://askqualy.com/pricing' },
       { hrefLang: 'en', href: 'https://askqualy.com/en/pricing' },
       { hrefLang: 'x-default', href: 'https://askqualy.com/pricing' },
+    ]);
+
+    expect(blogTrSeo.alternates).toEqual([
+      { hrefLang: 'tr', href: 'https://askqualy.com/blog' },
+      { hrefLang: 'en', href: 'https://askqualy.com/en/blog' },
+      { hrefLang: 'x-default', href: 'https://askqualy.com/blog' },
+    ]);
+
+    expect(blogEnSeo.alternates).toEqual([
+      { hrefLang: 'tr', href: 'https://askqualy.com/blog' },
+      { hrefLang: 'en', href: 'https://askqualy.com/en/blog' },
+      { hrefLang: 'x-default', href: 'https://askqualy.com/blog' },
     ]);
   });
 });

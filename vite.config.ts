@@ -1,9 +1,53 @@
+import { readdirSync } from 'node:fs';
 import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
+const collectGeneratedBlogInputs = (rootDir: string, relativeDir: string) => {
+  const absoluteDir = path.resolve(rootDir, relativeDir);
+  const entries: Record<string, string> = {};
+
+  const visit = (currentDir: string) => {
+    for (const entry of readdirSync(currentDir, { withFileTypes: true })) {
+      const nextPath = path.join(currentDir, entry.name);
+
+      if (entry.isDirectory()) {
+        visit(nextPath);
+        continue;
+      }
+
+      if (!entry.isFile() || entry.name !== 'index.html') continue;
+
+      const relativePath = path.relative(rootDir, nextPath).replace(/\\/g, '/');
+      if (relativePath === 'blog/index.html' || relativePath === 'en/blog/index.html') continue;
+
+      const inputKey = relativePath
+        .replace(/\/index\.html$/, '')
+        .replace(/[^\w]+/g, '_')
+        .replace(/^_+|_+$/g, '');
+
+      entries[inputKey] = nextPath;
+    }
+  };
+
+  try {
+    visit(absoluteDir);
+  } catch (error) {
+    if (!(error instanceof Error) || !('code' in error) || error.code !== 'ENOENT') {
+      throw error;
+    }
+  }
+
+  return entries;
+};
+
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
+    const generatedBlogInputs = {
+      ...collectGeneratedBlogInputs(__dirname, 'blog'),
+      ...collectGeneratedBlogInputs(__dirname, path.join('en', 'blog')),
+    };
+
     return {
       server: {
         port: 3000,
@@ -14,6 +58,8 @@ export default defineConfig(({ mode }) => {
           input: {
             home: path.resolve(__dirname, 'index.html'),
             homeEn: path.resolve(__dirname, 'en/index.html'),
+            blog: path.resolve(__dirname, 'blog/index.html'),
+            blogEn: path.resolve(__dirname, 'en/blog/index.html'),
             pricing: path.resolve(__dirname, 'pricing/index.html'),
             pricingEn: path.resolve(__dirname, 'en/pricing/index.html'),
             about: path.resolve(__dirname, 'about/index.html'),
@@ -38,6 +84,7 @@ export default defineConfig(({ mode }) => {
             subscriptionTrial: path.resolve(__dirname, 'subscription-trial/index.html'),
             subscriptionTrialEn: path.resolve(__dirname, 'en/subscription-trial/index.html'),
             notFound: path.resolve(__dirname, '404.html'),
+            ...generatedBlogInputs,
           },
         },
       },

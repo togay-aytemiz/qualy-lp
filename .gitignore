@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+public/blog_manifest.json
+public/blog-posts/
+blog/*/
+en/blog/*/

@@ -14,6 +14,8 @@ describe('font delivery', () => {
       'data-deletion/index.html',
       'en/data-deletion/index.html',
       'faqs-directory/index.html',
+      'blog/index.html',
+      'en/blog/index.html',
       'legal/index.html',
       'en/legal/index.html',
       'terms/index.html',

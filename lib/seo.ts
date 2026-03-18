@@ -3,6 +3,7 @@ import { getSiteUrl, resolveAbsoluteUrl } from './site-url';
 export type SeoLanguage = 'en' | 'tr';
 export type SeoRouteKey =
   | 'home'
+  | 'blogIndex'
   | 'pricing'
   | 'about'
   | 'dataDeletion'
@@ -64,6 +65,11 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
       title: 'Qualy | AI-First Inbox for WhatsApp, Instagram, Messenger, and Telegram',
       description:
         'Automate repetitive chats, qualify leads with AI scoring, and hand over high-intent conversations at the right moment.',
+    },
+    blogIndex: {
+      title: 'Blog | Qualy',
+      description:
+        'Read the latest product notes, operational guides, and platform updates from Qualy.',
     },
     pricing: {
       title: 'Pricing | Qualy',
@@ -130,6 +136,11 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
       description:
         'Tekrarlayan konuşmaları otomatikleştir, AI skorlama ile adayları nitelendir ve yüksek niyetli konuşmaları doğru anda devral.',
     },
+    blogIndex: {
+      title: 'Blog | Qualy',
+      description:
+        'Qualy’den ürün notları, operasyon rehberleri ve platform güncellemelerini oku.',
+    },
     pricing: {
       title: 'Fiyatlandırma | Qualy',
       description:
@@ -192,6 +203,10 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
 };
 
 const ROUTE_PATHS: Record<Exclude<SeoRouteKey, 'home'>, Record<SeoLanguage, string>> = {
+  blogIndex: {
+    tr: '/blog',
+    en: '/en/blog',
+  },
   pricing: {
     tr: '/pricing',
     en: '/en/pricing',
@@ -263,6 +278,7 @@ const stripLocalizedPrefix = (path: string) => {
 export const getSeoRouteKeyByPath = (path: string): SeoRouteKey => {
   const normalized = stripLocalizedPrefix(path);
   if (normalized === '/') return 'home';
+  if (normalized === '/blog') return 'blogIndex';
   if (normalized === '/pricing') return 'pricing';
   if (normalized === '/about') return 'about';
   if (normalized === '/data-deletion') return 'dataDeletion';
@@ -393,12 +409,13 @@ export const getSeoByRoute = (
   const canonicalUrl = resolveAbsoluteUrl(siteUrl, canonicalPath);
   const ogImage = resolveAbsoluteUrl(siteUrl, OG_IMAGE_PATH);
   const alternates = buildAlternates({ routeKey, siteUrl });
+  const robots = routeKey === 'blogIndex' ? 'noindex,follow' : DEFAULT_ROBOTS;
 
   const basePayload: Omit<SeoPayload, 'jsonLd'> = {
     routeKey,
     title: copy.title,
     description: copy.description,
-    robots: DEFAULT_ROBOTS,
+    robots,
     canonicalUrl,
     alternates,
     og: {

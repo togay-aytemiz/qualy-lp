@@ -35,6 +35,8 @@ describe('buildSitemapXml', () => {
     expect(xml).toContain('<loc>https://askqualy.com/en</loc>');
     expect(xml).toContain('<loc>https://askqualy.com/pricing</loc>');
     expect(xml).toContain('<loc>https://askqualy.com/en/pricing</loc>');
+    expect(xml).not.toContain('/blog');
+    expect(xml).not.toContain('/en/blog');
     expect(xml).toContain('<loc>https://askqualy.com/about</loc>');
     expect(xml).toContain('<loc>https://askqualy.com/en/about</loc>');
     expect(xml).toContain('<loc>https://askqualy.com/data-deletion</loc>');
