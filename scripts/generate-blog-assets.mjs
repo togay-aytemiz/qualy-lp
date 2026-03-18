@@ -40,6 +40,10 @@ function normalizeEndpointPath(value) {
   return trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
 }
 
+function normalizeCollectionName(value) {
+  return String(value ?? '').trim().replace(/^\/+|\/+$/g, '');
+}
+
 function resolveAbsoluteUrl(baseUrl, routePath) {
   const cleanBase = normalizeBaseUrl(baseUrl) || 'https://askqualy.com';
   const cleanPath = routePath.startsWith('/') ? routePath : `/${routePath}`;
@@ -419,6 +423,7 @@ async function writePostArtifacts(posts) {
 async function fetchPostsFromStrapi() {
   const baseUrl = normalizeBaseUrl(process.env.STRAPI_BASE_URL || '');
   const token = String(process.env.STRAPI_API_TOKEN || '').trim();
+  const collectionOverride = normalizeCollectionName(process.env.STRAPI_BLOG_COLLECTION || '');
   const endpointOverride = normalizeEndpointPath(process.env.STRAPI_BLOG_ENDPOINT || '');
 
   if (!baseUrl || !token) {
@@ -427,8 +432,11 @@ async function fetchPostsFromStrapi() {
 
   const candidateEndpoints = endpointOverride
     ? [endpointOverride]
-    : DEFAULT_STRAPI_BLOG_ENDPOINTS;
+    : collectionOverride
+      ? [`/api/${collectionOverride}`]
+      : DEFAULT_STRAPI_BLOG_ENDPOINTS;
   const attemptedUrls = [];
+  const errors = [];
 
   for (const endpoint of candidateEndpoints) {
     const url = new URL(endpoint, `${baseUrl}/`);
@@ -451,6 +459,12 @@ async function fetchPostsFromStrapi() {
     }
 
     if (response.status === 404 && !endpointOverride) {
+      errors.push(`404 ${url.pathname}`);
+      continue;
+    }
+
+    if (response.status >= 500 && !endpointOverride) {
+      errors.push(`${response.status} ${url.pathname}`);
       continue;
     }
 
@@ -458,9 +472,14 @@ async function fetchPostsFromStrapi() {
   }
 
   throw new Error(
-    `Strapi blog fetch failed. Tried endpoints: ${attemptedUrls.join(', ')}. Set STRAPI_BLOG_ENDPOINT if your collection route uses a different path.`
+    `Strapi blog fetch failed. Tried endpoints: ${attemptedUrls.join(', ')}. Responses: ${errors.join(', ') || 'none'}. Set STRAPI_BLOG_COLLECTION or STRAPI_BLOG_ENDPOINT if your collection route uses a different path.`
   );
 }
+
+const isRecoverableBlogFetchError = (error) => {
+  const message = String(error?.message || '');
+  return message.includes('Strapi blog fetch failed');
+};
 
 async function main() {
   const enabled = truthy(process.env.STRAPI_BLOG_ENABLED);
@@ -475,7 +494,20 @@ async function main() {
     return;
   }
 
-  const posts = await fetchPostsFromStrapi();
+  let posts = [];
+  try {
+    posts = await fetchPostsFromStrapi();
+  } catch (error) {
+    if (!isRecoverableBlogFetchError(error)) {
+      throw error;
+    }
+
+    console.warn(`Falling back to empty blog artifacts: ${error.message}`);
+    await writeEmptyArtifacts();
+    console.log(`Generated empty blog artifacts at ${MANIFEST_PATH} and blog index routes.`);
+    return;
+  }
+
   await writeJson(MANIFEST_PATH, buildBlogManifest({ enabled: true, posts }));
   await writeText(path.join(ROOT, 'blog', 'index.html'), buildIndexHtml('tr'));
   await writeText(path.join(ROOT, 'en', 'blog', 'index.html'), buildIndexHtml('en'));
