@@ -22,10 +22,22 @@ const INDEX_COPY = {
   },
 };
 
+const DEFAULT_STRAPI_BLOG_ENDPOINTS = [
+  '/api/blog-posts',
+  '/api/blogs',
+  '/api/articles',
+];
+
 const truthy = (value) => /^(1|true|yes|on)$/i.test(String(value ?? '').trim());
 
 function normalizeBaseUrl(value) {
   return String(value ?? '').trim().replace(/\/+$/, '');
+}
+
+function normalizeEndpointPath(value) {
+  const trimmed = String(value ?? '').trim();
+  if (!trimmed) return '';
+  return trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
 }
 
 function resolveAbsoluteUrl(baseUrl, routePath) {
@@ -407,30 +419,47 @@ async function writePostArtifacts(posts) {
 async function fetchPostsFromStrapi() {
   const baseUrl = normalizeBaseUrl(process.env.STRAPI_BASE_URL || '');
   const token = String(process.env.STRAPI_API_TOKEN || '').trim();
+  const endpointOverride = normalizeEndpointPath(process.env.STRAPI_BLOG_ENDPOINT || '');
 
   if (!baseUrl || !token) {
     return [];
   }
 
-  const url = new URL('/api/blog-posts', `${baseUrl}/`);
-  url.searchParams.set('publicationState', 'live');
-  url.searchParams.set('locale', 'all');
-  url.searchParams.set('sort[0]', 'publishedAt:desc');
-  url.searchParams.set('populate[coverImage]', '*');
-  url.searchParams.set('populate[localizations]', '*');
+  const candidateEndpoints = endpointOverride
+    ? [endpointOverride]
+    : DEFAULT_STRAPI_BLOG_ENDPOINTS;
+  const attemptedUrls = [];
 
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-    },
-  });
+  for (const endpoint of candidateEndpoints) {
+    const url = new URL(endpoint, `${baseUrl}/`);
+    url.searchParams.set('publicationState', 'live');
+    url.searchParams.set('locale', 'all');
+    url.searchParams.set('sort[0]', 'publishedAt:desc');
+    url.searchParams.set('populate[coverImage]', '*');
+    url.searchParams.set('populate[localizations]', '*');
+    attemptedUrls.push(url.toString());
 
-  if (!response.ok) {
-    throw new Error(`Strapi blog fetch failed with ${response.status} ${response.statusText}`);
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    });
+
+    if (response.ok) {
+      return normalizeStrapiBlogResponse(await response.json());
+    }
+
+    if (response.status === 404 && !endpointOverride) {
+      continue;
+    }
+
+    throw new Error(`Strapi blog fetch failed at ${url.pathname} with ${response.status} ${response.statusText}`);
   }
 
-  return normalizeStrapiBlogResponse(await response.json());
+  throw new Error(
+    `Strapi blog fetch failed. Tried endpoints: ${attemptedUrls.join(', ')}. Set STRAPI_BLOG_ENDPOINT if your collection route uses a different path.`
+  );
 }
 
 async function main() {
