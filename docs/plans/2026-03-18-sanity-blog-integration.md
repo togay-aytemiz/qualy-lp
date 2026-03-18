@@ -59,8 +59,23 @@ Required env vars for the site:
 Optional env vars:
 
 - `SANITY_API_TOKEN=<read token for private dataset>`
+- `SANITY_API_KEY=<same purpose as SANITY_API_TOKEN, accepted as alias>`
 - `SANITY_API_VERSION=2026-03-01`
 - `SANITY_DEFAULT_LOCALE=tr`
+
+Netlify production env vars for this site:
+
+- `SANITY_BLOG_ENABLED=true`
+- `SANITY_PROJECT_ID=n55lf918`
+- `SANITY_DATASET=production`
+- `SANITY_API_KEY=<read token>`
+
+Legacy Strapi env vars should stay removed:
+
+- `STRAPI_API_TOKEN`
+- `STRAPI_BASE_URL`
+- `STRAPI_BLOG_COLLECTION`
+- `STRAPI_BLOG_ENABLED`
 
 ## Sanity Setup Steps
 
@@ -78,6 +93,24 @@ Optional env vars:
 ## Writer Tool Contract
 
 For easiest automation, the writer tool should write one document per language while reusing the same `translationKey`.
+
+Recommended upsert flow:
+
+1. Ensure the target `category` exists, keyed by slug.
+2. Create or patch the TR document with `_type: 'post'`, `language: 'tr'`, and a stable `translationKey`.
+3. Create or patch the EN sibling with the same `translationKey` and `language: 'en'`.
+4. Publish both documents after validation.
+5. Let the Sanity webhook trigger the Netlify rebuild.
+
+Recommended uniqueness rules in the writer tool:
+
+- `translationKey` must be stable across TR and EN siblings
+- `slug` must be unique per document
+- `title` should remain locale-specific
+- `publishedAt` should be an ISO datetime string
+- `bodyMarkdown` should be the canonical long-form body field
+- `category` should reference an existing Sanity category document
+- `coverImage` is optional for the writer tool, but improves list and detail layouts
 
 Example:
 
@@ -108,6 +141,38 @@ The EN variant should reuse the same `translationKey` and switch:
 - `seoTitle`
 - `seoDescription`
 - `bodyMarkdown`
+
+Suggested mutation payload shape for the writer tool:
+
+```json
+{
+  "_type": "post",
+  "language": "en",
+  "translationKey": "qualy-ai-memory-guide",
+  "title": "How to manage AI memory",
+  "slug": {
+    "_type": "slug",
+    "current": "how-to-manage-ai-memory"
+  },
+  "excerpt": "A practical guide to persistent memory, context windows, and better AI workflows.",
+  "seoTitle": "How to manage AI memory | Qualy",
+  "seoDescription": "Learn the difference between persistent memory and context windows in modern AI systems.",
+  "publishedAt": "2026-03-19T09:00:00.000Z",
+  "bodyMarkdown": "## Introduction\n\nContent...",
+  "category": {
+    "_type": "reference",
+    "_ref": "category-ai"
+  }
+}
+```
+
+Internal linking guidance for the writer tool:
+
+- Generate links to site URLs, not Sanity document IDs
+- Prefer localized links, for example `/blog/...` inside TR content and `/en/blog/...` inside EN content
+- Use recent published posts as retrieval context before generating a new article
+- Keep the actual links inline inside `bodyMarkdown`
+- Optionally store a secondary list of related post slugs in the tool layer if you want to suggest sidebar links later
 
 ## Query Model
 

@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { buildHomeSectionHref, getProductFooterSectionId, isHomePath, PRICING_PAGE_HREF } from './footer-links';
+import {
+  buildHomeSectionHref,
+  getLocalizedPathname,
+  getProductFooterSectionId,
+  isHomePath,
+  PRICING_PAGE_HREF,
+  resolveLocalizedPathname,
+} from './footer-links';
 
 describe('getProductFooterSectionId', () => {
   it('maps product links to existing home sections', () => {
@@ -32,5 +39,48 @@ describe('isHomePath', () => {
     expect(isHomePath('')).toBe(true);
     expect(isHomePath('/terms')).toBe(false);
     expect(isHomePath('/legal')).toBe(false);
+  });
+});
+
+describe('getLocalizedPathname', () => {
+  it('maps localized static routes between tr and en', () => {
+    expect(getLocalizedPathname('/blog', 'en')).toBe('/en/blog');
+    expect(getLocalizedPathname('/en/blog', 'tr')).toBe('/blog');
+    expect(getLocalizedPathname('/pricing', 'en')).toBe('/en/pricing');
+    expect(getLocalizedPathname('/en/about', 'tr')).toBe('/about');
+  });
+
+  it('uses blog manifest localizations for detail routes when slugs differ', () => {
+    expect(
+      getLocalizedPathname('/blog/qualy-blog-yayin-optimizasyonu', 'en', [
+        {
+          path: '/blog/qualy-blog-yayin-optimizasyonu',
+          locale: 'tr',
+          localizations: [{ locale: 'en', path: '/en/blog/qualy-blog-launch-performance' }],
+        },
+      ]),
+    ).toBe('/en/blog/qualy-blog-launch-performance');
+  });
+});
+
+describe('resolveLocalizedPathname', () => {
+  it('loads manifest localizations for blog detail routes', async () => {
+    const fetcher = async () =>
+      new Response(
+        JSON.stringify({
+          posts: [
+            {
+              path: '/blog/qualy-blog-yayin-optimizasyonu',
+              locale: 'tr',
+              localizations: [{ locale: 'en', path: '/en/blog/qualy-blog-launch-performance' }],
+            },
+          ],
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json' } },
+      );
+
+    await expect(resolveLocalizedPathname('/blog/qualy-blog-yayin-optimizasyonu', 'en', fetcher)).resolves.toBe(
+      '/en/blog/qualy-blog-launch-performance',
+    );
   });
 });

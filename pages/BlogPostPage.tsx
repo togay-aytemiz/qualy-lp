@@ -217,34 +217,32 @@ const BlogPostPage: React.FC<Props> = ({ slug, initialPost }) => {
   const viewAllArticlesLabel = language === 'en' ? 'View all articles' : 'Tüm yazıları gör';
   const notFoundLabel = language === 'en' ? 'Post not found.' : 'Yazı bulunamadı.';
   const postCategory = post ? getCategory(post, language) : null;
-  const articleSpanClass = relatedPosts.length > 0 ? 'lg:col-span-8' : 'lg:col-span-12 xl:col-span-10 xl:col-start-2';
-
   return (
     <section className="bg-[#f6f7f8]">
-      <div className="mx-auto max-w-7xl px-4 pb-20 pt-28 sm:px-6 lg:px-10">
-        <div className="mb-6 flex flex-wrap items-center gap-2 text-sm">
-          <a
-            href={backToBlogHref}
-            className="inline-flex items-center gap-2 font-semibold text-[#1173d4] transition-colors hover:text-[#0f5fae]"
-            aria-label={backToBlogAriaLabel}
-          >
-            <span aria-hidden="true">←</span>
-            {backToBlogLabel}
-          </a>
-          {postCategory ? (
-            <>
-              <span className="text-slate-300">/</span>
-              <span className="text-slate-500">{titleCase(postCategory.label)}</span>
-            </>
-          ) : null}
-        </div>
-
+      <div className="mx-auto max-w-7xl px-4 pb-24 pt-28 sm:px-6 lg:px-10">
         {post ? (
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
-            <article className={`${articleSpanClass} rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10`}>
-              <div className="flex flex-col gap-6">
+          <>
+            <article className="w-full">
+              <div className="mb-8 flex w-full flex-wrap items-center gap-2 text-sm">
+                <a
+                  href={backToBlogHref}
+                  className="inline-flex items-center gap-2 font-semibold text-[#1173d4] transition-colors hover:text-[#0f5fae]"
+                  aria-label={backToBlogAriaLabel}
+                >
+                  <span aria-hidden="true">←</span>
+                  {backToBlogLabel}
+                </a>
+                {postCategory ? (
+                  <>
+                    <span className="text-slate-300">/</span>
+                    <span className="text-slate-500">{titleCase(postCategory.label)}</span>
+                  </>
+                ) : null}
+              </div>
+
+              <header className="mx-auto w-full max-w-3xl">
                 <div className="flex flex-wrap items-center gap-3">
-                  <span className="inline-flex rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.18em] text-slate-600">
+                  <span className="inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.18em] text-slate-700">
                     {titleCase(postCategory?.label ?? '')}
                   </span>
                   {post.publishedAt ? (
@@ -252,22 +250,23 @@ const BlogPostPage: React.FC<Props> = ({ slug, initialPost }) => {
                       {formatBlogDate(post.publishedAt, language)}
                     </span>
                   ) : null}
+                  <span className="h-1 w-1 rounded-full bg-slate-300" />
                   <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
                     {getReadTimeLabel(post, language)}
                   </span>
                 </div>
 
-                <h1 className="max-w-4xl text-4xl font-black leading-[0.95] tracking-tight text-slate-900 sm:text-5xl">
+                <h1 className="mt-6 text-4xl font-black leading-[1.02] tracking-tight text-slate-950 sm:text-5xl lg:text-[4rem]">
                   {post.title}
                 </h1>
                 {post.excerpt ? (
-                  <p className="max-w-4xl text-xl font-medium leading-9 text-slate-700">
+                  <p className="mt-6 text-xl font-medium leading-9 text-slate-600 sm:text-[1.4rem]">
                     {post.excerpt}
                   </p>
                 ) : null}
-              </div>
+              </header>
 
-              <div className="mt-8 overflow-hidden rounded-[1.35rem] bg-slate-100 shadow-[0_12px_36px_rgba(15,23,42,0.08)]">
+              <div className="mt-12 w-full overflow-hidden rounded-[1.75rem] bg-slate-100 shadow-[0_18px_48px_rgba(15,23,42,0.08)]">
                 <div className="aspect-[16/9]">
                   {post.coverImage ? (
                     <img
@@ -281,68 +280,73 @@ const BlogPostPage: React.FC<Props> = ({ slug, initialPost }) => {
                 </div>
               </div>
 
-              <div
-                className="prose prose-slate mt-10 max-w-none text-slate-700 prose-headings:font-black prose-headings:tracking-tight prose-h2:mt-12 prose-h2:text-3xl prose-h3:mt-10 prose-h3:text-2xl prose-p:leading-8 prose-li:leading-8 prose-figure:my-8 prose-blockquote:border-l-4 prose-blockquote:border-[#1173d4] prose-blockquote:bg-[#1173d4]/5 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:not-italic"
-                dangerouslySetInnerHTML={{ __html: post.contentHtml ?? post.content ?? '' }}
-              />
+              <div className="mx-auto mt-14 w-full max-w-3xl">
+                <div
+                  className="blog-article-content"
+                  dangerouslySetInnerHTML={{ __html: post.contentHtml ?? post.content ?? '' }}
+                />
+              </div>
             </article>
 
             {relatedPosts.length > 0 ? (
-              <aside className="lg:col-span-4">
-                <div className="space-y-6 lg:sticky lg:top-28">
-                  <div className="rounded-[1.6rem] border border-slate-200 bg-white p-6 shadow-sm">
-                    <div className="mb-5 flex items-center gap-2">
-                      <span className="text-lg text-[#1173d4]">↗</span>
-                      <h2 className="text-lg font-bold text-slate-900">{relatedArticlesLabel}</h2>
-                    </div>
-
-                    <div className="space-y-5">
-                      {relatedPosts.map((relatedPost) => {
-                        const href = buildBlogHref(relatedPost.slug, relatedPost.locale ?? language);
-                        const relatedCategory = getCategory(relatedPost, language);
-
-                        return (
-                          <a
-                            key={`${relatedPost.locale ?? 'shared'}-${relatedPost.slug}`}
-                            href={href}
-                            className="group flex gap-4"
-                          >
-                            <div className="h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-slate-100">
-                              {relatedPost.coverImage ? (
-                                <img
-                                  src={relatedPost.coverImage}
-                                  alt={relatedPost.title}
-                                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                  loading="lazy"
-                                />
-                              ) : (
-                                buildFallbackArtwork(relatedPost)
-                              )}
-                            </div>
-                            <div className="min-w-0">
-                              <h3 className="line-clamp-2 text-sm font-bold leading-6 text-slate-900 transition-colors group-hover:text-[#1173d4]">
-                                {relatedPost.title}
-                              </h3>
-                              <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
-                                {titleCase(relatedCategory.label)} • {getReadTimeLabel(relatedPost, language)}
-                              </p>
-                            </div>
-                          </a>
-                        );
-                      })}
-                    </div>
-
-                    <a
-                      href={backToBlogHref}
-                      className="mt-6 inline-flex h-11 w-full items-center justify-center rounded-xl border border-slate-200 text-sm font-bold text-slate-700 transition-colors hover:bg-slate-50"
-                    >
-                      {viewAllArticlesLabel}
-                    </a>
+              <section className="mt-20 border-t border-slate-200/80 pt-8">
+                <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-slate-400">
+                      {titleCase(postCategory?.label ?? '')}
+                    </p>
+                    <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950">
+                      {relatedArticlesLabel}
+                    </h2>
                   </div>
+                  <a
+                    href={backToBlogHref}
+                    className="inline-flex h-11 items-center justify-center rounded-full border border-slate-200 bg-white px-5 text-sm font-bold text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50"
+                  >
+                    {viewAllArticlesLabel}
+                  </a>
                 </div>
-              </aside>
+
+                <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+                  {relatedPosts.map((relatedPost) => {
+                    const href = buildBlogHref(relatedPost.slug, relatedPost.locale ?? language);
+                    const relatedCategory = getCategory(relatedPost, language);
+
+                    return (
+                      <a
+                        key={`${relatedPost.locale ?? 'shared'}-${relatedPost.slug}`}
+                        href={href}
+                        className="group flex h-full flex-col gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(15,23,42,0.1)]"
+                      >
+                        <div className="overflow-hidden rounded-[1.15rem] bg-slate-100">
+                          <div className="aspect-[16/10]">
+                            {relatedPost.coverImage ? (
+                              <img
+                                src={relatedPost.coverImage}
+                                alt={relatedPost.title}
+                                className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                loading="lazy"
+                              />
+                            ) : (
+                              buildFallbackArtwork(relatedPost)
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex flex-1 flex-col">
+                          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                            {titleCase(relatedCategory.label)} • {getReadTimeLabel(relatedPost, language)}
+                          </p>
+                          <h3 className="mt-3 text-xl font-bold leading-tight tracking-tight text-slate-900 transition-colors group-hover:text-[#1173d4]">
+                            {relatedPost.title}
+                          </h3>
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
+              </section>
             ) : null}
-          </div>
+          </>
         ) : (
           <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-8 text-slate-600">
             {notFoundLabel}

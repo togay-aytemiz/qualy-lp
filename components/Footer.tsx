@@ -7,6 +7,7 @@ import {
   buildHomeSectionHref,
   getProductFooterSectionId,
   isHomePath,
+  resolveLocalizedPathname,
   type ProductFooterSectionKey,
 } from '../lib/footer-links';
 import { focusHomeSectionById } from '../lib/home-section-focus';
@@ -33,7 +34,7 @@ const Footer: React.FC = () => {
     { href: '/faqs-directory', label: t.footer.faqsDirectory },
   ];
 
-  const handleLanguageChange = (nextLanguage: 'en' | 'tr') => {
+  const handleLanguageChange = async (nextLanguage: 'en' | 'tr') => {
     if (typeof window !== 'undefined') {
       writeStoredLanguagePreference(nextLanguage, window.localStorage);
     }
@@ -41,13 +42,14 @@ const Footer: React.FC = () => {
     setLanguage(nextLanguage);
 
     if (typeof window === 'undefined') return;
-    if (!isHomePath(window.location.pathname)) return;
-
-    const targetHomePath = homePathByLanguage(nextLanguage);
     const currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
-    if (currentPath === targetHomePath) return;
+    const targetPath = isHomePath(currentPath)
+      ? homePathByLanguage(nextLanguage)
+      : await resolveLocalizedPathname(currentPath, nextLanguage, window.fetch.bind(window));
 
-    window.history.pushState(window.history.state, '', `${targetHomePath}${window.location.hash}`);
+    if (currentPath === targetPath) return;
+
+    window.history.pushState(window.history.state, '', `${targetPath}${window.location.hash}`);
     window.dispatchEvent(new PopStateEvent('popstate'));
   };
 

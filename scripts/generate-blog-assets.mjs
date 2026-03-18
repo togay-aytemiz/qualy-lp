@@ -29,6 +29,7 @@ const INDEX_COPY = {
 
 const BLOG_LOCALES = ['tr', 'en'];
 const FETCH_RETRY_DELAYS_MS = [0, 2000, 5000, 10000, 15000];
+const FETCH_TIMEOUT_MS = 8000;
 const DEFAULT_SANITY_API_VERSION = '2026-03-01';
 const DEFAULT_SANITY_DOC_TYPE = 'post';
 
@@ -230,13 +231,19 @@ function renderMarkdownToHtml(markdown) {
   return marked.parse(source);
 }
 
-function normalizeCategory(value) {
+function normalizeCategory(value, locale) {
   if (!value || typeof value !== 'object') {
     return null;
   }
 
+  const normalizedLocale = isSupportedBlogLocale(normalizeBlogLocale(locale)) ? normalizeBlogLocale(locale) : getDefaultBlogLocale();
   const slug = String(value.slug?.current ?? value.slug ?? '').trim().toLowerCase();
-  const label = String(value.label ?? value.title ?? value.name ?? slug).trim();
+  const labelTr = String(value.labelTr ?? value.titleTr ?? value.title?.tr ?? '').trim();
+  const labelEn = String(value.labelEn ?? value.titleEn ?? value.title?.en ?? '').trim();
+  const fallbackLabel = String(value.label ?? value.title ?? value.name ?? slug).trim();
+  const label = normalizedLocale === 'en'
+    ? labelEn || fallbackLabel || labelTr
+    : labelTr || fallbackLabel || labelEn;
 
   if (!slug && !label) {
     return null;
@@ -303,7 +310,7 @@ function normalizeSanityPost(item) {
     seoDescription: String(item?.seoDescription ?? item?.excerpt ?? '').trim(),
     publishedAt,
     coverImage: normalizeCoverImage(item?.coverImage ?? item?.mainImage ?? item?.image),
-    category: normalizeCategory(item?.category),
+    category: normalizeCategory(item?.category, locale),
     path,
     canonicalUrl: resolveAbsoluteUrl(SITE_URL, path),
     sharedAcrossLocales: false,
@@ -632,7 +639,8 @@ function buildSanityQuery(docType, defaultLocale) {
     ),
     "category": category->{
       "slug": slug.current,
-      "label": coalesce(title, name)
+      "titleTr": coalesce(titleTr, title.tr, title, name),
+      "titleEn": coalesce(titleEn, title.en, title, name)
     }
   }`;
 }
@@ -653,13 +661,22 @@ async function fetchPostsFromSanity() {
   const url = new URL(`https://${projectId}.${apiHost}/v${apiVersion}/data/query/${dataset}`);
   url.searchParams.set('query', buildSanityQuery(docType, defaultLocale));
 
-  const makeRequest = (bearerToken) =>
-    fetch(url, {
-      headers: {
-        ...(bearerToken ? { Authorization: `Bearer ${bearerToken}` } : {}),
-        Accept: 'application/json',
-      },
-    });
+  const makeRequest = async (bearerToken) => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(new Error('Sanity blog fetch timed out')), FETCH_TIMEOUT_MS);
+
+    try {
+      return await fetch(url, {
+        signal: controller.signal,
+        headers: {
+          ...(bearerToken ? { Authorization: `Bearer ${bearerToken}` } : {}),
+          Accept: 'application/json',
+        },
+      });
+    } finally {
+      clearTimeout(timeoutId);
+    }
+  };
 
   let response = await fetchWithRetries(() => makeRequest(token));
   if (response.status === 401 && token) {
@@ -675,7 +692,14 @@ async function fetchPostsFromSanity() {
 
 const isRecoverableBlogFetchError = (error) => {
   const message = String(error?.message || '');
-  return message.includes('Sanity blog fetch failed');
+  const causeCode = String(error?.cause?.code || '');
+
+  return (
+    message.includes('Sanity blog fetch failed') ||
+    message.includes('fetch failed') ||
+    message.includes('aborted') ||
+    ['ENOTFOUND', 'ECONNREFUSED', 'ECONNRESET', 'ETIMEDOUT'].includes(causeCode)
+  );
 };
 
 async function main() {

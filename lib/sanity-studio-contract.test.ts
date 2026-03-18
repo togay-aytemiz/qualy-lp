@@ -27,22 +27,49 @@ describe('sanity studio contract', () => {
     expect(postSource).toContain("name: 'category'");
 
     expect(categorySource).toContain("name: 'category'");
+    expect(categorySource).toContain("name: 'titleTr'");
+    expect(categorySource).toContain("name: 'titleEn'");
     expect(categorySource).toContain("name: 'title'");
     expect(categorySource).toContain("name: 'slug'");
+    expect(categorySource).toContain("name: 'descriptionTr'");
+    expect(categorySource).toContain("name: 'descriptionEn'");
+    expect(categorySource).toContain("name: 'description'");
   });
 
   it('defines a seed script for sample localized blog content', () => {
     const seedSource = readFileSync(path.join(process.cwd(), 'scripts', 'seed-sanity-blog.mjs'), 'utf8');
+    const categoryDefinitionsSource = readFileSync(path.join(process.cwd(), 'scripts', 'sanity-blog-categories.mjs'), 'utf8');
 
     expect(seedSource).toContain('SANITY_PROJECT_ID');
     expect(seedSource).toContain('SANITY_DATASET');
     expect(seedSource).toContain('SANITY_API_TOKEN');
     expect(seedSource).toContain('SANITY_API_KEY');
-    expect(seedSource).toContain("_type: 'category'");
+    expect(seedSource).toContain('buildCategoryDocuments');
     expect(seedSource).toContain("_type: 'post'");
     expect(seedSource).toContain('translationKey');
     expect(seedSource).toContain('bodyMarkdown');
+    expect(seedSource).toContain('categoryDefinitions');
+    expect(categoryDefinitionsSource).toContain("_type: 'category'");
+    expect(categoryDefinitionsSource).toContain('category.ai-automation');
+    expect(categoryDefinitionsSource).toContain('category.lead-qualification');
+    expect(categoryDefinitionsSource).toContain('category.messaging-workflows');
+    expect(categoryDefinitionsSource).toContain('category.booking-conversion');
+    expect(categoryDefinitionsSource).toContain('category.customer-stories');
+    expect(categoryDefinitionsSource).toContain('title:');
+    expect(categoryDefinitionsSource).toContain('description:');
     expect(seedSource).toContain('/data/mutate/');
+  });
+
+  it('provides a categories-only seed script for live taxonomy updates', () => {
+    const packageSource = readFileSync(path.join(process.cwd(), 'package.json'), 'utf8');
+    const categorySeedSource = readFileSync(path.join(process.cwd(), 'scripts', 'seed-sanity-categories.mjs'), 'utf8');
+    const categoryDefinitionsSource = readFileSync(path.join(process.cwd(), 'scripts', 'sanity-blog-categories.mjs'), 'utf8');
+
+    expect(packageSource).toContain('"sanity:seed:categories"');
+    expect(categorySeedSource).toContain('categoryDefinitions');
+    expect(categorySeedSource).not.toContain("_type: 'post'");
+    expect(categorySeedSource).toContain('/data/mutate/');
+    expect(categoryDefinitionsSource).toContain("_type: 'category'");
   });
 
   it('configures a fixed Sanity studio host for unattended deploys', () => {

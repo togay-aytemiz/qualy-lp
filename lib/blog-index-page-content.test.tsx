@@ -15,6 +15,9 @@ describe('blog index page content', () => {
     expect(source).toContain('Read article');
     expect(source).toContain('Yazıyı oku');
     expect(source).toContain('Tümü');
+    expect(source).toContain('leading-[1.02]');
+    expect(source).toContain('bg-white/92');
+    expect(source).not.toContain('bg-sky-500/15');
     expect(source).toContain('overflow-x-auto px-1 pb-4');
     expect(source).toContain('empty state');
     expect(source).not.toContain('Subscribe to our Newsletter');

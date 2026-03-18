@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-18T21:16:07.927Z",
+  "generatedAt": "2026-03-18T21:34:57.173Z",
   "source": "sanity",
   "enabled": true,
   "siteUrl": "https://askqualy.com",
@@ -63,7 +63,7 @@
       "coverImage": null,
       "category": {
         "slug": "product-updates",
-        "label": "Product Updates"
+        "label": "Urun Guncellemeleri"
       },
       "contentHtml": "\u003ch1>Blog yayin notlari\u003c/h1>\n\u003cp>Qualy blog&#39;unu, landing page ile ayni statik mimariyi koruyarak yayinladik.\u003c/p>\n\u003ch2>Neleri duzelttik?\u003c/h2>\n\u003cul>\n\u003cli>Blog index ve detay sayfalari artik statik olarak uretiliyor.\u003c/li>\n\u003cli>Teknik SEO alanlari her yazi icin build sirasinda yaziliyor.\u003c/li>\n\u003cli>Ic linkler landing page ve diger blog yazilarina dogrudan baglaniyor.\u003c/li>\n\u003c/ul>\n\u003cp>Daha fazla detay icin \u003ca href=\"/pricing\">fiyatlandirma\u003c/a> sayfasina ve \u003ca href=\"/blog\">blog arsivi\u003c/a> sayfasina bakabilirsiniz.\u003c/p>\n",
       "sharedAcrossLocales": false,
@@ -128,7 +128,7 @@
           "coverImage": null,
           "category": {
             "slug": "product-updates",
-            "label": "Product Updates"
+            "label": "Urun Guncellemeleri"
           },
           "contentHtml": "\u003ch1>Blog yayin notlari\u003c/h1>\n\u003cp>Qualy blog&#39;unu, landing page ile ayni statik mimariyi koruyarak yayinladik.\u003c/p>\n\u003ch2>Neleri duzelttik?\u003c/h2>\n\u003cul>\n\u003cli>Blog index ve detay sayfalari artik statik olarak uretiliyor.\u003c/li>\n\u003cli>Teknik SEO alanlari her yazi icin build sirasinda yaziliyor.\u003c/li>\n\u003cli>Ic linkler landing page ve diger blog yazilarina dogrudan baglaniyor.\u003c/li>\n\u003c/ul>\n\u003cp>Daha fazla detay icin \u003ca href=\"/pricing\">fiyatlandirma\u003c/a> sayfasina ve \u003ca href=\"/blog\">blog arsivi\u003c/a> sayfasina bakabilirsiniz.\u003c/p>\n",
           "sharedAcrossLocales": false,

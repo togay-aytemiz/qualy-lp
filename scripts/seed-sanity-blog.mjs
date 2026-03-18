@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import {buildCategoryDocuments, categoryDefinitions} from './sanity-blog-categories.mjs';
 
 const ROOT_DIR = process.cwd();
 const ENV_FILES = ['.env', '.env.local'];
@@ -48,17 +49,12 @@ function getConfig() {
 
 function buildSeedDocuments() {
   const publishedAt = '2026-03-18T12:00:00.000Z';
-  const categoryId = 'category.product-updates';
+  const categoryId = categoryDefinitions[0].id;
   const translationKey = 'qualy-blog-launch-post';
+  const categoryDocuments = buildCategoryDocuments();
 
   return [
-    {
-      _id: categoryId,
-      _type: 'category',
-      title: 'Product Updates',
-      slug: {_type: 'slug', current: 'product-updates'},
-      description: 'Launch notes, roadmap updates, and practical rollout stories.',
-    },
+    ...categoryDocuments,
     {
       _id: 'post.qualy-blog-launch-post.tr',
       _type: 'post',

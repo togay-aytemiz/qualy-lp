@@ -9,6 +9,7 @@
     "sanity:dev": "npm --prefix sanity-studio run dev",
     "sanity:build": "npm --prefix sanity-studio run build",
     "sanity:seed": "node scripts/seed-sanity-blog.mjs",
+    "sanity:seed:categories": "node scripts/seed-sanity-categories.mjs",
     "legal:generate": "node scripts/generate-legal-assets.mjs",
     "blog:generate": "node scripts/generate-blog-assets.mjs",
     "seo:generate:sitemap": "node scripts/generate-sitemap.mjs",

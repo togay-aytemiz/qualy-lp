@@ -30,6 +30,7 @@ Useful commands:
 - `npm run sanity:dev`
 - `npm run sanity:build`
 - `npm run sanity:seed`
+- `npm run sanity:seed:categories`
 
 Required env vars for blog generation:
 
@@ -59,8 +60,11 @@ Recommended Sanity fields for each `post` document:
 
 Recommended Sanity fields for each `category` document:
 
-- `title`
+- `titleTr`
+- `titleEn`
 - `slug`
+- `descriptionTr`
+- `descriptionEn`
 
 The included seed script creates:
 
