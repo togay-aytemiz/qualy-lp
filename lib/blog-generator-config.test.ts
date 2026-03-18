@@ -15,6 +15,7 @@ describe('blog generator config', () => {
     expect(source).toContain('sharedAcrossLocales');
     expect(source).toContain('source.cover');
     expect(source).toContain('source.blocks');
+    expect(source).toContain('source.category');
     expect(source).toContain('marked.parse');
     expect(source).toContain("searchParams.set('populate', '*')");
     expect(source).toContain('async function fetchWithRetries');

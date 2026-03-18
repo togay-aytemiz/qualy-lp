@@ -10,7 +10,11 @@ describe('blog index page content', () => {
     expect(source).toContain("/blog_manifest.json");
     expect(source).toContain('featuredPost');
     expect(source).toContain('remainingPosts');
+    expect(source).toContain('activeCategory');
+    expect(source).toContain('categoryFilters');
+    expect(source).toContain('Read article');
     expect(source).toContain('empty state');
+    expect(source).not.toContain('Subscribe to our Newsletter');
     expect(source).toContain('BlogIndexPage');
   });
 });

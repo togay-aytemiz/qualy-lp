@@ -276,6 +276,25 @@ function buildPostVariant({ basePost, baseId, locale, localizations, sharedAcros
   };
 }
 
+function normalizeCategory(source) {
+  const categorySource =
+    source.category?.data?.attributes ??
+    source.category?.data ??
+    source.category ??
+    null;
+  const categorySlug = String(categorySource?.slug ?? '').trim().toLowerCase();
+  const categoryLabel = String(categorySource?.name ?? categorySource?.title ?? categorySlug).trim();
+
+  if (!categorySlug && !categoryLabel) {
+    return null;
+  }
+
+  return {
+    slug: categorySlug || categoryLabel.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''),
+    label: categoryLabel || 'General',
+  };
+}
+
 function normalizePost(item) {
   const source = item?.attributes ?? item ?? {};
   const slug = String(source.slug ?? '').trim();
@@ -306,6 +325,7 @@ function normalizePost(item) {
       : [];
   const contentHtml = renderBlocksToHtml(source.blocks);
   const baseId = item?.id ?? source.id ?? slug;
+  const category = normalizeCategory(source);
   const basePost = {
     slug,
     title,
@@ -321,6 +341,7 @@ function normalizePost(item) {
           alt: coverImageAlt,
         }
       : null,
+    category,
   };
 
   if (sharedAcrossLocales) {
@@ -399,6 +420,7 @@ function buildBlogPostManifestEntry(post) {
     seoTitle: post.seoTitle,
     seoDescription: post.seoDescription,
     coverImage: post.coverImage?.url ?? null,
+    category: post.category ?? null,
     contentHtml: post.contentHtml ?? '',
     sharedAcrossLocales: Boolean(post.sharedAcrossLocales),
     localizations: (post.localizations ?? []).map((localization) => ({
@@ -430,6 +452,7 @@ function restorePostFromCache(entry) {
           alt: '',
         }
       : null,
+    category: entry.category ?? null,
     path: entry.path,
     canonicalUrl: entry.canonicalUrl,
     sharedAcrossLocales: Boolean(entry.sharedAcrossLocales),

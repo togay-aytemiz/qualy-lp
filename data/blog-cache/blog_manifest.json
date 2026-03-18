@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-18T11:00:05.069Z",
+  "generatedAt": "2026-03-18T12:03:19.669Z",
   "source": "strapi",
   "enabled": true,
   "siteUrl": "https://askqualy.com",
@@ -30,6 +30,10 @@
       "seoTitle": "A bug is becoming a meme on the internet",
       "seoDescription": "How a bug on MySQL is becoming a meme on the internet",
       "coverImage": "https://majestic-baseball-56988fbfd8.media.strapiapp.com/a_bug_is_becoming_a_meme_on_the_internet_97f609a859.jpeg",
+      "category": {
+        "slug": "tech",
+        "label": "tech"
+      },
       "contentHtml": "\u003ch2>Probant\u003c/h2>\n\u003cp>se Lorem markdownum negat. Argo \u003cem>saxa\u003c/em> videnda cornuaque hunc qui tanta spes teneas! Obliquis est dicenti est salutat ille tamen iuvenum nostrae dolore. - Colores nocituraque comitata eripiunt - Addit quodcunque solum cui et dextram illis - Nulli meus nec extemplo ille ferebat pressit Se blandita fulvae vox gravem Pittheus cesserunt sanguine herbis tu comitum tenuit. Sui in ruunt; Doridaque maculosae fuissem! Et loqui. \u003c/p>\n\u003ch2>Abit sua\u003c/h2>\n\u003cp>se Lorem markdownum negat. Argo \u003cem>saxa\u003c/em> videnda cornuaque hunc qui tanta spes teneas! Obliquis est dicenti est salutat ille tamen iuvenum nostrae dolore. - Colores nocituraque comitata eripiunt - Addit quodcunque solum cui et dextram illis - Nulli meus nec extemplo ille ferebat pressit Se blandita fulvae vox gravem Pittheus cesserunt sanguine herbis tu comitum tenuit. Sui in ruunt; Doridaque maculosae fuissem! Et loqui.\u003c/p>\n\n\u003cfigure class=\"rounded-3xl border border-slate-200 bg-slate-50 px-6 py-5\">\u003cblockquote>\u003cp>You&#39;ve got to dig it to dig it, you dig?\u003c/p>\u003c/blockquote>\u003cfigcaption class=\"mt-3 text-sm font-semibold text-slate-500\">Thelonius Monk\u003c/figcaption>\u003c/figure>\n\u003ch2>Spatiantia astra\u003c/h2>\n\u003cp>Foeda, medio silva \u003cem>errandum\u003c/em>: onus formam munere. Mutata bibulis est auxiliare arces etiamnunc verbis virgineo Priamidas illa Thescelus, nam fit locis lucis auras. Exitus hospes gratulor ut pondere \u003ca href=\"http://www.curas.io/figuram\">speslimite\u003c/a>; quid habent, Avernales faciente de. Pervenit Ino sonabile supplex cognoscenti vires, Bacchumque errat miserarum venandi dignabere dedisti. Discrimina iuncosaque virgaque tot sine superest \u003ca href=\"http://quos.org/sitet.aspx\">fissus\u003c/a>. Non color esset potest non sumit, sed vix arserat. Nisi immo silva tantum pectusque quos pennis quisquam artus!\u003c/p>\n",
       "sharedAcrossLocales": true,
       "localizations": [
@@ -55,6 +59,10 @@
       "seoTitle": "A bug is becoming a meme on the internet",
       "seoDescription": "How a bug on MySQL is becoming a meme on the internet",
       "coverImage": "https://majestic-baseball-56988fbfd8.media.strapiapp.com/a_bug_is_becoming_a_meme_on_the_internet_97f609a859.jpeg",
+      "category": {
+        "slug": "tech",
+        "label": "tech"
+      },
       "contentHtml": "\u003ch2>Probant\u003c/h2>\n\u003cp>se Lorem markdownum negat. Argo \u003cem>saxa\u003c/em> videnda cornuaque hunc qui tanta spes teneas! Obliquis est dicenti est salutat ille tamen iuvenum nostrae dolore. - Colores nocituraque comitata eripiunt - Addit quodcunque solum cui et dextram illis - Nulli meus nec extemplo ille ferebat pressit Se blandita fulvae vox gravem Pittheus cesserunt sanguine herbis tu comitum tenuit. Sui in ruunt; Doridaque maculosae fuissem! Et loqui. \u003c/p>\n\u003ch2>Abit sua\u003c/h2>\n\u003cp>se Lorem markdownum negat. Argo \u003cem>saxa\u003c/em> videnda cornuaque hunc qui tanta spes teneas! Obliquis est dicenti est salutat ille tamen iuvenum nostrae dolore. - Colores nocituraque comitata eripiunt - Addit quodcunque solum cui et dextram illis - Nulli meus nec extemplo ille ferebat pressit Se blandita fulvae vox gravem Pittheus cesserunt sanguine herbis tu comitum tenuit. Sui in ruunt; Doridaque maculosae fuissem! Et loqui.\u003c/p>\n\n\u003cfigure class=\"rounded-3xl border border-slate-200 bg-slate-50 px-6 py-5\">\u003cblockquote>\u003cp>You&#39;ve got to dig it to dig it, you dig?\u003c/p>\u003c/blockquote>\u003cfigcaption class=\"mt-3 text-sm font-semibold text-slate-500\">Thelonius Monk\u003c/figcaption>\u003c/figure>\n\u003ch2>Spatiantia astra\u003c/h2>\n\u003cp>Foeda, medio silva \u003cem>errandum\u003c/em>: onus formam munere. Mutata bibulis est auxiliare arces etiamnunc verbis virgineo Priamidas illa Thescelus, nam fit locis lucis auras. Exitus hospes gratulor ut pondere \u003ca href=\"http://www.curas.io/figuram\">speslimite\u003c/a>; quid habent, Avernales faciente de. Pervenit Ino sonabile supplex cognoscenti vires, Bacchumque errat miserarum venandi dignabere dedisti. Discrimina iuncosaque virgaque tot sine superest \u003ca href=\"http://quos.org/sitet.aspx\">fissus\u003c/a>. Non color esset potest non sumit, sed vix arserat. Nisi immo silva tantum pectusque quos pennis quisquam artus!\u003c/p>\n",
       "sharedAcrossLocales": true,
       "localizations": [
@@ -85,6 +93,10 @@
           "seoTitle": "A bug is becoming a meme on the internet",
           "seoDescription": "How a bug on MySQL is becoming a meme on the internet",
           "coverImage": "https://majestic-baseball-56988fbfd8.media.strapiapp.com/a_bug_is_becoming_a_meme_on_the_internet_97f609a859.jpeg",
+          "category": {
+            "slug": "tech",
+            "label": "tech"
+          },
           "contentHtml": "\u003ch2>Probant\u003c/h2>\n\u003cp>se Lorem markdownum negat. Argo \u003cem>saxa\u003c/em> videnda cornuaque hunc qui tanta spes teneas! Obliquis est dicenti est salutat ille tamen iuvenum nostrae dolore. - Colores nocituraque comitata eripiunt - Addit quodcunque solum cui et dextram illis - Nulli meus nec extemplo ille ferebat pressit Se blandita fulvae vox gravem Pittheus cesserunt sanguine herbis tu comitum tenuit. Sui in ruunt; Doridaque maculosae fuissem! Et loqui. \u003c/p>\n\u003ch2>Abit sua\u003c/h2>\n\u003cp>se Lorem markdownum negat. Argo \u003cem>saxa\u003c/em> videnda cornuaque hunc qui tanta spes teneas! Obliquis est dicenti est salutat ille tamen iuvenum nostrae dolore. - Colores nocituraque comitata eripiunt - Addit quodcunque solum cui et dextram illis - Nulli meus nec extemplo ille ferebat pressit Se blandita fulvae vox gravem Pittheus cesserunt sanguine herbis tu comitum tenuit. Sui in ruunt; Doridaque maculosae fuissem! Et loqui.\u003c/p>\n\n\u003cfigure class=\"rounded-3xl border border-slate-200 bg-slate-50 px-6 py-5\">\u003cblockquote>\u003cp>You&#39;ve got to dig it to dig it, you dig?\u003c/p>\u003c/blockquote>\u003cfigcaption class=\"mt-3 text-sm font-semibold text-slate-500\">Thelonius Monk\u003c/figcaption>\u003c/figure>\n\u003ch2>Spatiantia astra\u003c/h2>\n\u003cp>Foeda, medio silva \u003cem>errandum\u003c/em>: onus formam munere. Mutata bibulis est auxiliare arces etiamnunc verbis virgineo Priamidas illa Thescelus, nam fit locis lucis auras. Exitus hospes gratulor ut pondere \u003ca href=\"http://www.curas.io/figuram\">speslimite\u003c/a>; quid habent, Avernales faciente de. Pervenit Ino sonabile supplex cognoscenti vires, Bacchumque errat miserarum venandi dignabere dedisti. Discrimina iuncosaque virgaque tot sine superest \u003ca href=\"http://quos.org/sitet.aspx\">fissus\u003c/a>. Non color esset potest non sumit, sed vix arserat. Nisi immo silva tantum pectusque quos pennis quisquam artus!\u003c/p>\n",
           "sharedAcrossLocales": true,
           "localizations": [
@@ -110,6 +122,10 @@
           "seoTitle": "A bug is becoming a meme on the internet",
           "seoDescription": "How a bug on MySQL is becoming a meme on the internet",
           "coverImage": "https://majestic-baseball-56988fbfd8.media.strapiapp.com/a_bug_is_becoming_a_meme_on_the_internet_97f609a859.jpeg",
+          "category": {
+            "slug": "tech",
+            "label": "tech"
+          },
           "contentHtml": "\u003ch2>Probant\u003c/h2>\n\u003cp>se Lorem markdownum negat. Argo \u003cem>saxa\u003c/em> videnda cornuaque hunc qui tanta spes teneas! Obliquis est dicenti est salutat ille tamen iuvenum nostrae dolore. - Colores nocituraque comitata eripiunt - Addit quodcunque solum cui et dextram illis - Nulli meus nec extemplo ille ferebat pressit Se blandita fulvae vox gravem Pittheus cesserunt sanguine herbis tu comitum tenuit. Sui in ruunt; Doridaque maculosae fuissem! Et loqui. \u003c/p>\n\u003ch2>Abit sua\u003c/h2>\n\u003cp>se Lorem markdownum negat. Argo \u003cem>saxa\u003c/em> videnda cornuaque hunc qui tanta spes teneas! Obliquis est dicenti est salutat ille tamen iuvenum nostrae dolore. - Colores nocituraque comitata eripiunt - Addit quodcunque solum cui et dextram illis - Nulli meus nec extemplo ille ferebat pressit Se blandita fulvae vox gravem Pittheus cesserunt sanguine herbis tu comitum tenuit. Sui in ruunt; Doridaque maculosae fuissem! Et loqui.\u003c/p>\n\n\u003cfigure class=\"rounded-3xl border border-slate-200 bg-slate-50 px-6 py-5\">\u003cblockquote>\u003cp>You&#39;ve got to dig it to dig it, you dig?\u003c/p>\u003c/blockquote>\u003cfigcaption class=\"mt-3 text-sm font-semibold text-slate-500\">Thelonius Monk\u003c/figcaption>\u003c/figure>\n\u003ch2>Spatiantia astra\u003c/h2>\n\u003cp>Foeda, medio silva \u003cem>errandum\u003c/em>: onus formam munere. Mutata bibulis est auxiliare arces etiamnunc verbis virgineo Priamidas illa Thescelus, nam fit locis lucis auras. Exitus hospes gratulor ut pondere \u003ca href=\"http://www.curas.io/figuram\">speslimite\u003c/a>; quid habent, Avernales faciente de. Pervenit Ino sonabile supplex cognoscenti vires, Bacchumque errat miserarum venandi dignabere dedisti. Discrimina iuncosaque virgaque tot sine superest \u003ca href=\"http://quos.org/sitet.aspx\">fissus\u003c/a>. Non color esset potest non sumit, sed vix arserat. Nisi immo silva tantum pectusque quos pennis quisquam artus!\u003c/p>\n",
           "sharedAcrossLocales": true,
           "localizations": [
