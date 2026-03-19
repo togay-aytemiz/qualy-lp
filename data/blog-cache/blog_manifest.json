@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-19T07:55:34.244Z",
+  "generatedAt": "2026-03-19T09:39:21.094Z",
   "source": "sanity",
   "enabled": true,
   "siteUrl": "https://askqualy.com",
@@ -18,6 +18,66 @@
     }
   },
   "posts": [
+    {
+      "id": "post.qualy-ready-replies-knowledge-base.en",
+      "translationKey": "qualy-ready-replies-knowledge-base",
+      "locale": "en",
+      "slug": "ready-replies-knowledge-base-response-quality",
+      "title": "How we stabilized response quality with ready replies and a knowledge base",
+      "excerpt": "A practical look at how ready replies, knowledge base documents, and follow-up rules helped us keep customer answers more consistent.",
+      "publishedAt": "2026-03-19T09:00:00.000Z",
+      "path": "/en/blog/ready-replies-knowledge-base-response-quality",
+      "canonicalUrl": "https://askqualy.com/en/blog/ready-replies-knowledge-base-response-quality",
+      "seoTitle": "Ready replies and knowledge base response quality | Qualy",
+      "seoDescription": "Learn how Qualy combines ready replies, knowledge base documents, and follow-up rules to keep customer responses more consistent.",
+      "coverImage": null,
+      "category": {
+        "slug": "ai-automation",
+        "label": "AI Automation"
+      },
+      "contentHtml": "\u003ch1>Why we set this up\u003c/h1>\n\u003cp>As the product grew, the same customer question could receive different quality depending on who answered it. We reduced that drift by combining ready replies, knowledge base documents, and follow-up rules in one response layer.\u003c/p>\n\u003ch2>What changed?\u003c/h2>\n\u003cul>\n\u003cli>We grouped recurring questions into reusable ready replies.\u003c/li>\n\u003cli>We moved service, pricing, and process details into a structured knowledge base.\u003c/li>\n\u003cli>We let the AI ask short follow-up questions when key context was missing.\u003c/li>\n\u003c/ul>\n\u003ch2>What improved?\u003c/h2>\n\u003cp>The first answer now goes out faster, teams stay closer to the same tone, and human takeover is easier to spot when the conversation needs it.\u003c/p>\n\u003cp>You can continue with \u003ca href=\"/en/#features\">features\u003c/a> and \u003ca href=\"/en/pricing\">pricing\u003c/a> for more context.\u003c/p>\n",
+      "sharedAcrossLocales": false,
+      "localizations": [
+        {
+          "id": "post.qualy-ready-replies-knowledge-base.tr",
+          "locale": "tr",
+          "slug": "hazir-yanitlar-bilgi-tabani-cevap-kalitesi",
+          "path": "/blog/hazir-yanitlar-bilgi-tabani-cevap-kalitesi",
+          "canonicalUrl": "https://askqualy.com/blog/hazir-yanitlar-bilgi-tabani-cevap-kalitesi",
+          "sharedAcrossLocales": false
+        }
+      ]
+    },
+    {
+      "id": "post.qualy-ready-replies-knowledge-base.tr",
+      "translationKey": "qualy-ready-replies-knowledge-base",
+      "locale": "tr",
+      "slug": "hazir-yanitlar-bilgi-tabani-cevap-kalitesi",
+      "title": "Hazir yanitlar ve bilgi tabani ile cevap kalitesini nasil sabitledik",
+      "excerpt": "Hazir yanitlar, bilgi tabani dokumanlari ve net takip kurallari ile daha tutarli musteri cevaplarini nasil elde ettigimizi anlatiyoruz.",
+      "publishedAt": "2026-03-19T09:00:00.000Z",
+      "path": "/blog/hazir-yanitlar-bilgi-tabani-cevap-kalitesi",
+      "canonicalUrl": "https://askqualy.com/blog/hazir-yanitlar-bilgi-tabani-cevap-kalitesi",
+      "seoTitle": "Hazir yanitlar ve bilgi tabani ile cevap kalitesi | Qualy",
+      "seoDescription": "Hazir yanitlar, bilgi tabani ve takip akislari ile daha tutarli musteri cevaplari olusturmanin pratik yolunu inceleyin.",
+      "coverImage": null,
+      "category": {
+        "slug": "ai-automation",
+        "label": "Yapay Zeka Otomasyonu"
+      },
+      "contentHtml": "\u003ch1>Neden bu akisi kurduk?\u003c/h1>\n\u003cp>Qualy&#39;de buyume hizlandikca ayni musteri sorusu farkli kisilerden farkli kalitede cevap almaya basladi. Bunu azaltmak icin hazir yanitlari, bilgi tabani dokumanlarini ve takip kurallarini tek bir cevap katmaninda birlestirdik.\u003c/p>\n\u003ch2>Neyi degistirdik?\u003c/h2>\n\u003cul>\n\u003cli>Sik gelen sorular icin hazir yanitlari tek yerde topladik.\u003c/li>\n\u003cli>Hizmet, fiyatlama ve surec detaylarini bilgi tabani dokumanlarina tasidik.\u003c/li>\n\u003cli>AI&#39;nin eksik bilgi gordugu noktalarda kisa takip sorulari sormasini sagladik.\u003c/li>\n\u003c/ul>\n\u003ch2>Sonuc ne oldu?\u003c/h2>\n\u003cp>Bu yapi sayesinde ilk yanit daha hizli cikiyor, ekipler ayni dilde kaliyor ve insan devralmasi gerektiren gorusmeler daha net ayrisiyor.\u003c/p>\n\u003cp>Daha fazla baglam icin \u003ca href=\"/#features\">ozellikler\u003c/a> ve \u003ca href=\"/pricing\">fiyatlandirma\u003c/a> sayfalarina bakabilirsiniz.\u003c/p>\n",
+      "sharedAcrossLocales": false,
+      "localizations": [
+        {
+          "id": "post.qualy-ready-replies-knowledge-base.en",
+          "locale": "en",
+          "slug": "ready-replies-knowledge-base-response-quality",
+          "path": "/en/blog/ready-replies-knowledge-base-response-quality",
+          "canonicalUrl": "https://askqualy.com/en/blog/ready-replies-knowledge-base-response-quality",
+          "sharedAcrossLocales": false
+        }
+      ]
+    },
     {
       "id": "post.qualy-blog-launch-post.en",
       "translationKey": "qualy-blog-launch-post",
@@ -80,6 +140,71 @@
     }
   ],
   "groups": [
+    {
+      "key": "qualy-ready-replies-knowledge-base",
+      "posts": [
+        {
+          "id": "post.qualy-ready-replies-knowledge-base.en",
+          "translationKey": "qualy-ready-replies-knowledge-base",
+          "locale": "en",
+          "slug": "ready-replies-knowledge-base-response-quality",
+          "title": "How we stabilized response quality with ready replies and a knowledge base",
+          "excerpt": "A practical look at how ready replies, knowledge base documents, and follow-up rules helped us keep customer answers more consistent.",
+          "publishedAt": "2026-03-19T09:00:00.000Z",
+          "path": "/en/blog/ready-replies-knowledge-base-response-quality",
+          "canonicalUrl": "https://askqualy.com/en/blog/ready-replies-knowledge-base-response-quality",
+          "seoTitle": "Ready replies and knowledge base response quality | Qualy",
+          "seoDescription": "Learn how Qualy combines ready replies, knowledge base documents, and follow-up rules to keep customer responses more consistent.",
+          "coverImage": null,
+          "category": {
+            "slug": "ai-automation",
+            "label": "AI Automation"
+          },
+          "contentHtml": "\u003ch1>Why we set this up\u003c/h1>\n\u003cp>As the product grew, the same customer question could receive different quality depending on who answered it. We reduced that drift by combining ready replies, knowledge base documents, and follow-up rules in one response layer.\u003c/p>\n\u003ch2>What changed?\u003c/h2>\n\u003cul>\n\u003cli>We grouped recurring questions into reusable ready replies.\u003c/li>\n\u003cli>We moved service, pricing, and process details into a structured knowledge base.\u003c/li>\n\u003cli>We let the AI ask short follow-up questions when key context was missing.\u003c/li>\n\u003c/ul>\n\u003ch2>What improved?\u003c/h2>\n\u003cp>The first answer now goes out faster, teams stay closer to the same tone, and human takeover is easier to spot when the conversation needs it.\u003c/p>\n\u003cp>You can continue with \u003ca href=\"/en/#features\">features\u003c/a> and \u003ca href=\"/en/pricing\">pricing\u003c/a> for more context.\u003c/p>\n",
+          "sharedAcrossLocales": false,
+          "localizations": [
+            {
+              "id": "post.qualy-ready-replies-knowledge-base.tr",
+              "locale": "tr",
+              "slug": "hazir-yanitlar-bilgi-tabani-cevap-kalitesi",
+              "path": "/blog/hazir-yanitlar-bilgi-tabani-cevap-kalitesi",
+              "canonicalUrl": "https://askqualy.com/blog/hazir-yanitlar-bilgi-tabani-cevap-kalitesi",
+              "sharedAcrossLocales": false
+            }
+          ]
+        },
+        {
+          "id": "post.qualy-ready-replies-knowledge-base.tr",
+          "translationKey": "qualy-ready-replies-knowledge-base",
+          "locale": "tr",
+          "slug": "hazir-yanitlar-bilgi-tabani-cevap-kalitesi",
+          "title": "Hazir yanitlar ve bilgi tabani ile cevap kalitesini nasil sabitledik",
+          "excerpt": "Hazir yanitlar, bilgi tabani dokumanlari ve net takip kurallari ile daha tutarli musteri cevaplarini nasil elde ettigimizi anlatiyoruz.",
+          "publishedAt": "2026-03-19T09:00:00.000Z",
+          "path": "/blog/hazir-yanitlar-bilgi-tabani-cevap-kalitesi",
+          "canonicalUrl": "https://askqualy.com/blog/hazir-yanitlar-bilgi-tabani-cevap-kalitesi",
+          "seoTitle": "Hazir yanitlar ve bilgi tabani ile cevap kalitesi | Qualy",
+          "seoDescription": "Hazir yanitlar, bilgi tabani ve takip akislari ile daha tutarli musteri cevaplari olusturmanin pratik yolunu inceleyin.",
+          "coverImage": null,
+          "category": {
+            "slug": "ai-automation",
+            "label": "Yapay Zeka Otomasyonu"
+          },
+          "contentHtml": "\u003ch1>Neden bu akisi kurduk?\u003c/h1>\n\u003cp>Qualy&#39;de buyume hizlandikca ayni musteri sorusu farkli kisilerden farkli kalitede cevap almaya basladi. Bunu azaltmak icin hazir yanitlari, bilgi tabani dokumanlarini ve takip kurallarini tek bir cevap katmaninda birlestirdik.\u003c/p>\n\u003ch2>Neyi degistirdik?\u003c/h2>\n\u003cul>\n\u003cli>Sik gelen sorular icin hazir yanitlari tek yerde topladik.\u003c/li>\n\u003cli>Hizmet, fiyatlama ve surec detaylarini bilgi tabani dokumanlarina tasidik.\u003c/li>\n\u003cli>AI&#39;nin eksik bilgi gordugu noktalarda kisa takip sorulari sormasini sagladik.\u003c/li>\n\u003c/ul>\n\u003ch2>Sonuc ne oldu?\u003c/h2>\n\u003cp>Bu yapi sayesinde ilk yanit daha hizli cikiyor, ekipler ayni dilde kaliyor ve insan devralmasi gerektiren gorusmeler daha net ayrisiyor.\u003c/p>\n\u003cp>Daha fazla baglam icin \u003ca href=\"/#features\">ozellikler\u003c/a> ve \u003ca href=\"/pricing\">fiyatlandirma\u003c/a> sayfalarina bakabilirsiniz.\u003c/p>\n",
+          "sharedAcrossLocales": false,
+          "localizations": [
+            {
+              "id": "post.qualy-ready-replies-knowledge-base.en",
+              "locale": "en",
+              "slug": "ready-replies-knowledge-base-response-quality",
+              "path": "/en/blog/ready-replies-knowledge-base-response-quality",
+              "canonicalUrl": "https://askqualy.com/en/blog/ready-replies-knowledge-base-response-quality",
+              "sharedAcrossLocales": false
+            }
+          ]
+        }
+      ]
+    },
     {
       "key": "qualy-blog-launch-post",
       "posts": [

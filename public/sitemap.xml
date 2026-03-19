@@ -66,6 +66,16 @@
     <priority>0.4</priority>
   </url>
   <url>
+    <loc>https://askqualy.com/en/blog/ready-replies-knowledge-base-response-quality</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://askqualy.com/blog/hazir-yanitlar-bilgi-tabani-cevap-kalitesi</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://askqualy.com/en/blog/qualy-blog-launch-performance</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
