@@ -11,6 +11,6 @@ describe('blog build helpers', () => {
     expect(source).toContain('buildBlogManifest');
     expect(source).toContain('getBlogPostSeo');
     expect(source).toContain('renderBlogEntryHtml');
-    expect(source).toContain('noindex,follow');
+    expect(source).toContain('index,follow');
   });
 });

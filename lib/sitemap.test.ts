@@ -6,6 +6,10 @@ describe('buildSitemapXml', () => {
     const xml = buildSitemapXml('https://askqualy.com', [
       { path: '/', changefreq: 'weekly', priority: 1.0 },
       { path: '/en', changefreq: 'weekly', priority: 0.9 },
+      { path: '/blog', changefreq: 'weekly', priority: 0.8 },
+      { path: '/en/blog', changefreq: 'weekly', priority: 0.7 },
+      { path: '/blog/qualy-blog-yayin-optimizasyonu', changefreq: 'monthly', priority: 0.6 },
+      { path: '/en/blog/qualy-blog-launch-performance', changefreq: 'monthly', priority: 0.5 },
       { path: '/pricing', changefreq: 'weekly', priority: 0.8 },
       { path: '/en/pricing', changefreq: 'weekly', priority: 0.7 },
       { path: '/about', changefreq: 'monthly', priority: 0.6 },
@@ -33,10 +37,12 @@ describe('buildSitemapXml', () => {
 
     expect(xml).toContain('<loc>https://askqualy.com/</loc>');
     expect(xml).toContain('<loc>https://askqualy.com/en</loc>');
+    expect(xml).toContain('<loc>https://askqualy.com/blog</loc>');
+    expect(xml).toContain('<loc>https://askqualy.com/en/blog</loc>');
+    expect(xml).toContain('<loc>https://askqualy.com/blog/qualy-blog-yayin-optimizasyonu</loc>');
+    expect(xml).toContain('<loc>https://askqualy.com/en/blog/qualy-blog-launch-performance</loc>');
     expect(xml).toContain('<loc>https://askqualy.com/pricing</loc>');
     expect(xml).toContain('<loc>https://askqualy.com/en/pricing</loc>');
-    expect(xml).not.toContain('/blog');
-    expect(xml).not.toContain('/en/blog');
     expect(xml).toContain('<loc>https://askqualy.com/about</loc>');
     expect(xml).toContain('<loc>https://askqualy.com/en/about</loc>');
     expect(xml).toContain('<loc>https://askqualy.com/data-deletion</loc>');

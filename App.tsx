@@ -11,6 +11,9 @@ import { getSeoByRoute, getSeoRouteKeyByPath } from './lib/seo';
 import { focusHomeSectionByHashWithRetry } from './lib/home-section-focus';
 import { isHomePath } from './lib/footer-links';
 import { readStoredLanguagePreference, resolvePreferredHomePath } from './lib/language-preference';
+import type { BlogBootstrapData } from './lib/blog-client';
+import BlogIndexPage from './pages/BlogIndexPage';
+import BlogPostPage from './pages/BlogPostPage';
 
 const SuccessStories = lazy(() => import('./components/SuccessStories'));
 const Challenges = lazy(() => import('./components/Challenges'));
@@ -25,13 +28,17 @@ const DataDeletionPage = lazy(() => import('./pages/DataDeletionPage'));
 const LegalPage = lazy(() => import('./pages/LegalPage'));
 const LegalIndexPage = lazy(() => import('./pages/LegalIndexPage'));
 const LlmFaqDirectoryPage = lazy(() => import('./pages/LlmFaqDirectoryPage'));
-const BlogIndexPage = lazy(() => import('./pages/BlogIndexPage'));
-const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
+const LazyBlogIndexPage = lazy(() => import('./pages/BlogIndexPage'));
+const LazyBlogPostPage = lazy(() => import('./pages/BlogPostPage'));
+
+const normalizePathname = (value: string) => {
+  const cleanedPath = value.replace(/\/+$/, '');
+  return cleanedPath === '' ? '/' : cleanedPath;
+};
 
 const getNormalizedPath = () => {
   if (typeof window === 'undefined') return '/';
-  const cleanedPath = window.location.pathname.replace(/\/+$/, '');
-  return cleanedPath === '' ? '/' : cleanedPath;
+  return normalizePathname(window.location.pathname);
 };
 
 const isEnglishRoutePath = (path: string) => path === '/en' || path.startsWith('/en/');
@@ -45,9 +52,14 @@ const stripEnglishRoutePrefix = (path: string) => {
   return path;
 };
 
-const AppContent: React.FC = () => {
+type AppContentProps = {
+  initialPath?: string;
+  initialBlogData?: BlogBootstrapData | null;
+};
+
+const AppContent: React.FC<AppContentProps> = ({ initialPath, initialBlogData }) => {
   const { language, setLanguage } = useLanguage();
-  const [path, setPath] = useState(getNormalizedPath);
+  const [path, setPath] = useState(() => normalizePathname(initialPath ?? getNormalizedPath()));
 
   const normalizedPath = stripEnglishRoutePrefix(path);
   const isEnglishPath = isEnglishRoutePath(path);
@@ -70,6 +82,11 @@ const AppContent: React.FC = () => {
     normalizedPath === '/data-deletion' ||
     isLegalIndexRoute ||
     isLegalRoute;
+  const activeInitialBlogData =
+    initialBlogData && normalizePathname(initialBlogData.path) === path ? initialBlogData : null;
+  const initialBlogIndexPosts = activeInitialBlogData?.route === 'index' ? activeInitialBlogData.posts : undefined;
+  const initialBlogPostData =
+    activeInitialBlogData?.route === 'post' ? activeInitialBlogData : null;
 
   useEffect(() => {
     const handleRouteChange = () => setPath(getNormalizedPath());
@@ -231,6 +248,20 @@ const AppContent: React.FC = () => {
   }
 
   if (isBlogIndexRoute) {
+    if (initialBlogIndexPosts) {
+      return (
+        <div className="min-h-screen bg-white selection:bg-black selection:text-white">
+          <div>
+            <Navbar />
+            <main>
+              <BlogIndexPage initialPosts={initialBlogIndexPosts} />
+            </main>
+            <Footer />
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="min-h-screen bg-white selection:bg-black selection:text-white">
         <motion.div
@@ -242,7 +273,7 @@ const AppContent: React.FC = () => {
           <Navbar />
           <main>
             <Suspense fallback={<SectionSkeleton />}>
-              <BlogIndexPage />
+              <LazyBlogIndexPage />
             </Suspense>
           </main>
           <Footer />
@@ -253,6 +284,20 @@ const AppContent: React.FC = () => {
 
   if (isBlogPostRoute) {
     const blogSlug = normalizedPath.slice('/blog/'.length);
+
+    if (initialBlogPostData?.slug === blogSlug) {
+      return (
+        <div className="min-h-screen bg-white selection:bg-black selection:text-white">
+          <div>
+            <Navbar />
+            <main>
+              <BlogPostPage slug={blogSlug} initialPost={initialBlogPostData.post} />
+            </main>
+            <Footer />
+          </div>
+        </div>
+      );
+    }
 
     // <BlogPostPage /> is rendered through the slug-aware branch below.
     return (
@@ -266,7 +311,7 @@ const AppContent: React.FC = () => {
           <Navbar />
           <main>
             <Suspense fallback={<SectionSkeleton />}>
-              <BlogPostPage slug={blogSlug} />
+              <LazyBlogPostPage slug={blogSlug} />
             </Suspense>
           </main>
           <Footer />
@@ -314,10 +359,16 @@ const AppContent: React.FC = () => {
   );
 };
 
-const App: React.FC = () => {
+export type AppProps = {
+  initialPath?: string;
+  initialLanguage?: 'en' | 'tr';
+  initialBlogData?: BlogBootstrapData | null;
+};
+
+const App: React.FC<AppProps> = ({ initialPath, initialLanguage, initialBlogData }) => {
   return (
-    <LanguageProvider>
-      <AppContent />
+    <LanguageProvider initialLanguage={initialLanguage}>
+      <AppContent initialPath={initialPath} initialBlogData={initialBlogData} />
     </LanguageProvider>
   );
 };

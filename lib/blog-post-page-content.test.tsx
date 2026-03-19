@@ -10,6 +10,7 @@ describe('blog post page content', () => {
     expect(source).toContain('/blog-posts/');
     expect(source).toContain('/blog_manifest.json');
     expect(source).toContain('relatedPosts');
+    expect(source).toContain('applySeoToDocument');
     expect(source).toContain('blog-article-content');
     expect(source).toContain('mx-auto w-full max-w-3xl');
     expect(source).toContain('border-t border-slate-200/80');

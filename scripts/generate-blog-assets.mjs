@@ -1,6 +1,7 @@
 import { existsSync, readFileSync, promises as fs } from 'node:fs';
 import path from 'node:path';
 import { marked } from 'marked';
+import { createServer } from 'vite';
 
 const ROOT = process.cwd();
 loadEnvironmentFiles();
@@ -11,6 +12,9 @@ const POSTS_DIR = path.join(PUBLIC_DIR, 'blog-posts');
 const BLOG_CACHE_DIR = path.join(ROOT, 'data', 'blog-cache');
 const BLOG_CACHE_MANIFEST_PATH = path.join(BLOG_CACHE_DIR, 'blog_manifest.json');
 const SITE_URL = normalizeBaseUrl(process.env.VITE_SITE_URL || 'https://askqualy.com');
+const BLOG_BOOTSTRAP_ELEMENT_ID = '__BLOG_BOOTSTRAP__';
+const CRAWLABLE_ROBOTS = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
+const NON_CRAWLABLE_ROBOTS = 'noindex,follow';
 
 const INDEX_COPY = {
   tr: {
@@ -127,6 +131,10 @@ function jsonString(value) {
   return `${JSON.stringify(value, null, 2).replace(/</g, '\\u003c')}\n`;
 }
 
+function serializeInlineJson(value) {
+  return JSON.stringify(value).replace(/</g, '\\u003c');
+}
+
 async function writeJson(filePath, value) {
   await fs.mkdir(path.dirname(filePath), { recursive: true });
   await fs.writeFile(filePath, jsonString(value), 'utf8');
@@ -179,10 +187,15 @@ function renderEntryHtml({
   ogLocale,
   alternates,
   jsonLd,
+  appHtml = '',
+  bootstrapData = null,
 }) {
   const alternateLinks = alternates
     .map((alternate) => `  <link rel="alternate" hreflang="${alternate.hrefLang}" href="${alternate.href}" />`)
     .join('\n');
+  const bootstrapScript = bootstrapData
+    ? `  <script id="${BLOG_BOOTSTRAP_ELEMENT_ID}" type="application/json">${serializeInlineJson(bootstrapData)}</script>`
+    : '';
 
   return `<!DOCTYPE html>
 <html lang="${lang}" class="scroll-smooth">
@@ -218,7 +231,8 @@ ${alternateLinks}
   <link rel="stylesheet" href="/index.css" />
 </head>
 <body class="bg-white text-slate-900">
-  <div id="root"></div>
+  <div id="root">${appHtml}</div>
+${bootstrapScript}
   <script type="module" src="/index.tsx"></script>
 </body>
 </html>
@@ -229,6 +243,48 @@ function renderMarkdownToHtml(markdown) {
   const source = String(markdown ?? '').trim();
   if (!source) return '';
   return marked.parse(source);
+}
+
+let prerenderRendererPromise = null;
+
+async function loadBlogPrerenderRenderer() {
+  if (!prerenderRendererPromise) {
+    prerenderRendererPromise = (async () => {
+      const vite = await createServer({
+        appType: 'custom',
+        logLevel: 'error',
+        server: {
+          middlewareMode: true,
+        },
+      });
+
+      try {
+        const module = await vite.ssrLoadModule('/lib/blog-prerender.tsx');
+        return {
+          vite,
+          renderBlogRouteApp: module.renderBlogRouteApp,
+        };
+      } catch (error) {
+        await vite.close();
+        throw error;
+      }
+    })();
+  }
+
+  return prerenderRendererPromise;
+}
+
+async function closeBlogPrerenderRenderer() {
+  if (!prerenderRendererPromise) return;
+
+  const { vite } = await prerenderRendererPromise;
+  prerenderRendererPromise = null;
+  await vite.close();
+}
+
+async function renderBlogRouteAppHtml(bootstrapData) {
+  const renderer = await loadBlogPrerenderRenderer();
+  return renderer.renderBlogRouteApp(bootstrapData);
 }
 
 function normalizeCategory(value, locale) {
@@ -395,6 +451,25 @@ function buildBlogPostManifestEntry(post) {
   };
 }
 
+function buildBlogIndexBootstrapData(locale, posts) {
+  return {
+    route: 'index',
+    path: getBlogIndexPath(locale),
+    language: locale,
+    posts: posts.map(buildBlogPostManifestEntry),
+  };
+}
+
+function buildBlogPostBootstrapData(post) {
+  return {
+    route: 'post',
+    path: post.path,
+    language: post.locale,
+    slug: post.slug,
+    post: buildBlogPostManifestEntry(post),
+  };
+}
+
 function restorePostFromCache(entry) {
   return {
     id: entry.id,
@@ -423,6 +498,7 @@ function restorePostFromCache(entry) {
 }
 
 function buildBlogManifest({ enabled, posts }) {
+  const indexRobots = enabled && posts.length > 0 ? CRAWLABLE_ROBOTS : NON_CRAWLABLE_ROBOTS;
   return {
     generatedAt: new Date().toISOString(),
     source: enabled ? 'sanity' : 'empty',
@@ -433,13 +509,13 @@ function buildBlogManifest({ enabled, posts }) {
         path: getBlogIndexPath('tr'),
         title: INDEX_COPY.tr.title,
         description: INDEX_COPY.tr.description,
-        robots: 'noindex,follow',
+        robots: indexRobots,
       },
       en: {
         path: getBlogIndexPath('en'),
         title: INDEX_COPY.en.title,
         description: INDEX_COPY.en.description,
-        robots: 'noindex,follow',
+        robots: indexRobots,
       },
     },
     posts: posts.map(buildBlogPostManifestEntry),
@@ -453,19 +529,24 @@ function buildBlogManifest({ enabled, posts }) {
 function getBlogPostSeo(post, group) {
   const title = post.seoTitle || post.title;
   const description = post.seoDescription || post.excerpt || post.title;
+  const fallbackImage = post.coverImage?.url || resolveAbsoluteUrl(SITE_URL, INDEX_COPY[post.locale].image);
+  const defaultAlternatePost =
+    group.posts.find((item) => item.locale === 'tr') ??
+    group.posts.find((item) => item.locale === getDefaultBlogLocale()) ??
+    group.posts[0];
   const alternates = [
     ...group.posts.map((item) => ({
       hrefLang: item.locale,
       href: resolveAbsoluteUrl(SITE_URL, item.path),
     })),
-    { hrefLang: 'x-default', href: resolveAbsoluteUrl(SITE_URL, group.posts[0].path) },
+    { hrefLang: 'x-default', href: resolveAbsoluteUrl(SITE_URL, defaultAlternatePost.path) },
   ];
 
   return {
     title,
     description,
     canonicalUrl: post.canonicalUrl,
-    robots: 'noindex,follow',
+    robots: CRAWLABLE_ROBOTS,
     alternates,
     og: {
       type: 'website',
@@ -473,14 +554,14 @@ function getBlogPostSeo(post, group) {
       title,
       description,
       url: post.canonicalUrl,
-      image: post.coverImage?.url || resolveAbsoluteUrl(SITE_URL, INDEX_COPY[post.locale].image),
+      image: fallbackImage,
       locale: INDEX_COPY[post.locale].locale,
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      image: post.coverImage?.url || resolveAbsoluteUrl(SITE_URL, INDEX_COPY[post.locale].image),
+      image: fallbackImage,
     },
     jsonLd: [
       {
@@ -491,27 +572,38 @@ function getBlogPostSeo(post, group) {
         datePublished: post.publishedAt,
         inLanguage: post.locale,
         url: post.canonicalUrl,
+        mainEntityOfPage: post.canonicalUrl,
+        image: fallbackImage,
+        articleSection: post.category?.label || undefined,
+        publisher: {
+          '@type': 'Organization',
+          name: 'Qualy',
+          url: SITE_URL,
+          logo: resolveAbsoluteUrl(SITE_URL, '/icon-black.svg'),
+        },
       },
     ],
   };
 }
 
-function buildIndexHtml(locale) {
+async function buildIndexHtml(locale, posts, { indexable = posts.length > 0 } = {}) {
   const copy = INDEX_COPY[locale];
   const path = getBlogIndexPath(locale);
+  const bootstrapData = buildBlogIndexBootstrapData(locale, posts);
+  const appHtml = await renderBlogRouteAppHtml(bootstrapData);
   return renderEntryHtml({
     lang: locale,
     title: copy.title,
     description: copy.description,
     canonicalUrl: resolveAbsoluteUrl(SITE_URL, path),
-    robots: 'noindex,follow',
+    robots: indexable ? CRAWLABLE_ROBOTS : NON_CRAWLABLE_ROBOTS,
     ogImage: resolveAbsoluteUrl(SITE_URL, copy.image),
     ogLocale: copy.locale,
     alternates: getAlternatesFromPaths(SITE_URL, '/blog', '/en/blog'),
     jsonLd: [
       {
         '@context': 'https://schema.org',
-        '@type': 'WebPage',
+        '@type': 'Blog',
         name: copy.title,
         description: copy.description,
         inLanguage: locale,
@@ -523,14 +615,16 @@ function buildIndexHtml(locale) {
         },
       },
     ],
+    appHtml,
+    bootstrapData,
   });
 }
 
 async function writeEmptyArtifacts() {
   await cleanGeneratedBlogArtifacts();
   await writeJson(MANIFEST_PATH, buildBlogManifest({ enabled: false, posts: [] }));
-  await writeText(path.join(ROOT, 'blog', 'index.html'), buildIndexHtml('tr'));
-  await writeText(path.join(ROOT, 'en', 'blog', 'index.html'), buildIndexHtml('en'));
+  await writeText(path.join(ROOT, 'blog', 'index.html'), await buildIndexHtml('tr', [], { indexable: false }));
+  await writeText(path.join(ROOT, 'en', 'blog', 'index.html'), await buildIndexHtml('en', [], { indexable: false }));
 }
 
 async function writeCacheArtifacts(posts) {
@@ -552,8 +646,8 @@ async function writeArtifactsFromPosts(posts) {
   const sortedPosts = sortPostsByDate(posts);
   await cleanGeneratedBlogArtifacts();
   await writeJson(MANIFEST_PATH, buildBlogManifest({ enabled: true, posts: sortedPosts }));
-  await writeText(path.join(ROOT, 'blog', 'index.html'), buildIndexHtml('tr'));
-  await writeText(path.join(ROOT, 'en', 'blog', 'index.html'), buildIndexHtml('en'));
+  await writeText(path.join(ROOT, 'blog', 'index.html'), await buildIndexHtml('tr', sortedPosts));
+  await writeText(path.join(ROOT, 'en', 'blog', 'index.html'), await buildIndexHtml('en', sortedPosts));
   await writePostArtifacts(sortedPosts);
 }
 
@@ -570,6 +664,8 @@ async function writePostArtifacts(posts) {
   for (const post of posts) {
     const group = groupById.get(String(post.id)) ?? { posts: [post] };
     const seo = getBlogPostSeo(post, group);
+    const bootstrapData = buildBlogPostBootstrapData(post);
+    const appHtml = await renderBlogRouteAppHtml(bootstrapData);
     const html = renderEntryHtml({
       lang: post.locale,
       title: seo.title,
@@ -580,6 +676,8 @@ async function writePostArtifacts(posts) {
       ogLocale: seo.og.locale,
       alternates: seo.alternates,
       jsonLd: seo.jsonLd,
+      appHtml,
+      bootstrapData,
     });
 
     await writeText(path.join(ROOT, post.path, 'index.html'), html);
@@ -703,59 +801,63 @@ const isRecoverableBlogFetchError = (error) => {
 };
 
 async function main() {
-  const enabledSettingRaw = String(process.env.SANITY_BLOG_ENABLED ?? '').trim();
-  const enabled = truthy(enabledSettingRaw);
-  const hasExplicitEnableFlag = enabledSettingRaw.length > 0;
-  const hasProjectId = Boolean(String(process.env.SANITY_PROJECT_ID || '').trim());
-  const hasDataset = Boolean(String(process.env.SANITY_DATASET || '').trim());
-  const hasRequiredConfig = hasProjectId && hasDataset;
-
-  if (!enabled || !hasRequiredConfig) {
-    const shouldRestoreFromCache = !hasRequiredConfig && (!hasExplicitEnableFlag || enabled);
-    if (shouldRestoreFromCache) {
-      const cachedPosts = await loadCachedPosts();
-      if (cachedPosts.length > 0) {
-        await writeArtifactsFromPosts(cachedPosts);
-        console.log('Restored blog artifacts from cache because Sanity env is disabled or missing.');
-        console.log(`Generated cached blog artifacts for ${cachedPosts.length} posts at ${MANIFEST_PATH}.`);
-        return;
-      }
-    }
-
-    if (enabled && !hasRequiredConfig) {
-      console.log('SANITY_BLOG_ENABLED is set but SANITY_PROJECT_ID or SANITY_DATASET is missing. Writing empty blog artifacts.');
-    }
-    await writeEmptyArtifacts();
-    console.log(`Generated empty blog artifacts at ${MANIFEST_PATH} and blog index routes.`);
-    return;
-  }
-
-  let posts = [];
   try {
-    posts = await fetchPostsFromSanity();
-  } catch (error) {
-    if (!isRecoverableBlogFetchError(error)) {
-      throw error;
-    }
+    const enabledSettingRaw = String(process.env.SANITY_BLOG_ENABLED ?? '').trim();
+    const enabled = truthy(enabledSettingRaw);
+    const hasExplicitEnableFlag = enabledSettingRaw.length > 0;
+    const hasProjectId = Boolean(String(process.env.SANITY_PROJECT_ID || '').trim());
+    const hasDataset = Boolean(String(process.env.SANITY_DATASET || '').trim());
+    const hasRequiredConfig = hasProjectId && hasDataset;
 
-    const cachedPosts = await loadCachedPosts();
-    if (cachedPosts.length > 0) {
-      await writeArtifactsFromPosts(cachedPosts);
-      console.warn(`Sanity fetch failed; restored blog artifacts from cache: ${error.message}`);
-      console.log(`Generated cached blog artifacts for ${cachedPosts.length} posts at ${MANIFEST_PATH}.`);
+    if (!enabled || !hasRequiredConfig) {
+      const shouldRestoreFromCache = !hasRequiredConfig && (!hasExplicitEnableFlag || enabled);
+      if (shouldRestoreFromCache) {
+        const cachedPosts = await loadCachedPosts();
+        if (cachedPosts.length > 0) {
+          await writeArtifactsFromPosts(cachedPosts);
+          console.log('Restored blog artifacts from cache because Sanity env is disabled or missing.');
+          console.log(`Generated cached blog artifacts for ${cachedPosts.length} posts at ${MANIFEST_PATH}.`);
+          return;
+        }
+      }
+
+      if (enabled && !hasRequiredConfig) {
+        console.log('SANITY_BLOG_ENABLED is set but SANITY_PROJECT_ID or SANITY_DATASET is missing. Writing empty blog artifacts.');
+      }
+      await writeEmptyArtifacts();
+      console.log(`Generated empty blog artifacts at ${MANIFEST_PATH} and blog index routes.`);
       return;
     }
 
-    console.warn(`Falling back to empty blog artifacts: ${error.message}`);
-    await writeEmptyArtifacts();
-    console.log(`Generated empty blog artifacts at ${MANIFEST_PATH} and blog index routes.`);
-    return;
+    let posts = [];
+    try {
+      posts = await fetchPostsFromSanity();
+    } catch (error) {
+      if (!isRecoverableBlogFetchError(error)) {
+        throw error;
+      }
+
+      const cachedPosts = await loadCachedPosts();
+      if (cachedPosts.length > 0) {
+        await writeArtifactsFromPosts(cachedPosts);
+        console.warn(`Sanity fetch failed; restored blog artifacts from cache: ${error.message}`);
+        console.log(`Generated cached blog artifacts for ${cachedPosts.length} posts at ${MANIFEST_PATH}.`);
+        return;
+      }
+
+      console.warn(`Falling back to empty blog artifacts: ${error.message}`);
+      await writeEmptyArtifacts();
+      console.log(`Generated empty blog artifacts at ${MANIFEST_PATH} and blog index routes.`);
+      return;
+    }
+
+    await writeArtifactsFromPosts(posts);
+    await writeCacheArtifacts(posts);
+
+    console.log(`Generated blog artifacts for ${posts.length} posts at ${MANIFEST_PATH}.`);
+  } finally {
+    await closeBlogPrerenderRenderer();
   }
-
-  await writeArtifactsFromPosts(posts);
-  await writeCacheArtifacts(posts);
-
-  console.log(`Generated blog artifacts for ${posts.length} posts at ${MANIFEST_PATH}.`);
 }
 
 main().catch(async (error) => {
@@ -763,6 +865,8 @@ main().catch(async (error) => {
     await writeEmptyArtifacts();
   } catch {
     // Preserve the original failure if the fallback write also fails.
+  } finally {
+    await closeBlogPrerenderRenderer();
   }
 
   console.error(error);

@@ -18,4 +18,11 @@ describe('initial render strategy', () => {
     expect(appSource).toContain("lazy(() => import('./pages/LegalIndexPage'))");
     expect(appSource).toContain("lazy(() => import('./pages/LlmFaqDirectoryPage'))");
   });
+
+  it('hydrates prerendered blog routes when bootstrap data exists', () => {
+    const clientEntrySource = readFileSync(path.join(process.cwd(), 'index.tsx'), 'utf8');
+
+    expect(clientEntrySource).toContain('hydrateRoot');
+    expect(clientEntrySource).toContain('readBlogBootstrapData');
+  });
 });

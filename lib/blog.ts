@@ -29,7 +29,7 @@ export type BlogSeo = {
   title: string;
   description: string;
   canonicalUrl: string;
-  robots: 'noindex,follow';
+  robots: string;
   siteName: string;
   locale: BlogLocale;
   image?: string;
@@ -48,4 +48,3 @@ export const getBlogPostPath = (slug: BlogSlug, locale: BlogLocale) => {
   const prefix = locale === 'en' ? '/en/blog' : '/blog';
   return `${prefix}/${cleanSlug}`;
 };
-

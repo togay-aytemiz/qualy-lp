@@ -10,7 +10,8 @@ describe('blog route', () => {
     expect(appSource).toContain("normalizedPath === '/en/blog'");
     expect(appSource).toContain("normalizedPath.startsWith('/blog/')");
     expect(appSource).toContain("normalizedPath.startsWith('/en/blog/')");
-    expect(appSource).toContain('<BlogIndexPage />');
-    expect(appSource).toContain('<BlogPostPage />');
+    expect(appSource).toContain('BlogIndexPage');
+    expect(appSource).toContain('BlogPostPage');
+    expect(appSource).toContain('initialBlogData');
   });
 });

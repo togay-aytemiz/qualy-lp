@@ -4,6 +4,7 @@ import path from 'node:path';
 const ROOT = process.cwd();
 const OUTPUT_PATH = path.join(ROOT, 'public', 'sitemap.xml');
 const LEGAL_MANIFEST_PATH = path.join(ROOT, 'public', 'legal_versions.json');
+const BLOG_MANIFEST_PATH = path.join(ROOT, 'public', 'blog_manifest.json');
 
 const normalizeBaseUrl = (url) => String(url || '').trim().replace(/\/+$/, '');
 const resolveAbsoluteUrl = (baseUrl, routePath) => {
@@ -47,6 +48,13 @@ const main = async () => {
     throw new Error(`Could not read ${LEGAL_MANIFEST_PATH}. Run legal:generate first.\n${error}`);
   }
 
+  let blogManifest = {};
+  try {
+    blogManifest = JSON.parse(await fs.readFile(BLOG_MANIFEST_PATH, 'utf8'));
+  } catch (error) {
+    throw new Error(`Could not read ${BLOG_MANIFEST_PATH}. Run blog:generate first.\n${error}`);
+  }
+
   const legalRoutes = Object.keys(legalManifest).flatMap((slug) => [
     {
       path: `/${slug}`,
@@ -59,10 +67,36 @@ const main = async () => {
       priority: 0.4,
     },
   ]);
+  const blogPosts = Array.isArray(blogManifest?.posts) ? blogManifest.posts : [];
+  const blogEnabled = Boolean(blogManifest?.enabled) && blogPosts.length > 0;
+  const blogPostRoutes = blogEnabled
+    ? Array.from(
+        new Map(
+          blogPosts
+            .map((post) => String(post?.path || '').trim())
+            .filter(Boolean)
+            .map((routePath) => [
+              routePath,
+              {
+                path: routePath,
+                changefreq: 'monthly',
+                priority: routePath.startsWith('/en/') ? 0.5 : 0.6,
+              },
+            ])
+        ).values()
+      )
+    : [];
+  const blogIndexRoutes = blogEnabled
+    ? [
+        { path: '/blog', changefreq: 'weekly', priority: 0.8 },
+        { path: '/en/blog', changefreq: 'weekly', priority: 0.7 },
+      ]
+    : [];
 
   const entries = [
     { path: '/', changefreq: 'weekly', priority: 1.0 },
     { path: '/en', changefreq: 'weekly', priority: 0.9 },
+    ...blogIndexRoutes,
     { path: '/pricing', changefreq: 'weekly', priority: 0.8 },
     { path: '/en/pricing', changefreq: 'weekly', priority: 0.7 },
     { path: '/about', changefreq: 'monthly', priority: 0.6 },
@@ -72,6 +106,7 @@ const main = async () => {
     { path: '/faqs-directory', changefreq: 'monthly', priority: 0.7 },
     { path: '/legal', changefreq: 'monthly', priority: 0.5 },
     { path: '/en/legal', changefreq: 'monthly', priority: 0.4 },
+    ...blogPostRoutes,
     ...legalRoutes,
   ];
 

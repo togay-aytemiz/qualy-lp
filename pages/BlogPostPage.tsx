@@ -1,9 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../LanguageContext';
+import { applySeoToDocument } from '../lib/seo-dom';
+import type { SeoPayload } from '../lib/seo';
 
 type BlogCategory = {
   slug: string;
   label: string;
+};
+
+type BlogLocalization = {
+  locale: 'en' | 'tr';
+  slug: string;
+  path?: string;
+  canonicalUrl?: string;
 };
 
 type BlogPostRecord = {
@@ -16,6 +25,11 @@ type BlogPostRecord = {
   locale?: 'en' | 'tr';
   coverImage?: string;
   sharedAcrossLocales?: boolean;
+  seoTitle?: string;
+  seoDescription?: string;
+  path?: string;
+  canonicalUrl?: string;
+  localizations?: BlogLocalization[];
   category?: BlogCategory | null;
 };
 
@@ -25,6 +39,8 @@ type Props = {
 };
 
 const buildBlogHref = (slug: string, locale: 'en' | 'tr') => (locale === 'en' ? `/en/blog/${slug}` : `/blog/${slug}`);
+const BLOG_ROBOTS = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
+const BLOG_SITE_URL = 'https://askqualy.com';
 
 const normalizeManifestPosts = (payload: unknown): BlogPostRecord[] => {
   if (Array.isArray(payload)) return payload as BlogPostRecord[];
@@ -88,6 +104,77 @@ const getCategory = (post: BlogPostRecord, language: 'en' | 'tr') => {
   return {
     slug: 'updates',
     label: language === 'en' ? 'Updates' : 'Güncellemeler',
+  };
+};
+
+const resolveAbsoluteBlogUrl = (pathOrUrl: string | undefined) => {
+  const value = String(pathOrUrl ?? '').trim();
+  if (!value) return BLOG_SITE_URL;
+  if (/^https?:\/\//i.test(value)) return value;
+
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : BLOG_SITE_URL;
+  const cleanPath = value.startsWith('/') ? value : `/${value}`;
+  return `${baseUrl.replace(/\/+$/, '')}${cleanPath}`;
+};
+
+const toOgLocale = (locale: 'en' | 'tr') => (locale === 'en' ? 'en_US' : 'tr_TR');
+
+const buildBlogPostSeo = (post: BlogPostRecord, language: 'en' | 'tr'): SeoPayload => {
+  const postLocale = post.locale ?? language;
+  const postPath = post.path || buildBlogHref(post.slug, postLocale);
+  const canonicalUrl = resolveAbsoluteBlogUrl(post.canonicalUrl || postPath);
+  const selfAlternate: BlogLocalization = {
+    locale: postLocale,
+    slug: post.slug,
+    path: postPath,
+    canonicalUrl,
+  };
+  const trAlternate = postLocale === 'tr' ? selfAlternate : post.localizations?.find((entry) => entry.locale === 'tr');
+  const enAlternate = postLocale === 'en' ? selfAlternate : post.localizations?.find((entry) => entry.locale === 'en');
+  const xDefaultAlternate = trAlternate ?? enAlternate;
+  const ogImage = resolveAbsoluteBlogUrl(post.coverImage || (postLocale === 'en' ? '/og/qualy-og-en.png' : '/og/qualy-og-tr.png'));
+  const title = post.seoTitle || post.title;
+  const description = post.seoDescription || post.excerpt || post.title;
+
+  return {
+    routeKey: 'blogIndex',
+    title,
+    description,
+    robots: BLOG_ROBOTS,
+    canonicalUrl,
+    alternates: [
+      ...(trAlternate ? [{ hrefLang: 'tr', href: resolveAbsoluteBlogUrl(trAlternate.canonicalUrl || trAlternate.path || canonicalUrl) }] : []),
+      ...(enAlternate ? [{ hrefLang: 'en', href: resolveAbsoluteBlogUrl(enAlternate.canonicalUrl || enAlternate.path || canonicalUrl) }] : []),
+      ...(xDefaultAlternate
+        ? [{ hrefLang: 'x-default', href: resolveAbsoluteBlogUrl(xDefaultAlternate.canonicalUrl || xDefaultAlternate.path || canonicalUrl) }]
+        : []),
+    ],
+    og: {
+      type: 'website',
+      siteName: 'Qualy',
+      title,
+      description,
+      url: canonicalUrl,
+      image: ogImage,
+      locale: toOgLocale(postLocale),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      image: ogImage,
+    },
+    jsonLd: [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: title,
+        description,
+        datePublished: post.publishedAt,
+        inLanguage: postLocale,
+        url: canonicalUrl,
+      },
+    ],
   };
 };
 
@@ -209,6 +296,13 @@ const BlogPostPage: React.FC<Props> = ({ slug, initialPost }) => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [slug]);
+
+  useEffect(() => {
+    if (!post || typeof document === 'undefined') return;
+
+    applySeoToDocument(document, buildBlogPostSeo(post, language));
+    document.documentElement.setAttribute('lang', post.locale ?? language);
+  }, [language, post]);
 
   const backToBlogLabel = language === 'en' ? 'Back to blog' : 'Bloga dön';
   const backToBlogAriaLabel = language === 'en' ? 'back to blog' : 'bloga dön';

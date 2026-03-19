@@ -12,36 +12,78 @@ import BlogIndexPage from '../pages/BlogIndexPage';
 import BlogPostPage from '../pages/BlogPostPage';
 
 describe('blog layout render', () => {
-  it('renders the featured blog card as a fully clickable surface with a filled contrast panel', () => {
+  it('renders the blog index as a latest-led editorial layout with grouped category sections', () => {
     mockedLanguage.value = 'tr';
 
     const html = renderToStaticMarkup(
       <BlogIndexPage
         initialPosts={[
           {
-            slug: 'qualy-blog-yayin-optimizasyonu',
-            title: "Qualy blog'u yayina alirken neleri optimize ettik",
-            excerpt: 'Kisa ozet',
-            publishedAt: '2026-03-18T09:00:00.000Z',
+            slug: 'qualy-ai-yanit-hizi',
+            title: "Qualy'de AI ile yanit surelerini nasil kisalttik",
+            excerpt: 'Destek ve operasyon akislarinda daha hizli cevap almak icin yaptigimiz iyilestirmeler.',
+            publishedAt: '2026-03-17T09:00:00.000Z',
+            locale: 'tr',
+            contentHtml: '<p>icerik</p>',
+            category: {
+              slug: 'ai-automation',
+              label: 'AI Otomasyonu',
+            },
+          },
+          {
+            slug: 'qualy-customer-stories',
+            title: 'Musteri ekipleri hangi akislarda daha hizli donus aldi',
+            excerpt: 'Gercek kullanim senaryolarindan kisa ozetler.',
+            publishedAt: '2026-03-16T09:00:00.000Z',
+            locale: 'tr',
+            contentHtml: '<p>icerik</p>',
+            category: {
+              slug: 'customer-stories',
+              label: 'Musteri Hikayeleri',
+            },
+          },
+          {
+            slug: 'qualy-product-playbook',
+            title: 'Yeni urun akislarini tek ekranda toparlamak',
+            excerpt: 'Operasyon playbook yapisini nasil sadeleştirdigimizi anlatiyoruz.',
+            publishedAt: '2026-03-15T09:00:00.000Z',
             locale: 'tr',
             contentHtml: '<p>icerik</p>',
             category: {
               slug: 'product-updates',
-              label: 'Product Updates',
+              label: 'Ürün Güncellemeleri',
+            },
+          },
+          {
+            slug: 'qualy-blog-yayin-optimizasyonu',
+            title: "Qualy blog'u yayina alirken neleri optimize ettik",
+            excerpt: 'Kisa ozet',
+            publishedAt: '2026-03-18T12:00:00.000Z',
+            locale: 'tr',
+            contentHtml: '<p>icerik</p>',
+            category: {
+              slug: 'product-updates',
+              label: 'Ürün Güncellemeleri',
             },
           },
         ]}
       />
     );
 
-    expect(html).toMatch(/<a href="\/blog\/qualy-blog-yayin-optimizasyonu"[^>]*class="group block/);
-    expect(html).toContain('bg-slate-950/55');
-    expect(html).toContain('ring-1 ring-white/10');
-    expect(html).toContain('leading-[1.02]');
-    expect(html).toContain('bg-white/92');
-    expect(html).toContain('text-slate-950');
+    expect(html).toContain('En son');
+    expect(html).toContain('Tüm kategoriler');
+    expect(html).toContain('Blog bolumleri');
+    expect(html).toContain('id="blog-latest"');
+    expect(html).toContain('id="blog-categories"');
+    expect(html).toContain('id="blog-section-product-updates"');
+    expect(html).toContain('id="blog-section-ai-automation"');
+    expect(html).toContain('id="blog-section-customer-stories"');
+    expect(html).toMatch(/<a href="\/blog\/qualy-blog-yayin-optimizasyonu"[^>]*>.*Yazıyı oku/s);
+    expect(html).toContain('Daha yeni');
+    expect(html).toContain('Kategorideki tüm yazılar');
     expect(html).not.toContain('bg-sky-500/15');
-    expect(html).not.toMatch(/<a href="\/blog\/qualy-blog-yayin-optimizasyonu"[^>]*inline-flex h-12 items-center justify-center rounded-xl bg-white/);
+    expect(html).not.toContain('bg-slate-950/55');
+    expect(html).not.toContain('ring-1 ring-white/10');
   });
 
   it('renders the blog detail page as a single-column article layout without boxed chrome or a sticky sidebar', () => {

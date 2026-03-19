@@ -409,7 +409,7 @@ export const getSeoByRoute = (
   const canonicalUrl = resolveAbsoluteUrl(siteUrl, canonicalPath);
   const ogImage = resolveAbsoluteUrl(siteUrl, OG_IMAGE_PATH);
   const alternates = buildAlternates({ routeKey, siteUrl });
-  const robots = routeKey === 'blogIndex' ? 'noindex,follow' : DEFAULT_ROBOTS;
+  const robots = DEFAULT_ROBOTS;
 
   const basePayload: Omit<SeoPayload, 'jsonLd'> = {
     routeKey,

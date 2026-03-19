@@ -1240,8 +1240,11 @@ const getInitialLanguage = (): Language => {
   return resolveLanguageByRegion(locales, timeZone);
 };
 
-export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>(() => getInitialLanguage());
+export const LanguageProvider: React.FC<{ children: ReactNode; initialLanguage?: Language }> = ({
+  children,
+  initialLanguage,
+}) => {
+  const [language, setLanguage] = useState<Language>(() => initialLanguage ?? getInitialLanguage());
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage, t: translations[language] }}>

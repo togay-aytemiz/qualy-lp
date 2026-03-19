@@ -59,7 +59,7 @@ describe('getSeoByRoute', () => {
     expect(seo.og.url).toBe('https://askqualy.com/en/terms');
     expect(seo.og.image).toBe('https://askqualy.com/og/qualy-default.png');
     expect(blogSeo.canonicalUrl).toBe('https://askqualy.com/en/blog');
-    expect(blogSeo.robots).toBe('noindex,follow');
+    expect(blogSeo.robots).toBe('index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1');
     expect(blogSeo.og.url).toBe('https://askqualy.com/en/blog');
     expect(pricingSeo.canonicalUrl).toBe('https://askqualy.com/en/pricing');
     expect(pricingSeo.og.url).toBe('https://askqualy.com/en/pricing');

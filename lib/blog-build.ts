@@ -31,6 +31,7 @@ type SanityQueryResponse = {
 
 const DEFAULT_SITE_NAME = 'Qualy';
 const DEFAULT_IMAGE_PATH = '/og/qualy-default.png';
+const DEFAULT_BLOG_ROBOTS = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
 
 const normalizeText = (value: unknown) => String(value ?? '').trim();
 
@@ -119,7 +120,7 @@ export const getBlogPostSeo = (post: BlogPostRecord, options: { siteUrl?: string
     title: post.seoTitle || post.title,
     description: post.seoDescription || post.excerpt,
     canonicalUrl,
-    robots: 'noindex,follow',
+    robots: DEFAULT_BLOG_ROBOTS,
     siteName: DEFAULT_SITE_NAME,
     locale: post.locale,
     image: imageUrl,
@@ -127,7 +128,7 @@ export const getBlogPostSeo = (post: BlogPostRecord, options: { siteUrl?: string
       title: post.seoTitle || post.title,
       description: post.seoDescription || post.excerpt,
       canonicalUrl,
-      robots: 'noindex,follow',
+      robots: DEFAULT_BLOG_ROBOTS,
       siteName: DEFAULT_SITE_NAME,
       locale: post.locale,
       image: imageUrl,

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-18T21:51:29.970Z",
+  "generatedAt": "2026-03-18T22:17:30.680Z",
   "source": "sanity",
   "enabled": true,
   "siteUrl": "https://askqualy.com",
@@ -8,13 +8,13 @@
       "path": "/blog",
       "title": "Blog | Qualy",
       "description": "Qualy hakkinda guncellemeler, kullanici hikayeleri ve urun notlari.",
-      "robots": "noindex,follow"
+      "robots": "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
     },
     "en": {
       "path": "/en/blog",
       "title": "Blog | Qualy",
       "description": "Updates, product notes, and customer stories from Qualy.",
-      "robots": "noindex,follow"
+      "robots": "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
     }
   },
   "posts": [
