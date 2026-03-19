@@ -71,19 +71,18 @@ describe('blog layout render', () => {
     );
 
     expect(html).toContain('En son');
-    expect(html).toContain('Tüm kategoriler');
-    expect(html).toContain('Blog bolumleri');
     expect(html).toContain('id="blog-latest"');
-    expect(html).toContain('id="blog-categories"');
+    expect(html).toContain('Son yazılar');
+    expect(html).toContain('Önerilenler');
     expect(html).toContain('id="blog-section-product-updates"');
     expect(html).toContain('id="blog-section-ai-automation"');
     expect(html).toContain('id="blog-section-customer-stories"');
     expect(html).toMatch(/<a href="\/blog\/qualy-blog-yayin-optimizasyonu"[^>]*>.*Yazıyı oku/s);
-    expect(html).toContain('Daha yeni');
     expect(html).toContain('Kategorideki tüm yazılar');
     expect(html).not.toContain('bg-sky-500/15');
     expect(html).not.toContain('bg-slate-950/55');
     expect(html).not.toContain('ring-1 ring-white/10');
+    expect(html).not.toContain('aria-pressed');
   });
 
   it('renders the blog detail page as a single-column article layout without boxed chrome or a sticky sidebar', () => {

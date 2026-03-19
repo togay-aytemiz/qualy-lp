@@ -11,7 +11,7 @@ describe('blog prerendered entry pages', () => {
     expect(blogIndex).not.toContain('<div id="root"></div>');
     expect(blogIndex).toContain('id="__BLOG_BOOTSTRAP__"');
     expect(blogIndex).toContain('id="blog-latest"');
-    expect(blogIndex).toContain('Tüm kategoriler');
+    expect(blogIndex).toContain('id="blog-section-product-updates"');
   });
 
   it('ships blog detail pages with article markup in the initial HTML', () => {

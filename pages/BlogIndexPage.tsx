@@ -20,6 +20,11 @@ type BlogPostSummary = {
   category?: BlogCategory | null;
 };
 
+type BlogSection = {
+  category: BlogCategory;
+  posts: BlogPostSummary[];
+};
+
 type Props = {
   initialPosts?: BlogPostSummary[];
 };
@@ -118,10 +123,27 @@ const selectVisiblePosts = (posts: BlogPostSummary[], language: 'en' | 'tr') => 
   return sortPostsByDate(Array.from(uniquePosts.values()));
 };
 
-const buildSectionId = (slug: string) => {
-  if (slug === 'latest') return 'blog-latest';
-  if (slug === 'all') return 'blog-categories';
-  return `blog-section-${slug}`;
+const buildSectionId = (slug: string) => (slug === 'latest' ? 'blog-latest' : `blog-section-${slug}`);
+
+const buildCategorySections = (posts: BlogPostSummary[], language: 'en' | 'tr') => {
+  const sections = new Map<string, BlogSection>();
+
+  for (const post of posts) {
+    const category = getCategory(post, language);
+    const existingSection = sections.get(category.slug);
+
+    if (existingSection) {
+      existingSection.posts.push(post);
+      continue;
+    }
+
+    sections.set(category.slug, {
+      category,
+      posts: [post],
+    });
+  }
+
+  return Array.from(sections.values());
 };
 
 const buildFallbackArtwork = (post: BlogPostSummary) => {
@@ -165,7 +187,6 @@ const buildFallbackArtwork = (post: BlogPostSummary) => {
 const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
   const { language } = useLanguage();
   const [posts, setPosts] = useState<BlogPostSummary[]>(initialPosts ?? []);
-  const [activeCategory, setActiveCategory] = useState('latest');
 
   useEffect(() => {
     if (initialPosts !== undefined) return;
@@ -196,65 +217,27 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
     };
   }, [initialPosts]);
 
-  const visiblePosts = selectVisiblePosts(posts, language);
-  const latestPosts = visiblePosts.slice(0, 4);
-  const emptyStateLabel = language === 'en' ? 'No blog posts yet.' : 'Henüz blog yazısı yok.'; // empty state
-  const readArticleLabel = language === 'en' ? 'Read article' : 'Yazıyı oku';
-  const readArticleVisualLabel = readArticleLabel;
-  const latestLabel = language === 'en' ? 'Latest' : 'En son';
-  const allCategoriesLabel = language === 'en' ? 'All categories' : 'Tüm kategoriler';
-  const sectionHeadingLabel = language === 'en' ? 'Blog sections' : 'Blog bolumleri';
-  const sectionBodyLabel = language === 'en' ? 'All posts in this category' : 'Kategorideki tüm yazılar';
-  const categoryMetaLabel = language === 'en' ? 'Category' : 'Kategori';
-  const newerLabel = language === 'en' ? 'Newer' : 'Daha yeni';
-
-  const categoryMap = new Map<string, BlogCategory>();
-  for (const post of visiblePosts) {
-    const category = getCategory(post, language);
-    categoryMap.set(category.slug, category);
-  }
-
-  const categorySections = Array.from(categoryMap.values()).map((category) => ({
-    category,
-    posts: visiblePosts.filter((post) => getCategory(post, language).slug === category.slug),
-  }));
-
   useEffect(() => {
     if (typeof document === 'undefined') return;
     applySeoToDocument(document, getSeoByRoute('blogIndex', language));
   }, [language]);
 
-  const navigationItems = [
-    {
-      slug: 'latest',
-      label: latestLabel,
-    },
-    {
-      slug: 'all',
-      label: allCategoriesLabel,
-    },
-    ...Array.from(categoryMap.values()).map((category) => ({
-      slug: category.slug,
-      label: titleCase(category.label),
-    })),
-  ];
+  const visiblePosts = selectVisiblePosts(posts, language);
+  const latestPosts = visiblePosts.slice(0, 4);
+  const heroPost = latestPosts[0];
+  const latestArticles = visiblePosts.slice(1, 3);
+  const latestArticleCards = latestArticles.length > 0 ? latestArticles : [heroPost];
+  const recommendedPosts = visiblePosts.slice(3, 8);
+  const categorySections = buildCategorySections(visiblePosts, language);
+  const emptyStateLabel = language === 'en' ? 'No blog posts yet.' : 'Henüz blog yazısı yok.'; // empty state
+  const readArticleLabel = language === 'en' ? 'Read article' : 'Yazıyı oku';
+  const latestLabel = language === 'en' ? 'Latest' : 'En son';
+  const latestArticlesHeading = language === 'en' ? 'Latest articles' : 'Son yazılar';
+  const recommendedHeading = language === 'en' ? 'Recommended' : 'Önerilenler';
+  const categoryArchiveLabel = language === 'en' ? 'All posts in this category' : 'Kategorideki tüm yazılar';
+  const categoryCountLabel = (count: number) => (language === 'en' ? `${count} article${count === 1 ? '' : 's'}` : `${count} yazı`);
 
-  useEffect(() => {
-    if (!navigationItems.some((entry) => entry.slug === activeCategory)) {
-      setActiveCategory('latest');
-    }
-  }, [activeCategory, navigationItems]);
-
-  useEffect(() => {
-    if (typeof document === 'undefined') return;
-
-    const target = document.getElementById(buildSectionId(activeCategory));
-    if (!target) return;
-
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [activeCategory]);
-
-  if (visiblePosts.length === 0) {
+  if (!heroPost) {
     return (
       <section className="bg-[#f6f7f8]">
         <div className="mx-auto max-w-7xl px-4 pb-24 pt-28 sm:px-6 lg:px-10">
@@ -269,203 +252,202 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
   return (
     <section className="bg-[#f6f7f8]">
       <div className="mx-auto max-w-7xl px-4 pb-24 pt-28 sm:px-6 lg:px-10">
-        <div className="space-y-14">
-          <section id="blog-latest" className="space-y-6">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#1173d4]">{latestLabel}</p>
-                <h1 className="mt-3 max-w-3xl text-4xl font-black tracking-tight text-slate-950 sm:text-5xl">
-                  {language === 'en' ? 'Fresh notes from the Qualy team' : 'Qualy ekibinden en yeni notlar'}
-                </h1>
+        <div className="space-y-12">
+          <section id="blog-latest" className="space-y-8">
+            <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+              <a
+                href={buildBlogHref(heroPost.slug, heroPost.locale ?? language)}
+                aria-label={`${latestLabel}: ${heroPost.title}`}
+                className="block overflow-hidden rounded-[2rem] bg-slate-100"
+              >
+                <div className="aspect-[16/12] overflow-hidden">
+                  {heroPost.coverImage ? (
+                    <img
+                      src={heroPost.coverImage}
+                      alt={heroPost.title}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                  ) : (
+                    buildFallbackArtwork(heroPost)
+                  )}
+                </div>
+              </a>
+
+              <div className="space-y-5">
+                <a
+                  href={buildBlogHref(heroPost.slug, heroPost.locale ?? language)}
+                  aria-label={`${readArticleLabel}: ${heroPost.title}`}
+                  className="block"
+                >
+                  <span className="text-sm font-bold text-slate-500">{titleCase(getCategory(heroPost, language).label)}</span>
+                  <h1 className="mt-4 text-4xl font-black leading-[1.02] tracking-tight text-slate-950 sm:text-5xl">
+                    {heroPost.title}
+                  </h1>
+                  {heroPost.excerpt ? <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">{heroPost.excerpt}</p> : null}
+                </a>
+
+                <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500">
+                  {heroPost.publishedAt ? <span>{formatBlogDate(heroPost.publishedAt, language)}</span> : null}
+                  {heroPost.publishedAt ? <span className="h-1 w-1 rounded-full bg-slate-300" /> : null}
+                  <span>{getReadTimeLabel(heroPost, language)}</span>
+                </div>
+
+                <a
+                  href={buildBlogHref(heroPost.slug, heroPost.locale ?? language)}
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-slate-950 transition-colors hover:text-[#1173d4]"
+                >
+                  {readArticleLabel}
+                  <span aria-hidden="true">→</span>
+                </a>
               </div>
-              <p className="max-w-xl text-sm leading-7 text-slate-500">
-                {language === 'en'
-                  ? 'Browse the newest product, workflow, and customer story updates first.'
-                  : 'En yeni urun, is akis ve musteri hikayesi guncellemelerini once gorun.'}
-              </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1.3fr)_minmax(320px,0.7fr)]">
-              {latestPosts[0] ? (
-                <article className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_18px_48px_rgba(15,23,42,0.08)]">
-                  <div className="grid h-full grid-cols-1 lg:grid-cols-[minmax(0,0.92fr)_minmax(300px,0.78fr)]">
-                    <div className="flex flex-col justify-between p-7 sm:p-10">
-                      <div>
-                        <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-[#1173d4]">{newerLabel}</p>
-                        <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-                          {titleCase(getCategory(latestPosts[0], language).label)}
-                        </p>
-                        <h2 className="mt-5 text-4xl font-black leading-[1.02] tracking-tight text-slate-950">
-                          {latestPosts[0].title}
-                        </h2>
-                        {latestPosts[0].excerpt ? (
-                          <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600 sm:text-lg">
-                            {latestPosts[0].excerpt}
-                          </p>
-                        ) : null}
-                      </div>
+            <div className="border-t border-slate-200" />
+          </section>
 
-                      <div className="mt-8 flex flex-col gap-5 border-t border-slate-100 pt-5 sm:flex-row sm:items-center sm:justify-between">
-                        <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-                          {latestPosts[0].publishedAt ? <span>{formatBlogDate(latestPosts[0].publishedAt, language)}</span> : null}
-                          {latestPosts[0].publishedAt ? <span className="h-1 w-1 rounded-full bg-slate-300" /> : null}
-                          <span>{getReadTimeLabel(latestPosts[0], language)}</span>
-                        </div>
-                        <a
-                          href={buildBlogHref(latestPosts[0].slug, latestPosts[0].locale ?? language)}
-                          className="inline-flex items-center gap-2 text-sm font-bold text-slate-950 transition-colors hover:text-[#1173d4]"
-                          aria-label={`${readArticleLabel}: ${latestPosts[0].title}`}
-                        >
-                          {readArticleLabel}
-                          <span aria-hidden="true">→</span>
-                        </a>
-                      </div>
-                    </div>
+          {latestArticleCards.length > 0 || recommendedPosts.length > 0 ? (
+            <section className="space-y-6">
+              <h2 className="text-3xl font-black tracking-tight text-slate-950">{latestArticlesHeading}</h2>
 
-                    <div className="min-h-[280px] bg-slate-100">
-                      {latestPosts[0].coverImage ? (
-                        <img
-                          src={latestPosts[0].coverImage}
-                          alt={latestPosts[0].title}
-                          className="h-full w-full object-cover"
-                          loading="lazy"
-                        />
-                      ) : (
-                        buildFallbackArtwork(latestPosts[0])
-                      )}
-                    </div>
-                  </div>
-                </article>
-              ) : null}
-
-              <div className="grid grid-cols-1 gap-4">
-                {latestPosts.slice(1).map((post) => {
-                  const category = getCategory(post, language);
+              <div
+                className={
+                  recommendedPosts.length > 0
+                    ? 'grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(280px,0.9fr)]'
+                    : 'grid gap-6 md:grid-cols-2'
+                }
+              >
+                {latestArticleCards.map((post) => {
                   const href = buildBlogHref(post.slug, post.locale ?? language);
 
                   return (
                     <article
                       key={`${post.locale ?? 'shared'}-${post.slug}`}
-                      className="flex h-full flex-col rounded-[1.5rem] border border-slate-200 bg-white p-5 shadow-sm"
+                      className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white"
                     >
-                      <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">
-                        {titleCase(category.label)}
-                      </p>
-                      <h3 className="mt-3 text-2xl font-bold leading-tight tracking-tight text-slate-950">
-                        {post.title}
-                      </h3>
-                      {post.excerpt ? (
-                        <p className="mt-3 text-sm leading-7 text-slate-500">{post.excerpt}</p>
-                      ) : null}
-                      <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-4">
-                        <div className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-                          {getReadTimeLabel(post, language)}
+                      <a href={href} className="block">
+                        <div className="aspect-[16/11] overflow-hidden bg-slate-100">
+                          {post.coverImage ? (
+                            <img
+                              src={post.coverImage}
+                              alt={post.title}
+                              className="h-full w-full object-cover"
+                              loading="lazy"
+                            />
+                          ) : (
+                            buildFallbackArtwork(post)
+                          )}
                         </div>
-                        <a href={href} className="inline-flex items-center gap-2 text-sm font-bold text-[#1173d4] transition-colors hover:text-[#0f5fae]">
-                          {readArticleLabel}
-                          <span aria-hidden="true">→</span>
-                        </a>
-                      </div>
+
+                        <div className="space-y-4 p-5">
+                          <h3 className="text-2xl font-bold leading-tight tracking-tight text-slate-950">{post.title}</h3>
+                          {post.excerpt ? <p className="text-sm leading-7 text-slate-500">{post.excerpt}</p> : null}
+                        </div>
+                      </a>
                     </article>
                   );
                 })}
-              </div>
-            </div>
-          </section>
 
-          <section id="blog-categories" className="space-y-4">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-slate-400">{allCategoriesLabel}</p>
-                <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-950">{sectionHeadingLabel}</h2>
-              </div>
-              <p className="text-sm leading-7 text-slate-500">{sectionBodyLabel}</p>
-            </div>
+                {recommendedPosts.length > 0 ? (
+                  <aside className="space-y-4">
+                    <h3 className="text-xl font-bold tracking-tight text-slate-950">{recommendedHeading}</h3>
 
-            <div className="-mx-1 overflow-x-auto pb-2">
-              <div className="flex min-w-max items-center gap-6 border-b border-slate-200 px-1">
-                {navigationItems.map((filter) => (
-                  <button
-                    key={filter.slug}
-                    type="button"
-                    onClick={() => setActiveCategory(filter.slug)}
-                    aria-pressed={activeCategory === filter.slug}
-                    className={
-                      activeCategory === filter.slug
-                        ? 'shrink-0 border-b-2 border-slate-950 pb-3 text-sm font-semibold text-slate-950'
-                        : 'shrink-0 border-b-2 border-transparent pb-3 text-sm font-medium text-slate-500 transition-colors hover:text-slate-950'
-                    }
-                  >
-                    {filter.label}
-                  </button>
-                ))}
+                    <div className="border-t border-slate-200">
+                      {recommendedPosts.map((post, index) => (
+                        <a
+                          key={`${post.locale ?? 'shared'}-${post.slug}-${index}`}
+                          href={buildBlogHref(post.slug, post.locale ?? language)}
+                          className="flex items-start gap-3 border-b border-slate-200 py-4 text-sm leading-6 text-slate-700 transition-colors hover:text-slate-950"
+                        >
+                          <span aria-hidden="true" className="mt-0.5 text-[#1173d4]">→</span>
+                          <span>{post.title}</span>
+                        </a>
+                      ))}
+                    </div>
+                  </aside>
+                ) : null}
               </div>
-            </div>
-          </section>
+            </section>
+          ) : null}
 
           <div className="space-y-10">
             {categorySections.map((section) => {
-              const sectionId = buildSectionId(section.category.slug);
+              const cardPosts = section.posts.slice(0, 2);
+              const listPosts = section.posts.slice(2, 8);
+              const hasListColumn = listPosts.length > 0;
 
               return (
-                <section key={section.category.slug} id={sectionId} className="space-y-5 scroll-mt-32">
+                <section key={section.category.slug} id={buildSectionId(section.category.slug)} className="space-y-6 border-t border-slate-200 pt-10">
                   <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                    <div>
-                      <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-slate-400">{categoryMetaLabel}</p>
-                      <h3 className="mt-2 text-3xl font-black tracking-tight text-slate-950">
-                        {titleCase(section.category.label)}
-                      </h3>
-                    </div>
-                    <span className="text-sm font-medium text-slate-500">
-                      {section.posts.length} {language === 'en' ? 'articles' : 'yazı'}
-                    </span>
+                    <h2 className="text-3xl font-black tracking-tight text-slate-950">{titleCase(section.category.label)}</h2>
+                    <span className="text-sm font-medium text-slate-500">{categoryCountLabel(section.posts.length)}</span>
                   </div>
 
-                  <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-                    {section.posts.map((post) => {
+                  <div
+                    className={
+                      hasListColumn
+                        ? 'grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(280px,0.9fr)]'
+                        : 'grid gap-6 md:grid-cols-2'
+                    }
+                  >
+                    {cardPosts.map((post, index) => {
                       const href = buildBlogHref(post.slug, post.locale ?? language);
 
                       return (
                         <article
-                          key={`${section.category.slug}-${post.locale ?? 'shared'}-${post.slug}`}
-                          className="flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm"
+                          key={`${section.category.slug}-${post.locale ?? 'shared'}-${post.slug}-${index}`}
+                          className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white"
                         >
-                          <a href={href} className="block aspect-[16/10] overflow-hidden bg-slate-100">
-                            {post.coverImage ? (
-                              <img
-                                src={post.coverImage}
-                                alt={post.title}
-                                className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                                loading="lazy"
-                              />
-                            ) : (
-                              buildFallbackArtwork(post)
-                            )}
-                          </a>
-
-                          <div className="flex flex-1 flex-col p-5">
-                            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-slate-400">
-                              {post.publishedAt ? formatBlogDate(post.publishedAt, language) : getReadTimeLabel(post, language)}
-                            </p>
-                            <h4 className="mt-3 text-2xl font-bold leading-tight tracking-tight text-slate-950">
-                              {post.title}
-                            </h4>
-                            {post.excerpt ? (
-                              <p className="mt-3 text-sm leading-7 text-slate-500">{post.excerpt}</p>
-                            ) : null}
-                            <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-6">
-                              <span className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
-                                {sectionBodyLabel}
-                              </span>
-                              <a href={href} className="inline-flex items-center gap-2 text-sm font-bold text-[#1173d4] transition-colors hover:text-[#0f5fae]">
-                                {readArticleLabel}
-                                <span aria-hidden="true">→</span>
-                              </a>
+                          <a href={href} className="block">
+                            <div className="aspect-[16/11] overflow-hidden bg-slate-100">
+                              {post.coverImage ? (
+                                <img
+                                  src={post.coverImage}
+                                  alt={post.title}
+                                  className="h-full w-full object-cover"
+                                  loading="lazy"
+                                />
+                              ) : (
+                                buildFallbackArtwork(post)
+                              )}
                             </div>
-                          </div>
+
+                            <div className="space-y-4 p-5">
+                              <h3 className="text-2xl font-bold leading-tight tracking-tight text-slate-950">{post.title}</h3>
+                              {post.excerpt ? <p className="text-sm leading-7 text-slate-500">{post.excerpt}</p> : null}
+                              <div className="flex items-center justify-between border-t border-slate-100 pt-4">
+                                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-400">
+                                  {categoryArchiveLabel}
+                                </span>
+                                <span className="inline-flex items-center gap-2 text-sm font-semibold text-[#1173d4]">
+                                  {readArticleLabel}
+                                  <span aria-hidden="true">→</span>
+                                </span>
+                              </div>
+                            </div>
+                          </a>
                         </article>
                       );
                     })}
+
+                    {hasListColumn ? (
+                      <aside className="space-y-4">
+                        <h3 className="text-lg font-bold tracking-tight text-slate-950">{categoryArchiveLabel}</h3>
+
+                        <div className="border-t border-slate-200">
+                          {listPosts.map((post, index) => (
+                            <a
+                              key={`${section.category.slug}-${post.locale ?? 'shared'}-${post.slug}-list-${index}`}
+                              href={buildBlogHref(post.slug, post.locale ?? language)}
+                              className="flex items-start gap-3 border-b border-slate-200 py-4 text-sm leading-6 text-slate-700 transition-colors hover:text-slate-950"
+                            >
+                              <span aria-hidden="true" className="mt-0.5 text-[#1173d4]">→</span>
+                              <span>{post.title}</span>
+                            </a>
+                          ))}
+                        </div>
+                      </aside>
+                    ) : null}
                   </div>
                 </section>
               );

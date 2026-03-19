@@ -8,19 +8,18 @@ describe('blog index page content', () => {
 
     expect(source).toContain('initialPosts');
     expect(source).toContain("/blog_manifest.json");
-    expect(source).toContain('activeCategory');
     expect(source).toContain('latestPosts');
     expect(source).toContain('categorySections');
-    expect(source).toContain('scrollIntoView');
     expect(source).toContain('applySeoToDocument');
     expect(source).toContain('Read article');
     expect(source).toContain('Yazıyı oku');
     expect(source).toContain('Latest');
     expect(source).toContain('En son');
-    expect(source).toContain('Tüm kategoriler');
+    expect(source).toContain('Latest articles');
+    expect(source).toContain('Recommended');
     expect(source).toContain('blog-section-');
     expect(source).not.toContain('bg-sky-500/15');
-    expect(source).toContain('overflow-x-auto pb-2');
+    expect(source).toContain('grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(280px,0.9fr)]');
     expect(source).toContain('empty state');
     expect(source).not.toContain('Subscribe to our Newsletter');
     expect(source).not.toContain('Qualy Team');
@@ -30,6 +29,7 @@ describe('blog index page content', () => {
     expect(source).not.toContain('featuredPost');
     expect(source).not.toContain('remainingPosts');
     expect(source).not.toContain('bg-slate-950/55');
+    expect(source).not.toContain('aria-pressed');
     expect(source).toContain('BlogIndexPage');
   });
 });
