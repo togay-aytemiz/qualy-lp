@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-19T09:39:21.094Z",
+  "generatedAt": "2026-03-19T15:27:13.714Z",
   "source": "sanity",
   "enabled": true,
   "siteUrl": "https://askqualy.com",
@@ -32,8 +32,8 @@
       "seoDescription": "Learn how Qualy combines ready replies, knowledge base documents, and follow-up rules to keep customer responses more consistent.",
       "coverImage": null,
       "category": {
-        "slug": "ai-automation",
-        "label": "AI Automation"
+        "slug": "practical-guide",
+        "label": "Practical Guide"
       },
       "contentHtml": "\u003ch1>Why we set this up\u003c/h1>\n\u003cp>As the product grew, the same customer question could receive different quality depending on who answered it. We reduced that drift by combining ready replies, knowledge base documents, and follow-up rules in one response layer.\u003c/p>\n\u003ch2>What changed?\u003c/h2>\n\u003cul>\n\u003cli>We grouped recurring questions into reusable ready replies.\u003c/li>\n\u003cli>We moved service, pricing, and process details into a structured knowledge base.\u003c/li>\n\u003cli>We let the AI ask short follow-up questions when key context was missing.\u003c/li>\n\u003c/ul>\n\u003ch2>What improved?\u003c/h2>\n\u003cp>The first answer now goes out faster, teams stay closer to the same tone, and human takeover is easier to spot when the conversation needs it.\u003c/p>\n\u003cp>You can continue with \u003ca href=\"/en/#features\">features\u003c/a> and \u003ca href=\"/en/pricing\">pricing\u003c/a> for more context.\u003c/p>\n",
       "sharedAcrossLocales": false,
@@ -62,8 +62,8 @@
       "seoDescription": "Hazir yanitlar, bilgi tabani ve takip akislari ile daha tutarli musteri cevaplari olusturmanin pratik yolunu inceleyin.",
       "coverImage": null,
       "category": {
-        "slug": "ai-automation",
-        "label": "Yapay Zeka Otomasyonu"
+        "slug": "practical-guide",
+        "label": "Pratik Rehber"
       },
       "contentHtml": "\u003ch1>Neden bu akisi kurduk?\u003c/h1>\n\u003cp>Qualy&#39;de buyume hizlandikca ayni musteri sorusu farkli kisilerden farkli kalitede cevap almaya basladi. Bunu azaltmak icin hazir yanitlari, bilgi tabani dokumanlarini ve takip kurallarini tek bir cevap katmaninda birlestirdik.\u003c/p>\n\u003ch2>Neyi degistirdik?\u003c/h2>\n\u003cul>\n\u003cli>Sik gelen sorular icin hazir yanitlari tek yerde topladik.\u003c/li>\n\u003cli>Hizmet, fiyatlama ve surec detaylarini bilgi tabani dokumanlarina tasidik.\u003c/li>\n\u003cli>AI&#39;nin eksik bilgi gordugu noktalarda kisa takip sorulari sormasini sagladik.\u003c/li>\n\u003c/ul>\n\u003ch2>Sonuc ne oldu?\u003c/h2>\n\u003cp>Bu yapi sayesinde ilk yanit daha hizli cikiyor, ekipler ayni dilde kaliyor ve insan devralmasi gerektiren gorusmeler daha net ayrisiyor.\u003c/p>\n\u003cp>Daha fazla baglam icin \u003ca href=\"/#features\">ozellikler\u003c/a> ve \u003ca href=\"/pricing\">fiyatlandirma\u003c/a> sayfalarina bakabilirsiniz.\u003c/p>\n",
       "sharedAcrossLocales": false,
@@ -92,8 +92,8 @@
       "seoDescription": "See how the Qualy blog launch used static routes, technical SEO, and internal links to support growth.",
       "coverImage": null,
       "category": {
-        "slug": "product-updates",
-        "label": "Product Updates"
+        "slug": "platform-release",
+        "label": "Platform Release"
       },
       "contentHtml": "\u003ch1>Launch notes\u003c/h1>\n\u003cp>We launched the Qualy blog on top of the existing landing page architecture instead of adding a separate app.\u003c/p>\n\u003ch2>What changed?\u003c/h2>\n\u003cul>\n\u003cli>Blog index and post pages are generated as static routes.\u003c/li>\n\u003cli>SEO metadata is generated per article during the build.\u003c/li>\n\u003cli>Internal links now point to landing pages and related blog entries.\u003c/li>\n\u003c/ul>\n\u003cp>You can continue with \u003ca href=\"/en/pricing\">pricing\u003c/a> or browse the \u003ca href=\"/en/blog\">English blog feed\u003c/a>.\u003c/p>\n",
       "sharedAcrossLocales": false,
@@ -122,8 +122,8 @@
       "seoDescription": "Qualy blog'unun performans, teknik SEO ve ic link kurgusunu nasil kurdugumuzu inceleyin.",
       "coverImage": null,
       "category": {
-        "slug": "product-updates",
-        "label": "Urun Guncellemeleri"
+        "slug": "platform-release",
+        "label": "Platform Duyuruları"
       },
       "contentHtml": "\u003ch1>Blog yayin notlari\u003c/h1>\n\u003cp>Qualy blog&#39;unu, landing page ile ayni statik mimariyi koruyarak yayinladik.\u003c/p>\n\u003ch2>Neleri duzelttik?\u003c/h2>\n\u003cul>\n\u003cli>Blog index ve detay sayfalari artik statik olarak uretiliyor.\u003c/li>\n\u003cli>Teknik SEO alanlari her yazi icin build sirasinda yaziliyor.\u003c/li>\n\u003cli>Ic linkler landing page ve diger blog yazilarina dogrudan baglaniyor.\u003c/li>\n\u003c/ul>\n\u003cp>Daha fazla detay icin \u003ca href=\"/pricing\">fiyatlandirma\u003c/a> sayfasina ve \u003ca href=\"/blog\">blog arsivi\u003c/a> sayfasina bakabilirsiniz.\u003c/p>\n",
       "sharedAcrossLocales": false,
@@ -157,8 +157,8 @@
           "seoDescription": "Learn how Qualy combines ready replies, knowledge base documents, and follow-up rules to keep customer responses more consistent.",
           "coverImage": null,
           "category": {
-            "slug": "ai-automation",
-            "label": "AI Automation"
+            "slug": "practical-guide",
+            "label": "Practical Guide"
           },
           "contentHtml": "\u003ch1>Why we set this up\u003c/h1>\n\u003cp>As the product grew, the same customer question could receive different quality depending on who answered it. We reduced that drift by combining ready replies, knowledge base documents, and follow-up rules in one response layer.\u003c/p>\n\u003ch2>What changed?\u003c/h2>\n\u003cul>\n\u003cli>We grouped recurring questions into reusable ready replies.\u003c/li>\n\u003cli>We moved service, pricing, and process details into a structured knowledge base.\u003c/li>\n\u003cli>We let the AI ask short follow-up questions when key context was missing.\u003c/li>\n\u003c/ul>\n\u003ch2>What improved?\u003c/h2>\n\u003cp>The first answer now goes out faster, teams stay closer to the same tone, and human takeover is easier to spot when the conversation needs it.\u003c/p>\n\u003cp>You can continue with \u003ca href=\"/en/#features\">features\u003c/a> and \u003ca href=\"/en/pricing\">pricing\u003c/a> for more context.\u003c/p>\n",
           "sharedAcrossLocales": false,
@@ -187,8 +187,8 @@
           "seoDescription": "Hazir yanitlar, bilgi tabani ve takip akislari ile daha tutarli musteri cevaplari olusturmanin pratik yolunu inceleyin.",
           "coverImage": null,
           "category": {
-            "slug": "ai-automation",
-            "label": "Yapay Zeka Otomasyonu"
+            "slug": "practical-guide",
+            "label": "Pratik Rehber"
           },
           "contentHtml": "\u003ch1>Neden bu akisi kurduk?\u003c/h1>\n\u003cp>Qualy&#39;de buyume hizlandikca ayni musteri sorusu farkli kisilerden farkli kalitede cevap almaya basladi. Bunu azaltmak icin hazir yanitlari, bilgi tabani dokumanlarini ve takip kurallarini tek bir cevap katmaninda birlestirdik.\u003c/p>\n\u003ch2>Neyi degistirdik?\u003c/h2>\n\u003cul>\n\u003cli>Sik gelen sorular icin hazir yanitlari tek yerde topladik.\u003c/li>\n\u003cli>Hizmet, fiyatlama ve surec detaylarini bilgi tabani dokumanlarina tasidik.\u003c/li>\n\u003cli>AI&#39;nin eksik bilgi gordugu noktalarda kisa takip sorulari sormasini sagladik.\u003c/li>\n\u003c/ul>\n\u003ch2>Sonuc ne oldu?\u003c/h2>\n\u003cp>Bu yapi sayesinde ilk yanit daha hizli cikiyor, ekipler ayni dilde kaliyor ve insan devralmasi gerektiren gorusmeler daha net ayrisiyor.\u003c/p>\n\u003cp>Daha fazla baglam icin \u003ca href=\"/#features\">ozellikler\u003c/a> ve \u003ca href=\"/pricing\">fiyatlandirma\u003c/a> sayfalarina bakabilirsiniz.\u003c/p>\n",
           "sharedAcrossLocales": false,
@@ -222,8 +222,8 @@
           "seoDescription": "See how the Qualy blog launch used static routes, technical SEO, and internal links to support growth.",
           "coverImage": null,
           "category": {
-            "slug": "product-updates",
-            "label": "Product Updates"
+            "slug": "platform-release",
+            "label": "Platform Release"
           },
           "contentHtml": "\u003ch1>Launch notes\u003c/h1>\n\u003cp>We launched the Qualy blog on top of the existing landing page architecture instead of adding a separate app.\u003c/p>\n\u003ch2>What changed?\u003c/h2>\n\u003cul>\n\u003cli>Blog index and post pages are generated as static routes.\u003c/li>\n\u003cli>SEO metadata is generated per article during the build.\u003c/li>\n\u003cli>Internal links now point to landing pages and related blog entries.\u003c/li>\n\u003c/ul>\n\u003cp>You can continue with \u003ca href=\"/en/pricing\">pricing\u003c/a> or browse the \u003ca href=\"/en/blog\">English blog feed\u003c/a>.\u003c/p>\n",
           "sharedAcrossLocales": false,
@@ -252,8 +252,8 @@
           "seoDescription": "Qualy blog'unun performans, teknik SEO ve ic link kurgusunu nasil kurdugumuzu inceleyin.",
           "coverImage": null,
           "category": {
-            "slug": "product-updates",
-            "label": "Urun Guncellemeleri"
+            "slug": "platform-release",
+            "label": "Platform Duyuruları"
           },
           "contentHtml": "\u003ch1>Blog yayin notlari\u003c/h1>\n\u003cp>Qualy blog&#39;unu, landing page ile ayni statik mimariyi koruyarak yayinladik.\u003c/p>\n\u003ch2>Neleri duzelttik?\u003c/h2>\n\u003cul>\n\u003cli>Blog index ve detay sayfalari artik statik olarak uretiliyor.\u003c/li>\n\u003cli>Teknik SEO alanlari her yazi icin build sirasinda yaziliyor.\u003c/li>\n\u003cli>Ic linkler landing page ve diger blog yazilarina dogrudan baglaniyor.\u003c/li>\n\u003c/ul>\n\u003cp>Daha fazla detay icin \u003ca href=\"/pricing\">fiyatlandirma\u003c/a> sayfasina ve \u003ca href=\"/blog\">blog arsivi\u003c/a> sayfasina bakabilirsiniz.\u003c/p>\n",
           "sharedAcrossLocales": false,

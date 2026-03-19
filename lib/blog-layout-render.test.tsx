@@ -5,14 +5,47 @@ import { renderToStaticMarkup } from 'react-dom/server';
 const mockedLanguage = vi.hoisted(() => ({ value: 'tr' as 'tr' | 'en' }));
 
 vi.mock('../LanguageContext', () => ({
-  useLanguage: () => ({ language: mockedLanguage.value }),
+  useLanguage: () => ({
+    language: mockedLanguage.value,
+    t: {
+      hero: {
+        ctaPrimary: mockedLanguage.value === 'en' ? 'Start Free Trial' : 'Ücretsiz Denemeyi Başlat',
+        ctaSecondary: mockedLanguage.value === 'en' ? 'Plan a Demo' : 'Demo Planla',
+        demoModal: {
+          title: mockedLanguage.value === 'en' ? 'Plan a Demo' : 'Demo Planla',
+          subtitle: '',
+          fullNameLabel: '',
+          fullNamePlaceholder: '',
+          emailLabel: '',
+          emailPlaceholder: '',
+          phoneLabel: '',
+          phonePlaceholder: '',
+          contactHint: '',
+          noteLabel: '',
+          notePlaceholder: '',
+          cancel: '',
+          submit: '',
+          closeLabel: '',
+          mailSubject: '',
+          mailLabelName: '',
+          mailLabelEmail: '',
+          mailLabelPhone: '',
+          mailLabelNote: '',
+          errors: {
+            fullNameRequired: '',
+            contactRequired: '',
+          },
+        },
+      },
+    },
+  }),
 }));
 
 import BlogIndexPage from '../pages/BlogIndexPage';
 import BlogPostPage from '../pages/BlogPostPage';
 
 describe('blog layout render', () => {
-  it('renders the blog index as a category-led archive with a single default grid layout', () => {
+  it('renders the blog index with the existing layout and the new category taxonomy', () => {
     mockedLanguage.value = 'tr';
 
     const html = renderToStaticMarkup(
@@ -38,8 +71,8 @@ describe('blog layout render', () => {
             locale: 'tr',
             contentHtml: '<p>icerik</p>',
             category: {
-              slug: 'customer-stories',
-              label: 'Musteri Hikayeleri',
+              slug: 'messaging-workflows',
+              label: 'Mesaj Akislari',
             },
           },
           {
@@ -71,14 +104,15 @@ describe('blog layout render', () => {
     );
 
     expect(html).toContain('Tümü');
+    expect(html).toContain('Pratik Rehber');
+    expect(html).toContain('Mesajlaşma');
+    expect(html).toContain('Platform Duyuruları');
     expect(html).toContain('Filtrele');
-    expect(html).toContain('AI Otomasyonu');
-    expect(html).toContain('Musteri Hikayeleri');
-    expect(html).toContain('Ürün Güncellemeleri');
     expect(html).toContain('grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3');
     expect(html).toContain('aspect-square');
     expect(html).toContain('block w-full pt-4');
     expect(html).toMatch(/<a[^>]+href="\/blog\/qualy-blog-yayin-optimizasyonu"[^>]*>.*Qualy blog&#x27;u yayina alirken neleri optimize ettik/s);
+    expect(html).toMatch(/Qualy blog&#x27;u yayina alirken neleri optimize ettik.*Platform Duyuruları/s);
     expect(html).not.toContain('border-b border-slate-200 py-8');
     expect(html).not.toContain('md:basis-[17rem] md:shrink-0');
     expect(html).not.toContain('Sırala');
@@ -87,7 +121,7 @@ describe('blog layout render', () => {
     expect(html).not.toContain('value="list"');
   });
 
-  it('renders the blog detail page as a single-column article layout without boxed chrome or a sticky sidebar', () => {
+  it('renders the blog detail page as a single-column article layout with a bottom CTA that reuses hero actions', () => {
     mockedLanguage.value = 'tr';
 
     const html = renderToStaticMarkup(
@@ -111,10 +145,14 @@ describe('blog layout render', () => {
     expect(html).toContain('blog-article-content');
     expect(html).toContain('mx-auto w-full max-w-3xl');
     expect(html).toMatch(/<header[^>]*>.*18 Mar 2026.*4 dk okuma.*Qualy blog&#x27;u yayina alirken neleri optimize ettik/s);
-    expect(html).not.toMatch(/<header[^>]*>.*Product Updates.*18 Mar 2026.*4 dk okuma/s);
+    expect(html).toContain('Platform Duyuruları');
+    expect(html).toContain('Yüksek niyetli konuşmaları randevuya çevir.');
+    expect(html).toContain('Ücretsiz Denemeyi Başlat');
+    expect(html).toContain('Demo Planla');
     expect(html).not.toContain('rounded-full border border-slate-200 bg-white px-3 py-1');
     expect(html).not.toContain('lg:grid-cols-12');
     expect(html).not.toContain('lg:sticky lg:top-28');
     expect(html).not.toContain('rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10');
+    expect(html).not.toContain('3x Your Business Results');
   });
 });

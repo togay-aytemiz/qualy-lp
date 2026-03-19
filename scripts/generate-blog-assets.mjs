@@ -36,6 +36,47 @@ const FETCH_RETRY_DELAYS_MS = [0, 2000, 5000, 10000, 15000];
 const FETCH_TIMEOUT_MS = 8000;
 const DEFAULT_SANITY_API_VERSION = '2026-03-01';
 const DEFAULT_SANITY_DOC_TYPE = 'post';
+const BLOG_CATEGORY_LABELS = {
+  'ultimate-guide': {
+    tr: 'Kapsamlı Rehber',
+    en: 'Ultimate Guide',
+  },
+  'how-to-article': {
+    tr: 'Nasıl Yapılır',
+    en: 'How To Article',
+  },
+  'practical-guide': {
+    tr: 'Pratik Rehber',
+    en: 'Practical Guide',
+  },
+  concepts: {
+    tr: 'Kavramlar',
+    en: 'Concepts',
+  },
+  'platform-release': {
+    tr: 'Platform Duyuruları',
+    en: 'Platform Release',
+  },
+  'instant-messaging': {
+    tr: 'Mesajlaşma',
+    en: 'Instant Messaging',
+  },
+};
+const BLOG_CATEGORY_ALIAS_MAP = {
+  'ultimate-guide': 'ultimate-guide',
+  'booking-conversion': 'ultimate-guide',
+  'how-to-article': 'how-to-article',
+  'how-to': 'how-to-article',
+  'customer-stories': 'how-to-article',
+  'practical-guide': 'practical-guide',
+  'ai-automation': 'practical-guide',
+  concepts: 'concepts',
+  'lead-qualification': 'concepts',
+  'platform-release': 'platform-release',
+  'product-updates': 'platform-release',
+  'instant-messaging': 'instant-messaging',
+  'messaging-workflows': 'instant-messaging',
+};
 
 const truthy = (value) => /^(1|true|yes|on)$/i.test(String(value ?? '').trim());
 
@@ -293,21 +334,28 @@ function normalizeCategory(value, locale) {
   }
 
   const normalizedLocale = isSupportedBlogLocale(normalizeBlogLocale(locale)) ? normalizeBlogLocale(locale) : getDefaultBlogLocale();
-  const slug = String(value.slug?.current ?? value.slug ?? '').trim().toLowerCase();
+  const normalizeCategoryKey = (entry) =>
+    String(entry ?? '')
+      .trim()
+      .toLowerCase()
+      .replace(/&/g, ' and ')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  const slugCandidate = normalizeCategoryKey(value.slug?.current ?? value.slug);
   const labelTr = String(value.labelTr ?? value.titleTr ?? value.title?.tr ?? '').trim();
   const labelEn = String(value.labelEn ?? value.titleEn ?? value.title?.en ?? '').trim();
-  const fallbackLabel = String(value.label ?? value.title ?? value.name ?? slug).trim();
-  const label = normalizedLocale === 'en'
-    ? labelEn || fallbackLabel || labelTr
-    : labelTr || fallbackLabel || labelEn;
+  const fallbackLabel = String(value.label ?? value.title ?? value.name ?? '').trim();
+  const labelCandidate = normalizeCategoryKey(fallbackLabel || labelEn || labelTr);
+  const resolvedSlug = BLOG_CATEGORY_ALIAS_MAP[slugCandidate] || BLOG_CATEGORY_ALIAS_MAP[labelCandidate] || slugCandidate || labelCandidate;
+  const labelSet = BLOG_CATEGORY_LABELS[resolvedSlug];
 
-  if (!slug && !label) {
+  if (!resolvedSlug && !fallbackLabel && !labelEn && !labelTr) {
     return null;
   }
 
   return {
-    slug: slug || label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''),
-    label: label || 'General',
+    slug: labelSet ? resolvedSlug : resolvedSlug || 'practical-guide',
+    label: labelSet ? labelSet[normalizedLocale] : fallbackLabel || (normalizedLocale === 'en' ? 'Practical Guide' : 'Pratik Rehber'),
   };
 }
 

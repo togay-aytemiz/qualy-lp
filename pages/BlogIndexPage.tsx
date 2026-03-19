@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { applySeoToDocument } from '../lib/seo-dom';
 import { getSeoByRoute } from '../lib/seo';
+import { getDisplayCategory, sortDisplayCategories } from '../lib/blog-categories';
 
 type BlogCategory = {
   slug: string;
@@ -46,12 +47,6 @@ const normalizeManifestPosts = (payload: unknown): BlogPostSummary[] => {
   return [];
 };
 
-const stripHtml = (value: string | undefined) =>
-  String(value ?? '')
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
 const formatBlogDate = (publishedAt: string | undefined, language: 'en' | 'tr') => {
   if (!publishedAt) return '';
 
@@ -65,27 +60,6 @@ const formatBlogDate = (publishedAt: string | undefined, language: 'en' | 'tr') 
     month: 'short',
     year: 'numeric',
   }).format(parsedDate);
-};
-
-const titleCase = (value: string) =>
-  value
-    .split(/[\s-]+/)
-    .filter(Boolean)
-    .map((entry) => entry.charAt(0).toUpperCase() + entry.slice(1))
-    .join(' ');
-
-const getCategory = (post: BlogPostSummary, language: 'en' | 'tr') => {
-  if (post.category?.slug || post.category?.label) {
-    return {
-      slug: post.category?.slug || 'updates',
-      label: post.category?.label || titleCase(post.category?.slug || 'updates'),
-    };
-  }
-
-  return {
-    slug: 'updates',
-    label: language === 'en' ? 'Updates' : 'Güncellemeler',
-  };
 };
 
 const sortPostsByDate = (posts: BlogPostSummary[]) =>
@@ -116,18 +90,7 @@ const selectVisiblePosts = (posts: BlogPostSummary[], language: 'en' | 'tr') => 
 };
 
 const buildCategoryOptions = (posts: BlogPostSummary[], language: 'en' | 'tr') => {
-  const seenCategories = new Set<string>();
-  const categories: BlogCategory[] = [];
-
-  for (const post of posts) {
-    const category = getCategory(post, language);
-    if (seenCategories.has(category.slug)) continue;
-
-    seenCategories.add(category.slug);
-    categories.push(category);
-  }
-
-  return categories;
+  return sortDisplayCategories(posts.map((post) => getDisplayCategory(post.category, language)), language);
 };
 
 const buildFallbackArtwork = (post: BlogPostSummary) => {
@@ -171,7 +134,7 @@ const buildFallbackArtwork = (post: BlogPostSummary) => {
 };
 
 const ArchiveCard = ({ post, language }: ArchiveCardProps) => {
-  const category = getCategory(post, language);
+  const category = getDisplayCategory(post.category, language);
   const dateLabel = formatBlogDate(post.publishedAt, language);
   const href = buildBlogHref(post.slug, post.locale ?? language);
   const cardLabel = [post.title, category.label, dateLabel].filter(Boolean).join(' - ');
@@ -276,7 +239,7 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
   const activeHeading = selectedCategory?.label ?? allLabel;
   const filteredPosts = activeCategorySlug === 'all'
     ? visiblePosts
-    : visiblePosts.filter((post) => getCategory(post, language).slug === activeCategorySlug);
+    : visiblePosts.filter((post) => getDisplayCategory(post.category, language).slug === activeCategorySlug);
   const renderedPosts = filteredPosts.slice(0, visibleCount);
   const canLoadMore = filteredPosts.length > renderedPosts.length;
 

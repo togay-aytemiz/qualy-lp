@@ -11,8 +11,15 @@ describe('blog post page content', () => {
     expect(source).toContain('/blog_manifest.json');
     expect(source).toContain('relatedPosts');
     expect(source).toContain('applySeoToDocument');
+    expect(source).toContain('AUTH_URLS.register');
+    expect(source).toContain('isDemoModalOpen');
+    expect(source).toContain('t.hero.ctaPrimary');
+    expect(source).toContain('t.hero.ctaSecondary');
+    expect(source).toContain('getDisplayCategory');
     expect(source).toContain('blog-article-content');
     expect(source).toContain('mx-auto w-full max-w-3xl');
+    expect(source).toContain('articleCtaTitle');
+    expect(source).toContain('articleCtaDescription');
     expect(source).toContain('border-t border-slate-200/80');
     expect(source).toContain('Continue reading');
     expect(source).toContain('Tümünü görüntüle');
@@ -35,6 +42,7 @@ describe('blog post page content', () => {
     expect(source).not.toContain('inline-flex h-11 items-center justify-center rounded-full border border-slate-200 bg-white px-5');
     expect(source).not.toContain('group flex h-full flex-col gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm');
     expect(source).not.toContain('{titleCase(relatedCategory.label)} • {getReadTimeLabel(relatedPost, language)}');
+    expect(source).not.toContain('3x Your Business Results');
     expect(source).toContain('BlogPostPage');
   });
 });

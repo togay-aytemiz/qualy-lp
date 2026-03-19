@@ -3,17 +3,17 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 describe('blog index page content', () => {
-  it('accepts initialPosts and fetches the manifest for an OpenAI-like archive layout', () => {
+  it('accepts initialPosts and fetches the manifest while preserving the current archive layout', () => {
     const source = readFileSync(path.join(process.cwd(), 'pages', 'BlogIndexPage.tsx'), 'utf8');
 
     expect(source).toContain('initialPosts');
     expect(source).toContain("/blog_manifest.json");
     expect(source).toContain('applySeoToDocument');
     expect(source).toContain('selectedCategorySlug');
+    expect(source).toContain('getDisplayCategory');
+    expect(source).toContain('sortDisplayCategories');
     expect(source).toContain('mobileFiltersOpen');
     expect(source).toContain('Filtrele');
-    expect(source).toContain('Tümü');
-    expect(source).toContain('All');
     expect(source).toContain('Daha fazla yükle');
     expect(source).toContain('Load more');
     expect(source).toContain('pt-32');
@@ -32,9 +32,6 @@ describe('blog index page content', () => {
     expect(source).not.toContain('sortOrder');
     expect(source).not.toContain('viewMode');
     expect(source).not.toContain('Sırala');
-    expect(source).not.toContain('name="mediaView"');
-    expect(source).not.toContain('value="grid"');
-    expect(source).not.toContain('value="list"');
     expect(source).not.toContain('border-b border-slate-200 py-8');
     expect(source).not.toContain('md:flex-row md:items-center');
     expect(source).not.toContain('md:basis-[17rem] md:shrink-0');
@@ -54,6 +51,9 @@ describe('blog index page content', () => {
     expect(source).not.toContain('categorySections');
     expect(source).not.toContain('blog-section-');
     expect(source).not.toContain('Yazıyı oku');
+    expect(source).not.toContain('name="mediaView"');
+    expect(source).not.toContain('value="grid"');
+    expect(source).not.toContain('value="list"');
     expect(source).toContain('BlogIndexPage');
   });
 });

@@ -48,65 +48,154 @@ function getConfig() {
 }
 
 function buildSeedDocuments() {
-  const publishedAt = '2026-03-18T12:00:00.000Z';
-  const categoryId = categoryDefinitions[0].id;
-  const translationKey = 'qualy-blog-launch-post';
   const categoryDocuments = buildCategoryDocuments();
+  const getCategoryIdBySlug = (slug) => {
+    const category = categoryDefinitions.find((entry) => entry.slug === slug);
+
+    if (!category) {
+      throw new Error(`Missing Sanity category definition for slug: ${slug}`);
+    }
+
+    return category.id;
+  };
+
+  const seedPosts = [
+    {
+      translationKey: 'qualy-ready-replies-knowledge-base',
+      categorySlug: 'practical-guide',
+      entries: [
+        {
+          id: 'post.qualy-ready-replies-knowledge-base.tr',
+          language: 'tr',
+          title: 'Hazir yanitlar ve bilgi tabani ile cevap kalitesini nasil sabitledik',
+          slug: 'hazir-yanitlar-bilgi-tabani-cevap-kalitesi',
+          excerpt: 'Hazir yanitlar, bilgi tabani dokumanlari ve net takip kurallari ile daha tutarli musteri cevaplarini nasil elde ettigimizi anlatiyoruz.',
+          seoTitle: 'Hazir yanitlar ve bilgi tabani ile cevap kalitesi | Qualy',
+          seoDescription: 'Hazir yanitlar, bilgi tabani ve takip akislari ile daha tutarli musteri cevaplari olusturmanin pratik yolunu inceleyin.',
+          publishedAt: '2026-03-19T09:00:00.000Z',
+          bodyMarkdown: [
+            '# Neden bu akisi kurduk?',
+            '',
+            "Qualy'de buyume hizlandikca ayni musteri sorusu farkli kisilerden farkli kalitede cevap almaya basladi. Bunu azaltmak icin hazir yanitlari, bilgi tabani dokumanlarini ve takip kurallarini tek bir cevap katmaninda birlestirdik.",
+            '',
+            '## Neyi degistirdik?',
+            '',
+            '- Sik gelen sorular icin hazir yanitlari tek yerde topladik.',
+            '- Hizmet, fiyatlama ve surec detaylarini bilgi tabani dokumanlarina tasidik.',
+            "- AI'nin eksik bilgi gordugu noktalarda kisa takip sorulari sormasini sagladik.",
+            '',
+            '## Sonuc ne oldu?',
+            '',
+            '- Ilk yanit daha hizli cikmaya basladi.',
+            '- Ekipler ayni dilde kaldi.',
+            '- Insan devralmasi gerektiren gorusmeler daha net ayristi.',
+            '',
+            'Daha fazla baglam icin [ozellikler](/#features) ve [fiyatlandirma](/pricing) sayfalarina bakabilirsiniz.',
+          ].join('\n'),
+        },
+        {
+          id: 'post.qualy-ready-replies-knowledge-base.en',
+          language: 'en',
+          title: 'How we stabilized response quality with ready replies and a knowledge base',
+          slug: 'ready-replies-knowledge-base-response-quality',
+          excerpt: 'A practical look at how ready replies, knowledge base documents, and follow-up rules helped us keep customer answers more consistent.',
+          seoTitle: 'Ready replies and knowledge base response quality | Qualy',
+          seoDescription: 'Learn how Qualy combines ready replies, knowledge base documents, and follow-up rules to keep customer responses more consistent.',
+          publishedAt: '2026-03-19T09:00:00.000Z',
+          bodyMarkdown: [
+            '# Why we set this up',
+            '',
+            'As the product grew, the same customer question could receive different quality depending on who answered it. We reduced that drift by combining ready replies, knowledge base documents, and follow-up rules in one response layer.',
+            '',
+            '## What changed?',
+            '',
+            '- We grouped recurring questions into reusable ready replies.',
+            '- We moved service, pricing, and process details into a structured knowledge base.',
+            '- We let the AI ask short follow-up questions when key context was missing.',
+            '',
+            '## What improved?',
+            '',
+            '- The first answer now goes out faster.',
+            '- Teams stay closer to the same tone.',
+            '- Human takeover is easier to spot when the conversation needs it.',
+            '',
+            'You can continue with [features](/en/#features) and [pricing](/en/pricing) for more context.',
+          ].join('\n'),
+        },
+      ],
+    },
+    {
+      translationKey: 'qualy-blog-launch-post',
+      categorySlug: 'platform-release',
+      entries: [
+        {
+          id: 'post.qualy-blog-launch-post.tr',
+          language: 'tr',
+          title: "Qualy blog'u yayina alirken neleri optimize ettik",
+          slug: 'qualy-blog-yayin-optimizasyonu',
+          excerpt: "Qualy blog'unu hiz, teknik SEO ve dogru ic link yapisiyla nasil yayina aldigimizi ozetliyoruz.",
+          seoTitle: 'Qualy blog yayin optimizasyonu',
+          seoDescription: "Qualy blog'unun performans, teknik SEO ve ic link kurgusunu nasil kurdugumuzu inceleyin.",
+          publishedAt: '2026-03-18T12:00:00.000Z',
+          bodyMarkdown: [
+            '# Blog yayin notlari',
+            '',
+            "Qualy blog'unu, landing page ile ayni statik mimariyi koruyarak yayinladik.",
+            '',
+            '## Neleri duzelttik?',
+            '',
+            '- Blog index ve detay sayfalari artik statik olarak uretiliyor.',
+            '- Teknik SEO alanlari her yazi icin build sirasinda yaziliyor.',
+            '- Ic linkler landing page ve diger blog yazilarina dogrudan baglaniyor.',
+            '',
+            'Daha fazla detay icin [fiyatlandirma](/pricing) sayfasina ve [blog arsivi](/blog) sayfasina bakabilirsiniz.',
+          ].join('\n'),
+        },
+        {
+          id: 'post.qualy-blog-launch-post.en',
+          language: 'en',
+          title: 'How we launched the Qualy blog without hurting performance',
+          slug: 'qualy-blog-launch-performance',
+          excerpt: 'A quick look at the static routing, technical SEO, and internal linking decisions behind the Qualy blog launch.',
+          seoTitle: 'Launching the Qualy blog without hurting performance',
+          seoDescription: 'See how the Qualy blog launch used static routes, technical SEO, and internal links to support growth.',
+          publishedAt: '2026-03-18T12:00:00.000Z',
+          bodyMarkdown: [
+            '# Launch notes',
+            '',
+            'We launched the Qualy blog on top of the existing landing page architecture instead of adding a separate app.',
+            '',
+            '## What changed?',
+            '',
+            '- Blog index and post pages are generated as static routes.',
+            '- SEO metadata is generated per article during the build.',
+            '- Internal links now point to landing pages and related blog entries.',
+            '',
+            'You can continue with [pricing](/en/pricing) or browse the [English blog feed](/en/blog).',
+          ].join('\n'),
+        },
+      ],
+    },
+  ];
 
   return [
     ...categoryDocuments,
-    {
-      _id: 'post.qualy-blog-launch-post.tr',
-      _type: 'post',
-      language: 'tr',
-      translationKey,
-      title: "Qualy blog'u yayina alirken neleri optimize ettik",
-      slug: {_type: 'slug', current: 'qualy-blog-yayin-optimizasyonu'},
-      excerpt: "Qualy blog'unu hiz, teknik SEO ve dogru ic link yapisiyla nasil yayina aldigimizi ozetliyoruz.",
-      seoTitle: "Qualy blog yayin optimizasyonu",
-      seoDescription: "Qualy blog'unun performans, teknik SEO ve ic link kurgusunu nasil kurdugumuzu inceleyin.",
-      publishedAt,
-      bodyMarkdown: [
-        '# Blog yayin notlari',
-        '',
-        "Qualy blog'unu, landing page ile ayni statik mimariyi koruyarak yayinladik.",
-        '',
-        '## Neleri duzelttik?',
-        '',
-        '- Blog index ve detay sayfalari artik statik olarak uretiliyor.',
-        '- Teknik SEO alanlari her yazi icin build sirasinda yaziliyor.',
-        '- Ic linkler landing page ve diger blog yazilarina dogrudan baglaniyor.',
-        '',
-        'Daha fazla detay icin [fiyatlandirma](/pricing) sayfasina ve [blog arsivi](/blog) sayfasina bakabilirsiniz.',
-      ].join('\n'),
-      category: {_type: 'reference', _ref: categoryId},
-    },
-    {
-      _id: 'post.qualy-blog-launch-post.en',
-      _type: 'post',
-      language: 'en',
-      translationKey,
-      title: 'How we launched the Qualy blog without hurting performance',
-      slug: {_type: 'slug', current: 'qualy-blog-launch-performance'},
-      excerpt: 'A quick look at the static routing, technical SEO, and internal linking decisions behind the Qualy blog launch.',
-      seoTitle: 'Launching the Qualy blog without hurting performance',
-      seoDescription: 'See how the Qualy blog launch used static routes, technical SEO, and internal links to support growth.',
-      publishedAt,
-      bodyMarkdown: [
-        '# Launch notes',
-        '',
-        'We launched the Qualy blog on top of the existing landing page architecture instead of adding a separate app.',
-        '',
-        '## What changed?',
-        '',
-        '- Blog index and post pages are generated as static routes.',
-        '- SEO metadata is generated per article during the build.',
-        '- Internal links now point to landing pages and related blog entries.',
-        '',
-        'You can continue with [pricing](/en/pricing) or browse the [English blog feed](/en/blog).',
-      ].join('\n'),
-      category: {_type: 'reference', _ref: categoryId},
-    },
+    ...seedPosts.flatMap((postGroup) =>
+      postGroup.entries.map((entry) => ({
+        _id: entry.id,
+        _type: 'post',
+        language: entry.language,
+        translationKey: postGroup.translationKey,
+        title: entry.title,
+        slug: {_type: 'slug', current: entry.slug},
+        excerpt: entry.excerpt,
+        seoTitle: entry.seoTitle,
+        seoDescription: entry.seoDescription,
+        publishedAt: entry.publishedAt,
+        bodyMarkdown: entry.bodyMarkdown,
+        category: {_type: 'reference', _ref: getCategoryIdBySlug(postGroup.categorySlug)},
+      }))
+    ),
   ];
 }
 
