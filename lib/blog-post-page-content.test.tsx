@@ -5,6 +5,8 @@ import path from 'node:path';
 describe('blog post page content', () => {
   it('accepts initialPost and fetches a localized post payload', () => {
     const source = readFileSync(path.join(process.cwd(), 'pages', 'BlogPostPage.tsx'), 'utf8');
+    const relatedSectionIndex = source.indexOf('{relatedPosts.length > 0 ? (');
+    const ctaSectionIndex = source.lastIndexOf('{articleCtaSection}');
 
     expect(source).toContain('initialPost');
     expect(source).toContain('/blog-posts/');
@@ -23,6 +25,8 @@ describe('blog post page content', () => {
     expect(source).toContain('border-t border-slate-200/80');
     expect(source).toContain('Continue reading');
     expect(source).toContain('Tümünü görüntüle');
+    expect(source).toContain('Herkese değil, doğru müşteriye odaklan.');
+    expect(source).toContain('Reply instantly. Prioritize serious leads.');
     expect(source).toContain('post.locale === language');
     expect(source).toContain('back to blog');
     expect(source).not.toContain('inline-flex rounded-full border border-slate-200 bg-white px-3 py-1');
@@ -38,11 +42,14 @@ describe('blog post page content', () => {
     expect(source).not.toContain('İlgili yazılar');
     expect(source).not.toContain('View all articles');
     expect(source).not.toContain('Tüm yazıları gör');
+    expect(source).not.toContain('Qualy for service teams');
+    expect(source).not.toContain('Servis ekipleri için Qualy');
     expect(source).not.toContain('titleCase(postCategory?.label ?? \'\')');
     expect(source).not.toContain('inline-flex h-11 items-center justify-center rounded-full border border-slate-200 bg-white px-5');
     expect(source).not.toContain('group flex h-full flex-col gap-4 rounded-[1.5rem] border border-slate-200 bg-white p-4 shadow-sm');
     expect(source).not.toContain('{titleCase(relatedCategory.label)} • {getReadTimeLabel(relatedPost, language)}');
     expect(source).not.toContain('3x Your Business Results');
+    expect(ctaSectionIndex).toBeGreaterThan(relatedSectionIndex);
     expect(source).toContain('BlogPostPage');
   });
 });

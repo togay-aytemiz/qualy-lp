@@ -121,7 +121,7 @@ describe('blog layout render', () => {
     expect(html).not.toContain('value="list"');
   });
 
-  it('renders the blog detail page as a single-column article layout with a bottom CTA that reuses hero actions', () => {
+  it('renders the blog detail page as a single-column article layout with a hero-like CTA copy and no service-team eyebrow', () => {
     mockedLanguage.value = 'tr';
 
     const html = renderToStaticMarkup(
@@ -146,9 +146,10 @@ describe('blog layout render', () => {
     expect(html).toContain('mx-auto w-full max-w-3xl');
     expect(html).toMatch(/<header[^>]*>.*18 Mar 2026.*4 dk okuma.*Qualy blog&#x27;u yayina alirken neleri optimize ettik/s);
     expect(html).toContain('Platform Duyuruları');
-    expect(html).toContain('Yüksek niyetli konuşmaları randevuya çevir.');
+    expect(html).toContain('Herkese değil, doğru müşteriye odaklan.');
     expect(html).toContain('Ücretsiz Denemeyi Başlat');
     expect(html).toContain('Demo Planla');
+    expect(html).not.toContain('Servis ekipleri için Qualy');
     expect(html).not.toContain('rounded-full border border-slate-200 bg-white px-3 py-1');
     expect(html).not.toContain('lg:grid-cols-12');
     expect(html).not.toContain('lg:sticky lg:top-28');

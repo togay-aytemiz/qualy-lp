@@ -380,14 +380,43 @@ const BlogPostPage: React.FC<Props> = ({ slug, initialPost }) => {
   const continueReadingLabel = language === 'en' ? 'Continue reading' : 'Okumaya devam et';
   const viewAllArticlesLabel = language === 'en' ? 'View all' : 'Tümünü görüntüle';
   const notFoundLabel = language === 'en' ? 'Post not found.' : 'Yazı bulunamadı.';
-  const articleCtaEyebrow = language === 'en' ? 'Qualy for service teams' : 'Servis ekipleri için Qualy';
   const articleCtaTitle = language === 'en'
-    ? 'Turn high-intent conversations into booked conversions.'
-    : 'Yüksek niyetli konuşmaları randevuya çevir.';
+    ? 'Reply instantly. Prioritize serious leads.'
+    : 'Herkese değil, doğru müşteriye odaklan.';
   const articleCtaDescription = language === 'en'
-    ? 'Connect your channels, automate repetitive replies, and let your team step in right when the conversation becomes serious.'
-    : 'Kanallarını bağla, tekrar eden yanıtları otomatikleştir ve konuşma ciddileştiğinde ekibinin doğru anda devreye girmesini sağla.';
+    ? 'Automate repetitive replies, collect missing context, and prioritize the conversations most likely to convert.'
+    : 'Mesajları otomatik yanıtla, eksik bilgiyi doğru sorularla tamamla ve yüksek niyetli konuşmaları önceliklendir.';
   const postCategory = post ? getDisplayCategory(post.category, language) : null;
+  const articleCtaSection = (
+    <div className="mx-auto mt-16 w-full max-w-5xl">
+      <section className="overflow-hidden rounded-[2rem] bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.28),_transparent_42%),linear-gradient(135deg,_#020617_0%,_#0f172a_54%,_#172554_100%)] px-6 py-10 text-white shadow-[0_24px_70px_rgba(15,23,42,0.28)] sm:px-10 sm:py-12">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-[2.6rem]">
+            {articleCtaTitle}
+          </h2>
+          <p className="mt-4 text-base leading-8 text-slate-200 sm:text-lg">
+            {articleCtaDescription}
+          </p>
+
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <a
+              href={AUTH_URLS.register}
+              className="inline-flex w-full items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-medium text-slate-950 transition-colors hover:bg-slate-100 sm:w-auto md:text-base"
+            >
+              {t.hero.ctaPrimary}
+            </a>
+            <button
+              type="button"
+              onClick={openDemoModal}
+              className="inline-flex w-full items-center justify-center rounded-full border border-white/20 bg-white/10 px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-white/16 sm:w-auto md:text-base"
+            >
+              {t.hero.ctaSecondary}
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
   return (
     <section className="bg-[#f6f7f8]">
       <div className="mx-auto max-w-7xl px-4 pb-24 pt-28 sm:px-6 lg:px-10">
@@ -456,38 +485,6 @@ const BlogPostPage: React.FC<Props> = ({ slug, initialPost }) => {
                   className="blog-article-content"
                   dangerouslySetInnerHTML={{ __html: post.contentHtml ?? post.content ?? '' }}
                 />
-              </div>
-
-              <div className="mx-auto mt-16 w-full max-w-5xl">
-                <section className="overflow-hidden rounded-[2rem] bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.28),_transparent_42%),linear-gradient(135deg,_#020617_0%,_#0f172a_54%,_#172554_100%)] px-6 py-10 text-white shadow-[0_24px_70px_rgba(15,23,42,0.28)] sm:px-10 sm:py-12">
-                  <div className="mx-auto max-w-3xl text-center">
-                    <span className="inline-flex items-center rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-100">
-                      {articleCtaEyebrow}
-                    </span>
-                    <h2 className="mt-5 text-3xl font-semibold tracking-tight text-white sm:text-[2.6rem]">
-                      {articleCtaTitle}
-                    </h2>
-                    <p className="mt-4 text-base leading-8 text-slate-200 sm:text-lg">
-                      {articleCtaDescription}
-                    </p>
-
-                    <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                      <a
-                        href={AUTH_URLS.register}
-                        className="inline-flex w-full items-center justify-center rounded-full bg-white px-8 py-3 text-sm font-medium text-slate-950 transition-colors hover:bg-slate-100 sm:w-auto md:text-base"
-                      >
-                        {t.hero.ctaPrimary}
-                      </a>
-                      <button
-                        type="button"
-                        onClick={openDemoModal}
-                        className="inline-flex w-full items-center justify-center rounded-full border border-white/20 bg-white/10 px-8 py-3 text-sm font-medium text-white transition-colors hover:bg-white/16 sm:w-auto md:text-base"
-                      >
-                        {t.hero.ctaSecondary}
-                      </button>
-                    </div>
-                  </div>
-                </section>
               </div>
             </article>
 
@@ -559,6 +556,8 @@ const BlogPostPage: React.FC<Props> = ({ slug, initialPost }) => {
                 </div>
               </section>
             ) : null}
+
+            {articleCtaSection}
           </>
         ) : (
           <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-8 text-slate-600">
