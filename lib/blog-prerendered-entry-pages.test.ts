@@ -10,8 +10,11 @@ describe('blog prerendered entry pages', () => {
 
     expect(blogIndex).not.toContain('<div id="root"></div>');
     expect(blogIndex).toContain('id="__BLOG_BOOTSTRAP__"');
-    expect(blogIndex).toContain('id="blog-latest"');
-    expect(blogIndex).toContain('id="blog-section-product-updates"');
+    expect(blogIndex).toContain('Filtrele');
+    expect(blogIndex).toContain('Tümü');
+    expect(blogIndex).toContain('aspect-square');
+    expect(blogIndex).not.toContain('Sırala');
+    expect(blogIndex).not.toContain('name="mediaView"');
   });
 
   it('ships blog detail pages with article markup in the initial HTML', () => {

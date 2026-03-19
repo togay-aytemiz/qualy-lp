@@ -17,6 +17,9 @@ describe('blog post page content', () => {
     expect(source).toContain('Related articles');
     expect(source).toContain('post.locale === language');
     expect(source).toContain('back to blog');
+    expect(source).not.toContain('inline-flex rounded-full border border-slate-200 bg-white px-3 py-1');
+    expect(source).not.toContain('text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500');
+    expect(source).toContain('text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400');
     expect(source).not.toContain('lg:grid-cols-12');
     expect(source).not.toContain('Shared article');
     expect(source).not.toContain('Ortak yayin');

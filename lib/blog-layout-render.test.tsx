@@ -12,7 +12,7 @@ import BlogIndexPage from '../pages/BlogIndexPage';
 import BlogPostPage from '../pages/BlogPostPage';
 
 describe('blog layout render', () => {
-  it('renders the blog index as a latest-led editorial layout with grouped category sections', () => {
+  it('renders the blog index as a category-led archive with a single default grid layout', () => {
     mockedLanguage.value = 'tr';
 
     const html = renderToStaticMarkup(
@@ -70,19 +70,21 @@ describe('blog layout render', () => {
       />
     );
 
-    expect(html).toContain('En son');
-    expect(html).toContain('id="blog-latest"');
-    expect(html).toContain('Son yazılar');
-    expect(html).toContain('Önerilenler');
-    expect(html).toContain('id="blog-section-product-updates"');
-    expect(html).toContain('id="blog-section-ai-automation"');
-    expect(html).toContain('id="blog-section-customer-stories"');
-    expect(html).toMatch(/<a href="\/blog\/qualy-blog-yayin-optimizasyonu"[^>]*>.*Yazıyı oku/s);
-    expect(html).toContain('Kategorideki tüm yazılar');
-    expect(html).not.toContain('bg-sky-500/15');
-    expect(html).not.toContain('bg-slate-950/55');
-    expect(html).not.toContain('ring-1 ring-white/10');
-    expect(html).not.toContain('aria-pressed');
+    expect(html).toContain('Tümü');
+    expect(html).toContain('Filtrele');
+    expect(html).toContain('AI Otomasyonu');
+    expect(html).toContain('Musteri Hikayeleri');
+    expect(html).toContain('Ürün Güncellemeleri');
+    expect(html).toContain('grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3');
+    expect(html).toContain('aspect-square');
+    expect(html).toContain('block w-full pt-4');
+    expect(html).toMatch(/<a[^>]+href="\/blog\/qualy-blog-yayin-optimizasyonu"[^>]*>.*Qualy blog&#x27;u yayina alirken neleri optimize ettik/s);
+    expect(html).not.toContain('border-b border-slate-200 py-8');
+    expect(html).not.toContain('md:basis-[17rem] md:shrink-0');
+    expect(html).not.toContain('Sırala');
+    expect(html).not.toContain('name="mediaView"');
+    expect(html).not.toContain('value="grid"');
+    expect(html).not.toContain('value="list"');
   });
 
   it('renders the blog detail page as a single-column article layout without boxed chrome or a sticky sidebar', () => {
@@ -108,6 +110,9 @@ describe('blog layout render', () => {
 
     expect(html).toContain('blog-article-content');
     expect(html).toContain('mx-auto w-full max-w-3xl');
+    expect(html).toMatch(/<header[^>]*>.*18 Mar 2026.*4 dk okuma.*Qualy blog&#x27;u yayina alirken neleri optimize ettik/s);
+    expect(html).not.toMatch(/<header[^>]*>.*Product Updates.*18 Mar 2026.*4 dk okuma/s);
+    expect(html).not.toContain('rounded-full border border-slate-200 bg-white px-3 py-1');
     expect(html).not.toContain('lg:grid-cols-12');
     expect(html).not.toContain('lg:sticky lg:top-28');
     expect(html).not.toContain('rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10');

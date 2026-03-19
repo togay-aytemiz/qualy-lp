@@ -336,15 +336,15 @@ const BlogPostPage: React.FC<Props> = ({ slug, initialPost }) => {
 
               <header className="mx-auto w-full max-w-3xl">
                 <div className="flex flex-wrap items-center gap-3">
-                  <span className="inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.18em] text-slate-700">
-                    {titleCase(postCategory?.label ?? '')}
-                  </span>
                   {post.publishedAt ? (
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                    <time
+                      className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400"
+                      dateTime={post.publishedAt}
+                    >
                       {formatBlogDate(post.publishedAt, language)}
-                    </span>
+                    </time>
                   ) : null}
-                  <span className="h-1 w-1 rounded-full bg-slate-300" />
+                  {post.publishedAt ? <span className="h-1 w-1 rounded-full bg-slate-300" /> : null}
                   <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
                     {getReadTimeLabel(post, language)}
                   </span>
