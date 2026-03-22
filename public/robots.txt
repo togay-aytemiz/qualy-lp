@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://askqualy.com/sitemap.xml
+Sitemap: https://www.askqualy.com/sitemap.xml

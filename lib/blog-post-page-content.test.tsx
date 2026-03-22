@@ -11,6 +11,8 @@ describe('blog post page content', () => {
     expect(source).toContain('initialPost');
     expect(source).toContain('/blog-posts/');
     expect(source).toContain('/blog_manifest.json');
+    expect(source).toContain("postUrl.searchParams.set('ts'");
+    expect(source).not.toContain('if (initialPost !== undefined) return initialPost;');
     expect(source).toContain('relatedPosts');
     expect(source).toContain('applySeoToDocument');
     expect(source).toContain('AUTH_URLS.register');

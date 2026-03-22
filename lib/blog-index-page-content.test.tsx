@@ -8,6 +8,8 @@ describe('blog index page content', () => {
 
     expect(source).toContain('initialPosts');
     expect(source).toContain("/blog_manifest.json");
+    expect(source).toContain("manifestUrl.searchParams.set('ts'");
+    expect(source).not.toContain('if (initialPosts !== undefined) return;');
     expect(source).toContain('applySeoToDocument');
     expect(source).toContain('selectedCategorySlug');
     expect(source).toContain('getDisplayCategory');

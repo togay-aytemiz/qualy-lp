@@ -188,15 +188,17 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_COUNT);
 
   useEffect(() => {
-    if (initialPosts !== undefined) return;
-
     let isMounted = true;
+    const refreshKey = String(Date.now());
 
     const loadManifest = async () => {
       try {
-        const response = await fetch('/blog_manifest.json');
+        const manifestUrl = new URL('/blog_manifest.json', window.location.origin);
+        manifestUrl.searchParams.set('ts', refreshKey);
+
+        const response = await fetch(manifestUrl.toString(), { cache: 'no-store' });
         if (!response.ok) {
-          if (isMounted) setPosts([]);
+          if (isMounted && initialPosts === undefined) setPosts([]);
           return;
         }
 
@@ -205,7 +207,7 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
           setPosts(normalizeManifestPosts(data));
         }
       } catch {
-        if (isMounted) setPosts([]);
+        if (isMounted && initialPosts === undefined) setPosts([]);
       }
     };
 

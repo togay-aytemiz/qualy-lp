@@ -11,7 +11,7 @@ const MANIFEST_PATH = path.join(PUBLIC_DIR, 'blog_manifest.json');
 const POSTS_DIR = path.join(PUBLIC_DIR, 'blog-posts');
 const BLOG_CACHE_DIR = path.join(ROOT, 'data', 'blog-cache');
 const BLOG_CACHE_MANIFEST_PATH = path.join(BLOG_CACHE_DIR, 'blog_manifest.json');
-const SITE_URL = normalizeBaseUrl(process.env.VITE_SITE_URL || 'https://askqualy.com');
+const SITE_URL = normalizeBaseUrl(process.env.VITE_SITE_URL || 'https://www.askqualy.com');
 const BLOG_BOOTSTRAP_ELEMENT_ID = '__BLOG_BOOTSTRAP__';
 const CRAWLABLE_ROBOTS = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
 const NON_CRAWLABLE_ROBOTS = 'noindex,follow';
@@ -154,7 +154,7 @@ function getSanityApiHost() {
 }
 
 function resolveAbsoluteUrl(baseUrl, routePath) {
-  const cleanBase = normalizeBaseUrl(baseUrl) || 'https://askqualy.com';
+  const cleanBase = normalizeBaseUrl(baseUrl) || 'https://www.askqualy.com';
   const cleanPath = routePath.startsWith('/') ? routePath : `/${routePath}`;
   return `${cleanBase}${cleanPath}`;
 }
@@ -280,8 +280,108 @@ ${bootstrapScript}
 `;
 }
 
+function dedentSharedMarkdownIndentation(value) {
+  const lines = String(value ?? '').split('\n');
+  const indentationLevels = lines
+    .filter((line) => line.trim())
+    .map((line) => {
+      const match = line.match(/^[ \t]+/);
+      if (!match) return 0;
+      return match[0].replace(/\t/g, '  ').length;
+    })
+    .filter((indentation) => indentation > 0);
+
+  if (indentationLevels.length === 0) {
+    return String(value ?? '');
+  }
+
+  const sharedIndentation = Math.min(...indentationLevels);
+  if (sharedIndentation < 2) {
+    return String(value ?? '');
+  }
+
+  return lines
+    .map((line) => {
+      if (!line.trim()) {
+        return '';
+      }
+
+      let remaining = sharedIndentation;
+      let index = 0;
+      while (remaining > 0 && index < line.length) {
+        if (line[index] === '\t') {
+          remaining -= 2;
+        } else if (line[index] === ' ') {
+          remaining -= 1;
+        } else {
+          break;
+        }
+        index += 1;
+      }
+
+      return line.slice(index);
+    })
+    .join('\n');
+}
+
+function stripOuterMarkdownFence(value) {
+  let normalized = String(value ?? '').trim();
+
+  while (true) {
+    let changed = false;
+    const match = normalized.match(/^\s*```(?:markdown|md)?\s*\n([\s\S]*?)\n?```\s*$/i);
+    if (match) {
+      normalized = String(match[1] ?? '').trim();
+      changed = true;
+    }
+
+    const lines = normalized.replace(/\r\n/g, '\n').split('\n');
+    const firstContentIndex = lines.findIndex((line) => line.trim().length > 0);
+    if (firstContentIndex >= 0 && /^```(?:markdown|md)?\s*$/i.test(lines[firstContentIndex].trim())) {
+      lines.splice(firstContentIndex, 1);
+      normalized = lines.join('\n').trim();
+      changed = true;
+    }
+
+    const trailingLines = normalized.replace(/\r\n/g, '\n').split('\n');
+    for (let index = trailingLines.length - 1; index >= 0; index -= 1) {
+      const line = trailingLines[index].trim();
+      if (!line) continue;
+      if (/^```\s*$/.test(line)) {
+        trailingLines.splice(index, 1);
+        normalized = trailingLines.join('\n').trim();
+        changed = true;
+      }
+      break;
+    }
+
+    if (!changed) {
+      return normalized;
+    }
+  }
+}
+
+function normalizeMarkdownForRender(markdown) {
+  return dedentSharedMarkdownIndentation(stripOuterMarkdownFence(markdown))
+    .replace(/\r\n/g, '\n')
+    .split('\n')
+    .map((line) => {
+      if (!line.trim()) {
+        return '';
+      }
+
+      if (/^[ \t]+(#{1,6}\s+|[-*+]\s+|\d+\.\s+|>\s+)/.test(line)) {
+        return line.trimStart();
+      }
+
+      return line;
+    })
+    .join('\n')
+    .trim();
+}
+
 function renderMarkdownToHtml(markdown) {
-  const source = String(markdown ?? '').trim();
+  const source = normalizeMarkdownForRender(markdown);
   if (!source) return '';
   return marked.parse(source);
 }
@@ -397,8 +497,9 @@ function normalizeSanityPost(item) {
   }
 
   const translationKey = String(item?.translationKey ?? item?.translationGroup ?? item?.documentId ?? item?._id ?? `${locale}:${slug}`).trim();
-  const bodyMarkdown = String(item?.bodyMarkdown ?? item?.contentMarkdown ?? item?.body ?? '').trim();
+  const bodyMarkdown = normalizeMarkdownForRender(String(item?.bodyMarkdown ?? item?.contentMarkdown ?? item?.body ?? ''));
   const bodyHtml = String(item?.bodyHtml ?? item?.contentHtml ?? '').trim();
+  const isWrappedMarkdownHtml = /^<pre>\s*<code[^>]*language-markdown/i.test(bodyHtml);
   const path = getBlogPostPath(locale, slug);
 
   return {
@@ -409,7 +510,7 @@ function normalizeSanityPost(item) {
     title,
     excerpt: String(item?.excerpt ?? '').trim(),
     content: bodyMarkdown,
-    contentHtml: bodyHtml || renderMarkdownToHtml(bodyMarkdown),
+    contentHtml: (isWrappedMarkdownHtml ? '' : bodyHtml) || renderMarkdownToHtml(bodyMarkdown),
     seoTitle: String(item?.seoTitle ?? title).trim(),
     seoDescription: String(item?.seoDescription ?? item?.excerpt ?? '').trim(),
     publishedAt,
@@ -851,11 +952,11 @@ const isRecoverableBlogFetchError = (error) => {
 async function main() {
   try {
     const enabledSettingRaw = String(process.env.SANITY_BLOG_ENABLED ?? '').trim();
-    const enabled = truthy(enabledSettingRaw);
     const hasExplicitEnableFlag = enabledSettingRaw.length > 0;
     const hasProjectId = Boolean(String(process.env.SANITY_PROJECT_ID || '').trim());
     const hasDataset = Boolean(String(process.env.SANITY_DATASET || '').trim());
     const hasRequiredConfig = hasProjectId && hasDataset;
+    const enabled = hasExplicitEnableFlag ? truthy(enabledSettingRaw) : hasRequiredConfig;
 
     if (!enabled || !hasRequiredConfig) {
       const shouldRestoreFromCache = !hasRequiredConfig && (!hasExplicitEnableFlag || enabled);

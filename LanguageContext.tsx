@@ -9,6 +9,7 @@ interface Translations {
     features: string;
     howItWorks: string;
     faq: string;
+    blog: string;
     pricing: string;
     login: string;
     getStarted: string;
@@ -302,6 +303,7 @@ const translations: Record<Language, Translations> = {
       features: "Features",
       howItWorks: "How it works",
       faq: "FAQ",
+      blog: "Blog",
       pricing: "Pricing",
       login: "Log in",
       getStarted: "Get Started",
@@ -759,6 +761,7 @@ const translations: Record<Language, Translations> = {
       features: "Özellikler",
       howItWorks: "Nasıl Çalışır",
       faq: "SSS",
+      blog: "Blog",
       pricing: "Fiyatlandırma",
       login: "Giriş Yap",
       getStarted: "Ücretsiz Başla",

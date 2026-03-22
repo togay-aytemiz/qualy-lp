@@ -57,7 +57,7 @@ const initialDemoFormData: DemoFormData = {
 
 const buildBlogHref = (slug: string, locale: 'en' | 'tr') => (locale === 'en' ? `/en/blog/${slug}` : `/blog/${slug}`);
 const BLOG_ROBOTS = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
-const BLOG_SITE_URL = 'https://askqualy.com';
+const BLOG_SITE_URL = 'https://www.askqualy.com';
 
 const normalizeManifestPosts = (payload: unknown): BlogPostRecord[] => {
   if (Array.isArray(payload)) return payload as BlogPostRecord[];
@@ -244,30 +244,35 @@ const BlogPostPage: React.FC<Props> = ({ slug, initialPost }) => {
 
   useEffect(() => {
     let isMounted = true;
+    const refreshKey = String(Date.now());
 
     const fetchLocalizedPost = async () => {
-      if (initialPost !== undefined) return initialPost;
-
       const localeCandidates = language === 'en' ? ['en', 'tr'] : ['tr', 'en'];
 
       try {
         for (const locale of localeCandidates) {
-          const response = await fetch(`/blog-posts/${locale}/${slug}.json`);
+          const postUrl = new URL(`/blog-posts/${locale}/${slug}.json`, window.location.origin);
+          postUrl.searchParams.set('ts', refreshKey);
+
+          const response = await fetch(postUrl.toString(), { cache: 'no-store' });
           if (!response.ok) continue;
 
           const data = (await response.json()) as BlogPostRecord;
           return data;
         }
       } catch {
-        return null;
+        return initialPost ?? null;
       }
 
-      return null;
+      return initialPost ?? null;
     };
 
     const fetchManifestPosts = async () => {
       try {
-        const response = await fetch('/blog_manifest.json');
+        const manifestUrl = new URL('/blog_manifest.json', window.location.origin);
+        manifestUrl.searchParams.set('ts', refreshKey);
+
+        const response = await fetch(manifestUrl.toString(), { cache: 'no-store' });
         if (!response.ok) return [];
 
         const data = await response.json();

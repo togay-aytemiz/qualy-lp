@@ -6,7 +6,7 @@ const OUTPUT_PATH = path.join(ROOT, 'public', 'robots.txt');
 
 const normalizeBaseUrl = (url) => String(url || '').trim().replace(/\/+$/, '');
 const resolveAbsoluteUrl = (baseUrl, routePath) => {
-  const cleanBase = normalizeBaseUrl(baseUrl) || 'https://askqualy.com';
+  const cleanBase = normalizeBaseUrl(baseUrl) || 'https://www.askqualy.com';
   const cleanPath = routePath.startsWith('/') ? routePath : `/${routePath}`;
   return `${cleanBase}${cleanPath}`;
 };
@@ -17,7 +17,7 @@ const buildRobots = (baseUrl) => {
 };
 
 const main = async () => {
-  const siteUrl = normalizeBaseUrl(process.env.VITE_SITE_URL || 'https://askqualy.com');
+  const siteUrl = normalizeBaseUrl(process.env.VITE_SITE_URL || 'https://www.askqualy.com');
   const content = buildRobots(siteUrl);
   await fs.writeFile(OUTPUT_PATH, content, 'utf8');
   console.log(`Generated ${OUTPUT_PATH}`);

@@ -1,4 +1,4 @@
-const DEFAULT_SITE_URL = 'https://askqualy.com';
+const DEFAULT_SITE_URL = 'https://www.askqualy.com';
 const DEV_SITE_URL = 'http://localhost:3000';
 
 type SiteUrlMode = 'production' | 'development' | 'test';

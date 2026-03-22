@@ -30,6 +30,7 @@ const Navbar: React.FC = () => {
   const [demoFormError, setDemoFormError] = useState<string | null>(null);
   const { t, language } = useLanguage();
   const homePath = homePathByLanguage(language);
+  const blogPath = language === 'en' ? '/en/blog' : '/blog';
   const pricingPath = language === 'en' ? '/en/pricing' : '/pricing';
 
   useEffect(() => {
@@ -167,6 +168,7 @@ const Navbar: React.FC = () => {
             <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.features}</a>
             <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.howItWorks}</a>
             <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.faq}</a>
+            <a href={blogPath} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.blog}</a>
             <a href={pricingPath} onClick={handlePricingClick} className="text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors">{t.navbar.pricing}</a>
           </div>
 
@@ -212,6 +214,7 @@ const Navbar: React.FC = () => {
               <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="text-xl font-medium text-slate-900">{t.navbar.features}</a>
               <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')} className="text-xl font-medium text-slate-900">{t.navbar.howItWorks}</a>
               <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="text-xl font-medium text-slate-900">{t.navbar.faq}</a>
+              <a href={blogPath} onClick={() => setIsMobileMenuOpen(false)} className="text-xl font-medium text-slate-900">{t.navbar.blog}</a>
               <a href={pricingPath} onClick={handlePricingClick} className="text-xl font-medium text-slate-900">{t.navbar.pricing}</a>
               <hr className="border-slate-100 w-1/2 mx-auto" />
             </div>

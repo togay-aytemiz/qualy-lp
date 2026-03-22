@@ -38,6 +38,7 @@ describe('blog generator config', () => {
     expect(source).toContain('writeCacheArtifacts');
     expect(source).toContain('enabledSettingRaw');
     expect(source).toContain('hasExplicitEnableFlag');
+    expect(source).toContain('const enabled = hasExplicitEnableFlag ? truthy(enabledSettingRaw) : hasRequiredConfig;');
     expect(source).toContain('shouldRestoreFromCache');
     expect(source).toContain('Restored blog artifacts from cache because Sanity env is disabled or missing.');
     expect(source).toContain('Sanity blog fetch failed');

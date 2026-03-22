@@ -17,6 +17,7 @@ import { homePathByLanguage } from '../lib/region-language';
 const Footer: React.FC = () => {
   const { t, language, setLanguage } = useLanguage();
   const homePath = homePathByLanguage(language);
+  const blogPath = language === 'en' ? '/en/blog' : '/blog';
   const pricingPath = language === 'en' ? '/en/pricing' : '/pricing';
   const aboutPath = language === 'en' ? '/en/about' : '/about';
   const legalPath = language === 'en' ? '/en/legal' : '/legal';
@@ -174,6 +175,11 @@ const Footer: React.FC = () => {
                 <li className="list-none">
                   <a className="hover:text-slate-900 transition-colors" href={pricingPath}>
                     {t.navbar.pricing}
+                  </a>
+                </li>
+                <li className="list-none">
+                  <a className="hover:text-slate-900 transition-colors" href={blogPath}>
+                    {t.footer.blog}
                   </a>
                 </li>
                 <li className="list-none">

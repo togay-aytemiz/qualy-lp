@@ -8,7 +8,7 @@ const BLOG_MANIFEST_PATH = path.join(ROOT, 'public', 'blog_manifest.json');
 
 const normalizeBaseUrl = (url) => String(url || '').trim().replace(/\/+$/, '');
 const resolveAbsoluteUrl = (baseUrl, routePath) => {
-  const cleanBase = normalizeBaseUrl(baseUrl) || 'https://askqualy.com';
+  const cleanBase = normalizeBaseUrl(baseUrl) || 'https://www.askqualy.com';
   const cleanPath = routePath.startsWith('/') ? routePath : `/${routePath}`;
   return `${cleanBase}${cleanPath}`;
 };
@@ -39,7 +39,7 @@ const buildSitemapXml = (baseUrl, entries) => {
 };
 
 const main = async () => {
-  const siteUrl = normalizeBaseUrl(process.env.VITE_SITE_URL || 'https://askqualy.com');
+  const siteUrl = normalizeBaseUrl(process.env.VITE_SITE_URL || 'https://www.askqualy.com');
 
   let legalManifest = {};
   try {
