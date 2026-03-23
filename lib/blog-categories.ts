@@ -10,6 +10,12 @@ type BlogCategoryKey =
   | 'how-to-article'
   | 'practical-guide'
   | 'concepts'
+  | 'measurement-analytics'
+  | 'sales-automation'
+  | 'use-cases'
+  | 'case-study'
+  | 'comparisons'
+  | 'integrations'
   | 'platform-release'
   | 'instant-messaging';
 
@@ -29,6 +35,12 @@ const BLOG_CATEGORY_ORDER: BlogCategoryKey[] = [
   'how-to-article',
   'practical-guide',
   'concepts',
+  'use-cases',
+  'case-study',
+  'comparisons',
+  'integrations',
+  'measurement-analytics',
+  'sales-automation',
   'platform-release',
   'instant-messaging',
 ];
@@ -50,6 +62,30 @@ const BLOG_CATEGORY_LABELS: Record<BlogCategoryKey, Record<BlogCategoryLanguage,
     en: 'Concepts',
     tr: 'Kavramlar',
   },
+  'measurement-analytics': {
+    en: 'Measurement and Analytics',
+    tr: 'Ölçüm ve Analiz',
+  },
+  'sales-automation': {
+    en: 'Sales Automation',
+    tr: 'Satış Otomasyonu',
+  },
+  'use-cases': {
+    en: 'Use Cases',
+    tr: 'Kullanım Senaryoları',
+  },
+  'case-study': {
+    en: 'Case Study',
+    tr: 'Vaka Analizi',
+  },
+  comparisons: {
+    en: 'Comparisons',
+    tr: 'Karşılaştırmalar',
+  },
+  integrations: {
+    en: 'Integrations',
+    tr: 'Entegrasyonlar',
+  },
   'platform-release': {
     en: 'Platform Release',
     tr: 'Platform Duyuruları',
@@ -70,6 +106,12 @@ const BLOG_CATEGORY_ALIAS_MAP: Record<string, BlogCategoryKey> = {
   'ai-automation': 'practical-guide',
   concepts: 'concepts',
   'lead-qualification': 'concepts',
+  'measurement-analytics': 'measurement-analytics',
+  'sales-automation': 'sales-automation',
+  'use-cases': 'use-cases',
+  'case-study': 'case-study',
+  comparisons: 'comparisons',
+  integrations: 'integrations',
   'platform-release': 'platform-release',
   'product-updates': 'platform-release',
   'instant-messaging': 'instant-messaging',
@@ -88,8 +130,26 @@ const inferCategoryKeyFromValue = (value: string): BlogCategoryKey | null => {
   if (!value) return null;
   if (value.includes('ultimate') || value.includes('kapsamli')) return 'ultimate-guide';
   if (value.includes('how-to') || value.includes('howto') || value.includes('nasil')) return 'how-to-article';
-  if (value.includes('practical') || value.includes('guide') || value.includes('rehber') || value.includes('automation')) {
+  if (value.includes('practical') || value.includes('guide') || value.includes('rehber')) {
     return 'practical-guide';
+  }
+  if (value.includes('measurement') || value.includes('analytics') || value.includes('olcum') || value.includes('analiz')) {
+    return 'measurement-analytics';
+  }
+  if (value.includes('sales-automation') || value.includes('satis-otomasyon')) {
+    return 'sales-automation';
+  }
+  if (value.includes('use-case') || value.includes('kullanim-senaryo')) {
+    return 'use-cases';
+  }
+  if (value.includes('case-study') || value.includes('vaka')) {
+    return 'case-study';
+  }
+  if (value.includes('comparison') || value.includes('karsilastirma')) {
+    return 'comparisons';
+  }
+  if (value.includes('integration') || value.includes('entegrasyon')) {
+    return 'integrations';
   }
   if (value.includes('concept') || value.includes('kavram') || value.includes('qualification') || value.includes('nitelendirme')) {
     return 'concepts';

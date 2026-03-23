@@ -53,6 +53,30 @@ const BLOG_CATEGORY_LABELS = {
     tr: 'Kavramlar',
     en: 'Concepts',
   },
+  'measurement-analytics': {
+    tr: 'Ölçüm ve Analiz',
+    en: 'Measurement and Analytics',
+  },
+  'sales-automation': {
+    tr: 'Satış Otomasyonu',
+    en: 'Sales Automation',
+  },
+  'use-cases': {
+    tr: 'Kullanım Senaryoları',
+    en: 'Use Cases',
+  },
+  'case-study': {
+    tr: 'Vaka Analizi',
+    en: 'Case Study',
+  },
+  comparisons: {
+    tr: 'Karşılaştırmalar',
+    en: 'Comparisons',
+  },
+  integrations: {
+    tr: 'Entegrasyonlar',
+    en: 'Integrations',
+  },
   'platform-release': {
     tr: 'Platform Duyuruları',
     en: 'Platform Release',
@@ -72,6 +96,12 @@ const BLOG_CATEGORY_ALIAS_MAP = {
   'ai-automation': 'practical-guide',
   concepts: 'concepts',
   'lead-qualification': 'concepts',
+  'measurement-analytics': 'measurement-analytics',
+  'sales-automation': 'sales-automation',
+  'use-cases': 'use-cases',
+  'case-study': 'case-study',
+  comparisons: 'comparisons',
+  integrations: 'integrations',
   'platform-release': 'platform-release',
   'product-updates': 'platform-release',
   'instant-messaging': 'instant-messaging',
