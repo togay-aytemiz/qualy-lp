@@ -107,7 +107,11 @@ describe('blog layout render', () => {
     expect(html).toContain('Pratik Rehber');
     expect(html).toContain('Mesajlaşma');
     expect(html).toContain('Platform Duyuruları');
-    expect(html).toContain('Filtrele');
+    expect(html).toContain('mobile-scrollbar-hide');
+    expect(html).toContain('overflow-x-auto overflow-y-hidden');
+    expect(html).toContain('whitespace-nowrap');
+    expect(html).toContain('bg-gradient-to-r from-white via-white/95 to-transparent');
+    expect(html).toContain('bg-gradient-to-l from-white via-white/95 to-transparent');
     expect(html).toContain('grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 xl:grid-cols-3');
     expect(html).toContain('aspect-square');
     expect(html).toContain('block w-full pt-4');
@@ -115,6 +119,7 @@ describe('blog layout render', () => {
     expect(html).toMatch(/Qualy blog&#x27;u yayina alirken neleri optimize ettik.*Platform Duyuruları/s);
     expect(html).not.toContain('border-b border-slate-200 py-8');
     expect(html).not.toContain('md:basis-[17rem] md:shrink-0');
+    expect(html).not.toContain('Filtrele');
     expect(html).not.toContain('Sırala');
     expect(html).not.toContain('name="mediaView"');
     expect(html).not.toContain('value="grid"');

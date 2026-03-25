@@ -14,8 +14,13 @@ describe('blog index page content', () => {
     expect(source).toContain('selectedCategorySlug');
     expect(source).toContain('getDisplayCategory');
     expect(source).toContain('sortDisplayCategories');
-    expect(source).toContain('mobileFiltersOpen');
-    expect(source).toContain('Filtrele');
+    expect(source).toContain('showLeftFade');
+    expect(source).toContain('showRightFade');
+    expect(source).toContain('mobile-scrollbar-hide');
+    expect(source).toContain('overflow-x-auto overflow-y-hidden');
+    expect(source).toContain('whitespace-nowrap');
+    expect(source).toContain('bg-gradient-to-r from-white via-white/95 to-transparent');
+    expect(source).toContain('bg-gradient-to-l from-white via-white/95 to-transparent');
     expect(source).toContain('Daha fazla yükle');
     expect(source).toContain('Load more');
     expect(source).toContain('pt-32');
@@ -31,8 +36,10 @@ describe('blog index page content', () => {
     expect(source).toContain('text-[1.35rem] font-medium leading-[1.14] tracking-tight');
     expect(source).toContain('flex flex-wrap items-center gap-x-3 gap-y-1 text-sm');
     expect(source).not.toContain('sm:grid-cols-[220px_minmax(0,1fr)]');
+    expect(source).not.toContain('mobileFiltersOpen');
     expect(source).not.toContain('sortOrder');
     expect(source).not.toContain('viewMode');
+    expect(source).not.toContain('Filtrele');
     expect(source).not.toContain('Sırala');
     expect(source).not.toContain('border-b border-slate-200 py-8');
     expect(source).not.toContain('md:flex-row md:items-center');

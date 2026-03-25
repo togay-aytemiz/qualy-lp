@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../LanguageContext';
 import { applySeoToDocument } from '../lib/seo-dom';
 import { getSeoByRoute } from '../lib/seo';
@@ -31,6 +31,7 @@ type ArchiveCardProps = {
 };
 
 const INITIAL_VISIBLE_COUNT = 9;
+const SCROLL_FADE_EPSILON = 4;
 
 const buildBlogHref = (slug: string, locale: 'en' | 'tr') => (locale === 'en' ? `/en/blog/${slug}` : `/blog/${slug}`);
 
@@ -182,9 +183,11 @@ const ArchiveCard = ({ post, language }: ArchiveCardProps) => {
 
 const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
   const { language } = useLanguage();
+  const categoryRailRef = useRef<HTMLDivElement | null>(null);
   const [posts, setPosts] = useState<BlogPostSummary[]>(initialPosts ?? []);
   const [selectedCategorySlug, setSelectedCategorySlug] = useState('all');
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [showLeftFade, setShowLeftFade] = useState(false);
+  const [showRightFade, setShowRightFade] = useState(false);
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_COUNT);
 
   useEffect(() => {
@@ -227,17 +230,49 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
     setVisibleCount(INITIAL_VISIBLE_COUNT);
   }, [language, selectedCategorySlug]);
 
+  const visiblePosts = selectVisiblePosts(posts, language);
+  const categories = buildCategoryOptions(visiblePosts, language);
+  const selectedCategory = categories.find((category) => category.slug === selectedCategorySlug) ?? null;
+  const activeCategorySlug = selectedCategory ? selectedCategorySlug : 'all';
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const railElement = categoryRailRef.current;
+    if (!railElement) return;
+
+    const updateFades = () => {
+      const maxScrollLeft = railElement.scrollWidth - railElement.clientWidth;
+      const canScroll = maxScrollLeft > SCROLL_FADE_EPSILON;
+
+      if (!canScroll) {
+        setShowLeftFade(false);
+        setShowRightFade(false);
+        return;
+      }
+
+      setShowLeftFade(railElement.scrollLeft > SCROLL_FADE_EPSILON);
+      setShowRightFade(railElement.scrollLeft < maxScrollLeft - SCROLL_FADE_EPSILON);
+    };
+
+    const animationFrameId = window.requestAnimationFrame(updateFades);
+
+    railElement.addEventListener('scroll', updateFades, { passive: true });
+    window.addEventListener('resize', updateFades);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrameId);
+      railElement.removeEventListener('scroll', updateFades);
+      window.removeEventListener('resize', updateFades);
+    };
+  }, [categories.length, language, selectedCategorySlug]);
+
   const allLabel = language === 'en' ? 'All' : 'Tümü';
-  const filterLabel = language === 'en' ? 'Filter' : 'Filtrele';
   const categoryNavLabel = language === 'en' ? 'Blog categories' : 'Blog kategorileri';
   const emptyStateLabel = language === 'en' ? 'No blog posts yet.' : 'Henüz blog yazısı yok.'; // empty state
   const noCategoryPostsLabel = language === 'en' ? 'No posts in this category yet.' : 'Bu kategoride henüz yazı yok.';
   const loadMoreLabel = language === 'en' ? 'Load more' : 'Daha fazla yükle';
 
-  const visiblePosts = selectVisiblePosts(posts, language);
-  const categories = buildCategoryOptions(visiblePosts, language);
-  const selectedCategory = categories.find((category) => category.slug === selectedCategorySlug) ?? null;
-  const activeCategorySlug = selectedCategory ? selectedCategorySlug : 'all';
   const activeHeading = selectedCategory?.label ?? allLabel;
   const filteredPosts = activeCategorySlug === 'all'
     ? visiblePosts
@@ -247,7 +282,6 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
 
   const handleCategoryChange = (slug: string) => {
     setSelectedCategorySlug(slug);
-    setMobileFiltersOpen(false);
   };
 
   if (visiblePosts.length === 0) {
@@ -274,60 +308,59 @@ const BlogIndexPage: React.FC<Props> = ({ initialPosts }) => {
               <h1 className="text-4xl font-medium tracking-tight text-slate-950 sm:text-5xl">{activeHeading}</h1>
             </div>
 
-            <div className="flex flex-col gap-4 lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center lg:gap-x-6">
-              <div className="min-w-0">
-                <nav
-                  aria-label={categoryNavLabel}
-                  className={`${mobileFiltersOpen ? 'block' : 'hidden'} overflow-x-auto pb-2 sm:block`}
-                >
-                  <ul className="flex min-w-fit items-center gap-6 text-[1.15rem] font-medium tracking-tight text-slate-500">
-                    {categories.map((category) => {
-                      const isActive = activeCategorySlug === category.slug;
+            <div className="flex flex-col gap-4">
+              <div className="relative min-w-0">
+                <div ref={categoryRailRef} className="mobile-scrollbar-hide overflow-x-auto overflow-y-hidden pb-2">
+                  <nav aria-label={categoryNavLabel}>
+                    <ul className="flex min-w-max items-center gap-5 whitespace-nowrap text-base font-medium tracking-tight text-slate-500 sm:gap-6 sm:text-[1.05rem] lg:text-[1.15rem]">
+                      {categories.map((category) => {
+                        const isActive = activeCategorySlug === category.slug;
 
-                      return (
-                        <li key={category.slug}>
-                          <button
-                            type="button"
-                            onClick={() => handleCategoryChange(category.slug)}
-                            className={`transition-colors ${
-                              isActive ? 'text-slate-950' : 'text-slate-500 hover:text-slate-800'
-                            }`}
-                            aria-pressed={isActive}
-                          >
-                            {category.label}
-                          </button>
-                        </li>
-                      );
-                    })}
+                        return (
+                          <li key={category.slug}>
+                            <button
+                              type="button"
+                              onClick={() => handleCategoryChange(category.slug)}
+                              className={`rounded-sm transition-colors ${
+                                isActive ? 'text-slate-950' : 'text-slate-500 hover:text-slate-800'
+                              }`}
+                              aria-pressed={isActive}
+                            >
+                              {category.label}
+                            </button>
+                          </li>
+                        );
+                      })}
 
-                    <li>
-                      <button
-                        type="button"
-                        onClick={() => handleCategoryChange('all')}
-                        className={`transition-colors ${
-                          activeCategorySlug === 'all' ? 'text-slate-950' : 'text-slate-500 hover:text-slate-800'
-                        }`}
-                        aria-pressed={activeCategorySlug === 'all'}
-                      >
-                        {allLabel}
-                      </button>
-                    </li>
-                  </ul>
-                </nav>
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => handleCategoryChange('all')}
+                          className={`rounded-sm transition-colors ${
+                            activeCategorySlug === 'all' ? 'text-slate-950' : 'text-slate-500 hover:text-slate-800'
+                          }`}
+                          aria-pressed={activeCategorySlug === 'all'}
+                        >
+                          {allLabel}
+                        </button>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+
+                <div
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white via-white/95 to-transparent transition-opacity duration-200 sm:hidden ${
+                    showLeftFade ? 'opacity-100' : 'opacity-0'
+                  }`}
+                />
+                <div
+                  aria-hidden="true"
+                  className={`pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-white via-white/95 to-transparent transition-opacity duration-200 sm:hidden ${
+                    showRightFade ? 'opacity-100' : 'opacity-0'
+                  }`}
+                />
               </div>
-              <button
-                type="button"
-                onClick={() => setMobileFiltersOpen((current) => !current)}
-                className="inline-flex items-center gap-2 text-base font-medium text-slate-950 transition-colors hover:text-slate-600 sm:hidden"
-              >
-                <svg aria-hidden="true" className="h-4 w-4" viewBox="0 0 16 16" fill="none">
-                  <path
-                    d="M9.667 3.333A1.333 1.333 0 1 0 9.667 6a1.333 1.333 0 0 0 0-2.667ZM7.084 4a2.667 2.667 0 0 1 5.166 0h1.083a.667.667 0 1 1 0 1.333H12.25a.667.667 0 0 1-1.333 0H2.667a.667.667 0 1 1 0-1.333h4.417ZM6.333 10a1.333 1.333 0 1 0 0 2.667 1.333 1.333 0 0 0 0-2.667Zm-2.583.667a2.667 2.667 0 0 1 5.166 0h4.417a.667.667 0 1 1 0 1.333H8.916a2.667 2.667 0 0 1-5.166 0H2.667a.667.667 0 1 1 0-1.333H3.75Z"
-                    fill="currentColor"
-                  />
-                </svg>
-                <span>{filterLabel}</span>
-              </button>
             </div>
           </section>
 
