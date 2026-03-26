@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-03-25T17:20:36.971Z",
+  "generatedAt": "2026-03-26T06:20:12.048Z",
   "source": "sanity",
   "enabled": true,
   "siteUrl": "https://www.askqualy.com",
   "index": {
     "tr": {
-      "path": "/blog",
+      "path": "/blog/",
       "title": "Blog | Qualy",
       "description": "Qualy hakkinda guncellemeler, kullanici hikayeleri ve urun notlari.",
       "robots": "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
     },
     "en": {
-      "path": "/en/blog",
+      "path": "/en/blog/",
       "title": "Blog | Qualy",
       "description": "Updates, product notes, and customer stories from Qualy.",
       "robots": "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
@@ -26,8 +26,8 @@
       "title": "Smart Inbox Guide for Small Businesses",
       "excerpt": "Guide to smart inboxes for small businesses. Practical solutions for messaging management and customer communication.",
       "publishedAt": "2026-03-24T21:18:32.350Z",
-      "path": "/en/blog/smart-inbox-guide-for-small-businesses",
-      "canonicalUrl": "https://www.askqualy.com/en/blog/smart-inbox-guide-for-small-businesses",
+      "path": "/en/blog/smart-inbox-guide-for-small-businesses/",
+      "canonicalUrl": "https://www.askqualy.com/en/blog/smart-inbox-guide-for-small-businesses/",
       "seoTitle": "Smart Inbox Guide for Small Businesses",
       "seoDescription": "Guide to smart inboxes for small businesses. Practical solutions for messaging management and customer communication.",
       "coverImage": "https://cdn.sanity.io/images/n55lf918/production/3ca974e14d633a9b06b1cd6039508be582ee1a7d-1376x768.webp",
@@ -42,8 +42,8 @@
           "id": "post.kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu.tr",
           "locale": "tr",
           "slug": "kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu",
-          "path": "/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu",
-          "canonicalUrl": "https://www.askqualy.com/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu",
+          "path": "/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu/",
+          "canonicalUrl": "https://www.askqualy.com/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu/",
           "sharedAcrossLocales": false
         }
       ]
@@ -56,8 +56,8 @@
       "title": "Küçük İşletmeler İçin Akıllı Gelen Kutusu Kullanım Kılavuzu",
       "excerpt": "Küçük işletmeler için akıllı gelen kutusu rehberi. Mesajlaşma yönetimi ve müşteri iletişimi için pratik çözümler.",
       "publishedAt": "2026-03-24T21:18:32.349Z",
-      "path": "/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu",
-      "canonicalUrl": "https://www.askqualy.com/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu",
+      "path": "/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu/",
+      "canonicalUrl": "https://www.askqualy.com/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu/",
       "seoTitle": "Küçük İşletmeler İçin Akıllı Gelen Kutusu Kullanım Kılavuzu",
       "seoDescription": "Küçük işletmeler için akıllı gelen kutusu rehberi. Mesajlaşma yönetimi ve müşteri iletişimi için pratik çözümler.",
       "coverImage": "https://cdn.sanity.io/images/n55lf918/production/3ca974e14d633a9b06b1cd6039508be582ee1a7d-1376x768.webp",
@@ -72,8 +72,8 @@
           "id": "post.kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu.en",
           "locale": "en",
           "slug": "smart-inbox-guide-for-small-businesses",
-          "path": "/en/blog/smart-inbox-guide-for-small-businesses",
-          "canonicalUrl": "https://www.askqualy.com/en/blog/smart-inbox-guide-for-small-businesses",
+          "path": "/en/blog/smart-inbox-guide-for-small-businesses/",
+          "canonicalUrl": "https://www.askqualy.com/en/blog/smart-inbox-guide-for-small-businesses/",
           "sharedAcrossLocales": false
         }
       ]
@@ -86,8 +86,8 @@
       "title": "How to Enhance Lead Analysis with AI",
       "excerpt": "Discover AI-driven lead analysis and scoring techniques.",
       "publishedAt": "2026-03-24T10:36:24.006Z",
-      "path": "/en/blog/how-to-enhance-lead-analysis-with-ai",
-      "canonicalUrl": "https://www.askqualy.com/en/blog/how-to-enhance-lead-analysis-with-ai",
+      "path": "/en/blog/how-to-enhance-lead-analysis-with-ai/",
+      "canonicalUrl": "https://www.askqualy.com/en/blog/how-to-enhance-lead-analysis-with-ai/",
       "seoTitle": "How to Enhance Lead Analysis with AI",
       "seoDescription": "Discover AI-driven lead analysis and scoring techniques.",
       "coverImage": "https://cdn.sanity.io/images/n55lf918/production/4da1777caec146e0c7b10d0fea7b96a7cf1835d7-1376x768.webp",
@@ -102,8 +102,8 @@
           "id": "post.yapay-zeka-ile-daha-etkili-musteri-adayi-analizi.tr",
           "locale": "tr",
           "slug": "yapay-zeka-ile-daha-etkili-musteri-adayi-analizi",
-          "path": "/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi",
-          "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi",
+          "path": "/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi/",
+          "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi/",
           "sharedAcrossLocales": false
         }
       ]
@@ -116,8 +116,8 @@
       "title": "Yapay Zeka ile Daha Etkili Müşteri Adayı Analizi Nasıl Yapılır?",
       "excerpt": "Yapay zeka ile müşteri adayı analizi ve skorlama yöntemleri hakkında bilgi edinin.",
       "publishedAt": "2026-03-24T10:36:24.005Z",
-      "path": "/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi",
-      "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi",
+      "path": "/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi/",
+      "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi/",
       "seoTitle": "Yapay Zeka ile Daha Etkili Müşteri Adayı Analizi Nasıl Yapılır?",
       "seoDescription": "Yapay zeka ile müşteri adayı analizi ve skorlama yöntemleri hakkında bilgi edinin.",
       "coverImage": "https://cdn.sanity.io/images/n55lf918/production/4da1777caec146e0c7b10d0fea7b96a7cf1835d7-1376x768.webp",
@@ -132,8 +132,8 @@
           "id": "post.yapay-zeka-ile-daha-etkili-musteri-adayi-analizi.en",
           "locale": "en",
           "slug": "how-to-enhance-lead-analysis-with-ai",
-          "path": "/en/blog/how-to-enhance-lead-analysis-with-ai",
-          "canonicalUrl": "https://www.askqualy.com/en/blog/how-to-enhance-lead-analysis-with-ai",
+          "path": "/en/blog/how-to-enhance-lead-analysis-with-ai/",
+          "canonicalUrl": "https://www.askqualy.com/en/blog/how-to-enhance-lead-analysis-with-ai/",
           "sharedAcrossLocales": false
         }
       ]
@@ -146,8 +146,8 @@
       "title": "Boost Sales with WhatsApp and Instagram Integrations",
       "excerpt": "Discover strategies to enhance sales using WhatsApp and Instagram integrations.",
       "publishedAt": "2026-03-24T10:19:46.964Z",
-      "path": "/en/blog/boost-sales-with-whatsapp-and-instagram-integrations",
-      "canonicalUrl": "https://www.askqualy.com/en/blog/boost-sales-with-whatsapp-and-instagram-integrations",
+      "path": "/en/blog/boost-sales-with-whatsapp-and-instagram-integrations/",
+      "canonicalUrl": "https://www.askqualy.com/en/blog/boost-sales-with-whatsapp-and-instagram-integrations/",
       "seoTitle": "Boost Sales with WhatsApp and Instagram Integrations",
       "seoDescription": "Discover strategies to enhance sales using WhatsApp and Instagram integrations.",
       "coverImage": "https://cdn.sanity.io/images/n55lf918/production/ec44f1da28b6698595ebbf23576222a3cde99c0d-1376x768.webp",
@@ -162,8 +162,8 @@
           "id": "post.whatsapp-instagram-entegrasyonlari-ile-satis-artirma.tr",
           "locale": "tr",
           "slug": "whatsapp-instagram-entegrasyonlari-ile-satis-artirma",
-          "path": "/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma",
-          "canonicalUrl": "https://www.askqualy.com/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma",
+          "path": "/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma/",
+          "canonicalUrl": "https://www.askqualy.com/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma/",
           "sharedAcrossLocales": false
         }
       ]
@@ -176,8 +176,8 @@
       "title": "WhatsApp ve Instagram Entegrasyonu ile Satış Artırma Yöntemleri",
       "excerpt": "WhatsApp ve Instagram entegrasyonlarıyla satışlarınızı artırmanın yollarını keşfedin. Verimliliği artırmak için stratejiler öğrenin.",
       "publishedAt": "2026-03-24T10:19:46.963Z",
-      "path": "/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma",
-      "canonicalUrl": "https://www.askqualy.com/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma",
+      "path": "/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma/",
+      "canonicalUrl": "https://www.askqualy.com/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma/",
       "seoTitle": "WhatsApp ve Instagram Entegrasyonu ile Satış Artırma Yöntemleri",
       "seoDescription": "WhatsApp ve Instagram entegrasyonlarıyla satışlarınızı artırmanın yollarını keşfedin. Verimliliği artırmak için stratejiler öğrenin.",
       "coverImage": "https://cdn.sanity.io/images/n55lf918/production/ec44f1da28b6698595ebbf23576222a3cde99c0d-1376x768.webp",
@@ -192,8 +192,8 @@
           "id": "post.whatsapp-instagram-entegrasyonlari-ile-satis-artirma.en",
           "locale": "en",
           "slug": "boost-sales-with-whatsapp-and-instagram-integrations",
-          "path": "/en/blog/boost-sales-with-whatsapp-and-instagram-integrations",
-          "canonicalUrl": "https://www.askqualy.com/en/blog/boost-sales-with-whatsapp-and-instagram-integrations",
+          "path": "/en/blog/boost-sales-with-whatsapp-and-instagram-integrations/",
+          "canonicalUrl": "https://www.askqualy.com/en/blog/boost-sales-with-whatsapp-and-instagram-integrations/",
           "sharedAcrossLocales": false
         }
       ]
@@ -206,8 +206,8 @@
       "title": "Lead Scoring Methods: A Sector-Specific Guide",
       "excerpt": "Discover effective lead scoring strategies tailored for various industries.",
       "publishedAt": "2026-03-23T15:28:48.491Z",
-      "path": "/en/blog/lead-scoring-methods-a-sector-specific-guide",
-      "canonicalUrl": "https://www.askqualy.com/en/blog/lead-scoring-methods-a-sector-specific-guide",
+      "path": "/en/blog/lead-scoring-methods-a-sector-specific-guide/",
+      "canonicalUrl": "https://www.askqualy.com/en/blog/lead-scoring-methods-a-sector-specific-guide/",
       "seoTitle": "Lead Scoring Methods: A Sector-Specific Guide",
       "seoDescription": "Discover effective lead scoring strategies tailored for various industries.",
       "coverImage": "https://cdn.sanity.io/images/n55lf918/production/f35d3a97c7d2d05e748e0a60f02c74dff55464ea-1376x768.webp",
@@ -222,8 +222,8 @@
           "id": "post.musteri-adayi-skorlama-sektor-rehber.tr",
           "locale": "tr",
           "slug": "musteri-adayi-skorlama-sektor-rehber",
-          "path": "/blog/musteri-adayi-skorlama-sektor-rehber",
-          "canonicalUrl": "https://www.askqualy.com/blog/musteri-adayi-skorlama-sektor-rehber",
+          "path": "/blog/musteri-adayi-skorlama-sektor-rehber/",
+          "canonicalUrl": "https://www.askqualy.com/blog/musteri-adayi-skorlama-sektor-rehber/",
           "sharedAcrossLocales": false
         }
       ]
@@ -236,8 +236,8 @@
       "title": "Müşteri Adayı Skorlama Yöntemleri: Sektörlere Göre Rehber",
       "excerpt": "Farklı sektörler için etkili müşteri adayı skorlama stratejilerini keşfedin.",
       "publishedAt": "2026-03-23T15:28:45.213Z",
-      "path": "/blog/musteri-adayi-skorlama-sektor-rehber",
-      "canonicalUrl": "https://www.askqualy.com/blog/musteri-adayi-skorlama-sektor-rehber",
+      "path": "/blog/musteri-adayi-skorlama-sektor-rehber/",
+      "canonicalUrl": "https://www.askqualy.com/blog/musteri-adayi-skorlama-sektor-rehber/",
       "seoTitle": "Müşteri Adayı Skorlama Yöntemleri: Sektörlere Göre Rehber",
       "seoDescription": "Farklı sektörler için etkili müşteri adayı skorlama stratejilerini keşfedin.",
       "coverImage": "https://cdn.sanity.io/images/n55lf918/production/17a60707ab8842690f379862d520b0c51d9555cc-1376x768.webp",
@@ -252,8 +252,8 @@
           "id": "post.musteri-adayi-skorlama-sektor-rehber.en",
           "locale": "en",
           "slug": "lead-scoring-methods-a-sector-specific-guide",
-          "path": "/en/blog/lead-scoring-methods-a-sector-specific-guide",
-          "canonicalUrl": "https://www.askqualy.com/en/blog/lead-scoring-methods-a-sector-specific-guide",
+          "path": "/en/blog/lead-scoring-methods-a-sector-specific-guide/",
+          "canonicalUrl": "https://www.askqualy.com/en/blog/lead-scoring-methods-a-sector-specific-guide/",
           "sharedAcrossLocales": false
         }
       ]
@@ -266,8 +266,8 @@
       "title": "Enhance Your Sales Strategy with Data Analysis: 5 Steps",
       "excerpt": "Discover how data analysis can strengthen your sales strategy. Learn ways to boost performance.",
       "publishedAt": "2026-03-23T13:00:56.331Z",
-      "path": "/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps",
-      "canonicalUrl": "https://www.askqualy.com/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps",
+      "path": "/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps/",
+      "canonicalUrl": "https://www.askqualy.com/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps/",
       "seoTitle": "Enhance Your Sales Strategy with Data Analysis: 5 Steps",
       "seoDescription": "Discover how data analysis can strengthen your sales strategy. Learn ways to boost performance.",
       "coverImage": "https://cdn.sanity.io/images/n55lf918/production/d90de9b1ec7b5d6b0aadca1ee160d350e42673ae-1376x768.webp",
@@ -282,8 +282,8 @@
           "id": "post.veri-analizi-ile-satis-stratejinizi-gelistirin.tr",
           "locale": "tr",
           "slug": "veri-analizi-ile-satis-stratejinizi-gelistirin",
-          "path": "/blog/veri-analizi-ile-satis-stratejinizi-gelistirin",
-          "canonicalUrl": "https://www.askqualy.com/blog/veri-analizi-ile-satis-stratejinizi-gelistirin",
+          "path": "/blog/veri-analizi-ile-satis-stratejinizi-gelistirin/",
+          "canonicalUrl": "https://www.askqualy.com/blog/veri-analizi-ile-satis-stratejinizi-gelistirin/",
           "sharedAcrossLocales": false
         }
       ]
@@ -296,8 +296,8 @@
       "title": "Veri Analizi ile Satış Stratejinizi Geliştirin: 5 Adım",
       "excerpt": "Satış stratejinizi veri analizi ile nasıl güçlendirebileceğinizi keşfedin. Performansınızı artırmanın yollarını öğrenin.",
       "publishedAt": "2026-03-23T13:00:56.331Z",
-      "path": "/blog/veri-analizi-ile-satis-stratejinizi-gelistirin",
-      "canonicalUrl": "https://www.askqualy.com/blog/veri-analizi-ile-satis-stratejinizi-gelistirin",
+      "path": "/blog/veri-analizi-ile-satis-stratejinizi-gelistirin/",
+      "canonicalUrl": "https://www.askqualy.com/blog/veri-analizi-ile-satis-stratejinizi-gelistirin/",
       "seoTitle": "Veri Analizi ile Satış Stratejinizi Geliştirin: 5 Adım",
       "seoDescription": "Satış stratejinizi veri analizi ile nasıl güçlendirebileceğinizi keşfedin. Performansınızı artırmanın yollarını öğrenin.",
       "coverImage": "https://cdn.sanity.io/images/n55lf918/production/d90de9b1ec7b5d6b0aadca1ee160d350e42673ae-1376x768.webp",
@@ -312,8 +312,8 @@
           "id": "post.veri-analizi-ile-satis-stratejinizi-gelistirin.en",
           "locale": "en",
           "slug": "enhance-your-sales-strategy-with-data-analysis-5-steps",
-          "path": "/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps",
-          "canonicalUrl": "https://www.askqualy.com/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps",
+          "path": "/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps/",
+          "canonicalUrl": "https://www.askqualy.com/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps/",
           "sharedAcrossLocales": false
         }
       ]
@@ -326,8 +326,8 @@
       "title": "Enhancing Lead Prioritization with AI",
       "excerpt": "Boost conversion rates with AI-powered lead prioritization.",
       "publishedAt": "2026-03-23T12:37:50.158Z",
-      "path": "/en/blog/enhancing-lead-prioritization-with-ai",
-      "canonicalUrl": "https://www.askqualy.com/en/blog/enhancing-lead-prioritization-with-ai",
+      "path": "/en/blog/enhancing-lead-prioritization-with-ai/",
+      "canonicalUrl": "https://www.askqualy.com/en/blog/enhancing-lead-prioritization-with-ai/",
       "seoTitle": "Enhancing Lead Prioritization with AI",
       "seoDescription": "Boost conversion rates with AI-powered lead prioritization.",
       "coverImage": "https://cdn.sanity.io/images/n55lf918/production/54ae1041eeebc42e3741d653f65d3748a30b6040-1376x768.webp",
@@ -342,8 +342,8 @@
           "id": "post.yapay-zeka-musteri-adayi-onceliklendirme.tr",
           "locale": "tr",
           "slug": "yapay-zeka-musteri-adayi-onceliklendirme",
-          "path": "/blog/yapay-zeka-musteri-adayi-onceliklendirme",
-          "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-musteri-adayi-onceliklendirme",
+          "path": "/blog/yapay-zeka-musteri-adayi-onceliklendirme/",
+          "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-musteri-adayi-onceliklendirme/",
           "sharedAcrossLocales": false
         }
       ]
@@ -356,8 +356,8 @@
       "title": "Yapay Zeka ile Müşteri Adayı Önceliklendirme Nasıl Artırılır?",
       "excerpt": "yapay zeka destekli müşteri adayı önceliklendirme ile dönüşüm oranlarınızı artırın.",
       "publishedAt": "2026-03-23T12:37:50.156Z",
-      "path": "/blog/yapay-zeka-musteri-adayi-onceliklendirme",
-      "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-musteri-adayi-onceliklendirme",
+      "path": "/blog/yapay-zeka-musteri-adayi-onceliklendirme/",
+      "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-musteri-adayi-onceliklendirme/",
       "seoTitle": "Yapay Zeka ile Müşteri Adayı Önceliklendirme Nasıl Artırılır?",
       "seoDescription": "yapay zeka destekli müşteri adayı önceliklendirme ile dönüşüm oranlarınızı artırın.",
       "coverImage": "https://cdn.sanity.io/images/n55lf918/production/54ae1041eeebc42e3741d653f65d3748a30b6040-1376x768.webp",
@@ -372,8 +372,8 @@
           "id": "post.yapay-zeka-musteri-adayi-onceliklendirme.en",
           "locale": "en",
           "slug": "enhancing-lead-prioritization-with-ai",
-          "path": "/en/blog/enhancing-lead-prioritization-with-ai",
-          "canonicalUrl": "https://www.askqualy.com/en/blog/enhancing-lead-prioritization-with-ai",
+          "path": "/en/blog/enhancing-lead-prioritization-with-ai/",
+          "canonicalUrl": "https://www.askqualy.com/en/blog/enhancing-lead-prioritization-with-ai/",
           "sharedAcrossLocales": false
         }
       ]
@@ -391,8 +391,8 @@
           "title": "Smart Inbox Guide for Small Businesses",
           "excerpt": "Guide to smart inboxes for small businesses. Practical solutions for messaging management and customer communication.",
           "publishedAt": "2026-03-24T21:18:32.350Z",
-          "path": "/en/blog/smart-inbox-guide-for-small-businesses",
-          "canonicalUrl": "https://www.askqualy.com/en/blog/smart-inbox-guide-for-small-businesses",
+          "path": "/en/blog/smart-inbox-guide-for-small-businesses/",
+          "canonicalUrl": "https://www.askqualy.com/en/blog/smart-inbox-guide-for-small-businesses/",
           "seoTitle": "Smart Inbox Guide for Small Businesses",
           "seoDescription": "Guide to smart inboxes for small businesses. Practical solutions for messaging management and customer communication.",
           "coverImage": "https://cdn.sanity.io/images/n55lf918/production/3ca974e14d633a9b06b1cd6039508be582ee1a7d-1376x768.webp",
@@ -407,8 +407,8 @@
               "id": "post.kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu.tr",
               "locale": "tr",
               "slug": "kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu",
-              "path": "/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu",
-              "canonicalUrl": "https://www.askqualy.com/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu",
+              "path": "/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu/",
+              "canonicalUrl": "https://www.askqualy.com/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu/",
               "sharedAcrossLocales": false
             }
           ]
@@ -421,8 +421,8 @@
           "title": "Küçük İşletmeler İçin Akıllı Gelen Kutusu Kullanım Kılavuzu",
           "excerpt": "Küçük işletmeler için akıllı gelen kutusu rehberi. Mesajlaşma yönetimi ve müşteri iletişimi için pratik çözümler.",
           "publishedAt": "2026-03-24T21:18:32.349Z",
-          "path": "/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu",
-          "canonicalUrl": "https://www.askqualy.com/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu",
+          "path": "/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu/",
+          "canonicalUrl": "https://www.askqualy.com/blog/kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu/",
           "seoTitle": "Küçük İşletmeler İçin Akıllı Gelen Kutusu Kullanım Kılavuzu",
           "seoDescription": "Küçük işletmeler için akıllı gelen kutusu rehberi. Mesajlaşma yönetimi ve müşteri iletişimi için pratik çözümler.",
           "coverImage": "https://cdn.sanity.io/images/n55lf918/production/3ca974e14d633a9b06b1cd6039508be582ee1a7d-1376x768.webp",
@@ -437,8 +437,8 @@
               "id": "post.kucuk-isletmeler-icin-akilli-gelen-kutusu-kilavuzu.en",
               "locale": "en",
               "slug": "smart-inbox-guide-for-small-businesses",
-              "path": "/en/blog/smart-inbox-guide-for-small-businesses",
-              "canonicalUrl": "https://www.askqualy.com/en/blog/smart-inbox-guide-for-small-businesses",
+              "path": "/en/blog/smart-inbox-guide-for-small-businesses/",
+              "canonicalUrl": "https://www.askqualy.com/en/blog/smart-inbox-guide-for-small-businesses/",
               "sharedAcrossLocales": false
             }
           ]
@@ -456,8 +456,8 @@
           "title": "How to Enhance Lead Analysis with AI",
           "excerpt": "Discover AI-driven lead analysis and scoring techniques.",
           "publishedAt": "2026-03-24T10:36:24.006Z",
-          "path": "/en/blog/how-to-enhance-lead-analysis-with-ai",
-          "canonicalUrl": "https://www.askqualy.com/en/blog/how-to-enhance-lead-analysis-with-ai",
+          "path": "/en/blog/how-to-enhance-lead-analysis-with-ai/",
+          "canonicalUrl": "https://www.askqualy.com/en/blog/how-to-enhance-lead-analysis-with-ai/",
           "seoTitle": "How to Enhance Lead Analysis with AI",
           "seoDescription": "Discover AI-driven lead analysis and scoring techniques.",
           "coverImage": "https://cdn.sanity.io/images/n55lf918/production/4da1777caec146e0c7b10d0fea7b96a7cf1835d7-1376x768.webp",
@@ -472,8 +472,8 @@
               "id": "post.yapay-zeka-ile-daha-etkili-musteri-adayi-analizi.tr",
               "locale": "tr",
               "slug": "yapay-zeka-ile-daha-etkili-musteri-adayi-analizi",
-              "path": "/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi",
-              "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi",
+              "path": "/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi/",
+              "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi/",
               "sharedAcrossLocales": false
             }
           ]
@@ -486,8 +486,8 @@
           "title": "Yapay Zeka ile Daha Etkili Müşteri Adayı Analizi Nasıl Yapılır?",
           "excerpt": "Yapay zeka ile müşteri adayı analizi ve skorlama yöntemleri hakkında bilgi edinin.",
           "publishedAt": "2026-03-24T10:36:24.005Z",
-          "path": "/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi",
-          "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi",
+          "path": "/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi/",
+          "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-ile-daha-etkili-musteri-adayi-analizi/",
           "seoTitle": "Yapay Zeka ile Daha Etkili Müşteri Adayı Analizi Nasıl Yapılır?",
           "seoDescription": "Yapay zeka ile müşteri adayı analizi ve skorlama yöntemleri hakkında bilgi edinin.",
           "coverImage": "https://cdn.sanity.io/images/n55lf918/production/4da1777caec146e0c7b10d0fea7b96a7cf1835d7-1376x768.webp",
@@ -502,8 +502,8 @@
               "id": "post.yapay-zeka-ile-daha-etkili-musteri-adayi-analizi.en",
               "locale": "en",
               "slug": "how-to-enhance-lead-analysis-with-ai",
-              "path": "/en/blog/how-to-enhance-lead-analysis-with-ai",
-              "canonicalUrl": "https://www.askqualy.com/en/blog/how-to-enhance-lead-analysis-with-ai",
+              "path": "/en/blog/how-to-enhance-lead-analysis-with-ai/",
+              "canonicalUrl": "https://www.askqualy.com/en/blog/how-to-enhance-lead-analysis-with-ai/",
               "sharedAcrossLocales": false
             }
           ]
@@ -521,8 +521,8 @@
           "title": "Boost Sales with WhatsApp and Instagram Integrations",
           "excerpt": "Discover strategies to enhance sales using WhatsApp and Instagram integrations.",
           "publishedAt": "2026-03-24T10:19:46.964Z",
-          "path": "/en/blog/boost-sales-with-whatsapp-and-instagram-integrations",
-          "canonicalUrl": "https://www.askqualy.com/en/blog/boost-sales-with-whatsapp-and-instagram-integrations",
+          "path": "/en/blog/boost-sales-with-whatsapp-and-instagram-integrations/",
+          "canonicalUrl": "https://www.askqualy.com/en/blog/boost-sales-with-whatsapp-and-instagram-integrations/",
           "seoTitle": "Boost Sales with WhatsApp and Instagram Integrations",
           "seoDescription": "Discover strategies to enhance sales using WhatsApp and Instagram integrations.",
           "coverImage": "https://cdn.sanity.io/images/n55lf918/production/ec44f1da28b6698595ebbf23576222a3cde99c0d-1376x768.webp",
@@ -537,8 +537,8 @@
               "id": "post.whatsapp-instagram-entegrasyonlari-ile-satis-artirma.tr",
               "locale": "tr",
               "slug": "whatsapp-instagram-entegrasyonlari-ile-satis-artirma",
-              "path": "/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma",
-              "canonicalUrl": "https://www.askqualy.com/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma",
+              "path": "/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma/",
+              "canonicalUrl": "https://www.askqualy.com/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma/",
               "sharedAcrossLocales": false
             }
           ]
@@ -551,8 +551,8 @@
           "title": "WhatsApp ve Instagram Entegrasyonu ile Satış Artırma Yöntemleri",
           "excerpt": "WhatsApp ve Instagram entegrasyonlarıyla satışlarınızı artırmanın yollarını keşfedin. Verimliliği artırmak için stratejiler öğrenin.",
           "publishedAt": "2026-03-24T10:19:46.963Z",
-          "path": "/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma",
-          "canonicalUrl": "https://www.askqualy.com/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma",
+          "path": "/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma/",
+          "canonicalUrl": "https://www.askqualy.com/blog/whatsapp-instagram-entegrasyonlari-ile-satis-artirma/",
           "seoTitle": "WhatsApp ve Instagram Entegrasyonu ile Satış Artırma Yöntemleri",
           "seoDescription": "WhatsApp ve Instagram entegrasyonlarıyla satışlarınızı artırmanın yollarını keşfedin. Verimliliği artırmak için stratejiler öğrenin.",
           "coverImage": "https://cdn.sanity.io/images/n55lf918/production/ec44f1da28b6698595ebbf23576222a3cde99c0d-1376x768.webp",
@@ -567,8 +567,8 @@
               "id": "post.whatsapp-instagram-entegrasyonlari-ile-satis-artirma.en",
               "locale": "en",
               "slug": "boost-sales-with-whatsapp-and-instagram-integrations",
-              "path": "/en/blog/boost-sales-with-whatsapp-and-instagram-integrations",
-              "canonicalUrl": "https://www.askqualy.com/en/blog/boost-sales-with-whatsapp-and-instagram-integrations",
+              "path": "/en/blog/boost-sales-with-whatsapp-and-instagram-integrations/",
+              "canonicalUrl": "https://www.askqualy.com/en/blog/boost-sales-with-whatsapp-and-instagram-integrations/",
               "sharedAcrossLocales": false
             }
           ]
@@ -586,8 +586,8 @@
           "title": "Lead Scoring Methods: A Sector-Specific Guide",
           "excerpt": "Discover effective lead scoring strategies tailored for various industries.",
           "publishedAt": "2026-03-23T15:28:48.491Z",
-          "path": "/en/blog/lead-scoring-methods-a-sector-specific-guide",
-          "canonicalUrl": "https://www.askqualy.com/en/blog/lead-scoring-methods-a-sector-specific-guide",
+          "path": "/en/blog/lead-scoring-methods-a-sector-specific-guide/",
+          "canonicalUrl": "https://www.askqualy.com/en/blog/lead-scoring-methods-a-sector-specific-guide/",
           "seoTitle": "Lead Scoring Methods: A Sector-Specific Guide",
           "seoDescription": "Discover effective lead scoring strategies tailored for various industries.",
           "coverImage": "https://cdn.sanity.io/images/n55lf918/production/f35d3a97c7d2d05e748e0a60f02c74dff55464ea-1376x768.webp",
@@ -602,8 +602,8 @@
               "id": "post.musteri-adayi-skorlama-sektor-rehber.tr",
               "locale": "tr",
               "slug": "musteri-adayi-skorlama-sektor-rehber",
-              "path": "/blog/musteri-adayi-skorlama-sektor-rehber",
-              "canonicalUrl": "https://www.askqualy.com/blog/musteri-adayi-skorlama-sektor-rehber",
+              "path": "/blog/musteri-adayi-skorlama-sektor-rehber/",
+              "canonicalUrl": "https://www.askqualy.com/blog/musteri-adayi-skorlama-sektor-rehber/",
               "sharedAcrossLocales": false
             }
           ]
@@ -616,8 +616,8 @@
           "title": "Müşteri Adayı Skorlama Yöntemleri: Sektörlere Göre Rehber",
           "excerpt": "Farklı sektörler için etkili müşteri adayı skorlama stratejilerini keşfedin.",
           "publishedAt": "2026-03-23T15:28:45.213Z",
-          "path": "/blog/musteri-adayi-skorlama-sektor-rehber",
-          "canonicalUrl": "https://www.askqualy.com/blog/musteri-adayi-skorlama-sektor-rehber",
+          "path": "/blog/musteri-adayi-skorlama-sektor-rehber/",
+          "canonicalUrl": "https://www.askqualy.com/blog/musteri-adayi-skorlama-sektor-rehber/",
           "seoTitle": "Müşteri Adayı Skorlama Yöntemleri: Sektörlere Göre Rehber",
           "seoDescription": "Farklı sektörler için etkili müşteri adayı skorlama stratejilerini keşfedin.",
           "coverImage": "https://cdn.sanity.io/images/n55lf918/production/17a60707ab8842690f379862d520b0c51d9555cc-1376x768.webp",
@@ -632,8 +632,8 @@
               "id": "post.musteri-adayi-skorlama-sektor-rehber.en",
               "locale": "en",
               "slug": "lead-scoring-methods-a-sector-specific-guide",
-              "path": "/en/blog/lead-scoring-methods-a-sector-specific-guide",
-              "canonicalUrl": "https://www.askqualy.com/en/blog/lead-scoring-methods-a-sector-specific-guide",
+              "path": "/en/blog/lead-scoring-methods-a-sector-specific-guide/",
+              "canonicalUrl": "https://www.askqualy.com/en/blog/lead-scoring-methods-a-sector-specific-guide/",
               "sharedAcrossLocales": false
             }
           ]
@@ -651,8 +651,8 @@
           "title": "Enhance Your Sales Strategy with Data Analysis: 5 Steps",
           "excerpt": "Discover how data analysis can strengthen your sales strategy. Learn ways to boost performance.",
           "publishedAt": "2026-03-23T13:00:56.331Z",
-          "path": "/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps",
-          "canonicalUrl": "https://www.askqualy.com/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps",
+          "path": "/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps/",
+          "canonicalUrl": "https://www.askqualy.com/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps/",
           "seoTitle": "Enhance Your Sales Strategy with Data Analysis: 5 Steps",
           "seoDescription": "Discover how data analysis can strengthen your sales strategy. Learn ways to boost performance.",
           "coverImage": "https://cdn.sanity.io/images/n55lf918/production/d90de9b1ec7b5d6b0aadca1ee160d350e42673ae-1376x768.webp",
@@ -667,8 +667,8 @@
               "id": "post.veri-analizi-ile-satis-stratejinizi-gelistirin.tr",
               "locale": "tr",
               "slug": "veri-analizi-ile-satis-stratejinizi-gelistirin",
-              "path": "/blog/veri-analizi-ile-satis-stratejinizi-gelistirin",
-              "canonicalUrl": "https://www.askqualy.com/blog/veri-analizi-ile-satis-stratejinizi-gelistirin",
+              "path": "/blog/veri-analizi-ile-satis-stratejinizi-gelistirin/",
+              "canonicalUrl": "https://www.askqualy.com/blog/veri-analizi-ile-satis-stratejinizi-gelistirin/",
               "sharedAcrossLocales": false
             }
           ]
@@ -681,8 +681,8 @@
           "title": "Veri Analizi ile Satış Stratejinizi Geliştirin: 5 Adım",
           "excerpt": "Satış stratejinizi veri analizi ile nasıl güçlendirebileceğinizi keşfedin. Performansınızı artırmanın yollarını öğrenin.",
           "publishedAt": "2026-03-23T13:00:56.331Z",
-          "path": "/blog/veri-analizi-ile-satis-stratejinizi-gelistirin",
-          "canonicalUrl": "https://www.askqualy.com/blog/veri-analizi-ile-satis-stratejinizi-gelistirin",
+          "path": "/blog/veri-analizi-ile-satis-stratejinizi-gelistirin/",
+          "canonicalUrl": "https://www.askqualy.com/blog/veri-analizi-ile-satis-stratejinizi-gelistirin/",
           "seoTitle": "Veri Analizi ile Satış Stratejinizi Geliştirin: 5 Adım",
           "seoDescription": "Satış stratejinizi veri analizi ile nasıl güçlendirebileceğinizi keşfedin. Performansınızı artırmanın yollarını öğrenin.",
           "coverImage": "https://cdn.sanity.io/images/n55lf918/production/d90de9b1ec7b5d6b0aadca1ee160d350e42673ae-1376x768.webp",
@@ -697,8 +697,8 @@
               "id": "post.veri-analizi-ile-satis-stratejinizi-gelistirin.en",
               "locale": "en",
               "slug": "enhance-your-sales-strategy-with-data-analysis-5-steps",
-              "path": "/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps",
-              "canonicalUrl": "https://www.askqualy.com/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps",
+              "path": "/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps/",
+              "canonicalUrl": "https://www.askqualy.com/en/blog/enhance-your-sales-strategy-with-data-analysis-5-steps/",
               "sharedAcrossLocales": false
             }
           ]
@@ -716,8 +716,8 @@
           "title": "Enhancing Lead Prioritization with AI",
           "excerpt": "Boost conversion rates with AI-powered lead prioritization.",
           "publishedAt": "2026-03-23T12:37:50.158Z",
-          "path": "/en/blog/enhancing-lead-prioritization-with-ai",
-          "canonicalUrl": "https://www.askqualy.com/en/blog/enhancing-lead-prioritization-with-ai",
+          "path": "/en/blog/enhancing-lead-prioritization-with-ai/",
+          "canonicalUrl": "https://www.askqualy.com/en/blog/enhancing-lead-prioritization-with-ai/",
           "seoTitle": "Enhancing Lead Prioritization with AI",
           "seoDescription": "Boost conversion rates with AI-powered lead prioritization.",
           "coverImage": "https://cdn.sanity.io/images/n55lf918/production/54ae1041eeebc42e3741d653f65d3748a30b6040-1376x768.webp",
@@ -732,8 +732,8 @@
               "id": "post.yapay-zeka-musteri-adayi-onceliklendirme.tr",
               "locale": "tr",
               "slug": "yapay-zeka-musteri-adayi-onceliklendirme",
-              "path": "/blog/yapay-zeka-musteri-adayi-onceliklendirme",
-              "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-musteri-adayi-onceliklendirme",
+              "path": "/blog/yapay-zeka-musteri-adayi-onceliklendirme/",
+              "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-musteri-adayi-onceliklendirme/",
               "sharedAcrossLocales": false
             }
           ]
@@ -746,8 +746,8 @@
           "title": "Yapay Zeka ile Müşteri Adayı Önceliklendirme Nasıl Artırılır?",
           "excerpt": "yapay zeka destekli müşteri adayı önceliklendirme ile dönüşüm oranlarınızı artırın.",
           "publishedAt": "2026-03-23T12:37:50.156Z",
-          "path": "/blog/yapay-zeka-musteri-adayi-onceliklendirme",
-          "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-musteri-adayi-onceliklendirme",
+          "path": "/blog/yapay-zeka-musteri-adayi-onceliklendirme/",
+          "canonicalUrl": "https://www.askqualy.com/blog/yapay-zeka-musteri-adayi-onceliklendirme/",
           "seoTitle": "Yapay Zeka ile Müşteri Adayı Önceliklendirme Nasıl Artırılır?",
           "seoDescription": "yapay zeka destekli müşteri adayı önceliklendirme ile dönüşüm oranlarınızı artırın.",
           "coverImage": "https://cdn.sanity.io/images/n55lf918/production/54ae1041eeebc42e3741d653f65d3748a30b6040-1376x768.webp",
@@ -762,8 +762,8 @@
               "id": "post.yapay-zeka-musteri-adayi-onceliklendirme.en",
               "locale": "en",
               "slug": "enhancing-lead-prioritization-with-ai",
-              "path": "/en/blog/enhancing-lead-prioritization-with-ai",
-              "canonicalUrl": "https://www.askqualy.com/en/blog/enhancing-lead-prioritization-with-ai",
+              "path": "/en/blog/enhancing-lead-prioritization-with-ai/",
+              "canonicalUrl": "https://www.askqualy.com/en/blog/enhancing-lead-prioritization-with-ai/",
               "sharedAcrossLocales": false
             }
           ]

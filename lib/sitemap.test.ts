@@ -5,64 +5,64 @@ describe('buildSitemapXml', () => {
   it('builds sitemap with absolute urls', () => {
     const xml = buildSitemapXml('https://www.askqualy.com', [
       { path: '/', changefreq: 'weekly', priority: 1.0 },
-      { path: '/en', changefreq: 'weekly', priority: 0.9 },
-      { path: '/blog', changefreq: 'weekly', priority: 0.8 },
-      { path: '/en/blog', changefreq: 'weekly', priority: 0.7 },
-      { path: '/blog/qualy-blog-yayin-optimizasyonu', changefreq: 'monthly', priority: 0.6 },
-      { path: '/en/blog/qualy-blog-launch-performance', changefreq: 'monthly', priority: 0.5 },
-      { path: '/pricing', changefreq: 'weekly', priority: 0.8 },
-      { path: '/en/pricing', changefreq: 'weekly', priority: 0.7 },
-      { path: '/about', changefreq: 'monthly', priority: 0.6 },
-      { path: '/en/about', changefreq: 'monthly', priority: 0.5 },
-      { path: '/data-deletion', changefreq: 'monthly', priority: 0.6 },
-      { path: '/en/data-deletion', changefreq: 'monthly', priority: 0.5 },
-      { path: '/faqs-directory', changefreq: 'monthly', priority: 0.7 },
-      { path: '/legal', changefreq: 'monthly', priority: 0.5 },
-      { path: '/en/legal', changefreq: 'monthly', priority: 0.4 },
-      { path: '/terms', changefreq: 'monthly', priority: 0.4 },
-      { path: '/en/terms', changefreq: 'monthly', priority: 0.4 },
-      { path: '/privacy', changefreq: 'monthly', priority: 0.4 },
-      { path: '/en/privacy', changefreq: 'monthly', priority: 0.4 },
-      { path: '/kvkk', changefreq: 'monthly', priority: 0.4 },
-      { path: '/en/kvkk', changefreq: 'monthly', priority: 0.4 },
-      { path: '/pre-information', changefreq: 'monthly', priority: 0.4 },
-      { path: '/en/pre-information', changefreq: 'monthly', priority: 0.4 },
-      { path: '/distance-sales-agreement', changefreq: 'monthly', priority: 0.4 },
-      { path: '/en/distance-sales-agreement', changefreq: 'monthly', priority: 0.4 },
-      { path: '/cancellation-refund', changefreq: 'monthly', priority: 0.4 },
-      { path: '/en/cancellation-refund', changefreq: 'monthly', priority: 0.4 },
-      { path: '/subscription-trial', changefreq: 'monthly', priority: 0.4 },
-      { path: '/en/subscription-trial', changefreq: 'monthly', priority: 0.4 },
+      { path: '/en/', changefreq: 'weekly', priority: 0.9 },
+      { path: '/blog/', changefreq: 'weekly', priority: 0.8 },
+      { path: '/en/blog/', changefreq: 'weekly', priority: 0.7 },
+      { path: '/blog/qualy-blog-yayin-optimizasyonu/', changefreq: 'monthly', priority: 0.6 },
+      { path: '/en/blog/qualy-blog-launch-performance/', changefreq: 'monthly', priority: 0.5 },
+      { path: '/pricing/', changefreq: 'weekly', priority: 0.8 },
+      { path: '/en/pricing/', changefreq: 'weekly', priority: 0.7 },
+      { path: '/about/', changefreq: 'monthly', priority: 0.6 },
+      { path: '/en/about/', changefreq: 'monthly', priority: 0.5 },
+      { path: '/data-deletion/', changefreq: 'monthly', priority: 0.6 },
+      { path: '/en/data-deletion/', changefreq: 'monthly', priority: 0.5 },
+      { path: '/faqs-directory/', changefreq: 'monthly', priority: 0.7 },
+      { path: '/legal/', changefreq: 'monthly', priority: 0.5 },
+      { path: '/en/legal/', changefreq: 'monthly', priority: 0.4 },
+      { path: '/terms/', changefreq: 'monthly', priority: 0.4 },
+      { path: '/en/terms/', changefreq: 'monthly', priority: 0.4 },
+      { path: '/privacy/', changefreq: 'monthly', priority: 0.4 },
+      { path: '/en/privacy/', changefreq: 'monthly', priority: 0.4 },
+      { path: '/kvkk/', changefreq: 'monthly', priority: 0.4 },
+      { path: '/en/kvkk/', changefreq: 'monthly', priority: 0.4 },
+      { path: '/pre-information/', changefreq: 'monthly', priority: 0.4 },
+      { path: '/en/pre-information/', changefreq: 'monthly', priority: 0.4 },
+      { path: '/distance-sales-agreement/', changefreq: 'monthly', priority: 0.4 },
+      { path: '/en/distance-sales-agreement/', changefreq: 'monthly', priority: 0.4 },
+      { path: '/cancellation-refund/', changefreq: 'monthly', priority: 0.4 },
+      { path: '/en/cancellation-refund/', changefreq: 'monthly', priority: 0.4 },
+      { path: '/subscription-trial/', changefreq: 'monthly', priority: 0.4 },
+      { path: '/en/subscription-trial/', changefreq: 'monthly', priority: 0.4 },
     ]);
 
     expect(xml).toContain('<loc>https://www.askqualy.com/</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/en</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/blog</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/en/blog</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/blog/qualy-blog-yayin-optimizasyonu</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/en/blog/qualy-blog-launch-performance</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/pricing</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/en/pricing</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/about</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/en/about</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/data-deletion</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/en/data-deletion</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/faqs-directory</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/legal</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/en/legal</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/terms</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/en/terms</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/privacy</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/en/privacy</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/kvkk</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/en/kvkk</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/pre-information</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/en/pre-information</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/distance-sales-agreement</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/en/distance-sales-agreement</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/cancellation-refund</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/en/cancellation-refund</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/subscription-trial</loc>');
-    expect(xml).toContain('<loc>https://www.askqualy.com/en/subscription-trial</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/en/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/blog/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/en/blog/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/blog/qualy-blog-yayin-optimizasyonu/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/en/blog/qualy-blog-launch-performance/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/pricing/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/en/pricing/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/about/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/en/about/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/data-deletion/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/en/data-deletion/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/faqs-directory/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/legal/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/en/legal/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/terms/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/en/terms/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/privacy/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/en/privacy/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/kvkk/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/en/kvkk/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/pre-information/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/en/pre-information/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/distance-sales-agreement/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/en/distance-sales-agreement/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/cancellation-refund/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/en/cancellation-refund/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/subscription-trial/</loc>');
+    expect(xml).toContain('<loc>https://www.askqualy.com/en/subscription-trial/</loc>');
   });
 });

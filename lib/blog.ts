@@ -37,14 +37,14 @@ export type BlogSeo = {
 };
 
 export const BLOG_INDEX_PATHS: Record<BlogLocale, string> = {
-  tr: '/blog',
-  en: '/en/blog',
+  tr: '/blog/',
+  en: '/en/blog/',
 };
 
 export const getBlogIndexPath = (locale: BlogLocale) => BLOG_INDEX_PATHS[locale];
 
 export const getBlogPostPath = (slug: BlogSlug, locale: BlogLocale) => {
   const cleanSlug = String(slug || '').trim().replace(/^\/+|\/+$/g, '');
-  const prefix = locale === 'en' ? '/en/blog' : '/blog';
-  return `${prefix}/${cleanSlug}`;
+  const prefix = locale === 'en' ? '/en/blog/' : '/blog/';
+  return `${prefix}${cleanSlug}/`;
 };

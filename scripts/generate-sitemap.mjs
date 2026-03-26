@@ -57,12 +57,12 @@ const main = async () => {
 
   const legalRoutes = Object.keys(legalManifest).flatMap((slug) => [
     {
-      path: `/${slug}`,
+      path: `/${slug}/`,
       changefreq: 'monthly',
       priority: 0.4,
     },
     {
-      path: `/en/${slug}`,
+      path: `/en/${slug}/`,
       changefreq: 'monthly',
       priority: 0.4,
     },
@@ -88,24 +88,24 @@ const main = async () => {
     : [];
   const blogIndexRoutes = blogEnabled
     ? [
-        { path: '/blog', changefreq: 'weekly', priority: 0.8 },
-        { path: '/en/blog', changefreq: 'weekly', priority: 0.7 },
+        { path: '/blog/', changefreq: 'weekly', priority: 0.8 },
+        { path: '/en/blog/', changefreq: 'weekly', priority: 0.7 },
       ]
     : [];
 
   const entries = [
     { path: '/', changefreq: 'weekly', priority: 1.0 },
-    { path: '/en', changefreq: 'weekly', priority: 0.9 },
+    { path: '/en/', changefreq: 'weekly', priority: 0.9 },
     ...blogIndexRoutes,
-    { path: '/pricing', changefreq: 'weekly', priority: 0.8 },
-    { path: '/en/pricing', changefreq: 'weekly', priority: 0.7 },
-    { path: '/about', changefreq: 'monthly', priority: 0.6 },
-    { path: '/en/about', changefreq: 'monthly', priority: 0.5 },
-    { path: '/data-deletion', changefreq: 'monthly', priority: 0.6 },
-    { path: '/en/data-deletion', changefreq: 'monthly', priority: 0.5 },
-    { path: '/faqs-directory', changefreq: 'monthly', priority: 0.7 },
-    { path: '/legal', changefreq: 'monthly', priority: 0.5 },
-    { path: '/en/legal', changefreq: 'monthly', priority: 0.4 },
+    { path: '/pricing/', changefreq: 'weekly', priority: 0.8 },
+    { path: '/en/pricing/', changefreq: 'weekly', priority: 0.7 },
+    { path: '/about/', changefreq: 'monthly', priority: 0.6 },
+    { path: '/en/about/', changefreq: 'monthly', priority: 0.5 },
+    { path: '/data-deletion/', changefreq: 'monthly', priority: 0.6 },
+    { path: '/en/data-deletion/', changefreq: 'monthly', priority: 0.5 },
+    { path: '/faqs-directory/', changefreq: 'monthly', priority: 0.7 },
+    { path: '/legal/', changefreq: 'monthly', priority: 0.5 },
+    { path: '/en/legal/', changefreq: 'monthly', priority: 0.4 },
     ...blogPostRoutes,
     ...legalRoutes,
   ];

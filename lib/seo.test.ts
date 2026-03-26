@@ -12,12 +12,14 @@ describe('getSeoRouteKeyByPath', () => {
   it('maps known routes', () => {
     expect(getSeoRouteKeyByPath('/')).toBe('home');
     expect(getSeoRouteKeyByPath('/en')).toBe('home');
+    expect(getSeoRouteKeyByPath('/en/')).toBe('home');
     expect(getSeoRouteKeyByPath('/blog')).toBe('blogIndex');
     expect(getSeoRouteKeyByPath('/en/blog')).toBe('blogIndex');
     expect(getSeoRouteKeyByPath('/pricing')).toBe('pricing');
     expect(getSeoRouteKeyByPath('/en/pricing')).toBe('pricing');
     expect(getSeoRouteKeyByPath('/about')).toBe('about');
     expect(getSeoRouteKeyByPath('/en/about')).toBe('about');
+    expect(getSeoRouteKeyByPath('/en/about/')).toBe('about');
     expect(getSeoRouteKeyByPath('/data-deletion')).toBe('dataDeletion');
     expect(getSeoRouteKeyByPath('/en/data-deletion')).toBe('dataDeletion');
     expect(getSeoRouteKeyByPath('/legal')).toBe('legalIndex');
@@ -55,31 +57,31 @@ describe('getSeoByRoute', () => {
     const enHomeSeo = getSeoByRoute('home', 'en', { siteUrl: 'https://www.askqualy.com' });
     const trHomeSeo = getSeoByRoute('home', 'tr', { siteUrl: 'https://www.askqualy.com' });
 
-    expect(seo.canonicalUrl).toBe('https://www.askqualy.com/en/terms');
-    expect(seo.og.url).toBe('https://www.askqualy.com/en/terms');
+    expect(seo.canonicalUrl).toBe('https://www.askqualy.com/en/terms/');
+    expect(seo.og.url).toBe('https://www.askqualy.com/en/terms/');
     expect(seo.og.image).toBe('https://www.askqualy.com/og/qualy-default.png');
-    expect(blogSeo.canonicalUrl).toBe('https://www.askqualy.com/en/blog');
+    expect(blogSeo.canonicalUrl).toBe('https://www.askqualy.com/en/blog/');
     expect(blogSeo.robots).toBe('index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1');
-    expect(blogSeo.og.url).toBe('https://www.askqualy.com/en/blog');
-    expect(pricingSeo.canonicalUrl).toBe('https://www.askqualy.com/en/pricing');
-    expect(pricingSeo.og.url).toBe('https://www.askqualy.com/en/pricing');
-    expect(aboutSeo.canonicalUrl).toBe('https://www.askqualy.com/en/about');
-    expect(aboutSeo.og.url).toBe('https://www.askqualy.com/en/about');
-    expect(dataDeletionSeo.canonicalUrl).toBe('https://www.askqualy.com/en/data-deletion');
-    expect(dataDeletionSeo.og.url).toBe('https://www.askqualy.com/en/data-deletion');
-    expect(faqDirectorySeo.canonicalUrl).toBe('https://www.askqualy.com/faqs-directory');
-    expect(faqDirectorySeo.og.url).toBe('https://www.askqualy.com/faqs-directory');
+    expect(blogSeo.og.url).toBe('https://www.askqualy.com/en/blog/');
+    expect(pricingSeo.canonicalUrl).toBe('https://www.askqualy.com/en/pricing/');
+    expect(pricingSeo.og.url).toBe('https://www.askqualy.com/en/pricing/');
+    expect(aboutSeo.canonicalUrl).toBe('https://www.askqualy.com/en/about/');
+    expect(aboutSeo.og.url).toBe('https://www.askqualy.com/en/about/');
+    expect(dataDeletionSeo.canonicalUrl).toBe('https://www.askqualy.com/en/data-deletion/');
+    expect(dataDeletionSeo.og.url).toBe('https://www.askqualy.com/en/data-deletion/');
+    expect(faqDirectorySeo.canonicalUrl).toBe('https://www.askqualy.com/faqs-directory/');
+    expect(faqDirectorySeo.og.url).toBe('https://www.askqualy.com/faqs-directory/');
     expect(getSeoByRoute('kvkk', 'en', { siteUrl: 'https://www.askqualy.com' }).canonicalUrl).toBe(
-      'https://www.askqualy.com/en/kvkk'
+      'https://www.askqualy.com/en/kvkk/'
     );
     expect(
       getSeoByRoute('distanceSalesAgreement', 'tr', { siteUrl: 'https://www.askqualy.com' }).canonicalUrl
-    ).toBe('https://www.askqualy.com/distance-sales-agreement');
+    ).toBe('https://www.askqualy.com/distance-sales-agreement/');
     expect(
       getSeoByRoute('subscriptionTrial', 'en', { siteUrl: 'https://www.askqualy.com' }).canonicalUrl
-    ).toBe('https://www.askqualy.com/en/subscription-trial');
-    expect(enHomeSeo.canonicalUrl).toBe('https://www.askqualy.com/en');
-    expect(enHomeSeo.og.url).toBe('https://www.askqualy.com/en');
+    ).toBe('https://www.askqualy.com/en/subscription-trial/');
+    expect(enHomeSeo.canonicalUrl).toBe('https://www.askqualy.com/en/');
+    expect(enHomeSeo.og.url).toBe('https://www.askqualy.com/en/');
     expect(trHomeSeo.canonicalUrl).toBe('https://www.askqualy.com/');
     expect(trHomeSeo.og.url).toBe('https://www.askqualy.com/');
   });
@@ -117,13 +119,13 @@ describe('getSeoByRoute', () => {
 
     expect(trHomeSeo.alternates).toEqual([
       { hrefLang: 'tr', href: 'https://www.askqualy.com/' },
-      { hrefLang: 'en', href: 'https://www.askqualy.com/en' },
+      { hrefLang: 'en', href: 'https://www.askqualy.com/en/' },
       { hrefLang: 'x-default', href: 'https://www.askqualy.com/' },
     ]);
 
     expect(enHomeSeo.alternates).toEqual([
       { hrefLang: 'tr', href: 'https://www.askqualy.com/' },
-      { hrefLang: 'en', href: 'https://www.askqualy.com/en' },
+      { hrefLang: 'en', href: 'https://www.askqualy.com/en/' },
       { hrefLang: 'x-default', href: 'https://www.askqualy.com/' },
     ]);
   });
@@ -135,27 +137,27 @@ describe('getSeoByRoute', () => {
     const blogEnSeo = getSeoByRoute('blogIndex' as never, 'en', { siteUrl: 'https://www.askqualy.com' });
 
     expect(pricingTrSeo.alternates).toEqual([
-      { hrefLang: 'tr', href: 'https://www.askqualy.com/pricing' },
-      { hrefLang: 'en', href: 'https://www.askqualy.com/en/pricing' },
-      { hrefLang: 'x-default', href: 'https://www.askqualy.com/pricing' },
+      { hrefLang: 'tr', href: 'https://www.askqualy.com/pricing/' },
+      { hrefLang: 'en', href: 'https://www.askqualy.com/en/pricing/' },
+      { hrefLang: 'x-default', href: 'https://www.askqualy.com/pricing/' },
     ]);
 
     expect(pricingEnSeo.alternates).toEqual([
-      { hrefLang: 'tr', href: 'https://www.askqualy.com/pricing' },
-      { hrefLang: 'en', href: 'https://www.askqualy.com/en/pricing' },
-      { hrefLang: 'x-default', href: 'https://www.askqualy.com/pricing' },
+      { hrefLang: 'tr', href: 'https://www.askqualy.com/pricing/' },
+      { hrefLang: 'en', href: 'https://www.askqualy.com/en/pricing/' },
+      { hrefLang: 'x-default', href: 'https://www.askqualy.com/pricing/' },
     ]);
 
     expect(blogTrSeo.alternates).toEqual([
-      { hrefLang: 'tr', href: 'https://www.askqualy.com/blog' },
-      { hrefLang: 'en', href: 'https://www.askqualy.com/en/blog' },
-      { hrefLang: 'x-default', href: 'https://www.askqualy.com/blog' },
+      { hrefLang: 'tr', href: 'https://www.askqualy.com/blog/' },
+      { hrefLang: 'en', href: 'https://www.askqualy.com/en/blog/' },
+      { hrefLang: 'x-default', href: 'https://www.askqualy.com/blog/' },
     ]);
 
     expect(blogEnSeo.alternates).toEqual([
-      { hrefLang: 'tr', href: 'https://www.askqualy.com/blog' },
-      { hrefLang: 'en', href: 'https://www.askqualy.com/en/blog' },
-      { hrefLang: 'x-default', href: 'https://www.askqualy.com/blog' },
+      { hrefLang: 'tr', href: 'https://www.askqualy.com/blog/' },
+      { hrefLang: 'en', href: 'https://www.askqualy.com/en/blog/' },
+      { hrefLang: 'x-default', href: 'https://www.askqualy.com/blog/' },
     ]);
   });
 });

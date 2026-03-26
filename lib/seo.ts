@@ -56,7 +56,7 @@ export type SeoPayload = {
 
 const HOME_PATH_BY_LANGUAGE: Record<SeoLanguage, string> = {
   tr: '/',
-  en: '/en',
+  en: '/en/',
 };
 
 const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
@@ -204,56 +204,56 @@ const SEO_COPY: Record<SeoLanguage, RouteSeoMap> = {
 
 const ROUTE_PATHS: Record<Exclude<SeoRouteKey, 'home'>, Record<SeoLanguage, string>> = {
   blogIndex: {
-    tr: '/blog',
-    en: '/en/blog',
+    tr: '/blog/',
+    en: '/en/blog/',
   },
   pricing: {
-    tr: '/pricing',
-    en: '/en/pricing',
+    tr: '/pricing/',
+    en: '/en/pricing/',
   },
   about: {
-    tr: '/about',
-    en: '/en/about',
+    tr: '/about/',
+    en: '/en/about/',
   },
   dataDeletion: {
-    tr: '/data-deletion',
-    en: '/en/data-deletion',
+    tr: '/data-deletion/',
+    en: '/en/data-deletion/',
   },
   legalIndex: {
-    tr: '/legal',
-    en: '/en/legal',
+    tr: '/legal/',
+    en: '/en/legal/',
   },
   terms: {
-    tr: '/terms',
-    en: '/en/terms',
+    tr: '/terms/',
+    en: '/en/terms/',
   },
   privacy: {
-    tr: '/privacy',
-    en: '/en/privacy',
+    tr: '/privacy/',
+    en: '/en/privacy/',
   },
   kvkk: {
-    tr: '/kvkk',
-    en: '/en/kvkk',
+    tr: '/kvkk/',
+    en: '/en/kvkk/',
   },
   preInformation: {
-    tr: '/pre-information',
-    en: '/en/pre-information',
+    tr: '/pre-information/',
+    en: '/en/pre-information/',
   },
   distanceSalesAgreement: {
-    tr: '/distance-sales-agreement',
-    en: '/en/distance-sales-agreement',
+    tr: '/distance-sales-agreement/',
+    en: '/en/distance-sales-agreement/',
   },
   cancellationRefund: {
-    tr: '/cancellation-refund',
-    en: '/en/cancellation-refund',
+    tr: '/cancellation-refund/',
+    en: '/en/cancellation-refund/',
   },
   subscriptionTrial: {
-    tr: '/subscription-trial',
-    en: '/en/subscription-trial',
+    tr: '/subscription-trial/',
+    en: '/en/subscription-trial/',
   },
   faqDirectory: {
-    tr: '/faqs-directory',
-    en: '/faqs-directory',
+    tr: '/faqs-directory/',
+    en: '/faqs-directory/',
   },
 };
 

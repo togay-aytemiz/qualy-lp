@@ -223,11 +223,11 @@ async function cleanGeneratedBlogArtifacts() {
 }
 
 function getBlogIndexPath(locale) {
-  return locale === 'en' ? '/en/blog' : '/blog';
+  return locale === 'en' ? '/en/blog/' : '/blog/';
 }
 
 function getBlogPostPath(locale, slug) {
-  return `${getBlogIndexPath(locale)}/${slug}`;
+  return `${getBlogIndexPath(locale)}${slug}/`;
 }
 
 function sortPostsByDate(posts) {
@@ -778,7 +778,7 @@ async function buildIndexHtml(locale, posts, { indexable = posts.length > 0 } = 
     robots: indexable ? CRAWLABLE_ROBOTS : NON_CRAWLABLE_ROBOTS,
     ogImage: resolveAbsoluteUrl(SITE_URL, copy.image),
     ogLocale: copy.locale,
-    alternates: getAlternatesFromPaths(SITE_URL, '/blog', '/en/blog'),
+    alternates: getAlternatesFromPaths(SITE_URL, '/blog/', '/en/blog/'),
     jsonLd: [
       {
         '@context': 'https://schema.org',

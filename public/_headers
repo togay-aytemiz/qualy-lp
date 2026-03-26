@@ -10,9 +10,11 @@
 /legal_versions.json
   Cache-Control: public, max-age=300, must-revalidate
 
+/faqs.md
+  X-Robots-Tag: noindex, follow
+
 /robots.txt
   Cache-Control: public, max-age=3600, must-revalidate
 
 /sitemap.xml
   Cache-Control: public, max-age=3600, must-revalidate
-

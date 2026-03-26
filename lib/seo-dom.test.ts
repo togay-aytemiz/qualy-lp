@@ -32,7 +32,7 @@ describe('applySeoToDocument', () => {
 
     expect(document.querySelectorAll('link[rel="canonical"]').length).toBe(1);
     expect(document.querySelectorAll('meta[name="description"]').length).toBe(1);
-    expect(document.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe('https://askqualy.com/en/terms');
+    expect(document.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe('https://askqualy.com/en/terms/');
     expect(document.querySelector('meta[name="description"]')?.getAttribute('content')).toBe(termsSeo.description);
   });
 
@@ -64,7 +64,7 @@ describe('applySeoToDocument', () => {
     expect(hrefLangs).toEqual(['tr', 'en', 'x-default']);
     expect(hrefs).toEqual([
       'https://askqualy.com/',
-      'https://askqualy.com/en',
+      'https://askqualy.com/en/',
       'https://askqualy.com/',
     ]);
 
@@ -75,9 +75,9 @@ describe('applySeoToDocument', () => {
       document.querySelectorAll('link[rel="alternate"][data-seo-alternate="true"]')
     ).map((link) => link.getAttribute('href'));
     expect(pricingAlternateHrefs).toEqual([
-      'https://askqualy.com/pricing',
-      'https://askqualy.com/en/pricing',
-      'https://askqualy.com/pricing',
+      'https://askqualy.com/pricing/',
+      'https://askqualy.com/en/pricing/',
+      'https://askqualy.com/pricing/',
     ]);
 
     applySeoToDocument(document, faqSeo);
@@ -94,7 +94,7 @@ describe('applySeoToDocument', () => {
       'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'
     );
     expect(document.querySelector('link[rel="canonical"]')?.getAttribute('href')).toBe(
-      'https://askqualy.com/en/blog'
+      'https://askqualy.com/en/blog/'
     );
     expect(document.querySelectorAll('link[rel="alternate"][data-seo-alternate="true"]').length).toBe(3);
   });

@@ -15,5 +15,10 @@ describe('netlify cache headers', () => {
     expect(headers).toContain('/legal_versions.json');
     expect(headers).toContain('must-revalidate');
   });
-});
 
+  it('marks machine-readable faq exports as noindex', () => {
+    const headers = readFileSync(path.join(process.cwd(), 'public', '_headers'), 'utf8');
+    expect(headers).toContain('/faqs.md');
+    expect(headers).toContain('X-Robots-Tag: noindex, follow');
+  });
+});
