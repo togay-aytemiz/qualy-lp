@@ -2,6 +2,7 @@ import { existsSync, readFileSync, promises as fs } from 'node:fs';
 import path from 'node:path';
 import { marked } from 'marked';
 import { createServer } from 'vite';
+import { normalizeLocalizedBlogCopy } from '../lib/blog-copy-normalization.mjs';
 
 const ROOT = process.cwd();
 loadEnvironmentFiles();
@@ -527,10 +528,14 @@ function normalizeSanityPost(item) {
   }
 
   const translationKey = String(item?.translationKey ?? item?.translationGroup ?? item?.documentId ?? item?._id ?? `${locale}:${slug}`).trim();
-  const bodyMarkdown = normalizeMarkdownForRender(String(item?.bodyMarkdown ?? item?.contentMarkdown ?? item?.body ?? ''));
-  const bodyHtml = String(item?.bodyHtml ?? item?.contentHtml ?? '').trim();
+  const bodyMarkdown = normalizeLocalizedBlogCopy(
+    normalizeMarkdownForRender(String(item?.bodyMarkdown ?? item?.contentMarkdown ?? item?.body ?? '')),
+    locale
+  );
+  const bodyHtml = normalizeLocalizedBlogCopy(String(item?.bodyHtml ?? item?.contentHtml ?? '').trim(), locale);
   const isWrappedMarkdownHtml = /^<pre>\s*<code[^>]*language-markdown/i.test(bodyHtml);
   const path = getBlogPostPath(locale, slug);
+  const renderedContentHtml = (isWrappedMarkdownHtml ? '' : bodyHtml) || renderMarkdownToHtml(bodyMarkdown);
 
   return {
     id: String(item?._id ?? item?.id ?? `${translationKey}:${locale}`),
@@ -540,7 +545,7 @@ function normalizeSanityPost(item) {
     title,
     excerpt: String(item?.excerpt ?? '').trim(),
     content: bodyMarkdown,
-    contentHtml: (isWrappedMarkdownHtml ? '' : bodyHtml) || renderMarkdownToHtml(bodyMarkdown),
+    contentHtml: normalizeLocalizedBlogCopy(renderedContentHtml, locale),
     seoTitle: String(item?.seoTitle ?? title).trim(),
     seoDescription: String(item?.seoDescription ?? item?.excerpt ?? '').trim(),
     publishedAt,
