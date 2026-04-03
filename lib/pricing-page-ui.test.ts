@@ -2,6 +2,9 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
+const readJson = <T>(relativePath: string) =>
+  JSON.parse(readFileSync(path.join(process.cwd(), relativePath), 'utf8')) as T;
+
 describe('pricing page ui', () => {
   it('does not render a badge chip above the main pricing hero title', () => {
     const pricingSource = readFileSync(path.join(process.cwd(), 'components', 'Pricing.tsx'), 'utf8');
@@ -19,61 +22,95 @@ describe('pricing page ui', () => {
     expect(languageContextSource).not.toContain('save: "%20 İndirim"');
   });
 
-  it('includes finalized self-serve tiers with distinct prices and credits', () => {
+  it('loads localized pricing copy from dedicated locale message files instead of hardcoding the visible text', () => {
     const pricingSource = readFileSync(path.join(process.cwd(), 'components', 'Pricing.tsx'), 'utf8');
+    const enMessages = readJson<{ pricingPage: Record<string, unknown> }>('messages/en.json');
+    const trMessages = readJson<{ pricingPage: Record<string, unknown> }>('messages/tr.json');
 
-    expect(pricingSource).toContain('Temel');
-    expect(pricingSource).toContain('Gelişmiş');
-    expect(pricingSource).toContain('Profesyonel');
+    expect(pricingSource).toContain("../messages/en.json");
+    expect(pricingSource).toContain("../messages/tr.json");
+    expect(pricingSource).not.toContain('const COPY_BY_LANGUAGE');
 
-    expect(pricingSource).toContain('349');
-    expect(pricingSource).toContain('649');
-    expect(pricingSource).toContain('949');
+    expect(enMessages).toHaveProperty('pricingPage');
+    expect(trMessages).toHaveProperty('pricingPage');
+  });
 
-    expect(pricingSource).toContain('1000');
-    expect(pricingSource).toContain('2000');
-    expect(pricingSource).toContain('4000');
+  it('includes finalized self-serve tiers with subscription-oriented monthly allowance copy', () => {
+    const enMessages = JSON.stringify(readJson('messages/en.json'));
+    const trMessages = JSON.stringify(readJson('messages/tr.json'));
 
-    expect(pricingSource).toContain('Ayda yaklaşık 90-120 konuşma');
-    expect(pricingSource).toContain('Ayda yaklaşık 180-240 konuşma');
-    expect(pricingSource).toContain('Ayda yaklaşık 360-480 konuşma');
+    expect(trMessages).toContain('Temel');
+    expect(trMessages).toContain('Gelişmiş');
+    expect(trMessages).toContain('Profesyonel');
 
-    expect(pricingSource).toContain('İlk otomasyon adımını atan işletmeler');
-    expect(pricingSource).toContain('Düzenli mesaj trafiği olan işletmeler');
-    expect(pricingSource).toContain('Yüksek konuşma hacmi yöneten işletmeler');
-    expect(pricingSource).not.toContain('İlk otomasyon adımını atan işletmeler için');
-    expect(pricingSource).not.toContain('Düzenli mesaj trafiği olan işletmeler için');
-    expect(pricingSource).not.toContain('Yüksek konuşma hacmi yöneten işletmeler için');
+    expect(trMessages).toContain('349');
+    expect(trMessages).toContain('649');
+    expect(trMessages).toContain('949');
+
+    expect(trMessages).toContain('AYLIK KULLANIM HAKKI');
+    expect(trMessages).toContain('Ayda yaklaşık 90-120 konuşma');
+    expect(trMessages).toContain('Ayda yaklaşık 180-240 konuşma');
+    expect(trMessages).toContain('Ayda yaklaşık 360-480 konuşma');
+    expect(trMessages).not.toContain('Ayda yaklaşık 90-120 konuşma dahil');
+    expect(trMessages).not.toContain('Ayda yaklaşık 180-240 konuşma dahil');
+    expect(trMessages).not.toContain('Ayda yaklaşık 360-480 konuşma dahil');
+    expect(enMessages).toContain('MONTHLY USAGE ALLOWANCE');
+    expect(enMessages).toContain('About 90-120 conversations/month');
+    expect(enMessages).toContain('About 180-240 conversations/month');
+    expect(enMessages).toContain('About 360-480 conversations/month');
+    expect(enMessages).not.toContain('About 90-120 conversations/month included');
+    expect(enMessages).not.toContain('About 180-240 conversations/month included');
+    expect(enMessages).not.toContain('About 360-480 conversations/month included');
+
+    expect(trMessages).not.toContain('1000 KREDİ / AY');
+    expect(trMessages).not.toContain('2000 KREDİ / AY');
+    expect(trMessages).not.toContain('4000 KREDİ / AY');
+    expect(trMessages).not.toContain('kredi / ay');
+    expect(enMessages).not.toContain('credits / month');
   });
 
   it('renders shared standard features inside each pricing card instead of a global top section', () => {
     const pricingSource = readFileSync(path.join(process.cwd(), 'components', 'Pricing.tsx'), 'utf8');
+    const trMessages = JSON.stringify(readJson('messages/tr.json'));
 
     expect(pricingSource).toContain('planIncludesLabel');
     expect(pricingSource).toContain('planIncludedFeatures');
-    expect(pricingSource).toContain('WhatsApp, Instagram, Messenger, Telegram tek gelen kutusu');
-    expect(pricingSource).toContain('Yetenek + Bilgi Bankası ile yapay zeka yanıtı');
-    expect(pricingSource).toContain('Kişi nitelendirme ve skorlama');
-    expect(pricingSource).toContain('Konuşma özeti');
-    expect(pricingSource).not.toContain('Konuşma özeti ve kişi skoru');
-    expect(pricingSource).not.toContain('Hazır yanıtlar ve temel raporlar');
+    expect(trMessages).toContain('WhatsApp, Instagram, Messenger, Telegram tek gelen kutusu');
+    expect(trMessages).toContain('Yetenek + Bilgi Bankası ile yapay zeka yanıtı');
+    expect(trMessages).toContain('Kişi nitelendirme ve skorlama');
+    expect(trMessages).toContain('Konuşma özeti');
+    expect(trMessages).not.toContain('Konuşma özeti ve kişi skoru');
+    expect(trMessages).not.toContain('Hazır yanıtlar ve temel raporlar');
     expect(pricingSource).not.toContain('sameFeatures:');
     expect(pricingSource).not.toContain('sameFeatureLabel');
   });
 
-  it('keeps trial message in hero and removes standalone trial panel plus top-up packs', () => {
+  it('keeps trial messaging card-neutral and renders a left-aligned three-line pricing notes block', () => {
+    const messages = `${JSON.stringify(readJson('messages/tr.json'))}\n${JSON.stringify(readJson('messages/en.json'))}`;
     const pricingSource = readFileSync(path.join(process.cwd(), 'components', 'Pricing.tsx'), 'utf8');
 
-    expect(pricingSource).toContain('14 gün ücretsiz dene');
-    expect(pricingSource).toContain('Start your 14-day free trial');
-    expect(pricingSource).toContain('Kredi kartı gerekmez');
-    expect(pricingSource).toContain('No credit card required');
+    expect(messages).toContain('14 gün ücretsiz dene');
+    expect(messages).toContain('Kart bilgisi gerekmez');
+    expect(messages).toContain('Start your 14-day free trial');
+    expect(messages).toContain('No card required');
+    expect(messages).toContain('Paket ücretine yazılım aboneliği ve aylık kullanım hakkı dahildir.');
+    expect(messages).toContain('Fiyatlara KDV dahildir.');
+    expect(messages).toContain('Listed prices include VAT.');
+    expect(messages).toContain('The plan fee includes software subscription and a monthly usage allowance.');
+    expect(messages).not.toContain('Ayrı kredi/token/coin satışı yapılmaz.');
+    expect(messages).not.toContain('Separate credit/token/coin sales are not offered.');
+
+    expect(messages).not.toContain('Kredi kartı gerekmez');
+    expect(messages).not.toContain('No credit card required');
+    expect(pricingSource).toContain('copy.notes.map');
+    expect(pricingSource).toContain('text-left text-sm');
+    expect(pricingSource).toContain("aria-hidden=\"true\">*</span>");
+    expect(pricingSource).toContain('plan.allowanceDescription');
+    expect(pricingSource).toContain('items-start gap-2');
     expect(pricingSource).toContain('href={AUTH_URLS.register}');
-    expect(pricingSource).not.toContain('mailto:askqualy@gmail.com?subject=${encodeURIComponent(plan.subject)}');
     expect(pricingSource).not.toContain('trialBadge:');
     expect(pricingSource).not.toContain('trialTitle:');
     expect(pricingSource).not.toContain('trialDescription:');
-
     expect(pricingSource).not.toContain('topup:');
     expect(pricingSource).not.toContain('Top-up packs');
   });
@@ -92,12 +129,15 @@ describe('pricing page ui', () => {
 
   it('keeps a separate custom-package contact path with dedicated card marker and tr-localized labels', () => {
     const pricingSource = readFileSync(path.join(process.cwd(), 'components', 'Pricing.tsx'), 'utf8');
+    const messages = `${JSON.stringify(readJson('messages/tr.json'))}\n${JSON.stringify(readJson('messages/en.json'))}`;
 
     expect(pricingSource).toContain('enterpriseCard');
-    expect(pricingSource).toContain('Özel Paket');
-    expect(pricingSource).toContain('Özel Çözüm');
-    expect(pricingSource).toContain('Özel Teklif Al');
+    expect(messages).toContain('Özel Paket');
+    expect(messages).toContain('Özel Çözüm');
+    expect(messages).toContain('Özel Teklif Al');
     expect(pricingSource).toContain('data-pricing-enterprise="true"');
+    expect(messages).not.toContain('kredi hacmi');
+    expect(messages).not.toContain('monthly credits');
   });
 
   it('uses slightly roomier line-height on pricing hero headline for multiline titles', () => {

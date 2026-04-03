@@ -4,15 +4,17 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '../LanguageContext';
 import { AUTH_URLS } from '../lib/auth-links';
 import { resolvePricingCurrencyFromBrowser } from '../lib/pricing-currency';
+import pricingMessagesEn from '../messages/en.json';
+import pricingMessagesTr from '../messages/tr.json';
 
 type PricingTier = {
   name: string;
+  subscriptionName: string;
   priceTry: string;
   priceUsd: string;
-  credits: string;
-  conversations: string;
+  allowanceLabel: string;
+  allowanceDescription: string;
   bestFor: string;
-  subject: string;
 };
 
 type PricingPageCopy = {
@@ -24,9 +26,8 @@ type PricingPageCopy = {
   planIncludesLabel: string;
   planIncludedFeatures: string[];
   monthlyPriceLabel: Record<'TRY' | 'USD', string>;
-  creditsPerMonthLabel: string;
   plans: PricingTier[];
-  footnote: string;
+  notes: string[];
   enterpriseCard: {
     kicker: string;
     title: string;
@@ -38,142 +39,14 @@ type PricingPageCopy = {
   };
 };
 
-const COPY_BY_LANGUAGE: Record<'en' | 'tr', PricingPageCopy> = {
-  en: {
-    title: 'Go live in minutes. Scale as conversations grow.',
-    subtitle:
-      'Starter, Growth, and Scale include the same core product. Choose your plan by monthly credits and expected conversation volume.',
-    trialInlineText: 'Start your 14-day free trial. No credit card required.',
-    trialNoCardLabel: 'No credit card required',
-    planCta: 'Start your 14-day free trial',
-    planIncludesLabel: 'Standard in every plan',
-    monthlyPriceLabel: {
-      TRY: 'TRY / month',
-      USD: 'USD / month',
-    },
-    creditsPerMonthLabel: 'credits / month',
-    planIncludedFeatures: [
-      'Shared inbox for WhatsApp, Instagram, Messenger, and Telegram',
-      'AI auto-replies with lead qualification',
-      'Team assignment and human handover flow',
-      'Saved replies (templates)',
-      'Conversation summary and scoring view',
-    ],
-    plans: [
-      {
-        name: 'Starter',
-        priceTry: '349',
-        priceUsd: '9.99',
-        credits: '1000',
-        conversations: 'About 90-120 conversations/month',
-        bestFor: 'Best for teams starting to automate',
-        subject: 'Starter Plan Free Trial Inquiry',
-      },
-      {
-        name: 'Growth',
-        priceTry: '649',
-        priceUsd: '17.99',
-        credits: '2000',
-        conversations: 'About 180-240 conversations/month',
-        bestFor: 'Best for teams with steady lead volume',
-        subject: 'Growth Plan Free Trial Inquiry',
-      },
-      {
-        name: 'Scale',
-        priceTry: '949',
-        priceUsd: '26.99',
-        credits: '4000',
-        conversations: 'About 360-480 conversations/month',
-        bestFor: 'Best for high-volume sales operations',
-        subject: 'Scale Plan Free Trial Inquiry',
-      },
-    ],
-    footnote: 'Conversation range may vary by message length, language, and response complexity.',
-    enterpriseCard: {
-      kicker: 'Custom',
-      title: 'Custom Plan',
-      description:
-        'For teams that outgrow package credits or need tailored integrations, workflows, and rollout support.',
-      cta: 'Get Custom Offer',
-      subject: 'Custom Plan Inquiry',
-      responseSla: 'Response within 1 business day',
-      bullets: [
-        'Extra monthly credits beyond package limits',
-        'Tailored integration and workflow requirements',
-        'Dedicated onboarding and migration planning',
-      ],
-    },
-  },
-  tr: {
-    title: 'Hemen başla. Hacim arttıkça ölçekle.',
-    subtitle:
-      'Tüm paketlerde aynı güçlü ürün var. Temel ile hemen başla; hacim arttıkça Gelişmiş ve Profesyonel paketlerine geç.',
-    trialInlineText: '14 gün ücretsiz dene. Kredi kartı gerekmez.',
-    trialNoCardLabel: 'Kredi kartı gerekmez',
-    planCta: '14 gün ücretsiz dene',
-    planIncludesLabel: 'Her pakette standart',
-    monthlyPriceLabel: {
-      TRY: 'TRY / ay',
-      USD: 'USD / ay',
-    },
-    creditsPerMonthLabel: 'kredi / ay',
-    planIncludedFeatures: [
-      'WhatsApp, Instagram, Messenger, Telegram tek gelen kutusu',
-      'Yetenek + Bilgi Bankası ile yapay zeka yanıtı',
-      'Kişi nitelendirme ve skorlama',
-      'Atama ve insan devri',
-      'Konuşma özeti',
-    ],
-    plans: [
-      {
-        name: 'Temel',
-        priceTry: '349',
-        priceUsd: '9.99',
-        credits: '1000',
-        conversations: 'Ayda yaklaşık 90-120 konuşma',
-        bestFor: 'İlk otomasyon adımını atan işletmeler',
-        subject: 'Temel Plan Ücretsiz Deneme Talebi',
-      },
-      {
-        name: 'Gelişmiş',
-        priceTry: '649',
-        priceUsd: '17.99',
-        credits: '2000',
-        conversations: 'Ayda yaklaşık 180-240 konuşma',
-        bestFor: 'Düzenli mesaj trafiği olan işletmeler',
-        subject: 'Gelişmiş Plan Ücretsiz Deneme Talebi',
-      },
-      {
-        name: 'Profesyonel',
-        priceTry: '949',
-        priceUsd: '26.99',
-        credits: '4000',
-        conversations: 'Ayda yaklaşık 360-480 konuşma',
-        bestFor: 'Yüksek konuşma hacmi yöneten işletmeler',
-        subject: 'Profesyonel Plan Ücretsiz Deneme Talebi',
-      },
-    ],
-    footnote: 'Konuşma aralığı; mesaj uzunluğu, dil ve yanıt karmaşıklığına göre değişebilir.',
-    enterpriseCard: {
-      kicker: 'Özel Paket',
-      title: 'İhtiyaca Özel Çözüm',
-      description:
-        'Paket kredileri yetmiyorsa veya farklı ihtiyaçların varsa, işletmene özel kredi hacmi ve kurulum planı oluşturuyoruz.',
-      cta: 'Özel Teklif Al',
-      subject: 'Özel Paket Talebi',
-      responseSla: '1 iş günü içinde dönüş',
-      bullets: [
-        'Paket limitini aşan kredi ihtiyacı için özel hacim',
-        'İşletmene özel entegrasyon ve süreç tasarımı',
-        'Öncelikli kurulum ve geçiş planı',
-      ],
-    },
-  },
+const pricingCopyByLanguage: Record<'en' | 'tr', PricingPageCopy> = {
+  en: pricingMessagesEn.pricingPage,
+  tr: pricingMessagesTr.pricingPage,
 };
 
 const Pricing: React.FC = () => {
   const { language } = useLanguage();
-  const copy = COPY_BY_LANGUAGE[language];
+  const copy = pricingCopyByLanguage[language];
   const pricingCurrency = React.useMemo(() => resolvePricingCurrencyFromBrowser(), []);
 
   return (
@@ -213,7 +86,7 @@ const Pricing: React.FC = () => {
             const badgeClass = isFeatured
               ? 'border-white/30 bg-white/15 text-white'
               : 'border-slate-200 bg-slate-50 text-slate-700';
-            const creditClass = isFeatured
+            const allowanceClass = isFeatured
               ? 'border-white/20 bg-white/10 text-white'
               : 'border-slate-200 bg-slate-100 text-slate-900';
             const includedClass = isFeatured
@@ -227,7 +100,8 @@ const Pricing: React.FC = () => {
 
             return (
               <motion.article
-                key={plan.name}
+                key={plan.subscriptionName}
+                data-subscription-name={plan.subscriptionName}
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: 0.12 + index * 0.08 }}
@@ -254,12 +128,13 @@ const Pricing: React.FC = () => {
                   </span>
                 </p>
 
-                <div className={`mt-6 min-h-[102px] rounded-2xl border px-4 py-4 ${creditClass}`}>
+                <div className={`mt-6 min-h-[102px] rounded-2xl border px-4 py-4 ${allowanceClass}`}>
                   <p className="text-sm font-semibold uppercase tracking-[0.12em]">
-                    {plan.credits} {copy.creditsPerMonthLabel}
+                    {plan.allowanceLabel}
                   </p>
-                  <p className={`mt-2 text-sm ${isFeatured ? 'text-slate-100' : 'text-slate-600'}`}>
-                    {plan.conversations}
+                  <p className={`mt-2 flex items-start gap-2 text-sm ${isFeatured ? 'text-slate-100' : 'text-slate-600'}`}>
+                    <span aria-hidden="true">*</span>
+                    <span>{plan.allowanceDescription}</span>
                   </p>
                 </div>
 
@@ -280,6 +155,7 @@ const Pricing: React.FC = () => {
 
                 <a
                   href={AUTH_URLS.register}
+                  data-subscription-name={plan.subscriptionName}
                   className={`mt-auto inline-flex w-full items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-semibold transition-colors ${ctaClass}`}
                 >
                   {copy.planCta}
@@ -294,7 +170,14 @@ const Pricing: React.FC = () => {
           })}
         </div>
 
-        <p className="mx-auto mt-6 max-w-6xl text-xs leading-6 text-slate-500">{copy.footnote}</p>
+        <ul className="mx-auto mt-6 flex max-w-6xl flex-col gap-1 text-left text-sm leading-6 text-slate-600">
+          {copy.notes.map((note) => (
+            <li key={note} className="flex items-start gap-2">
+              <span aria-hidden="true">*</span>
+              <span>{note}</span>
+            </li>
+          ))}
+        </ul>
 
         <motion.article
           initial={{ opacity: 0, y: 24 }}

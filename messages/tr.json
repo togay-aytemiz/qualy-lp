@@ -1,0 +1,68 @@
+{
+  "pricingPage": {
+    "title": "Hemen başla. Hacim arttıkça ölçekle.",
+    "subtitle": "Tüm paketlerde aynı güçlü ürün var. İşletmene uygun aylık yazılım aboneliğini seç; her pakete aylık kullanım hakkı dahildir.",
+    "trialInlineText": "14 gün ücretsiz dene. Kart bilgisi gerekmez.",
+    "trialNoCardLabel": "Kart bilgisi gerekmez",
+    "planCta": "14 gün ücretsiz dene",
+    "planIncludesLabel": "Her pakette standart",
+    "planIncludedFeatures": [
+      "WhatsApp, Instagram, Messenger, Telegram tek gelen kutusu",
+      "Yetenek + Bilgi Bankası ile yapay zeka yanıtı",
+      "Kişi nitelendirme ve skorlama",
+      "Atama ve insan devri",
+      "Konuşma özeti"
+    ],
+    "monthlyPriceLabel": {
+      "TRY": "TRY / ay",
+      "USD": "USD / ay"
+    },
+    "plans": [
+      {
+        "name": "Temel",
+        "subscriptionName": "Temel Aylık Yazılım Aboneliği",
+        "priceTry": "349",
+        "priceUsd": "9.99",
+        "allowanceLabel": "AYLIK KULLANIM HAKKI",
+        "allowanceDescription": "Ayda yaklaşık 90-120 konuşma",
+        "bestFor": "İlk otomasyon adımını atan işletmeler"
+      },
+      {
+        "name": "Gelişmiş",
+        "subscriptionName": "Gelişmiş Aylık Yazılım Aboneliği",
+        "priceTry": "649",
+        "priceUsd": "17.99",
+        "allowanceLabel": "AYLIK KULLANIM HAKKI",
+        "allowanceDescription": "Ayda yaklaşık 180-240 konuşma",
+        "bestFor": "Düzenli mesaj trafiği olan işletmeler"
+      },
+      {
+        "name": "Profesyonel",
+        "subscriptionName": "Profesyonel Aylık Yazılım Aboneliği",
+        "priceTry": "949",
+        "priceUsd": "26.99",
+        "allowanceLabel": "AYLIK KULLANIM HAKKI",
+        "allowanceDescription": "Ayda yaklaşık 360-480 konuşma",
+        "bestFor": "Yüksek konuşma hacmi yöneten işletmeler"
+      }
+    ],
+    "notes": [
+      "Paket ücretine yazılım aboneliği ve aylık kullanım hakkı dahildir.",
+      "Fiyatlara KDV dahildir.",
+      "Konuşma aralığı; mesaj uzunluğu, dil ve yanıt karmaşıklığına göre değişebilir."
+    ],
+    "enterpriseCard": {
+      "kicker": "Özel Paket",
+      "title": "İhtiyaca Özel Çözüm",
+      "description": "Standart paketlerin üzerinde aylık kullanım hakkı veya özel entegrasyon, süreç ve devreye alma desteği gereken işletmeler için.",
+      "cta": "Özel Teklif Al",
+      "subject": "Özel Paket Talebi",
+      "responseSla": "1 iş günü içinde dönüş",
+      "bullets": [
+        "Daha yüksek aylık kullanım hakkı için işletmene özel kapsam",
+        "İşletmene özel entegrasyon ve süreç tasarımı",
+        "Öncelikli kurulum ve geçiş planı"
+      ]
+    }
+  }
+}

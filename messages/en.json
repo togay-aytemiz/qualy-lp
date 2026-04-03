@@ -1,0 +1,68 @@
+{
+  "pricingPage": {
+    "title": "Go live in minutes. Scale as conversations grow.",
+    "subtitle": "Starter, Growth, and Scale include the same core product. Choose the monthly software subscription that fits your team, with a monthly usage allowance included in every plan.",
+    "trialInlineText": "Start your 14-day free trial. No card required.",
+    "trialNoCardLabel": "No card required",
+    "planCta": "Start your 14-day free trial",
+    "planIncludesLabel": "Standard in every plan",
+    "planIncludedFeatures": [
+      "Shared inbox for WhatsApp, Instagram, Messenger, and Telegram",
+      "AI auto-replies with lead qualification",
+      "Team assignment and human handover flow",
+      "Saved replies (templates)",
+      "Conversation summary and scoring view"
+    ],
+    "monthlyPriceLabel": {
+      "TRY": "TRY / month",
+      "USD": "USD / month"
+    },
+    "plans": [
+      {
+        "name": "Starter",
+        "subscriptionName": "Starter Monthly Software Subscription",
+        "priceTry": "349",
+        "priceUsd": "9.99",
+        "allowanceLabel": "MONTHLY USAGE ALLOWANCE",
+        "allowanceDescription": "About 90-120 conversations/month",
+        "bestFor": "Best for teams starting to automate"
+      },
+      {
+        "name": "Growth",
+        "subscriptionName": "Growth Monthly Software Subscription",
+        "priceTry": "649",
+        "priceUsd": "17.99",
+        "allowanceLabel": "MONTHLY USAGE ALLOWANCE",
+        "allowanceDescription": "About 180-240 conversations/month",
+        "bestFor": "Best for teams with steady lead volume"
+      },
+      {
+        "name": "Scale",
+        "subscriptionName": "Professional Monthly Software Subscription",
+        "priceTry": "949",
+        "priceUsd": "26.99",
+        "allowanceLabel": "MONTHLY USAGE ALLOWANCE",
+        "allowanceDescription": "About 360-480 conversations/month",
+        "bestFor": "Best for high-volume sales operations"
+      }
+    ],
+    "notes": [
+      "The plan fee includes software subscription and a monthly usage allowance.",
+      "Listed prices include VAT.",
+      "Conversation range may vary by message length, language, and response complexity."
+    ],
+    "enterpriseCard": {
+      "kicker": "Custom",
+      "title": "Custom Plan",
+      "description": "For teams that need a higher monthly usage allowance or tailored integrations, workflows, and rollout support.",
+      "cta": "Get Custom Offer",
+      "subject": "Custom Plan Inquiry",
+      "responseSla": "Response within 1 business day",
+      "bullets": [
+        "Higher monthly usage allowance with a tailored subscription scope",
+        "Tailored integration and workflow requirements",
+        "Dedicated onboarding and migration planning"
+      ]
+    }
+  }
+}

@@ -99,9 +99,13 @@ describe('getSeoByRoute', () => {
     const pricingTr = getSeoByRoute('pricing', 'tr', { siteUrl: 'https://www.askqualy.com' });
 
     expect(pricingEn.description).toContain('14-day free trial');
-    expect(pricingEn.description).toContain('No credit card required');
+    expect(pricingEn.description).toContain('No card required');
+    expect(pricingEn.description).toContain('monthly usage allowance');
+    expect(pricingEn.description).not.toContain('credits');
     expect(pricingTr.description).toContain('14 gün ücretsiz dene');
-    expect(pricingTr.description).toContain('Kredi kartı gerekmez');
+    expect(pricingTr.description).toContain('Kart bilgisi gerekmez');
+    expect(pricingTr.description).toContain('aylık kullanım hakkı');
+    expect(pricingTr.description).not.toContain('kredi');
   });
 
   it('builds schema payloads for home route', () => {

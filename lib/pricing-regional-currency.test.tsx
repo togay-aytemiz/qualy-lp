@@ -45,6 +45,10 @@ describe('pricing regional currency', () => {
 
     expect(html).toContain('USD / ay');
     expect(html).toContain('>9.99<');
-    expect(html).toContain('kredi / ay');
+    expect(html).toContain('AYLIK KULLANIM HAKKI');
+    expect(html).toContain('Ayda yaklaşık 90-120 konuşma');
+    expect(html).toContain('>*<');
+    expect(html).not.toContain('Ayda yaklaşık 90-120 konuşma dahil');
+    expect(html).not.toContain('kredi / ay');
   });
 });

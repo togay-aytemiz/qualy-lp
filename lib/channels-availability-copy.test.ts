@@ -11,7 +11,8 @@ describe('channel availability copy', () => {
     const faqMarkdown = readFile('public/faqs.md');
     const llmsTxt = readFile('public/llms.txt');
     const llmsFullTxt = readFile('public/llms-full.txt');
-    const pricing = readFile('components/Pricing.tsx');
+    const pricingTrMessages = readFile('messages/tr.json');
+    const pricingEnMessages = readFile('messages/en.json');
     const homeTr = readFile('index.html');
     const homeEn = readFile('en/index.html');
     const seo = readFile('lib/seo.ts');
@@ -22,8 +23,8 @@ describe('channel availability copy', () => {
     expect(faqMarkdown).toContain('WhatsApp, Instagram, Messenger, and Telegram');
     expect(llmsTxt).toContain('WhatsApp, Instagram, Messenger, and Telegram');
     expect(llmsFullTxt).toContain('WhatsApp, Instagram, Messenger, and Telegram');
-    expect(pricing).toContain('Shared inbox for WhatsApp, Instagram, Messenger, and Telegram');
-    expect(pricing).toContain('WhatsApp, Instagram, Messenger, Telegram tek gelen kutusu');
+    expect(pricingEnMessages).toContain('Shared inbox for WhatsApp, Instagram, Messenger, and Telegram');
+    expect(pricingTrMessages).toContain('WhatsApp, Instagram, Messenger, Telegram tek gelen kutusu');
     expect(homeEn).toContain('WhatsApp, Instagram, Messenger, and Telegram');
     expect(homeTr).toContain('WhatsApp, Instagram, Messenger ve Telegram');
     expect(seo).toContain("AI-First Inbox for WhatsApp, Instagram, Messenger, and Telegram");

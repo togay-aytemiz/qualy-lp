@@ -56,9 +56,16 @@ describe('static SEO entry pages', () => {
 
   it('includes trial-first pricing metadata copy in static pricing entry', () => {
     const pricing = readEntry('pricing/index.html');
+    const pricingEn = readEntry('en/pricing/index.html');
 
     expect(pricing).toContain('14 gün ücretsiz dene');
-    expect(pricing).toContain('Kredi kartı gerekmez');
+    expect(pricing).toContain('Kart bilgisi gerekmez');
+    expect(pricing).toContain('aylık kullanım hakkı');
+    expect(pricing).not.toContain('aylık kredi');
+    expect(pricingEn).toContain('14-day free trial');
+    expect(pricingEn).toContain('No card required');
+    expect(pricingEn).toContain('monthly usage allowance');
+    expect(pricingEn).not.toContain('monthly credits');
   });
 
   it('exposes hreflang alternates for tr and en home variants', () => {
