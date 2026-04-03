@@ -1,13 +1,13 @@
 ---
 id: "cancellation-refund"
-version: "v1.0"
-last_updated: "2026-03-03"
+version: "v1.1"
+last_updated: "2026-04-03"
 document_title: "Cancellation, Refund, and Withdrawal Policy"
 ---
 
 # Cancellation, Refund, and Withdrawal Policy
 
-**Last Updated:** 3 March 2026
+**Last Updated:** 3 April 2026
 
 This policy explains cancellation, withdrawal, and refund conditions for Qualy SaaS subscriptions.
 
@@ -35,6 +35,9 @@ This policy applies to paid subscription plans purchased online for Qualy digita
 
 - Charges already collected for a started billing period are generally non-refundable.
 - Refunds may be made when required by mandatory law, evident duplicate charging, or proven system-side payment errors.
+- Monthly package credits and extra credits are technical usage units only; they are not money, stored value, or cash-equivalent rights.
+- Unused monthly package credits expire at period end, do not roll over, and do not create a separate refund right merely because they were not consumed.
+- One-time extra credits generally become non-refundable once successfully added to the account, except where mandatory law requires otherwise or a verified duplicate/system-side payment error exists. Extra credits are not redeemable for cash and may only be used during an active paid subscription.
 
 ## 6. Chargebacks and Disputes
 

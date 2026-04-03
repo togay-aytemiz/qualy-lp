@@ -1,14 +1,14 @@
 ---
 id: "cancellation-refund"
 locale: "tr"
-version: "v1.0"
-last_updated: "2026-03-03"
+version: "v1.1"
+last_updated: "2026-04-03"
 document_title: "İptal, İade ve Cayma Politikası"
 ---
 
 # İptal, İade ve Cayma Politikası
 
-**Son Güncelleme:** 3 Mart 2026
+**Son Güncelleme:** 3 Nisan 2026
 
 Bu politika, Qualy SaaS abonelikleri için iptal, cayma ve iade koşullarını açıklar.
 
@@ -36,6 +36,9 @@ Bu politika, Qualy dijital hizmetleri için çevrim içi satın alınan ücretli
 
 - Başlamış bir faturalama dönemi için tahsil edilen ücretler kural olarak iade edilmez.
 - Zorunlu yasal hallerde, mükerrer tahsilatta veya doğrulanmış sistemsel ödeme hatalarında iade yapılabilir.
+- Aylık paket kredileri ve ek krediler yalnızca teknik kullanım birimleridir; para, saklanan değer veya nakit benzeri bir hak oluşturmaz.
+- Kullanılmayan aylık paket kredileri dönem sonunda sona erer, bir sonraki döneme aktarılmaz ve sırf kullanılmamış olmaları nedeniyle ayrıca iade hakkı doğurmaz.
+- Tek seferlik ek krediler, hesaba başarıyla tanımlandıktan sonra kural olarak iade edilmez; ancak zorunlu yasal haller veya doğrulanmış mükerrer / sistemsel ödeme hataları saklıdır. Ek krediler nakde çevrilemez ve yalnızca aktif ücretli abonelik sırasında kullanılabilir.
 
 ## 6. Ters İbraz (Chargeback) ve Uyuşmazlık
 

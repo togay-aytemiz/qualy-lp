@@ -1,14 +1,14 @@
 ---
 id: "distance-sales-agreement"
 locale: "tr"
-version: "v1.0"
-last_updated: "2026-03-03"
+version: "v1.1"
+last_updated: "2026-04-03"
 document_title: "Mesafeli Hizmet Sözleşmesi"
 ---
 
 # Mesafeli Hizmet Sözleşmesi
 
-**Son Güncelleme:** 3 Mart 2026
+**Son Güncelleme:** 3 Nisan 2026
 
 İşbu Mesafeli Hizmet Sözleşmesi, abonelik temelli Qualy dijital hizmetinin satışı için Satıcı ile Alıcı arasında elektronik ortamda kurulmuştur.
 
@@ -47,6 +47,9 @@ Alıcı tarafından elektronik ortamda onay verilmesi ve satın alma adımının
 - Plan ücretleri ve faturalama periyodu ödeme ekranında gösterilir.
 - Tahsilat, iyzico dahil yetkili ödeme altyapıları üzerinden yapılır.
 - Alıcı, ödeme bilgilerinin güncel tutulmasından sorumludur.
+- Abonelik ücretleri, ödeme ekranında gösterildiği şekilde aylık paket kredileri içerebilir.
+- Aylık paket kredileri ayrı bir dijital varlık olmayıp teknik kullanım birimleridir. Bu krediler devredilemez, nakit değeri yoktur, nakde çevrilemez, yalnızca aktif ücretli abonelik sırasında kullanılabilir ve bir sonraki fatura dönemine aktarılmaz.
+- Satıcı, aktif ücretli abonelere ayrıca tek seferlik ek kredi satın alma imkanı sunabilir. Ek krediler teknik kullanım birimleridir; devredilemez, nakit değeri yoktur, nakde çevrilemez, otomatik yenilenmez ve yalnızca aktif ücretli abonelik sırasında kullanılabilir. Açıkça aksi belirtilmedikçe, ücretli abonelik aktif kaldığı sürece tüketilene kadar kullanılabilir durumda kalır.
 
 ## 6. Abonelik Süresi ve Yenileme
 

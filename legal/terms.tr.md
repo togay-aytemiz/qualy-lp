@@ -1,14 +1,14 @@
 ---
 id: "terms"
 locale: "tr"
-version: "v2.0"
-last_updated: "2026-02-13"
+version: "v2.1"
+last_updated: "2026-04-03"
 document_title: "Hizmet Şartları"
 ---
 
 # Hizmet Şartları
 
-**Son Güncelleme:** 13 Şubat 2026
+**Son Güncelleme:** 3 Nisan 2026
 
 ## 1. Giriş
 
@@ -123,6 +123,14 @@ Deneme ve abonelik modeli:
 - Qualy, kredi kartı gerektirmeden 14 gün ücretsiz deneme sunabilir.
 - Deneme süresi sonunda ücretli plan aktive edilmezse erişim sona erer.
 - Ücretli planlar, bir sonraki tahsilat tarihinden önce iptal edilmedikçe otomatik yenilenir.
+
+Kredi ve kullanım kuralları:
+
+- Ücretli abonelikler, satın alma anındaki fiyatlandırma veya ödeme ekranında gösterildiği şekilde aylık paket kredileri içerebilir.
+- Qualy, aktif ücretli abonelere ayrıca tek seferlik ek kredi satın alma imkanı sunabilir.
+- Krediler, yalnızca Hizmet kullanım miktarını ölçmek için kullanılan teknik tüketim birimleridir. Krediler; para, elektronik para, saklanan parasal değer, kripto varlık, yatırım aracı veya bağımsız şekilde nakde çevrilebilen bir dijital varlık değildir.
+- Aylık paket kredileri devredilemez, satılamaz veya üçüncü kişilere atanamaz, nakit değeri yoktur, nakde çevrilemez, yalnızca aktif ücretli abonelik devam ettiği sürece kullanılabilir ve ilgili fatura döneminin sonunda sona erer. Kullanılmayan aylık paket kredileri bir sonraki fatura dönemine aktarılmaz.
+- Tek seferlik ek krediler devredilemez, satılamaz veya üçüncü kişilere atanamaz, nakit değeri yoktur, nakde çevrilemez ve yalnızca aktif ücretli abonelik devam ettiği sürece kullanılabilir. Açıkça aksi belirtilmedikçe, ek krediler otomatik yenilenmez ve ücretli abonelik aktif kaldığı sürece tüketilene kadar dönemler arasında kullanılabilir durumda kalır.
 
 İade ve cayma süreçleri zorunlu mevzuat ile aşağıdaki dokümanlara tabidir:
 

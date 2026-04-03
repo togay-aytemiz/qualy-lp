@@ -1,13 +1,13 @@
 ---
 id: "distance-sales-agreement"
-version: "v1.0"
-last_updated: "2026-03-03"
+version: "v1.1"
+last_updated: "2026-04-03"
 document_title: "Distance Sales Agreement (Digital Services)"
 ---
 
 # Distance Sales Agreement (Digital Services)
 
-**Last Updated:** 3 March 2026
+**Last Updated:** 3 April 2026
 
 This Distance Sales Agreement is concluded electronically between the Seller and the Buyer for the subscription-based Qualy digital service.
 
@@ -46,6 +46,9 @@ This Agreement is deemed accepted and enters into force when the Buyer approves 
 - Plan prices and billing period are shown during checkout.
 - Payments are collected via authorized payment infrastructure, including iyzico.
 - The Buyer is responsible for keeping payment details up to date.
+- Subscription fees may include monthly package credits shown during checkout.
+- Monthly package credits are technical usage units, not a separate digital asset. They are non-transferable, have no cash value, are not redeemable for cash, may only be used during an active paid subscription, and do not roll over to the next billing period.
+- The Seller may also offer one-time extra credit purchases to active paid subscribers. Extra credits are technical usage units, non-transferable, have no cash value, are not redeemable for cash, do not auto-renew, and may only be used during an active paid subscription. Unless expressly stated otherwise, they remain available until consumed while the paid subscription stays active.
 
 ## 6. Subscription Term and Renewal
 

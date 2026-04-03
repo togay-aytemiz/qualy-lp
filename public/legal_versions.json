@@ -1,7 +1,7 @@
 {
   "terms": {
-    "version": "v2.0",
-    "last_updated": "2026-02-13"
+    "version": "v2.1",
+    "last_updated": "2026-04-03"
   },
   "privacy": {
     "version": "v2.0",
@@ -12,19 +12,19 @@
     "last_updated": "2026-03-03"
   },
   "pre-information": {
-    "version": "v1.0",
-    "last_updated": "2026-03-03"
+    "version": "v1.1",
+    "last_updated": "2026-04-03"
   },
   "distance-sales-agreement": {
-    "version": "v1.0",
-    "last_updated": "2026-03-03"
+    "version": "v1.1",
+    "last_updated": "2026-04-03"
   },
   "cancellation-refund": {
-    "version": "v1.0",
-    "last_updated": "2026-03-03"
+    "version": "v1.1",
+    "last_updated": "2026-04-03"
   },
   "subscription-trial": {
-    "version": "v1.0",
-    "last_updated": "2026-03-03"
+    "version": "v1.1",
+    "last_updated": "2026-04-03"
   }
 }

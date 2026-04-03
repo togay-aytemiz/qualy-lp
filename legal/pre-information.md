@@ -1,13 +1,13 @@
 ---
 id: "pre-information"
-version: "v1.0"
-last_updated: "2026-03-03"
+version: "v1.1"
+last_updated: "2026-04-03"
 document_title: "Pre-Information Form"
 ---
 
 # Pre-Information Form
 
-**Last Updated:** 3 March 2026
+**Last Updated:** 3 April 2026
 
 This pre-information form is provided before purchasing paid Qualy plans via remote communication tools.
 
@@ -30,6 +30,9 @@ Qualy is a cloud-based SaaS product for AI-assisted customer communication and l
 - Plan features and current prices are shown on the pricing page at purchase time.
 - Prices include legally applicable taxes unless otherwise stated.
 - Billing period may be monthly or annual, according to selected plan.
+- Paid subscriptions may include monthly package credits as shown at the time of purchase.
+- Monthly package credits are non-transferable, have no cash value, are not redeemable for cash, may only be used during an active paid subscription, and do not roll over to the next billing period.
+- Active paid subscribers may also be offered one-time extra credit purchases. Extra credits are non-transferable, have no cash value, are not redeemable for cash, do not auto-renew, and may only be used during an active paid subscription. Unless otherwise stated, they remain available until consumed while the paid subscription stays active.
 
 ## 4. 14-Day Free Trial
 

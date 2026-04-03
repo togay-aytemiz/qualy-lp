@@ -1,14 +1,14 @@
 ---
 id: "pre-information"
 locale: "tr"
-version: "v1.0"
-last_updated: "2026-03-03"
+version: "v1.1"
+last_updated: "2026-04-03"
 document_title: "Ön Bilgilendirme Formu"
 ---
 
 # Ön Bilgilendirme Formu
 
-**Son Güncelleme:** 3 Mart 2026
+**Son Güncelleme:** 3 Nisan 2026
 
 Bu ön bilgilendirme formu, Qualy ücretli planlarının mesafeli iletişim araçlarıyla satın alınmasından önce tüketicinin bilgilendirilmesi amacıyla hazırlanmıştır.
 
@@ -31,6 +31,9 @@ Qualy, yapay zeka destekli müşteri iletişimi ve aday nitelendirme sunan bulut
 - Plan kapsamı ve güncel ücretler satın alma anında fiyatlandırma sayfasında gösterilir.
 - Aksi belirtilmedikçe fiyatlara yasal vergiler dahildir.
 - Faturalama dönemi seçilen plana göre aylık veya yıllık olabilir.
+- Ücretli abonelikler, satın alma anında gösterildiği şekilde aylık paket kredileri içerebilir.
+- Aylık paket kredileri devredilemez, nakit değeri yoktur, nakde çevrilemez, yalnızca aktif ücretli abonelik sırasında kullanılabilir ve bir sonraki fatura dönemine aktarılmaz.
+- Aktif ücretli abonelere ayrıca tek seferlik ek kredi satın alma imkanı sunulabilir. Ek krediler devredilemez, nakit değeri yoktur, nakde çevrilemez, otomatik yenilenmez ve yalnızca aktif ücretli abonelik sırasında kullanılabilir. Aksi belirtilmedikçe, ücretli abonelik aktif kaldığı sürece tüketilene kadar kullanılabilir durumda kalır.
 
 ## 4. 14 Gün Ücretsiz Deneme
 

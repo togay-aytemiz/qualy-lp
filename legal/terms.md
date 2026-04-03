@@ -1,13 +1,13 @@
 ---
 id: "terms"
-version: "v2.0"
-last_updated: "2026-02-13"
+version: "v2.1"
+last_updated: "2026-04-03"
 document_title: "Terms of Service"
 ---
 
 # Terms of Service
 
-**Last Updated:** 13 February 2026
+**Last Updated:** 3 April 2026
 
 ## 1. Introduction
 
@@ -122,6 +122,14 @@ Trial and subscription model:
 - Qualy may provide a 14-day free trial without requiring credit card details.
 - Trial access ends unless you activate a paid plan.
 - Paid plans renew automatically unless you cancel before the next billing date.
+
+Credit and usage rules:
+
+- Paid subscriptions may include monthly package credits, as shown on the pricing or checkout page at the time of purchase.
+- Qualy may also offer one-time extra credit purchases to active paid subscribers.
+- Credits are technical usage units used only to measure consumption of the Service. Credits are not money, electronic money, stored monetary value, crypto assets, investment instruments, or a separately redeemable digital asset.
+- Monthly package credits are non-transferable, may not be sold or assigned, have no cash value, are not redeemable for cash, may only be used while an active paid subscription remains in effect, and expire at the end of the relevant billing period. Unused monthly package credits do not roll over to the next billing period.
+- One-time extra credits are non-transferable, may not be sold or assigned, have no cash value, are not redeemable for cash, and may only be used while an active paid subscription remains in effect. Unless expressly stated otherwise, extra credits do not renew automatically and remain available across billing periods until consumed while the paid subscription stays active.
 
 Refunds and withdrawal rights are subject to mandatory law and our published legal documents:
 
