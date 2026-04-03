@@ -47,14 +47,14 @@ describe('pricing page ui', () => {
     expect(trMessages).toContain('649');
     expect(trMessages).toContain('949');
 
-    expect(trMessages).toContain('AYLIK KULLANIM HAKKI');
+    expect(trMessages).toContain('PAKETE DAHİL KULLANIM');
     expect(trMessages).toContain('Ayda yaklaşık 90-120 konuşma');
     expect(trMessages).toContain('Ayda yaklaşık 180-240 konuşma');
     expect(trMessages).toContain('Ayda yaklaşık 360-480 konuşma');
     expect(trMessages).not.toContain('Ayda yaklaşık 90-120 konuşma dahil');
     expect(trMessages).not.toContain('Ayda yaklaşık 180-240 konuşma dahil');
     expect(trMessages).not.toContain('Ayda yaklaşık 360-480 konuşma dahil');
-    expect(enMessages).toContain('MONTHLY USAGE ALLOWANCE');
+    expect(enMessages).toContain('USAGE INCLUDED IN PLAN');
     expect(enMessages).toContain('About 90-120 conversations/month');
     expect(enMessages).toContain('About 180-240 conversations/month');
     expect(enMessages).toContain('About 360-480 conversations/month');

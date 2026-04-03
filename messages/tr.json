@@ -23,7 +23,7 @@
         "subscriptionName": "Temel Aylık Yazılım Aboneliği",
         "priceTry": "349",
         "priceUsd": "9.99",
-        "allowanceLabel": "AYLIK KULLANIM HAKKI",
+        "allowanceLabel": "PAKETE DAHİL KULLANIM",
         "allowanceDescription": "Ayda yaklaşık 90-120 konuşma",
         "bestFor": "İlk otomasyon adımını atan işletmeler"
       },
@@ -32,7 +32,7 @@
         "subscriptionName": "Gelişmiş Aylık Yazılım Aboneliği",
         "priceTry": "649",
         "priceUsd": "17.99",
-        "allowanceLabel": "AYLIK KULLANIM HAKKI",
+        "allowanceLabel": "PAKETE DAHİL KULLANIM",
         "allowanceDescription": "Ayda yaklaşık 180-240 konuşma",
         "bestFor": "Düzenli mesaj trafiği olan işletmeler"
       },
@@ -41,7 +41,7 @@
         "subscriptionName": "Profesyonel Aylık Yazılım Aboneliği",
         "priceTry": "949",
         "priceUsd": "26.99",
-        "allowanceLabel": "AYLIK KULLANIM HAKKI",
+        "allowanceLabel": "PAKETE DAHİL KULLANIM",
         "allowanceDescription": "Ayda yaklaşık 360-480 konuşma",
         "bestFor": "Yüksek konuşma hacmi yöneten işletmeler"
       }

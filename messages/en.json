@@ -23,7 +23,7 @@
         "subscriptionName": "Starter Monthly Software Subscription",
         "priceTry": "349",
         "priceUsd": "9.99",
-        "allowanceLabel": "MONTHLY USAGE ALLOWANCE",
+        "allowanceLabel": "USAGE INCLUDED IN PLAN",
         "allowanceDescription": "About 90-120 conversations/month",
         "bestFor": "Best for teams starting to automate"
       },
@@ -32,7 +32,7 @@
         "subscriptionName": "Growth Monthly Software Subscription",
         "priceTry": "649",
         "priceUsd": "17.99",
-        "allowanceLabel": "MONTHLY USAGE ALLOWANCE",
+        "allowanceLabel": "USAGE INCLUDED IN PLAN",
         "allowanceDescription": "About 180-240 conversations/month",
         "bestFor": "Best for teams with steady lead volume"
       },
@@ -41,7 +41,7 @@
         "subscriptionName": "Professional Monthly Software Subscription",
         "priceTry": "949",
         "priceUsd": "26.99",
-        "allowanceLabel": "MONTHLY USAGE ALLOWANCE",
+        "allowanceLabel": "USAGE INCLUDED IN PLAN",
         "allowanceDescription": "About 360-480 conversations/month",
         "bestFor": "Best for high-volume sales operations"
       }
