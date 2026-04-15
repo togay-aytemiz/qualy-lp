@@ -27,7 +27,7 @@ const upsertAlternates = (
   alternates: SeoPayload['alternates'],
 ) => {
   doc
-    .querySelectorAll('link[rel="alternate"][data-seo-alternate="true"]')
+    .querySelectorAll('link[rel="alternate"]')
     .forEach((node) => node.remove());
 
   alternates.forEach((alternate) => {

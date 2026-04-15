@@ -66,6 +66,16 @@
     <priority>0.4</priority>
   </url>
   <url>
+    <loc>https://www.askqualy.com/en/blog/enhance-your-workflow-with-whatsapp-ai-qualy/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.askqualy.com/blog/whatsapp-yapay-zeka-qualy-ile-is-akisi-gelistirme/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.askqualy.com/en/blog/boost-conversion-rates-with-ai-powered-automated-response-systems/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

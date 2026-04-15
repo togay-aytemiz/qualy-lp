@@ -257,7 +257,10 @@ const ROUTE_PATHS: Record<Exclude<SeoRouteKey, 'home'>, Record<SeoLanguage, stri
   },
 };
 
-const OG_IMAGE_PATH = '/og/qualy-default.png';
+const OG_IMAGE_PATH_BY_LANGUAGE: Record<SeoLanguage, string> = {
+  tr: '/og/qualy-og-tr.png',
+  en: '/og/qualy-og-en.png',
+};
 const DEFAULT_ROBOTS = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
 
 export const normalizeRoutePath = (path: string) => {
@@ -407,7 +410,7 @@ export const getSeoByRoute = (
   const copy = SEO_COPY[language][routeKey];
   const canonicalPath = getCanonicalPathForRoute(routeKey, language);
   const canonicalUrl = resolveAbsoluteUrl(siteUrl, canonicalPath);
-  const ogImage = resolveAbsoluteUrl(siteUrl, OG_IMAGE_PATH);
+  const ogImage = resolveAbsoluteUrl(siteUrl, OG_IMAGE_PATH_BY_LANGUAGE[language]);
   const alternates = buildAlternates({ routeKey, siteUrl });
   const robots = DEFAULT_ROBOTS;
 

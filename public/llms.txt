@@ -4,15 +4,15 @@
 
 ## LLM Resources
 
-- [Read llms.txt](https://askqualy.com/llms.txt): Short index for AI agents and crawlers.
-- [Read llms-full.txt](https://askqualy.com/llms-full.txt): Extended product and FAQ context.
-- [Read FAQs.md](https://askqualy.com/faqs.md): Markdown FAQ answers in one file.
-- [FAQs Directory](https://askqualy.com/faqs-directory): Human-friendly FAQ index page.
+- [Read llms.txt](https://www.askqualy.com/llms.txt): Short index for AI agents and crawlers.
+- [Read llms-full.txt](https://www.askqualy.com/llms-full.txt): Extended product and FAQ context.
+- [Read FAQs.md](https://www.askqualy.com/faqs.md): Markdown FAQ answers in one file.
+- [FAQs Directory](https://www.askqualy.com/faqs-directory): Human-friendly FAQ index page.
 
 ## Core Pages
 
-- [Home](https://askqualy.com/)
-- [Pricing](https://askqualy.com/pricing)
-- [Legal Center](https://askqualy.com/legal)
-- [Privacy Policy](https://askqualy.com/privacy)
-- [Terms of Service](https://askqualy.com/terms)
+- [Home](https://www.askqualy.com/)
+- [Pricing](https://www.askqualy.com/pricing)
+- [Legal Center](https://www.askqualy.com/legal)
+- [Privacy Policy](https://www.askqualy.com/privacy)
+- [Terms of Service](https://www.askqualy.com/terms)

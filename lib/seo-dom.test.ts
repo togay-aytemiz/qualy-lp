@@ -84,6 +84,27 @@ describe('applySeoToDocument', () => {
     expect(document.querySelectorAll('link[rel="alternate"][data-seo-alternate="true"]').length).toBe(0);
   });
 
+  it('replaces pre-rendered static alternate links instead of appending duplicates', () => {
+    document.head.innerHTML = `
+      <link rel="alternate" hreflang="tr" href="https://askqualy.com/" />
+      <link rel="alternate" hreflang="en" href="https://askqualy.com/en/" />
+      <link rel="alternate" hreflang="x-default" href="https://askqualy.com/" />
+    `;
+    const pricingSeo = getSeoByRoute('pricing', 'en', { siteUrl: 'https://askqualy.com' });
+
+    applySeoToDocument(document, pricingSeo);
+
+    const alternateLinks = Array.from(document.querySelectorAll('link[rel="alternate"]'));
+
+    expect(alternateLinks.length).toBe(3);
+    expect(alternateLinks.map((link) => link.getAttribute('hreflang'))).toEqual(['tr', 'en', 'x-default']);
+    expect(alternateLinks.map((link) => link.getAttribute('href'))).toEqual([
+      'https://askqualy.com/pricing/',
+      'https://askqualy.com/en/pricing/',
+      'https://askqualy.com/pricing/',
+    ]);
+  });
+
   it('writes crawlable robots for the blog index route', () => {
     const blogSeo = getSeoByRoute('blogIndex' as never, 'en', { siteUrl: 'https://askqualy.com' });
 

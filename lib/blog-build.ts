@@ -30,7 +30,10 @@ type SanityQueryResponse = {
 };
 
 const DEFAULT_SITE_NAME = 'Qualy';
-const DEFAULT_IMAGE_PATH = '/og/qualy-default.png';
+const DEFAULT_IMAGE_PATH_BY_LOCALE: Record<BlogLocale, string> = {
+  tr: '/og/qualy-og-tr.png',
+  en: '/og/qualy-og-en.png',
+};
 const DEFAULT_BLOG_ROBOTS = 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
 
 const normalizeText = (value: unknown) => String(value ?? '').trim();
@@ -114,7 +117,9 @@ export const getBlogPostSeo = (post: BlogPostRecord, options: { siteUrl?: string
   const siteUrl = options.siteUrl ? options.siteUrl : getSiteUrl();
   const canonicalPath = post.canonicalPath || getBlogPostPath(post.slug, post.locale);
   const canonicalUrl = resolveAbsoluteUrl(siteUrl, canonicalPath);
-  const imageUrl = post.coverImage ? resolveAbsoluteUrl(siteUrl, post.coverImage) : resolveAbsoluteUrl(siteUrl, DEFAULT_IMAGE_PATH);
+  const imageUrl = post.coverImage
+    ? resolveAbsoluteUrl(siteUrl, post.coverImage)
+    : resolveAbsoluteUrl(siteUrl, DEFAULT_IMAGE_PATH_BY_LOCALE[post.locale]);
 
   return {
     title: post.seoTitle || post.title,

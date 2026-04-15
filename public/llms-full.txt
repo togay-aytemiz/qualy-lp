@@ -14,13 +14,13 @@ Qualy is a no-code messaging platform for service teams. It centralizes WhatsApp
 
 ## Key Links
 
-- Home: https://askqualy.com/
-- Pricing: https://askqualy.com/pricing
-- Legal Center: https://askqualy.com/legal
-- Privacy Policy: https://askqualy.com/privacy
-- Terms of Service: https://askqualy.com/terms
-- FAQs Directory: https://askqualy.com/faqs-directory
-- FAQs Markdown: https://askqualy.com/faqs.md
+- Home: https://www.askqualy.com/
+- Pricing: https://www.askqualy.com/pricing
+- Legal Center: https://www.askqualy.com/legal
+- Privacy Policy: https://www.askqualy.com/privacy
+- Terms of Service: https://www.askqualy.com/terms
+- FAQs Directory: https://www.askqualy.com/faqs-directory
+- FAQs Markdown: https://www.askqualy.com/faqs.md
 
 ## FAQs
 

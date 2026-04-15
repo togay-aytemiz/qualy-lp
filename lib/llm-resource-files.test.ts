@@ -12,8 +12,12 @@ describe('llm resource files', () => {
 
     expect(llmsTxt).toContain('# Qualy');
     expect(llmsTxt).toContain('/faqs-directory');
+    expect(llmsTxt).toContain('https://www.askqualy.com/faqs-directory');
+    expect(llmsTxt).not.toContain('https://askqualy.com');
     expect(llmsFullTxt).toContain('## FAQs');
     expect(llmsFullTxt).toContain('How can I get started quickly?');
+    expect(llmsFullTxt).toContain('https://www.askqualy.com/faqs-directory');
+    expect(llmsFullTxt).not.toContain('https://askqualy.com');
   });
 
   it('publishes markdown faq export for llms', () => {
